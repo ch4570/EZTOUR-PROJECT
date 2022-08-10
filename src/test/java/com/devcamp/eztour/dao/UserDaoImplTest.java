@@ -20,10 +20,9 @@ public class UserDaoImplTest {
     @Test
     public void insertTest() throws Exception {
 
-        UserDto userDto = new UserDto("hoondal1", "a1", "b1", "1234", "훈달이");
+        UserDto userDto = new UserDto("hoondal6", "a1", "b1", "1234", "훈달이");
         assertTrue(userDao.insertUser(userDto)==1);
+//        assertTrue(userDao.insertUserHistory(userDto)==1);
 
     }
-
-
 }

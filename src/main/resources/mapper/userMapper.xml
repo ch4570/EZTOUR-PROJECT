@@ -5,25 +5,35 @@
 <mapper namespace="com.devcamp.eztour.dao.UserMapper">
 
     <insert id="insertUser" parameterType="UserDto">
-        INSERT INTO
-                test
-                (usr_id, cmn_cd_prf_img, cmn_cd_usr_stt, pwd, usr_nm)
+        INSERT
+                INTO usr
+                (usr_id,
+                 cmn_cd_usr_stt,
+                 pwd,
+                 usr_nm,
+                 brth,
+                 gndr,
+                 email,
+                 phn,)
         VALUES
                 (#{usr_id},
-                 #{cmn_cd_prf_img},
-                 #{cmn_cd_usr_stt},
+                 '2a',
                  #{pwd},
-                 #{usr_nm})
+                 #{usr_nm},
+                 #{brth},
+                 #{gndr},
+                 #{email},
+                 #{phn})
     </insert>
 
-    <insert id="insertUserHistory" parameterType="User">
+    <insert id="insertUserHistory" parameterType="UserDto">
         INSERT INTO
             test_history
+            (user_id, user_reg_date)
         VALUES
-            (#{user_id},
-             now(),
-             null,
-             null)
+            (#{usr_id},
+             now()
+            )
     </insert>
 
 
