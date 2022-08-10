@@ -1,5 +1,6 @@
-package com.devcamp.eztour.dao;
+package com.devcamp.eztour.dao.user;
 
+import com.devcamp.eztour.domain.UserDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,11 +13,11 @@ public class UserDaoImpl implements UserDao {
 
     private static String namespace = "com.devcamp.eztour.dao.UserMapper.";
 
-    public int insertUser(User user) throws Exception{
+    public int insertUser(UserDto user) throws Exception {
         return session.insert(namespace+"insertUser", user);
     }
 
-    public int insertUserHistory(User user) throws Exception{
+    public int insertUserHistory(UserDto user) throws Exception {
         return session.insert(namespace+"insertUserHistory", user);
     }
 

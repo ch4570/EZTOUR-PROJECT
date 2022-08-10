@@ -2,10 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.devcamp.eztour.testMapper">
+<mapper namespace="com.devcamp.eztour.UserMapper">
 
-    <insert id="insertTest">
-        INSERT INTO test VALUES(#{user_id});
+    <insert id="insertUser" parameterType="User">
+        INSERT INTO
+                test
+        VALUES
+                (#{user_id},
+                 null,
+                 #{user_pwd},
+                 #{user_name},
+                 #{user_birth},
+                 #{user_gender},
+                 #{user_email},
+                 #{user_phone},
+                 null,
+                 #{user_status_code})
     </insert>
+
+    <insert id="insertUserHistory" parameterType="User">
+        INSERT INTO
+            test_history
+        VALUES
+            (#{user_id},
+             now(),
+             null,
+             null)
+    </insert>
+
 
 </mapper>

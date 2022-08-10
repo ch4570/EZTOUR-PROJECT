@@ -1,7 +1,11 @@
-package com.devcamp.eztour.dao;
+package com.devcamp.eztour.dao.user;
+
+import com.devcamp.eztour.domain.UserDto;
 
 public interface UserDao {
-    int insertUser(User user) throws Exception;
+    int insertUser(UserDto user) throws Exception;
 
-    int insertUserHistory(User user) throws Exception;
+    int insertUserHistory(UserDto user) throws Exception;
+
+
 }
