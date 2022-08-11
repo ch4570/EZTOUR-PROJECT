@@ -5,10 +5,11 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="UserDto" type="com.devcamp.eztour.domain.user.UserDto"/>
+        <typeAlias alias="Trv_sch_dto" type="com.devcamp.eztour.domain.product.Trv_sch_dto"/>
         <typeAlias alias="Prd_img_dto" type="com.devcamp.eztour.domain.product.Prd_img_dto"/>
         <typeAlias alias="Prd_pcr_dto" type="com.devcamp.eztour.domain.product.Prd_pcr_dto"/>
         <typeAlias alias="Trv_prd_dtl_dto" type="com.devcamp.eztour.domain.product.Trv_prd_dtl_dto"/>
         <typeAlias alias="Trv_prd_dto" type="com.devcamp.eztour.domain.product.Trv_prd_dto"/>
-        <typeAlias alias="Trv_sch_dto" type="com.devcamp.eztour.domain.product.Trv_sch_dto"/>
+        <typeAlias alias="Trv_prd_prc_dto" type="com.devcamp.eztour.domain.product.Trv_prd_prc_dto"/>
     </typeAliases>
 </configuration>

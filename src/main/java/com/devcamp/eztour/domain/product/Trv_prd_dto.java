@@ -38,7 +38,7 @@ public class Trv_prd_dto {
     private String fnl_mod_no;
 
     public Trv_prd_dto(String prd_cd, String dstn_cd, String cmn_cd_thm, String prd_nm,
-                       String prd_dtl_desc, String trv_per, Integer prd_str_prc, String mn_img,
+                       String prd_dtl_desc, String trv_per, Integer prd_str_prc,
                        String dpr_str_date, String dpr_fin_date) {
         this.prd_cd = prd_cd;
         this.dstn_cd = dstn_cd;
@@ -47,7 +47,6 @@ public class Trv_prd_dto {
         this.prd_dtl_desc = prd_dtl_desc;
         this.trv_per = trv_per;
         this.prd_str_prc = prd_str_prc;
-        this.mn_img = mn_img;
         this.dpr_str_date = dpr_str_date;
         this.dpr_fin_date = dpr_fin_date;
     }
