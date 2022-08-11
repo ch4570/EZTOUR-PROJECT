@@ -4,20 +4,18 @@
 
 <mapper namespace="com.devcamp.eztour.dao.UserMapper">
 
-    <insert id="insertUser" parameterType="UserDto">
-        INSERT
-                INTO usr
+    <insert id="insertUsr" parameterType="UserDto">
+        INSERT INTO
+            usr
                 (usr_id,
-                 cmn_cd_usr_stt,
                  pwd,
                  usr_nm,
                  brth,
                  gndr,
                  email,
-                 phn,)
+                 phn)
         VALUES
                 (#{usr_id},
-                 '2a',
                  #{pwd},
                  #{usr_nm},
                  #{brth},
@@ -26,15 +24,60 @@
                  #{phn})
     </insert>
 
-    <insert id="insertUserHistory" parameterType="UserDto">
+    <insert id="insertUsrHis" parameterType="UserDto">
         INSERT INTO
-            test_history
-            (user_id, user_reg_date)
+            usr_hst
+                (usr_id)
         VALUES
-            (#{usr_id},
-             now()
-            )
+                (#{usr_id})
     </insert>
 
+    <select id="selectUsr" parameterType="string" resultType="UserDto">
+        SELECT
+            *
+        FROM
+            usr
+        WHERE
+            usr_id = #{usr_id}
+    </select>
 
+    <update id="updateUsr" parameterType="UserDto">
+        UPDATE
+            usr
+        SET
+            pwd = #{pwd},
+            email = #{email},
+            phn = #{phn},
+            cmn_cd_prf_img = #{cmn_cd_prf_img}
+        WHERE
+            usr_id = #{usr_id}
+    </update>
+
+    <update id="updateUsrHst" parameterType="UserDto">
+        UPDATE
+            usr_hst
+        SET
+            usr_mdf_date = now()
+        WHERE
+            usr_id = #{usr_id}
+    </update>
+
+    <update id="deleteUsr" parameterType="UserDto">
+        UPDATE
+            usr
+        SET
+            cmn_cd_usr_stt = '2d'
+        WHERE
+            usr_id = #{usr_id}
+    </update>
+
+    <update id="deleteUsrHst" parameterType="UserDto">
+        UPDATE
+            usr_hst
+        SET
+            cmn_cd_drp = #{cmn_cd_drp},
+            drp_date = now()
+        WHERE
+            usr_id = #{usr_id}
+    </update>
 </mapper>
