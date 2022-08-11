@@ -16,13 +16,7 @@
 	</properties>
 	<dependencies>
 
-		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-maven-plugin -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok-maven-plugin</artifactId>
-			<version>1.18.12.0</version>
-			<scope>provided</scope>
-		</dependency>
+
 
 
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
@@ -213,6 +207,15 @@
 		</dependency>
 
 		<!--  추가 해야할 Dependency 들은 아래에 넣어 주세요  -->
+
+
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-maven-plugin -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok-maven-plugin</artifactId>
+			<version>1.18.12.0</version>
+			<scope>provided</scope>
+		</dependency>
 
 
 	</dependencies>
