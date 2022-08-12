@@ -1,15 +1,15 @@
 package com.devcamp.eztour.domain.rvw;
 
 public class PageHandler {
-    int totalCnt; // ÃÑ °Ô½Ã¹° °¹¼ö
-    int pageSize; // ÇÑ ÆäÀÌÁöÀÇ Å©±â
-    int naviSize = 5; // ÆäÀÌÁö ³»ºñ°ÔÀÌ¼ÇÀÇ Å©±â
-    int totalPage; // ÀüÃ¼ ÆäÀÌÁöÀÇ °¹¼ö
-    int page;      // ÇöÀç ÆäÀÌÁö
-    int beginPage; // ³»ºñ°ÔÀÌ¼ÇÀÇ Ã¹¹øÂ° ÆäÀÌÁö
-    int endPage;   // ³»ºñ°ÔÀÌ¼ÇÀÇ ¸¶Áö¸· ÆäÀÌÁö
-    boolean showPrev; // ÀÌÀü ÆäÀÌÁö·Î ÀÌµ¿ÇÏ´Â ¸µÅ©¸¦ º¸¿©ÁÙ °ÍÀÎÁöÀÇ ¿©ºÎ
-    boolean showNext; // ´ÙÀ½ ÆäÀÌÁö·Î ÀÌµ¿ÇÏ´Â ¸µÅ©¸¦ º¸¿©ÁÙ °ÍÀÎÁöÀÇ ¿©ºÎ
+    int totalCnt; // ï¿½ï¿½ ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ï¿½ï¿½
+    int pageSize; // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½
+    int naviSize = 5; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ Å©ï¿½ï¿½
+    int totalPage; // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    int page;      // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int beginPage; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ Ã¹ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int endPage;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    boolean showPrev; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    boolean showNext; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     public PageHandler(int totalCnt, int page) {
         this(totalCnt, page, );
