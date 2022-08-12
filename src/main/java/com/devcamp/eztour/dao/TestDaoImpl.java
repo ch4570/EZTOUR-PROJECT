@@ -15,4 +15,5 @@ public class TestDaoImpl implements TestDao{
     public int insertTest(String id) {
         return session.insert(namespace+"insertTest",id);
     }
+
 }

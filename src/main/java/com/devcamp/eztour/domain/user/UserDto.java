@@ -1,5 +1,6 @@
 package com.devcamp.eztour.domain.user;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,6 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 public class UserDto {
 
     private String usr_id;
@@ -25,12 +27,31 @@ public class UserDto {
     private Date reg_date;
     private Date lst_acc_date; // 마지막 접속 일자
     private Date rst_chg_date; // 휴면 전환 일자
+    private String cmn_cd_drp; // 탈퇴 사유 코드
 
-    public UserDto(String usr_id, String cmn_cd_prf_img, String cmn_cd_usr_stt, String pwd, String usr_nm) {
+    public UserDto(){}
+
+    public UserDto(String usr_id, String pwd, String usr_nm, String brth, String gndr, String email, String phn) {
         this.usr_id = usr_id;
-        this.cmn_cd_prf_img = cmn_cd_prf_img;
-        this.cmn_cd_usr_stt = cmn_cd_usr_stt;
         this.pwd = pwd;
         this.usr_nm = usr_nm;
+        this.brth = brth;
+        this.gndr = gndr;
+        this.email = email;
+        this.phn = phn;
     }
+
+
+    public UserDto(String usr_nm, String email) {
+        this.usr_nm = usr_nm;
+        this.email = email;
+    }
+    public UserDto(String usr_id, String usr_nm, String email, String rl) {
+            this.usr_id = usr_id;
+            this.usr_nm = usr_nm;
+            this.email = email;
+            this.rl = rl;
+
+    }
+
 }

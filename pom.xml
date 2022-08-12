@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.fastcampus</groupId>
-	<artifactId>ch4</artifactId>
-	<name>ch4</name>
+	<groupId>com.devcamp</groupId>
+	<artifactId>eztour</artifactId>
+	<name>eztour</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -16,13 +16,7 @@
 	</properties>
 	<dependencies>
 
-		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-maven-plugin -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok-maven-plugin</artifactId>
-			<version>1.18.12.0</version>
-			<scope>provided</scope>
-		</dependency>
+
 
 
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
@@ -214,6 +208,27 @@
 
 		<!--  추가 해야할 Dependency 들은 아래에 넣어 주세요  -->
 
+
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-maven-plugin -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok-maven-plugin</artifactId>
+			<version>1.18.12.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- common fileupload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.4</version>
+		</dependency>
 
 	</dependencies>
 	<build>

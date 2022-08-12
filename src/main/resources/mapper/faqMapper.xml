@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devcamp.eztour.dao.FaqMapper">
+
+    <select id="selectAllFaq" resultType="FaqDto">
+        SELECT faq_no, qna_cd, faq_qna_cont, faq_ans_cont, reg_date, mdf_date
+        FROM faq
+        ORDER BY reg_date DESC
+    </select>
+
+    <select id="selectFaqPage" resultType="FaqDto" parameterType="map">
+        SELECT faq_no, qna_cd, faq_qna_cont, faq_ans_cont, reg_date, mdf_date
+        FROM faq
+        ORDER BY reg_date
+        DESC LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="countFaq" resultType="int">
+        SELECT count(*)
+        FROM faq
+    </select>
+
+    <insert id="insertFaq" parameterType="FaqDto">
+        INSERT INTO faq
+            (qna_cd, faq_qna_cont, faq_ans_cont, reg_date)
+        VALUES
+            (#{qna_cd}, #{faq_qna_cont}, #{faq_ans_cont}, now());
+    </insert>
+
+
+
+
+
+</mapper>
