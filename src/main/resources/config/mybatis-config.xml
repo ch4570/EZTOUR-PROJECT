@@ -3,14 +3,58 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+<<<<<<< HEAD
     <typeAliases>
         <typeAlias alias="UserDto" type="com.devcamp.eztour.domain.user.UserDto"/>
         <typeAlias alias="RvwDto" type="com.devcamp.eztour.domain.rvw.RvwDto"/>
+=======
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <!--선경님 시작-->
+        <typeAlias alias="UserDto" type="com.devcamp.eztour.domain.user.UserDto"/>
+
+        <!--선경님 끝-->
+
+        <!--도형님 시작-->
+        <typeAlias alias="RvwDto" type="com.devcamp.eztour.domain.rvw.RvwDto"/>
+
+        <!--도형님 끝-->
+
+        <!--서창희 시작-->
+>>>>>>> 8db7fed6c0d4de8885ddee229d0dc5fd36539404
         <typeAlias alias="Trv_sch_dto" type="com.devcamp.eztour.domain.product.Trv_sch_dto"/>
         <typeAlias alias="Prd_img_dto" type="com.devcamp.eztour.domain.product.Prd_img_dto"/>
         <typeAlias alias="Prd_pcr_dto" type="com.devcamp.eztour.domain.product.Prd_pcr_dto"/>
         <typeAlias alias="Trv_prd_dtl_dto" type="com.devcamp.eztour.domain.product.Trv_prd_dtl_dto"/>
         <typeAlias alias="Trv_prd_dto" type="com.devcamp.eztour.domain.product.Trv_prd_dto"/>
         <typeAlias alias="Trv_prd_prc_dto" type="com.devcamp.eztour.domain.product.Trv_prd_prc_dto"/>
+<<<<<<< HEAD
     </typeAliases>
 </configuration>
+=======
+
+        <!-- 서창희 끝 -->
+
+        <!-- 혜경님 시작 -->
+        <typeAlias alias="ReservDto" type="com.devcamp.eztour.domain.reserv.ReservDto"/>
+        <typeAlias alias="ReservInfoDto" type="com.devcamp.eztour.domain.reserv.ReservInfoDto"/>
+
+        <!-- 혜경님 끝 -->
+
+        <!-- 기혁님 시작 -->
+
+        <!-- 기혁님 끝 -->
+
+        <!-- 종현님 시작 -->
+
+        <!-- 종현님 끝 -->
+
+        <!-- 영욱님 시작 -->
+            <typeAlias alias="FaqDto" type="com.devcamp.eztour.domain.faq.FaqDto"/>
+        <!-- 영욱님 끝 -->
+    </typeAliases>
+</configuration>
+>>>>>>> 8db7fed6c0d4de8885ddee229d0dc5fd36539404

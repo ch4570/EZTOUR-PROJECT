@@ -3,26 +3,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.devcamp.eztour.rsvtMapper">
-    <insert id="insertReserv" parameterType="com.devcamp.eztour.domain.reserv.ReservDto">
+    <insert id="insertReserv" parameterType="ReservDto">
         insert into rsvt
         values (#{rsvtNo}, #{prdDtlCd}, #{usrId}, #{mnRsvtNm}, #{phn}, #{email}, #{sumPrc}, #{payFtrPrc},
                 #{reqCont}, #{cmnCdRsvtStt}, #{rsvtDate}, #{cncPayNo}, #{adtCnt}, #{chdCnt},
                 #{bbCnt}, now(), current_user, now(), current_user)
     </insert>
 
-    <select id="selectReserv" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.ReservDto">
+    <select id="selectReserv" parameterType="String" resultType="ReservDto">
         select * from rsvt where rsvt_no = #{rsvtNo}
     </select>
 
-    <select id="selectReservList" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.ReservDto">
+    <select id="selectReservList" parameterType="String" resultType="ReservDto">
         SELECT * FROM rsvt WHERE usr_id = #{usrId}
     </select>
 
-    <select id="selectReservListPage" parameterType="Map" resultType="com.devcamp.eztour.domain.reserv.ReservDto">
+    <select id="selectReservListPage" parameterType="Map" resultType="ReservDto">
         SELECT * FROM rsvt WHERE usr_id = #{usrId} LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="selectAllReserv" resultType="com.devcamp.eztour.domain.reserv.ReservDto">
+    <select id="selectAllReserv" resultType="ReservDto">
         select * from rsvt
     </select>
 
@@ -34,11 +34,14 @@
         delete from rsvt
     </delete>
 
-    <select id="selectReservPrdInfo" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.ReservInfoDto">
+    <select id="selectReservPrdInfo" parameterType="String" resultType="ReservInfoDto">
 
     </select>
 
+<<<<<<< HEAD
     <select id="selectUserInfo" parameterType="String" resultType="com.devcamp.eztour.domain.user.UserDto">
         select usr_nm, phn, email from usr where usr_id = #{usrId}
     </select>
+=======
+>>>>>>> 8db7fed6c0d4de8885ddee229d0dc5fd36539404
 </mapper>

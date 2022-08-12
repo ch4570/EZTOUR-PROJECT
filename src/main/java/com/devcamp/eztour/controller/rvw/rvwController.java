@@ -1,25 +1,40 @@
 package com.devcamp.eztour.controller.rvw;
 
 
-import com.devcamp.eztour.dao.rvw.RvwDao;
+import com.devcamp.eztour.domain.rvw.RvwDto;
+import com.devcamp.eztour.domain.user.UserDto;
+import com.devcamp.eztour.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/review")
 public class rvwController {
 
-    @GetMapping("/review")
-    public String loginForm() {
+    @Autowired
+    UserService userService;
+
+    @GetMapping("/review/save")
+    public String saveReview(HttpServletRequest request, Model model) throws Exception{
+        HttpSession session = request.getSession();
+        UserDto userDto = userService.selectUserEmail("to9251");
+        System.out.println(userDto);
+        model.addAttribute("userDto",userDto);
         return "rvwList";
     }
 
+    @PostMapping("/review/save")
+    public String saveReview(RvwDto rvwDto, HttpSession session){
+        System.out.println(rvwDto);
+        return "redirect:/";
+    }
 
 //    @GetMapping("/review")
 //    public String review(String id, String pwd, HttpServletRequest request, HttpServletResponse response) {

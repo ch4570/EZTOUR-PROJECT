@@ -8,6 +8,6 @@
 <title>Insert title here</title>
 </head>
     <body>
-        <div>FOOTER</div>
+        <div class="foot">FOOTER</div>
     </body>
 </html>
