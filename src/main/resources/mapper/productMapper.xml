@@ -11,5 +11,25 @@
                 #{trv_per},#{prd_str_prc},#{mn_img},#{dpr_str_date},#{dpr_fin_date});
     </insert>
 
+    <insert id="insertProductDetail" parameterType="Trv_prd_dtl_dto">
+        INSERT INTO trv_prd_dtl(prd_dtl_cd,prd_cd,prd_str_prc,arl_nm,
+                                min_stt_cnt,max_stt_cnt,dpr_date)
+        VALUES(#{prd_dtl_cd},#{prd_cd},#{prd_str_prc},#{arl_nm},#{min_stt_cnt},#{max_stt_cnt},#{dpr_date})
+    </insert>
 
+    <insert id="insertProductPrice" parameterType="Trv_prd_prc_dto">
+        INSERT INTO prd_prc(prd_dtl_cd,prd_cd,adt_prc,chd_prc,bb_prc)
+        VALUES(#{prd_dtl_cd},#{prd_cd},#{adt_prc},#{chd_prc},#{bb_prc});
+    </insert>
+
+    <insert id="insertProductSchedule" parameterType="Trv_sch_dto">
+        INSERT INTO trv_sch(prd_cd,trv_date,sch_ord,st_nm,sit_sh_desc,
+                            sit_lo_desc,ht_inf,brk,luh,din,dstnc_tm)
+        VALUES(#{prd_cd},#{trv_date},#{sch_ord},#{st_nm},#{sit_sh_desc},
+               #{sit_lo_desc},#{ht_inf},#{brk},#{luh},#{din},#{dstnc_tm});
+    </insert>
+
+    <insert id="insertProductImage" parameterType="Prd_img_dto">
+        INSERT INTO prd_img(prd_cd,img_pth) VALUES(#{prd_cd},#{img_pth})
+    </insert>
 </mapper>

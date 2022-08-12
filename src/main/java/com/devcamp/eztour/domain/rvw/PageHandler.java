@@ -1,18 +1,90 @@
 package com.devcamp.eztour.domain.rvw;
 
 public class PageHandler {
-    int totalCnt; // ÃÑ °Ô½Ã¹° °¹¼ö
-    int pageSize; // ÇÑ ÆäÀÌÁöÀÇ Å©±â
-    int naviSize = 5; // ÆäÀÌÁö ³»ºñ°ÔÀÌ¼ÇÀÇ Å©±â
-    int totalPage; // ÀüÃ¼ ÆäÀÌÁöÀÇ °¹¼ö
-    int page;      // ÇöÀç ÆäÀÌÁö
-    int beginPage; // ³»ºñ°ÔÀÌ¼ÇÀÇ Ã¹¹øÂ° ÆäÀÌÁö
-    int endPage;   // ³»ºñ°ÔÀÌ¼ÇÀÇ ¸¶Áö¸· ÆäÀÌÁö
-    boolean showPrev; // ÀÌÀü ÆäÀÌÁö·Î ÀÌµ¿ÇÏ´Â ¸µÅ©¸¦ º¸¿©ÁÙ °ÍÀÎÁöÀÇ ¿©ºÎ
-    boolean showNext; // ´ÙÀ½ ÆäÀÌÁö·Î ÀÌµ¿ÇÏ´Â ¸µÅ©¸¦ º¸¿©ÁÙ °ÍÀÎÁöÀÇ ¿©ºÎ
+    private int totalCnt; // ì´ ê²Œì‹œë¬¼ ê°¯ìˆ˜
+    private int pageSize; // í•œ í˜ì´ì§€ì˜ í¬ê¸°
+    private int naviSize = 5; // í˜ì´ì§€ ë‚´ë¹„ê²Œì´ì…˜ì˜ í¬ê¸°
+    private int totalPage; // ì „ì²´ í˜ì´ì§€ì˜ ê°¯ìˆ˜
+    private int page;      // í˜„ì¬ í˜ì´ì§€
+    private int beginPage; // ë‚´ë¹„ê²Œì´ì…˜ì˜ ì²«ë²ˆì§¸ í˜ì´ì§€
+    private  int endPage;   // ë‚´ë¹„ê²Œì´ì…˜ì˜ ë§ˆì§€ë§‰ í˜ì´ì§€
+    private boolean showPrev; // ì´ì „ í˜ì´ì§€ë¡œ ì´ë™í•˜ëŠ” ë§í¬ë¥¼ ë³´ì—¬ì¤„ ê²ƒì¸ì§€ì˜ ì—¬ë¶€
+    private boolean showNext; // ë‹¤ìŒ í˜ì´ì§€ë¡œ ì´ë™í•˜ëŠ” ë§í¬ë¥¼ ë³´ì—¬ì¤„ ê²ƒì¸ì§€ì˜ ì—¬ë¶€
+
+    public int getTotalCnt() {
+        return totalCnt;
+    }
+
+    public void setTotalCnt(int totalCnt) {
+        this.totalCnt = totalCnt;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getNaviSize() {
+        return naviSize;
+    }
+
+    public void setNaviSize(int naviSize) {
+        this.naviSize = naviSize;
+    }
+
+    public int getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getBeginPage() {
+        return beginPage;
+    }
+
+    public void setBeginPage(int beginPage) {
+        this.beginPage = beginPage;
+    }
+
+    public int getEndPage() {
+        return endPage;
+    }
+
+    public void setEndPage(int endPage) {
+        this.endPage = endPage;
+    }
+
+    public boolean isShowPrev() {
+        return showPrev;
+    }
+
+    public void setShowPrev(boolean showPrev) {
+        this.showPrev = showPrev;
+    }
+
+    public boolean isShowNext() {
+        return showNext;
+    }
+
+    public void setShowNext(boolean showNext) {
+        this.showNext = showNext;
+    }
 
     public PageHandler(int totalCnt, int page) {
-        this(totalCnt, page, );
+        this(totalCnt, page, 10);
     }
 
     public PageHandler(int totalCnt, int page, int pageSize) {
@@ -21,7 +93,7 @@ public class PageHandler {
         this.pageSize = pageSize;
 
         totalPage = (int)Math.ceil(totalCnt / (double)pageSize);
-        beginPage = page / naviSize * naviSize + 1;
+        beginPage = (page-1) / naviSize * naviSize + 1;
         endPage = Math.min(beginPage + naviSize - 1, totalPage);
         showPrev = beginPage != 1;
         showNext = endPage != totalPage;

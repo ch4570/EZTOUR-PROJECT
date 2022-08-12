@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devcamp.eztour.RvwMapper">
+    <select id="count" resultType="int"> <!-- 후기 건수 -->
+        SELECT count(*) FROM rvw;
+    </select>
+
+    <delete id="deleteAll"> <!-- 후기 리스트 전체삭제 -->
+        DELETE FROM rvw
+    </delete>
+
+    <delete id="delete" parameterType="map"> <!-- 후기 삭제-->
+        DELETE FROM rvw WHERE rvw_no = #{rvw_no} and rvw_nm = #{rvw_nm}
+    </delete>
+
+    
+    <select id="insertBefore" resultType="RvwDto"> <!-- 후기 등록 화면 -->
+        SELECT B.usr_nm,
+               B.email,
+               C.prd_nm
+        FROm rvw A INNER JOIN usr B ON A.usr_id = B.usr_id
+                   INNER JOIN trv_prd C ON A.prd_cd = C.prd_cd;
+    </select>
+
+
+    <select id="selectPage" parameterType="map" resultType="RvwDto"> <!-- 후기 리스트 페이지 핸들러-->
+        SELECT A.rvw_ttl,
+               A.rvw_cont,
+               A.wrt_nm,
+               B.mn_img,
+               A.rvw_reg_date,
+               A.rvw_vcnt,
+               A.lk_cnt
+        FROM rvw A INNER JOIN trv_prd B ON A.prd_cd = B.prd_cd
+                   INNER JOIN usr C ON A.usr_id = C.usr_id
+        ORDER BY A.rvw_reg_date DESC, A.rvw_no DESC
+        LIMIT #{offset}, #{pageSize};
+    </select>
+
+    <select id="selectAll" resultType="RvwDto"> <!-- 후기 리스트 전체보기 -->
+        SELECT A.rvw_ttl,
+               A.rvw_cont,
+               A.wrt_nm,
+               B.mn_img,
+               A.rvw_reg_date,
+               A.rvw_vcnt,
+               A.lk_cnt
+        FROM rvw A INNER JOIN trv_prd B ON A.prd_cd = B.prd_cd
+                   INNER JOIN usr C ON A.usr_id = C.usr_id
+        ORDER BY A.rvw_reg_date DESC, A.rvw_no DESC;
+    </select>
+    
+    <insert id="insert" parameterType="RvwDto">
+        INSERT INTO rvw
+            (rvw_ttl, rvw_cont)
+    </insert>
+
+
+
+</mapper>
