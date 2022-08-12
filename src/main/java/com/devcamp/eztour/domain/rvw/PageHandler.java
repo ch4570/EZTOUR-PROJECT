@@ -1,15 +1,15 @@
 package com.devcamp.eztour.domain.rvw;
 
 public class PageHandler {
-    private int totalCnt; // ÃÑ °Ô½Ã¹° °¹¼ö
-    private int pageSize; // ÇÑ ÆäÀÌÁöÀÇ Å©±â
-    private int naviSize = 5; // ÆäÀÌÁö ³»ºñ°ÔÀÌ¼ÇÀÇ Å©±â
-    private int totalPage; // ÀüÃ¼ ÆäÀÌÁöÀÇ °¹¼ö
-    private int page;      // ÇöÀç ÆäÀÌÁö
-    private int beginPage; // ³»ºñ°ÔÀÌ¼ÇÀÇ Ã¹¹øÂ° ÆäÀÌÁö
-    private  int endPage;   // ³»ºñ°ÔÀÌ¼ÇÀÇ ¸¶Áö¸· ÆäÀÌÁö
-    private boolean showPrev; // ÀÌÀü ÆäÀÌÁö·Î ÀÌµ¿ÇÏ´Â ¸µÅ©¸¦ º¸¿©ÁÙ °ÍÀÎÁöÀÇ ¿©ºÎ
-    private boolean showNext; // ´ÙÀ½ ÆäÀÌÁö·Î ÀÌµ¿ÇÏ´Â ¸µÅ©¸¦ º¸¿©ÁÙ °ÍÀÎÁöÀÇ ¿©ºÎ
+    private int totalCnt; // ì´ ê²Œì‹œë¬¼ ê°¯ìˆ˜
+    private int pageSize; // í•œ í˜ì´ì§€ì˜ í¬ê¸°
+    private int naviSize = 5; // í˜ì´ì§€ ë‚´ë¹„ê²Œì´ì…˜ì˜ í¬ê¸°
+    private int totalPage; // ì „ì²´ í˜ì´ì§€ì˜ ê°¯ìˆ˜
+    private int page;      // í˜„ì¬ í˜ì´ì§€
+    private int beginPage; // ë‚´ë¹„ê²Œì´ì…˜ì˜ ì²«ë²ˆì§¸ í˜ì´ì§€
+    private  int endPage;   // ë‚´ë¹„ê²Œì´ì…˜ì˜ ë§ˆì§€ë§‰ í˜ì´ì§€
+    private boolean showPrev; // ì´ì „ í˜ì´ì§€ë¡œ ì´ë™í•˜ëŠ” ë§í¬ë¥¼ ë³´ì—¬ì¤„ ê²ƒì¸ì§€ì˜ ì—¬ë¶€
+    private boolean showNext; // ë‹¤ìŒ í˜ì´ì§€ë¡œ ì´ë™í•˜ëŠ” ë§í¬ë¥¼ ë³´ì—¬ì¤„ ê²ƒì¸ì§€ì˜ ì—¬ë¶€
 
     public int getTotalCnt() {
         return totalCnt;
