@@ -38,10 +38,4 @@
 
     </select>
 
-<<<<<<< HEAD
-    <select id="selectUserInfo" parameterType="String" resultType="com.devcamp.eztour.domain.user.UserDto">
-        select usr_nm, phn, email from usr where usr_id = #{usrId}
-    </select>
-=======
->>>>>>> 8db7fed6c0d4de8885ddee229d0dc5fd36539404
 </mapper>
