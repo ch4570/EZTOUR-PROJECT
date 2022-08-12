@@ -22,7 +22,7 @@ public class rvwController {
     UserService userService;
 
     @GetMapping("/review/save")
-    public String saveReview(HttpServletRequest request, Model model) {
+    public String saveReview(HttpServletRequest request, Model model) throws Exception{
         HttpSession session = request.getSession();
         UserDto userDto = userService.selectUserEmail("to9251");
         System.out.println(userDto);
