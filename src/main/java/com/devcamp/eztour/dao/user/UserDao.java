@@ -17,4 +17,5 @@ public interface UserDao {
 
     int deleteUsrHst(UserDto user) throws Exception;
 
+    UserDto selectUserEmail(String usr_id);
 }

@@ -37,4 +37,9 @@ public class UserServiceImpl implements UserService {
         return userDao.deleteUsr(user);
     }
 
+    @Override
+    public UserDto selectUserEmail(String usr_id) {
+        return userDao.selectUserEmail(usr_id);
+    }
+
 }

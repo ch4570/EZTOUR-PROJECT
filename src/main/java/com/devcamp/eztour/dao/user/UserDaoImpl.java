@@ -41,4 +41,9 @@ public class UserDaoImpl implements UserDao {
         return session.delete(namespace+"deleteUsrHst", user);
     }
 
+    @Override
+    public UserDto selectUserEmail(String usr_id) {
+        return session.selectOne(namespace+"selectUserEmail",usr_id);
+    }
+
 }

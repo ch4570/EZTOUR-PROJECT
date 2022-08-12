@@ -39,4 +39,10 @@ public class UserDto {
         this.email = email;
         this.phn = phn;
     }
+
+    public UserDto(String usr_nm, String email){
+        this.usr_nm = usr_nm;
+        this.email = email;
+    }
+
 }
