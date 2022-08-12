@@ -6,7 +6,7 @@
     <script src="https://code.jquery.com/jquery-latest.min.js"/>
     <script>
         $('#submit').on("click",function (){
-            var formData = new FormData($("#image_upload")[0]);
+            const formData = new FormData($("#image_upload")[0]);
             formData.append("img_file",$("#img_file")[0].files[0]);
             let img  = $('#img_file').val();
             if(!img){
@@ -34,7 +34,7 @@
     <form action="<c:url value='/product/insert/image'/>" enctype="multipart/form-data" method="post" id="image_upload">
         <input type="file" name="img_file" id="img_file">
         <input type="hidden" name="prd_cd" value="${param.prd_cd}">
-        <input type="button" id="submit" value="전송">
+        <button id="submit">전송</button>
     </form>
 
 </body>

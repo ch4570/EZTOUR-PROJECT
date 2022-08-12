@@ -4,7 +4,6 @@ import com.devcamp.eztour.domain.product.*;
 import com.devcamp.eztour.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -106,8 +105,9 @@ public class ProductController {
         return "product_img_insert";
     }
 
-    @ResponseBody
+
     @PostMapping("/product/insert/image")
+    @ResponseBody
     public String insertProductImage(MultipartFile img_file, HttpServletRequest request, String prd_cd) throws IOException {
         // 원본 파일이 이미지 파일이 맞는지 확장자를 확인
         File checkFile = new File(img_file.getOriginalFilename());
@@ -117,6 +117,7 @@ public class ProductController {
         String root_path = session.getServletContext().getRealPath("/");
         String uploadPath = root_path+"resources/image/product";
         // 이미지 파일이 아닐경우 실패
+        System.out.println(type);
         if(!type.startsWith("image")){
             return "fail";
         }else{

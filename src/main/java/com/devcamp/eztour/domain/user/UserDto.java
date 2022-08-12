@@ -41,11 +41,17 @@ public class UserDto {
         this.phn = phn;
     }
 
-    public UserDto(String usr_id, String usr_nm, String email, String rl){
-        this.usr_id = usr_id;
+
+    public UserDto(String usr_nm, String email) {
         this.usr_nm = usr_nm;
         this.email = email;
-        this.rl = rl;
+    }
+    public UserDto(String usr_id, String usr_nm, String email, String rl) {
+            this.usr_id = usr_id;
+            this.usr_nm = usr_nm;
+            this.email = email;
+            this.rl = rl;
+
     }
 
 }

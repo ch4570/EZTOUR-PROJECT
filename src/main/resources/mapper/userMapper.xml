@@ -7,29 +7,29 @@
     <insert id="insertUsr" parameterType="UserDto">
         INSERT INTO
             usr
-                (usr_id,
-                 pwd,
-                 usr_nm,
-                 brth,
-                 gndr,
-                 email,
-                 phn)
+        (usr_id,
+         pwd,
+         usr_nm,
+         brth,
+         gndr,
+         email,
+         phn)
         VALUES
-                (#{usr_id},
-                 #{pwd},
-                 #{usr_nm},
-                 #{brth},
-                 #{gndr},
-                 #{email},
-                 #{phn})
+            (#{usr_id},
+             #{pwd},
+             #{usr_nm},
+             #{brth},
+             #{gndr},
+             #{email},
+             #{phn})
     </insert>
 
     <insert id="insertUsrHis" parameterType="UserDto">
         INSERT INTO
             usr_hst
-                (usr_id)
+            (usr_id)
         VALUES
-                (#{usr_id})
+            (#{usr_id})
     </insert>
 
     <select id="selectUsr" parameterType="string" resultType="UserDto">
@@ -62,36 +62,36 @@
             usr_id = #{usr_id}
     </update>
 
-<!--    <update id="deleteUsr" parameterType="UserDto">-->
-<!--        UPDATE-->
-<!--            usr-->
-<!--        SET-->
-<!--            cmn_cd_usr_stt = '2d'-->
-<!--        WHERE-->
-<!--            usr_id = #{usr_id}-->
-<!--    </update>-->
+    <!--    <update id="deleteUsr" parameterType="UserDto">-->
+    <!--        UPDATE-->
+    <!--            usr-->
+    <!--        SET-->
+    <!--            cmn_cd_usr_stt = '2d'-->
+    <!--        WHERE-->
+    <!--            usr_id = #{usr_id}-->
+    <!--    </update>-->
 
-<!--    <update id="deleteUsrHst" parameterType="UserDto">-->
-<!--        UPDATE-->
-<!--            usr_hst-->
-<!--        SET-->
-<!--            cmn_cd_drp = #{cmn_cd_drp},-->
-<!--            drp_date = now()-->
-<!--        WHERE-->
-<!--            usr_id = #{usr_id}-->
-<!--    </update>-->
+    <!--    <update id="deleteUsrHst" parameterType="UserDto">-->
+    <!--        UPDATE-->
+    <!--            usr_hst-->
+    <!--        SET-->
+    <!--            cmn_cd_drp = #{cmn_cd_drp},-->
+    <!--            drp_date = now()-->
+    <!--        WHERE-->
+    <!--            usr_id = #{usr_id}-->
+    <!--    </update>-->
 
     <update id="deleteUsr" parameterType="map">
         UPDATE
             usr u
-        INNER JOIN
+            INNER JOIN
             usr_hst uh
         ON
             u.usr_id = uh.usr_id
-        SET
-            u.cmn_cd_usr_stt = '2d',
-            uh.cmn_cd_drp = #{cmn_cd_drp},
-            uh.drp_date = now()
+            SET
+                u.cmn_cd_usr_stt = '2d',
+                uh.cmn_cd_drp = #{cmn_cd_drp},
+                uh.drp_date = now()
         WHERE
             uh.usr_id = #{usr_id}
     </update>
