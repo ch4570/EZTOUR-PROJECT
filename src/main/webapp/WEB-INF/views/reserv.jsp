@@ -16,9 +16,9 @@
 <div>
     <dl>
         <dt>행사코드</dt>
-        <dd>상품상세코드입력</dd><!-- $ {rid.prdDtlCd}-->
+        <dd>${rid.prdDtlCd}</dd><!-- $ {rid.prdDtlCd}-->
     </dl>
-    <div>여행상품명</div><!--$ {rid.prdNm}-->
+    <div>${rid.prdNm}</div><!--$ {rid.prdNm}-->
 </div>
 <div>
     약관동의
@@ -36,11 +36,11 @@
             </tr>
             <tr>
                 <th>이용항공</th>
-                <td>${''}</td>
+                <td>${rid.arlNm}</td>
             </tr>
             <tr>
                 <th>여행기간</th>
-                <td>${''}</td>
+                <td>${rid.trvPer}</td>
             </tr>
             <tr>
                 <th>일정</th>
@@ -48,15 +48,15 @@
             </tr>
             <tr>
                 <th>성인요금</th>
-                <td>${''}원[만12세 이상](기본상품가:${''}원, 유류할증료:0원, 제세공과금0원)</td>
+                <td>${rid.adtPrc}원[만12세 이상](기본상품가:${rid.adtPrc}원, 유류할증료:0원, 제세공과금0원)</td>
             </tr>
             <tr>
                 <th>아동요금</th>
-                <td>${''}원 [만 12세 미만](기본상품가:${''}원, 유류할증료: 0원,제세공과금 0원)</td>
+                <td>${rid.chdPrc}원 [만 12세 미만](기본상품가:${rid.chdPrc}원, 유류할증료: 0원,제세공과금 0원)</td>
             </tr>
             <tr>
                 <th>유아요금</th>
-                <td>${''}원 [24개월 미만](기본상품가:${''}원,유류할증료:0원,제세공과금 0원)</td>
+                <td>${rid.bbPrc}원 [24개월 미만](기본상품가:${rid.bbPrc}원,유류할증료:0원,제세공과금 0원)</td>
             </tr>
         </table>
     </div>
@@ -89,24 +89,24 @@
                 <dt>성인</dt>
                 <dd>
                     <p>만 12세 이상</p>
-                    <input type="text" name="adtCnt" value="">
-                    <p>성인요금 입력</p>
+                    <input type="text" name="adtCnt" value="${param.adtCnt}">
+                    <p>${rid.adtPrc}원</p>
                 </dd>
             </dl>
             <dl>
                 <dt>아동</dt>
                 <dd>
                     <p>만 12세 미만</p>
-                    <input type="text" name="chdCnt" value="">
-                    <p>아동요금 입력</p>
+                    <input type="text" name="chdCnt" value="${param.chdCnt}">
+                    <p>${rid.chdPrc}원</p>
                 </dd>
             </dl>
             <dl>
                 <dt>유아</dt>
                 <dd>
                     <p>만 2세 이상</p>
-                    <input type="text" name="bbCnt" value="">
-                    <p>유아요금 입력</p>
+                    <input type="text" name="bbCnt" value="${param.bbCnt}">
+                    <p>${rid.bbPrc}원</p>
                 </dd>
             </dl>
         </div>
