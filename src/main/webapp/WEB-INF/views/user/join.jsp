@@ -60,9 +60,7 @@
   <label for="">이메일</label>
   <input class="input-field" type="text" name="email" placeholder="example@fastcampus.co.kr"><br>
   <label for="">핸드폰</label>
-  <input class="input-field" type="text" name="phn" placeholder=""><br>
-
-
+  <input class="input-field" type="text" name="phn" placeholder="010-0000-0000"><br>
   <button>회원 가입</button>
 </form>
 </body>

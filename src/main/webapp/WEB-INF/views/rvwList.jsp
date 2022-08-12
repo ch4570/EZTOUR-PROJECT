@@ -28,5 +28,13 @@
     <h1>This is HOME</h1>
     <h1>This is HOME</h1>
 </div>
+<form action="<c:url value='/review/review/save'/>" method="post">
+    <input type="text" name="wrt_nm" value="${userDto.usr_nm}" readonly="readonly"><br>
+    <input type="text" name="wrt_email" value="${userDto.email}" readonly="readonly"><br>
+    <input type="text" name="trv_nm" value="프랑스 패키지" readonly="readonly"><br>
+    <input type="text" name="rvw_ttl" placeholder="리뷰 제목"><br>
+    <input type="text" name="rvw_cont" placeholder="리뷰 내용"><br>
+    <input type="submit" value="등록">
+</form>
 </body>
 </html>

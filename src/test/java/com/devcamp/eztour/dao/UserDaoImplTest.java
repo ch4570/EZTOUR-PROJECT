@@ -53,8 +53,7 @@ public class UserDaoImplTest {
         UserDto user = new UserDto();
         user.setUsr_id("hoondal8");
         user.setCmn_cd_drp("4c");
-        userDao.deleteUsr(user);
-        userDao.deleteUsrHst(user);
+        userDao.deleteUsr(user.getUsr_id(), user.getCmn_cd_drp());
 
         UserDto user2 = userDao.selectUsr("hoondal8");
         System.out.println(user2);
