@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/review")
 public class rvwController {
 
-    @GetMapping("/review")
-    public String loginForm() {
+    @GetMapping("/review/save")
+    public String write() {
         return "rvwList";
     }
 
