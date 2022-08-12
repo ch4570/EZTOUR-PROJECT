@@ -54,7 +54,9 @@
     
     <insert id="insert" parameterType="RvwDto">
         INSERT INTO rvw
-            (rvw_ttl, rvw_cont)
+            (rvw_no, rvw_ttl, rvw_cont)
+        VALUES
+            (NULL, #{rvw_ttl}, #{rvw_cont});
     </insert>
 
 

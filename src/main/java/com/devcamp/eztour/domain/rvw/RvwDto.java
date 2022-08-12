@@ -36,4 +36,9 @@ public class RvwDto {
         this.trv_nm = trv_nm;
     }
 
+    public RvwDto(String rvw_ttl, String rvw_cont) {
+        this.rvw_ttl = rvw_ttl;
+        this.rvw_cont = rvw_cont;
+    }
+
 }

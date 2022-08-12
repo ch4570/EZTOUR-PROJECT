@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
         return userDao.deleteUsr(usr_id, cmn_cd_drp);
     }
 
-    @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserDto selectUserEmail(String usr_id) throws Exception {
         return userDao.selectUserEmail(usr_id);
     }
