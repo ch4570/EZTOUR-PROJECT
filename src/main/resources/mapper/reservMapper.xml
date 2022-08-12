@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devcamp.eztour.rsvtMapper">
+    <insert id="insertReserv" parameterType="com.devcamp.eztour.domain.reserv.ReservDto">
+        insert into rsvt
+        values (#{rsvtNo}, #{prdDtlCd}, #{usrId}, #{mnRsvtNm}, #{phn}, #{email}, #{sumPrc}, #{payFtrPrc},
+                #{reqCont}, #{cmnCdRsvtStt}, #{rsvtDate}, #{cncPayNo}, #{adtCnt}, #{chdCnt},
+                #{bbCnt}, now(), current_user, now(), current_user)
+    </insert>
+
+    <select id="selectReserv" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.ReservDto">
+        select * from rsvt where rsvt_no = #{rsvtNo}
+    </select>
+
+    <select id="selectReservList" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.ReservDto">
+        SELECT * FROM rsvt WHERE usr_id = #{usrId}
+    </select>
+
+    <select id="selectReservListPage" parameterType="Map" resultType="com.devcamp.eztour.domain.reserv.ReservDto">
+        SELECT * FROM rsvt WHERE usr_id = #{usrId} LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectAllReserv" resultType="com.devcamp.eztour.domain.reserv.ReservDto">
+        select * from rsvt
+    </select>
+
+    <update id="updateReservStatus" parameterType="String">
+        update rsvt set cmn_cd_rsvt_stt = #{cmnCdRsvtStt} where rsvt_no = #{rsvtNo}
+    </update>
+
+    <delete id="deleteAllReserv">
+        delete from rsvt
+    </delete>
+
+    <select id="selectReservPrdInfo" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.ReservInfoDto">
+
+    </select>
+
+    <select id="selectUserInfo" parameterType="String" resultType="com.devcamp.eztour.domain.user.UserDto">
+        select usr_nm, phn, email from usr where usr_id = #{usrId}
+    </select>
+</mapper>
