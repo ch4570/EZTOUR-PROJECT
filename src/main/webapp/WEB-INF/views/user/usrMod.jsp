@@ -4,11 +4,56 @@
 <html>
 <head>
     <title>회원정보수정</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <style>
         input[readonly] {background-color:gray;}
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        button {
+            all:unset;
+            background-color: steelblue;
+            color: white;
+            padding: 5px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal__overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+
+        .modal__content {
+            background-color: white;
+            padding: 50px 100px;
+            text-align: center;
+            position: relative;
+            border-radius: 10px;
+            width: 10%;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+        }
+        h1 {
+            margin: 0;
+        }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -27,8 +72,8 @@
     <input class="input-field" type="text" name="brth" value="<c:out value='${userDto.brth}'/>" readonly><br>
     <label for="">성별</label>
     <div class="select">
-        <input type="radio" id="select" name="gndr"><label for="select">남성</label>
-        <input type="radio" id="select2" name="gndr"><label for="select2">여성</label>
+        <input type="radio" id="select" name="gndr" value="남성"><label for="select">남성</label>
+        <input type="radio" id="select2" name="gndr" value="여성"><label for="select2">여성</label>
     </div>
     <label for="">이메일</label>
     <input class="input-field" type="text" name="email" value="<c:out value='${userDto.email}'/>"><br>
@@ -48,12 +93,26 @@
     5. 탈퇴 메서드 실행
 -->
 
-<!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#usrDelModal">
     회원탈퇴
 </button>
 
 <!-- Modal -->
+
+<button id="open">Open Modal</button>
+<div class="modal hidden">
+    <div class="modal__overlay"></div>
+    <div class="modal__content">
+        <h1>I'm a modal</h1>
+        <button>❌</button>
+    </div>
+</div>
+
+
+<!-- Modal End -->
+
+
+<!-- Modal old -->
 <div class="modal fade" id="usrDelModal" tabindex="-1" aria-labelledby="usrDelModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -97,12 +156,28 @@
                 </form>
             </div>
             </div>
-
         </div>
     </div>
 </div>
 
 <script>
+    <!-- Modal for DelUsr Start -->
+    const openButton = document.getElementById("open");
+    const modal = document.querySelector(".modal");
+    const overlay = modal.querySelector(".modal__overlay");
+    const closeBtn = modal.querySelector("button")
+    const openModal = () => {
+        modal.classList.remove("hidden");
+    }
+    const closeModal = () => {
+        modal.classList.add("hidden")
+    }
+    overlay.addEventListener("click", closeModal);
+    closeBtn.addEventListener("click", closeModal);
+    openButton.addEventListener("click", openModal);
+    <!-- Modal for DelUsr End -->
+
+
     let msg = "${msg}";
     if(msg=="MOD_OK")    alert("회원정보 수정이 완료되었습니다.");
     if(msg=="MOD_ERR")    alert("회원정보 수정에 실패했습니다. 다시 시도해주세요.");

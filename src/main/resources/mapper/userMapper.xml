@@ -96,4 +96,12 @@
             uh.usr_id = #{usr_id}
     </update>
 
+    <select id="selectUserEmail" parameterType="String" resultType="UserDto">
+        SELECT
+            usr_nm,
+            email
+        FROM usr
+        WHERE usr_id = #{usr_id}
+    </select>
+
 </mapper>

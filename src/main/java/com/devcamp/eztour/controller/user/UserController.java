@@ -67,18 +67,24 @@ public class UserController {
     public String login(String usr_id, String pwd, boolean rememberId,
                         HttpSession session, HttpServletResponse response) throws Exception {
 
-        System.out.println(usr_id);
         UserDto user = new UserDto();
         user = userService.selectUsr(usr_id);
-        System.out.println("user = " + user);
+        System.out.println("user==============="+user);
 
         if(!(user!=null && user.getPwd().equals(pwd))) {
             String msg = URLEncoder.encode("id 또는 pwd가 일치하지 않습니다.", "utf-8");
 
             return "redirect:/user/login?msg="+msg;
         }
-        session.setAttribute("usr_id", user.getUsr_id());
-        session.setAttribute("usr_nm", user.getUsr_nm());
+
+        String userId = user.getUsr_id();
+        String userName = user.getUsr_nm();
+        String email = user.getEmail();
+        String role = user.getRl();
+
+        UserDto loginUser = new UserDto(userId, userName, email, role);
+        System.out.println("loginUser==============="+loginUser);
+        session.setAttribute("userDto", loginUser);
 
         if(rememberId) {
             Cookie cookie = new Cookie("id", usr_id);

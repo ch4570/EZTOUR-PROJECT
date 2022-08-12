@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="loginId" value="${sessionScope.usr_id==null ? '' : sessionScope.usr_id}"/>
-<c:set var="loginName" value="${sessionScope.usr_nm==null ? '' : sessionScope.usr_nm}"/>
+<c:set var="loginId" value="${sessionScope.userDto.usr_id==null ? '' : sessionScope.userDto.usr_id}"/>
+<c:set var="loginName" value="${sessionScope.userDto.usr_nm==null ? '' : sessionScope.userDto.usr_nm}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/user/login' : '/user/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? '로그인' : '로그아웃'}"/>
 <html>
