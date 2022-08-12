@@ -31,10 +31,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public int deleteUsr(UserDto user) throws Exception {
-        userDao.deleteUsr(user);
-
-        return userDao.deleteUsr(user);
+    public int deleteUsr(String usr_id, String cmn_cd_drp) throws Exception {
+        return userDao.deleteUsr(usr_id, cmn_cd_drp);
     }
 
 }

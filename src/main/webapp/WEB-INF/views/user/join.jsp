@@ -61,8 +61,6 @@
   <input class="input-field" type="text" name="email" placeholder="example@fastcampus.co.kr"><br>
   <label for="">핸드폰</label>
   <input class="input-field" type="text" name="phn" placeholder=""><br>
-
-
   <button>회원 가입</button>
 </form>
 </body>

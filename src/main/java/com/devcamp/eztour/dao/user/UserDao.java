@@ -13,8 +13,6 @@ public interface UserDao {
 
     int updateUsrHst(UserDto user) throws Exception;
 
-    int deleteUsr(UserDto user) throws Exception;
-
-    int deleteUsrHst(UserDto user) throws Exception;
+    int deleteUsr(String usr_id, String cmn_cd_drp) throws Exception;
 
 }

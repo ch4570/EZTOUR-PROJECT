@@ -77,8 +77,8 @@ public class UserController {
 
             return "redirect:/user/login?msg="+msg;
         }
-        session.setAttribute("userId", user.getUsr_id());
-        session.setAttribute("userName", user.getUsr_nm());
+        session.setAttribute("usr_id", user.getUsr_id());
+        session.setAttribute("usr_nm", user.getUsr_nm());
 
         if(rememberId) {
             Cookie cookie = new Cookie("id", usr_id);
@@ -102,24 +102,54 @@ public class UserController {
     }
 
     @GetMapping("/usrMod")
-    public String usrModView(UserDto userDto, HttpSession session, RedirectAttributes rattr, Model model){
-        String usr_id = (String) session.getAttribute("userId");
-        System.out.println(usr_id);
+    public String usrModView(HttpSession session, RedirectAttributes rattr, Model model){
+        String usr_id = (String) session.getAttribute("usr_id");
         try {
-            userDto = userService.selectUsr(usr_id);
-            System.out.println("========"+userDto);
+            UserDto userDto = userService.selectUsr(usr_id);
+            // System.out.println(userDto);
+            model.addAttribute(userDto);
         } catch (Exception e) {
             e.printStackTrace();
             rattr.addFlashAttribute("msg","GET_ERROR");
-
             return "redirect:/user";
         }
+
         return "user/usrMod.tiles";
     }
 
-    @PatchMapping ("/usrMod")
-    public String usrMod(){
+    @PostMapping ("/usrMod")
+    public String usrMod(UserDto userDto, RedirectAttributes rattr){
+        try {
+            int rowCnt = userService.updateUsr(userDto);
 
-        return "redirect:/";
+            if(rowCnt != 1)
+                throw new Exception("user update error");
+            rattr.addFlashAttribute("msg","MOD_OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            rattr.addFlashAttribute("msg","MOD_ERR");
+            return "redirect:/user/usrMod";
+        }
+        return "redirect:/user/usrMod";
+    }
+
+    @PostMapping ("/usrDel")
+    public String usrDel(HttpSession session, String cmn_cd_drp, RedirectAttributes rattr){
+        String usr_id = (String)session.getAttribute("usr_id");
+        System.out.println(cmn_cd_drp); // null
+
+        try {
+            int rowCnt = userService.deleteUsr(usr_id, cmn_cd_drp);
+
+            if(rowCnt != 1)
+                throw new Exception("user delete error");
+
+            rattr.addFlashAttribute("msg","DEL_OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            rattr.addFlashAttribute("msg","DEL_ERR");
+            return "redirect:/user/usrMod";
+        }
+        return "redirect:/user/logout";
     }
 }

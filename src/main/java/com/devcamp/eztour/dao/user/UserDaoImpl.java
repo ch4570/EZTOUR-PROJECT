@@ -5,6 +5,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Repository
 public class UserDaoImpl implements UserDao {
 
@@ -33,12 +36,11 @@ public class UserDaoImpl implements UserDao {
         return session.update(namespace+"updateUsrHst", user);
     }
 
-    public int deleteUsr(UserDto user) throws Exception {
-        return session.delete(namespace+"deleteUsr", user);
-    }
-
-    public int deleteUsrHst(UserDto user) throws Exception {
-        return session.delete(namespace+"deleteUsrHst", user);
+    public int deleteUsr(String usr_id, String cmn_cd_drp) throws Exception {
+        Map map = new HashMap();
+        map.put("usr_id",usr_id);
+        map.put("cmn_cd_drp",cmn_cd_drp);
+        return session.delete(namespace+"deleteUsr", map);
     }
 
 }
