@@ -34,7 +34,7 @@
         delete from rsvt
     </delete>
 
-    <select id="selectReservPrdInfo" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.ReservInfoDto">
+    <select id="selectReservPrdInfo" parameterType="String" resultType="ReservInfoDto">
         select d.prd_dtl_cd, d.arl_nm, t.prd_nm, t.trv_per, p.adt_prc, p.chd_prc, p.bb_prc
         from trv_prd_dtl d join trv_prd t
                                 on d.prd_cd = t.prd_cd
@@ -43,7 +43,4 @@
         where d.prd_dtl_cd = #{prdDtlCd}
     </select>
 
-    <select id="selectAlInfo" parameterType="String" resultType="">
-
-    </select>
 </mapper>
