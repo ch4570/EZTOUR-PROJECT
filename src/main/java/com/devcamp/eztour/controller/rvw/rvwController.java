@@ -17,11 +17,10 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/review")
 public class rvwController {
-
     @Autowired
     UserService userService;
 
-    @GetMapping("/review/save")
+    @GetMapping("/write")
     public String saveReview(HttpServletRequest request, Model model) throws Exception{
         HttpSession session = request.getSession();
         UserDto userDto = userService.selectUserEmail("to9251");
@@ -30,7 +29,7 @@ public class rvwController {
         return "rvwList";
     }
 
-    @PostMapping("/review/save")
+    @PostMapping("/write")
     public String saveReview(RvwDto rvwDto, HttpSession session){
         System.out.println(rvwDto);
         return "redirect:/";

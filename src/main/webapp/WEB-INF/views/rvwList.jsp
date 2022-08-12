@@ -28,7 +28,7 @@
     <h1>This is HOME</h1>
     <h1>This is HOME</h1>
 </div>
-<form action="<c:url value='/review/review/save'/>" method="post">
+<form action="<c:url value='/review/write'/>" method="post">
     <input type="text" name="wrt_nm" value="${userDto.usr_nm}" readonly="readonly"><br>
     <input type="text" name="wrt_email" value="${userDto.email}" readonly="readonly"><br>
     <input type="text" name="trv_nm" value="프랑스 패키지" readonly="readonly"><br>
