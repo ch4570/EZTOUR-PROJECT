@@ -19,6 +19,7 @@ public class UserServiceImpl implements UserService {
         return userDao.insertUsrHis(user);
     }
 
+    @Override
     public UserDto selectUsr(String usr_id) throws Exception {
         return userDao.selectUsr(usr_id);
     }
@@ -31,14 +32,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public int deleteUsr(UserDto user) throws Exception {
-        userDao.deleteUsr(user);
-
-        return userDao.deleteUsr(user);
+    public int deleteUsr(String usr_id, String cmn_cd_drp) throws Exception {
+        return userDao.deleteUsr(usr_id, cmn_cd_drp);
     }
 
     @Override
-    public UserDto selectUserEmail(String usr_id) {
+    public UserDto selectUserEmail(String usr_id) throws Exception {
         return userDao.selectUserEmail(usr_id);
     }
 

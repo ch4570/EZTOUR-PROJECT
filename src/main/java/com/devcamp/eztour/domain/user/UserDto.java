@@ -30,6 +30,7 @@ public class UserDto {
     private String cmn_cd_drp; // 탈퇴 사유 코드
 
     public UserDto(){}
+
     public UserDto(String usr_id, String pwd, String usr_nm, String brth, String gndr, String email, String phn) {
         this.usr_id = usr_id;
         this.pwd = pwd;
@@ -40,9 +41,17 @@ public class UserDto {
         this.phn = phn;
     }
 
-    public UserDto(String usr_nm, String email){
+
+    public UserDto(String usr_nm, String email) {
         this.usr_nm = usr_nm;
         this.email = email;
+    }
+    public UserDto(String usr_id, String usr_nm, String email, String rl) {
+            this.usr_id = usr_id;
+            this.usr_nm = usr_nm;
+            this.email = email;
+            this.rl = rl;
+
     }
 
 }
