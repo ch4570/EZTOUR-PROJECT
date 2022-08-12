@@ -62,22 +62,46 @@
             usr_id = #{usr_id}
     </update>
 
-    <update id="deleteUsr" parameterType="UserDto">
+<!--    <update id="deleteUsr" parameterType="UserDto">-->
+<!--        UPDATE-->
+<!--            usr-->
+<!--        SET-->
+<!--            cmn_cd_usr_stt = '2d'-->
+<!--        WHERE-->
+<!--            usr_id = #{usr_id}-->
+<!--    </update>-->
+
+<!--    <update id="deleteUsrHst" parameterType="UserDto">-->
+<!--        UPDATE-->
+<!--            usr_hst-->
+<!--        SET-->
+<!--            cmn_cd_drp = #{cmn_cd_drp},-->
+<!--            drp_date = now()-->
+<!--        WHERE-->
+<!--            usr_id = #{usr_id}-->
+<!--    </update>-->
+
+    <update id="deleteUsr" parameterType="map">
         UPDATE
-            usr
+            usr u
+        INNER JOIN
+            usr_hst uh
+        ON
+            u.usr_id = uh.usr_id
         SET
-            cmn_cd_usr_stt = '2d'
+            u.cmn_cd_usr_stt = '2d',
+            uh.cmn_cd_drp = #{cmn_cd_drp},
+            uh.drp_date = now()
         WHERE
-            usr_id = #{usr_id}
+            uh.usr_id = #{usr_id}
     </update>
 
-    <update id="deleteUsrHst" parameterType="UserDto">
-        UPDATE
-            usr_hst
-        SET
-            cmn_cd_drp = #{cmn_cd_drp},
-            drp_date = now()
-        WHERE
-            usr_id = #{usr_id}
-    </update>
+    <select id="selectUserEmail" parameterType="String" resultType="UserDto">
+        SELECT
+            usr_nm,
+            email
+        FROM usr
+        WHERE usr_id = #{usr_id}
+    </select>
+
 </mapper>
