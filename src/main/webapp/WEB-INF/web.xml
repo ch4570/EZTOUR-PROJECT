@@ -52,4 +52,9 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<!-- 한글 변환 필터 끝 -->
+<<<<<<< HEAD
+
 </web-app>
+=======
+</web-app>
+>>>>>>> 8db7fed6c0d4de8885ddee229d0dc5fd36539404
