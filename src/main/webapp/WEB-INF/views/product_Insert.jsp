@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+    <h1>상품 등록</h1>
     <form action="<c:url value='/product/insert'/>" method="post">
         <input type="text" name="prd_cd" placeholder="상품코드"><br>
         <input type="text" name="dstn_cd" placeholder="여행지 코드"><br>

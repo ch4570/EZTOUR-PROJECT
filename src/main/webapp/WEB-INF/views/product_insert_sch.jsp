@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+    <h1>상품 일정 입력</h1>
     <form action="<c:url value='/product/insert/schedule'/>" method="post">
         <input type="text" name="prd_cd" placeholder="상품코드" value="${param.prd_cd}"/><br>
         <input type="text" name="trv_date" placeholder="여행일차"/><br>

@@ -25,7 +25,7 @@
         <typeAlias alias="Trv_prd_dtl_dto" type="com.devcamp.eztour.domain.product.Trv_prd_dtl_dto"/>
         <typeAlias alias="Trv_prd_dto" type="com.devcamp.eztour.domain.product.Trv_prd_dto"/>
         <typeAlias alias="Trv_prd_prc_dto" type="com.devcamp.eztour.domain.product.Trv_prd_prc_dto"/>
-
+        <typeAlias alias="Trv_sch_img_dto" type="com.devcamp.eztour.domain.product.Trv_sch_img_dto"/>
         <!-- 서창희 끝 -->
 
         <!-- 혜경님 시작 -->
