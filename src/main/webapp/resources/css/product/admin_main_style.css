@@ -1,0 +1,48 @@
+@import "/resources/css/common/reset.css";
+
+h1{
+    font-size: 30px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.wrap{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: red;
+}
+.wrap .content{
+    width: 1200px;
+    height: 1000px;
+    background: yellow;
+    margin: 0 auto;
+}
+.wrap .content .nav{
+    background: green;
+    width: 200px;
+    height: 800px;
+}
+
+.wrap .content .nav .menu{
+    background: blue;
+    width: 170px;
+    height: 700px;
+    margin: 0 auto;
+}
+
+.wrap .content .nav .menu ul{
+    padding-top: 20px;
+}
+
+.wrap .content .nav .menu ul .prd_tlt{
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 20px;
+}
+
+.wrap .content .nav .menu ul .menu_list{
+    font-size: 15px;
+    padding-top: 10px;
+}

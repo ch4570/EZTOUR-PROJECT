@@ -39,6 +39,7 @@
         }
 
             $(document).ready(function (){
+
                 $('#prd_img1').change(function(){
                 setImageFromFile(this, '#product_img1');
                 });
