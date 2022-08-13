@@ -26,7 +26,6 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-
     @GetMapping("/product/admin")
     public String productAdmin(HttpSession session, RedirectAttributes rattr){
         String id = (String)session.getAttribute("usr_id");
@@ -127,7 +126,6 @@ public class ProductController {
 
     }
 
-
     @PostMapping("/product/insert/schedule")
     public String insertProductSchedule(Trv_sch_dto trv_sch_dto, RedirectAttributes redirectAttributes){
         System.out.println(trv_sch_dto);
@@ -141,7 +139,6 @@ public class ProductController {
         }
     }
 
-
     @GetMapping("/product/insert/image")
     public String insertProductImage(HttpSession session,RedirectAttributes rattr){
             String id = (String)session.getAttribute("usr_id");
@@ -151,9 +148,7 @@ public class ProductController {
             }else{
                 return "product/product_img_insert.tiles";
             }
-
     }
-
 
     @PostMapping("/product/insert/image")
     @ResponseBody
@@ -179,6 +174,7 @@ public class ProductController {
                 img_file.transferTo(uploadFile);
                 String finalPath = "/image/product/"+fileName;
                 Prd_img_dto prd_img_dto = new Prd_img_dto(prd_cd,finalPath);
+                System.out.println(prd_img_dto);
                 productService.insertProductImg(prd_img_dto);
                 return "success";
             }
@@ -197,7 +193,6 @@ public class ProductController {
         }else{
             return "product/product_sch_img_insert.tiles";
         }
-
     }
 
     @ResponseBody
@@ -212,9 +207,6 @@ public class ProductController {
         String uploadPath = root_path + "resources/image/product/sights";
 
         List<MultipartFile> fileList =  meq.getFiles("prd_img");
-        for (MultipartFile m : fileList){
-            System.out.println(m.getOriginalFilename());
-        }
         for (MultipartFile m : fileList) {
             File checkFile = new File(m.getOriginalFilename());
             try {

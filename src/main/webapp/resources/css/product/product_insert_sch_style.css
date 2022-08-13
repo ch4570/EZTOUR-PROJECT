@@ -48,11 +48,11 @@ h1{
     width: 900px;
     height: 800px;
     position: absolute;
-    top : 90px;
+    top : 70px;
     left: 245px;
 }
 
-.wrap .content .board .prd_price_input_form{
+.wrap .content .board .prd_sch_input_form{
     text-align: center;
     margin: 0 auto;
     width: 800px;
@@ -65,9 +65,24 @@ h1{
     height: 30px;
     border-radius: 8px;
     padding-left: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 13px;
 }
 
+.wrap .content .board #sit_sh_desc{
+    width: 300px;
+    height: 70px;
+    border-radius: 8px;
+    padding-left: 10px;
+    margin-bottom: 13px;
+}
+
+.wrap .content .board #sit_lo_desc{
+    width: 300px;
+    height: 100px;
+    border-radius: 8px;
+    padding-left: 10px;
+    margin-bottom: 13px;
+}
 
 .wrap .content .board #submit_btn{
     width: 315px;

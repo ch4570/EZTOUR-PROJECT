@@ -52,7 +52,7 @@ h1{
     left: 245px;
 }
 
-.wrap .content .board .prd_price_input_form{
+.wrap .content .board .prd_img_input_form{
     text-align: center;
     margin: 0 auto;
     width: 800px;
@@ -69,11 +69,11 @@ h1{
 }
 
 
-.wrap .content .board #submit_btn{
-    width: 315px;
+.wrap .content .board #send{
+    width: 505px;
     height: 40px;
     border-radius: 8px;
-
+    margin-top: 30px;
 }
 
 

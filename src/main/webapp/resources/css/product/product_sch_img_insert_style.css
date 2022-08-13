@@ -14,7 +14,7 @@ h1{
 }
 .wrap .content{
     width: 1200px;
-    height: 1000px;
+    height: 1500px;
     margin: 0 auto;
 }
 .wrap .content .nav{
@@ -52,7 +52,7 @@ h1{
     left: 245px;
 }
 
-.wrap .content .board .prd_price_input_form{
+.wrap .content .board .prd_sch_img_input_form{
     text-align: center;
     margin: 0 auto;
     width: 800px;
@@ -70,10 +70,10 @@ h1{
 
 
 .wrap .content .board #submit_btn{
-    width: 315px;
+    width: 505px;
     height: 40px;
     border-radius: 8px;
-
+    margin-top: 20px;
 }
 
 
