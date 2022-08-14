@@ -13,7 +13,7 @@ public class PageHandler {
 
     public PageHandler() {}
     public PageHandler(int page, int totalCnt){
-        this(page, 5, totalCnt);
+        this(page, 10, totalCnt);
     }
     public PageHandler(int page, int pageSize, int totalCnt) {
         this.page = page;

@@ -1,5 +1,7 @@
 package com.devcamp.eztour.dao.reserv;
 
+import com.devcamp.eztour.domain.reserv.AirlineReqDto;
+import com.devcamp.eztour.domain.reserv.ReservConfInfoDto;
 import com.devcamp.eztour.domain.reserv.ReservDto;
 import com.devcamp.eztour.domain.reserv.ReservInfoDto;
 import org.apache.ibatis.session.SqlSession;
@@ -22,13 +24,13 @@ public class ReservDaoImpl implements ReservDao {
     }
 
     @Override
-    public ReservDto selectReserv(String rsvtNo) throws Exception {
-        return session.selectOne(namespace+"selectReserv", rsvtNo);
+    public ReservDto selectReserv(String rsvt_no) throws Exception {
+        return session.selectOne(namespace+"selectReserv", rsvt_no);
     }
 
     @Override
-    public List<ReservDto> selectReservList(String usrId) throws Exception {
-        return  session.selectList(namespace+"selectReservList", usrId);
+    public List<ReservDto> selectReservList(String usr_id) throws Exception {
+        return  session.selectList(namespace+"selectReservList", usr_id);
     }
 
     @Override
@@ -41,6 +43,10 @@ public class ReservDaoImpl implements ReservDao {
         return session.selectList(namespace+"selectAllReserv");
     }
 
+    @Override
+    public ReservConfInfoDto selectReservConfInfo(String rsvt_no) throws Exception {
+        return session.selectOne(namespace+"selectReservConfInfo", rsvt_no);
+    }
 
     @Override
     public int updateReservStatus(Map<String, String> map) throws Exception {
@@ -54,7 +60,14 @@ public class ReservDaoImpl implements ReservDao {
     }
 
     @Override
-    public ReservInfoDto selectReservPrdInfo(String prdDtlCd) throws Exception{
-        return session.selectOne(namespace+"selectReservPrdInfo", prdDtlCd);
+    public ReservInfoDto selectPrdInfo(String prd_dtl_cd) throws Exception{
+        return session.selectOne(namespace+"selectPrdInfo", prd_dtl_cd);
     }
+
+    @Override
+    public List<AirlineReqDto> selectArlReqInfo(String prd_dtl_cd) throws Exception{
+        return session.selectList(namespace+"selectAirInfo", prd_dtl_cd);
+    }
+
+
 }

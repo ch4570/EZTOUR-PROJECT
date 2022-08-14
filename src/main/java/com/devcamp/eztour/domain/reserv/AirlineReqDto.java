@@ -3,98 +3,114 @@ package com.devcamp.eztour.domain.reserv;
 import java.util.Date;
 
 public class AirlineReqDto {
-    private int arlReqCd;
-    private String dprArlId; //출발공항 아이디
-    private String arrArlId; //도착공항아이디
-    private Date dprDate; //출발일
-    private String arlId; //항공사아이디
-    private String arlStt; //출항상태
-    private String dprTm;
-    private String arrTm;
-    private String arlNm;
+    private int arl_req_cd;
+    private String dpr_arl_id; //출발공항 아이디
+    private String arr_arl_id; //도착공항아이디
+    private Date dpr_date; //출발일
+    private String arl_id; //항공사아이디
+    private String arl_stt; //출항상태
+    private String dpr_tm;
+    private String arr_tm;
+    private String arl_nm;
 
     public AirlineReqDto(){}
-    public AirlineReqDto(int arlReqCd, String dprArlId, String arrArlId, Date dprDate, String arlId, String arlStt, String dprTm, String arrTm, String arlNm) {
-        this.arlReqCd = arlReqCd;
-        this.dprArlId = dprArlId;
-        this.arrArlId = arrArlId;
-        this.dprDate = dprDate;
-        this.arlId = arlId;
-        this.arlStt = arlStt;
-        this.dprTm = dprTm;
-        this.arrTm = arrTm;
-        this.arlNm = arlNm;
+    public AirlineReqDto(int arl_req_cd, String dpr_arl_id, String arr_arl_id, Date dpr_date, String arl_id,
+                         String arl_stt, String dpr_tm, String arr_tm, String arl_nm) {
+        this.arl_req_cd = arl_req_cd;
+        this.dpr_arl_id = dpr_arl_id;
+        this.arr_arl_id = arr_arl_id;
+        this.dpr_date = dpr_date;
+        this.arl_id = arl_id;
+        this.arl_stt = arl_stt;
+        this.dpr_tm = dpr_tm;
+        this.arr_tm = arr_tm;
+        this.arl_nm = arl_nm;
     }
 
-    public int getArlReqCd() {
-        return arlReqCd;
+    @Override
+    public String toString() {
+        return "AirlineReqDto{" +
+                "arl_req_cd=" + arl_req_cd +
+                ", dpr_arl_id='" + dpr_arl_id + '\'' +
+                ", arr_arl_id='" + arr_arl_id + '\'' +
+                ", dpr_date=" + dpr_date +
+                ", arl_id='" + arl_id + '\'' +
+                ", arl_stt='" + arl_stt + '\'' +
+                ", dpr_tm='" + dpr_tm + '\'' +
+                ", arr_tm='" + arr_tm + '\'' +
+                ", arl_nm='" + arl_nm + '\'' +
+                '}';
     }
 
-    public void setArlReqCd(int arlReqCd) {
-        this.arlReqCd = arlReqCd;
+    public int getArl_req_cd() {
+        return arl_req_cd;
     }
 
-    public String getDprArlId() {
-        return dprArlId;
+    public void setArl_req_cd(int arl_req_cd) {
+        this.arl_req_cd = arl_req_cd;
     }
 
-    public void setDprArlId(String dprArlId) {
-        this.dprArlId = dprArlId;
+    public String getDpr_arl_id() {
+        return dpr_arl_id;
     }
 
-    public String getArrArlId() {
-        return arrArlId;
+    public void setDpr_arl_id(String dpr_arl_id) {
+        this.dpr_arl_id = dpr_arl_id;
     }
 
-    public void setArrArlId(String arrArlId) {
-        this.arrArlId = arrArlId;
+    public String getArr_arl_id() {
+        return arr_arl_id;
     }
 
-    public Date getDprDate() {
-        return dprDate;
+    public void setArr_arl_id(String arr_arl_id) {
+        this.arr_arl_id = arr_arl_id;
     }
 
-    public void setDprDate(Date dprDate) {
-        this.dprDate = dprDate;
+    public Date getDpr_date() {
+        return dpr_date;
     }
 
-    public String getArlId() {
-        return arlId;
+    public void setDpr_date(Date dpr_date) {
+        this.dpr_date = dpr_date;
     }
 
-    public void setArlId(String arlId) {
-        this.arlId = arlId;
+    public String getArl_id() {
+        return arl_id;
     }
 
-    public String getArlStt() {
-        return arlStt;
+    public void setArl_id(String arl_id) {
+        this.arl_id = arl_id;
     }
 
-    public void setArlStt(String arlStt) {
-        this.arlStt = arlStt;
+    public String getArl_stt() {
+        return arl_stt;
     }
 
-    public String getDprTm() {
-        return dprTm;
+    public void setArl_stt(String arl_stt) {
+        this.arl_stt = arl_stt;
     }
 
-    public void setDprTm(String dprTm) {
-        this.dprTm = dprTm;
+    public String getDpr_tm() {
+        return dpr_tm;
     }
 
-    public String getArrTm() {
-        return arrTm;
+    public void setDpr_tm(String dpr_tm) {
+        this.dpr_tm = dpr_tm;
     }
 
-    public void setArrTm(String arrTm) {
-        this.arrTm = arrTm;
+    public String getArr_tm() {
+        return arr_tm;
     }
 
-    public String getArlNm() {
-        return arlNm;
+    public void setArr_tm(String arr_tm) {
+        this.arr_tm = arr_tm;
     }
 
-    public void setArlNm(String arlNm) {
-        this.arlNm = arlNm;
+    public String getArl_nm() {
+        return arl_nm;
+    }
+
+    public void setArl_nm(String arl_nm) {
+        this.arl_nm = arl_nm;
     }
 }
