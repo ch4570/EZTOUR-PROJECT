@@ -5,74 +5,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Join</title>
+  <link rel="stylesheet" href="/css/user/user_join.css">
 
-  <style>
-    .select {
-      padding: 15px 10px;
-    }
-    .select input[type=radio]{
-      display: none;
-    }
-    .select input[type=radio]+label{
-      display: inline-block;
-      cursor: pointer;
-      height: 24px;
-      width: 90px;
-      border: 1px solid #333;
-      line-height: 24px;
-      text-align: center;
-      font-weight:bold;
-      font-size:13px;
-    }
-    .select input[type=radio]+label{
-      background-color: #fff;
-      color: #333;
-    }
-    .select input[type=radio]:checked+label{
-      background-color: #333;
-      color: #fff;
-    }
-
-
-    .input-field{
-      width: 500px;
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 30px;
-      outline: none;
-      border: 1px solid #e5e5e5;
-      border-radius: 2px;
-      padding: 0px 20px;
-      min-height: 50px;
-      margin-bottom: 20px;
-      margin-top: 10px;
-    }
-
-    #man, #woman{
-      width: 265px;
-      height: 40px;
-      line-height: 40px;
-      text-align: center;
-    }
-
-    .login-title {
-      display: flex;
-      justify-content: center;
-      margin-top: 100px;
-      margin-bottom: 30px;
-      font-size: 30px;
-      font-weight: 800;
-    }
-
-    #goback, #submit{
-      width: 120px;
-      height: 30px;
-      margin: 20px 7px;
-      background-color: #333333;
-      color: white;
-    }
-
-  </style>
 </head>
 <body>
 <script>
@@ -92,21 +26,40 @@
         <p style="font-size: 12px; margin-bottom: 20px; color: gray">회원정보는 예약이나 각종 이벤트 참여에 따른 정보 제공에 활용되므로 정확하게 입력해주세요.</p>
         <hr>
       </div>
-    <div>
+    <div class="input-id">
       <label for="">아이디</label><br>
-      <input class="input-field" type="text" name="usr_id" placeholder="8~12자리의 영대소문자와 숫자 조합" oninput="checkId()"><br>
+      <input class="input-field" type="text" name="usr_id" id="usr_id" placeholder="6~12자리의 영문자와 숫자 조합"
+            onkeyup="noSpaceForm(this); moreThanSixId();" onchange="noSpaceForm(this);" style="margin-bottom: 0px;"><br>
+        <p id="moreThan6Id" style="margin-bottom: 20px; padding: 5px 5px; display: none; color: red" >6자이상 입력해주세요.</p>
+        <p id="nonAlterId" style="margin-bottom: 20px; padding: 5px 5px;"> </p>
+
+    </div>
+    <div class="input-pwd">
+      <label for="">비밀번호</label><br>
+      <input class="input-field" type="text" name="pwd" id="pwd1" placeholder="6~12자리의 영대소문자와 숫자 조합"
+             onkeyup="noSpaceForm(this); moreThanSixPwd();" onchange="noSpaceForm(this);" style="margin-bottom: 0px;"><br>
+        <p id="nonAlterPwd1" style="margin-bottom: 20px; padding: 5px 5px;"> </p>
+        <p id="moreThan6Pwd" style="margin-bottom: 20px; padding: 5px 5px; display: none; color: red" >6자이상 입력해주세요.</p>
+    </div>
+    <div class="input-pwd">
+        <label for="">비밀번호 확인</label><br>
+        <input class="input-field" type="text" id="pwd2" placeholder="6~12자리의 영대소문자와 숫자 조합"
+               onkeyup="noSpaceForm(this); checkPwd();" onchange="noSpaceForm(this);" style="margin-bottom: 0px;"><br>
+        <p id="nonAlterPwd2" style="margin-bottom: 20px; padding: 5px 5px;"> </p>
+        <p id="alertPwd" style="margin-bottom: 20px; padding: 5px 5px; display: none; color: red" >비밀번호가 일치하지 않습니다.</p>
+        <p id="okPwd" style="margin-bottom: 20px; padding: 5px 5px; display: none; color: forestgreen" >비밀번호가 일치합니다.</p>
+
+
     </div>
     <div>
-      <lael for="">비밀번호</lael><br>
-      <input class="input-field" type="text" name="pwd" placeholder="8~12자리의 영대소문자와 숫자 조합"><br>
-    </div>
-    <div>
-      <label for="">이름</label><br>
-      <input class="input-field" type="text" name="usr_nm" placeholder="홍길동"><br>
+       <label for="">이름</label><br>
+       <input class="input-field" type="text" name="usr_nm" placeholder="홍길동"
+             onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"><br>
     </div>
     <div>
        <label for="">생년월일</label><br>
-       <input class="input-field" type="text" name="brth" placeholder="20201231"><br>
+       <input class="input-field" type="text" name="brth" placeholder="20201231"
+              onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"><br>
     </div>
     <div>
         <label for="">성별</label><br>
@@ -116,26 +69,81 @@
         </div>
     </div>
     <div>
-    <label for="">이메일</label><br>
-    <input class="input-field" type="text" name="email" placeholder="example@fastcampus.co.kr"><br>
+        <label for="">이메일</label><br>
+        <input class="input-field" type="text" name="email" placeholder="example@fastcampus.co.kr"
+               onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"><br>
     </div>
     <div>
-    <label for="">핸드폰</label><br>
-    <input class="input-field" type="text" name="phn" placeholder="010-0000-0000"><br>
+        <label for="">핸드폰</label><br>
+        <input class="input-field" type="text" name="phn" placeholder="010-0000-0000"
+               onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"><br>
     </div>
     <div style="text-align: center">
-      <input type="button" id="goback" onclick="history.back()" value="취소">
-      <button id="submit">확인</button>
+        <input type="button" id="goback" onclick="history.back()" value="취소">
+        <button id="submit">확인</button>
     </div>
     </div>
   </form>
 </div>
 
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-  function checkId(){
-
-
+  <!-- 공백 사용 방지 -->
+  function noSpaceForm(obj) {
+    var str_space = /\s/;  // 공백체크
+    if (str_space.exec(obj.value)) { //공백 체크
+      obj.focus();
+      obj.value = obj.value.replace(' ', '');
+      return false;
+    }
   }
+
+  function moreThanSixId(){
+    var idLength = $("#usr_id").val().length;
+
+    if(idLength < 6){
+        $("#moreThan6Id").show();
+        $("#nonAlterId").hide();
+        return false;
+    }else{
+        $("#moreThan6Id").hide();
+        $("#nonAlterId").show();
+        return true;
+    }
+  }
+
+  function moreThanSixPwd(){
+      var pwdLength = $("#pwd1").val().length;
+      if(pwdLength < 6){
+          $("#moreThan6Pwd").show();
+          $("#nonAlterPwd1").hide();
+          return false;
+      }else{
+          $("#moreThan6Pwd").hide();
+          $("#nonAlterPwd1").show();
+          return true;
+      }
+  }
+
+  function checkPwd() {
+      var p1 = document.getElementById('pwd1').value;
+      var p2 = document.getElementById('pwd2').value;
+
+      if (p1 != p2) {
+          $("#moreThan6Pwd").hide();
+          $("#alertPwd").show();
+          $("#nonAlterPwd2").hide();
+          $("#okPwd").hide();
+          return false;
+      } else {
+          $("#moreThan6Pwd").hide();
+          $("#alertPwd").hide();
+          $("#nonAlterPwd2").hide();
+          $("#okPwd").show();
+          return true;
+        }
+
+      }
 </script>
 </body>
 </html>

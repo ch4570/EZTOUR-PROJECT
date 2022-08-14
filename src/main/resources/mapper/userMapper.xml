@@ -102,6 +102,16 @@
             usr_id = #{usr_id}
     </select>
 
+    <select id="checkId" parameterType="String" resultType="int">
+        SELECT
+            EXISTS(
 
+
+                   )
+        FROM
+            usr
+        WHERE
+            usr_id LIKE CONCAT('%')
+    </select>
 
 </mapper>
