@@ -10,7 +10,6 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 public class UserDto {
 
     private String usr_id;
@@ -28,6 +27,7 @@ public class UserDto {
     private Date lst_acc_date; // 마지막 접속 일자
     private Date rst_chg_date; // 휴면 전환 일자
     private String cmn_cd_drp; // 탈퇴 사유 코드
+    private boolean id_check; // 아이디 중복 여부
 
     public UserDto(){}
 
@@ -41,17 +41,11 @@ public class UserDto {
         this.phn = phn;
     }
 
-
-    public UserDto(String usr_nm, String email) {
-        this.usr_nm = usr_nm;
-        this.email = email;
-    }
     public UserDto(String usr_id, String usr_nm, String email, String rl) {
             this.usr_id = usr_id;
             this.usr_nm = usr_nm;
             this.email = email;
             this.rl = rl;
-
     }
 
 }

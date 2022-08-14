@@ -9,4 +9,5 @@ public interface ProductDao {
     public int insertProductPrice(Trv_prd_prc_dto trv_prd_prc_dto);
     public int insertProductSchedule(Trv_sch_dto trv_sch_dto);
     public int insertProductImg(Prd_img_dto prd_img_dto);
+    public int insertScheduleImage(Trv_sch_img_dto trv_sch_img_dto);
 }

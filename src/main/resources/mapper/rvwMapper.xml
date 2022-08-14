@@ -12,50 +12,92 @@
     </delete>
 
     <delete id="delete" parameterType="map"> <!-- 후기 삭제-->
-        DELETE FROM rvw WHERE rvw_no = #{rvw_no} and rvw_nm = #{rvw_nm}
+        DELETE FROM rvw WHERE rvw_no = #{rvw_no} and usr_id = #{usr_id}
     </delete>
 
     
-    <select id="insertBefore" resultType="RvwDto"> <!-- 후기 등록 화면 -->
+    <select id="selectUsernmEmailPrdnm" parameterType="String" resultType="RvwDto"> <!-- 후기 등록 화면 -->
         SELECT B.usr_nm,
                B.email,
                C.prd_nm
-        FROm rvw A INNER JOIN usr B ON A.usr_id = B.usr_id
-                   INNER JOIN trv_prd C ON A.prd_cd = C.prd_cd;
+        FROM rvw A INNER JOIN usr B ON A.usr_id = B.usr_id
+                   INNER JOIN trv_prd C ON A.prd_cd = C.prd_cd
+        WHERE B.usr_id = #{usr_id}
     </select>
 
 
     <select id="selectPage" parameterType="map" resultType="RvwDto"> <!-- 후기 리스트 페이지 핸들러-->
-        SELECT A.rvw_ttl,
-               A.rvw_cont,
-               A.wrt_nm,
-               B.mn_img,
-               A.rvw_reg_date,
-               A.rvw_vcnt,
-               A.lk_cnt
-        FROM rvw A INNER JOIN trv_prd B ON A.prd_cd = B.prd_cd
-                   INNER JOIN usr C ON A.usr_id = C.usr_id
-        ORDER BY A.rvw_reg_date DESC, A.rvw_no DESC
-        LIMIT #{offset}, #{pageSize};
+        SELECT A.rvw_no,
+            A.rvw_ttl,
+                A.rvw_cont,
+                A.wrt_nm,
+                B.img_pth,
+                A.rvw_reg_date,
+                A.rvw_vcnt,
+                A.lk_cnt
+        FROM rvw A INNER JOIN prd_img B ON A.prd_cd = B.prd_cd
+        INNER JOIN usr C ON A.usr_id = C.usr_id
+        ORDER BY A.rvw_no DESC
+        LIMIT #{offset}, #{pageSize}
     </select>
 
     <select id="selectAll" resultType="RvwDto"> <!-- 후기 리스트 전체보기 -->
         SELECT A.rvw_ttl,
                A.rvw_cont,
                A.wrt_nm,
-               B.mn_img,
+               B.img_pth,
                A.rvw_reg_date,
                A.rvw_vcnt,
                A.lk_cnt
-        FROM rvw A INNER JOIN trv_prd B ON A.prd_cd = B.prd_cd
+        FROM rvw A INNER JOIN prd_img B ON A.prd_cd = B.prd_cd
                    INNER JOIN usr C ON A.usr_id = C.usr_id
-        ORDER BY A.rvw_reg_date DESC, A.rvw_no DESC;
+        ORDER BY A.rvw_reg_date DESC, A.rvw_no DESC
     </select>
+
+    <update id="increaseViewCnt" parameterType="int">
+        UPDATE rvw
+        SET rvw_vcnt = rvw_vcnt + 1
+        WHERE rvw_no = #{rvw_no}
+    </update>
     
     <insert id="insert" parameterType="RvwDto">
         INSERT INTO rvw
-            (rvw_ttl, rvw_cont)
+            (usr_id, prd_cd, wrt_nm, wrt_email, rvw_ttl, rvw_cont)
+        VALUES
+            (#{usr_id}, #{prd_cd}, #{wrt_nm}, #{wrt_email}, #{rvw_ttl}, #{rvw_cont})
     </insert>
+    
+    <select id="select" parameterType="int" resultType="RvwDto">
+        SELECT A.rvw_no,
+            A.rvw_ttl,
+               A.lk_cnt,
+               A.wrt_nm,
+               A.rvw_reg_date,
+               A.rvw_vcnt,
+               A.rvw_cont,
+               B.img_pth,
+               C.prd_nm
+        FROM rvw A INNER JOIN prd_img B ON A.prd_cd = B.prd_cd
+                   INNER JOIN trv_prd C ON A.prd_cd = C.prd_cd
+        WHERE rvw_no = #{rvw_no};
+    </select>
+
+    <update id="update" parameterType="RvwDto">
+        UPDATE rvw
+        SET rvw_ttl = #{rvw_ttl},
+            rvw_cont = #{rvw_cont},
+            rvw_reg_date = CURRENT_TIMESTAMP
+        WHERE rvw_no = #{rvw_no} and wrt_nm = #{wrt_nm}
+    </update>
+
+    <select id="selectUserEmail" parameterType="String" resultType="RvwDto">
+        SELECT
+            usr_id,
+            usr_nm,
+            email
+        FROM usr
+        WHERE usr_id = #{usr_id}
+    </select>
 
 
 

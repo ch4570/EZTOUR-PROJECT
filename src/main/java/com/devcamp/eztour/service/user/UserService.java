@@ -10,6 +10,8 @@ public interface UserService {
 
     UserDto selectUsr(String usr_id) throws Exception;
 
+    int updateHstForLogin(String usr_id) throws Exception;
+
     @Transactional(rollbackFor = Exception.class)
     int updateUsr(UserDto user) throws Exception;
 
@@ -17,6 +19,8 @@ public interface UserService {
     int deleteUsr(String usr_id, String cmn_cd_drp) throws Exception;
 
     UserDto selectUserEmail(String usr_id) throws Exception;
+
+    int checkId(String usr_id) throws Exception;
 
 
 }

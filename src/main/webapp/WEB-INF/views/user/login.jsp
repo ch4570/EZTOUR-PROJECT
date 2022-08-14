@@ -4,25 +4,59 @@
 <html>
 <head>
     <title>로그인</title>
+    <link rel="stylesheet" href="/css/user/user_login.css">
+
 </head>
 <body>
-<h1> 로그인 테스트 </h1>
+<br/>
+<div class="outer-content">
+    <div class="inner-content">
 <form action="<c:url value="/user/login"/>" method="post" onsubmit="return formCheck(this);">
-    <h3 id="title">Login</h3>
-    <div id="msg">
-        <c:if test="${not empty param.msg}">
-            <i class="fa fa-exclamation-circle"> ${URLDecoder.decode(param.msg)}</i>
-        </c:if>
+    <div class="login__form">
+        <h2 class="login-title" id="loginTitle">로그인</h2>
+        <h2 class="login-title" id="rsvTitle" style="display: none">예약확인</h2>
+
+        <nav class="login-nav">
+            <button  type="button" id="usrBt" onclick="usrLogin()" >회원</button>
+            <button  type="button" id="nonUsrBt" onclick="nonUsrAuth()" >비회원 예약확인</button>
+        </nav>
+
+        <div class="form-inp">
+            <input id="id" type="text" name="usr_id" value="${cookie.id.value}" placeholder="아이디 입력" autofocus>
+            <input id="pwd" type="password" name="pwd" placeholder="비밀번호">
+
+            <div class="panel-box">
+                <span class="remember">
+                    <label><input id="idChk" type="checkbox" name="rememberId" value="on" ${empty cookie.id.value ? "":"checked"}></label> <label>아이디 저장</label>
+                </span>
+                <span>
+                <a href="">아이디 찾기 | 비밀번호 찾기 | </a>
+                    <a href="<c:url value='/user/join'/>" style="font-weight: bolder;">회원가입</a>
+                </span>
+            </div>
+            <button id="loginBtn">로그인</button>
+        </div>
+
+        <div class="form-inp-nonUsr" style="display:none;">
+            <input id="rsvNo" type="text" name="rsvNo" placeholder="예약번호를 입력하세요" autofocus>
+            <input id="rsvName" type="password" name="rsvNm" placeholder="이름을 입력하세요">
+            <div class="phn">
+                <input id="rsvPhone1" type="text" name="phn1" placeholder="010" style="width: 110px;">
+                <input id="rsvPhone2" type="text" name="phn2" placeholder="0000">
+                <input id="rsvPhone3" type="text" name="phn3" placeholder="0000" style="margin-right: 0px;">
+            </div>
+            <button id="rsvBtn">예약확인</button>
+        </div>
+    <%--    <input type="hidden" name="toURL" value="${param.toURL}">--%>
     </div>
-    <input type="text" name="usr_id" value="${cookie.id.value}" placeholder="아이디 입력" autofocus>
-    <input type="password" name="pwd" placeholder="비밀번호">
-<%--    <input type="hidden" name="toURL" value="${param.toURL}">--%>
-    <button>로그인</button>
-    <div>
-        <label><input type="checkbox" name="rememberId" value="on" ${empty cookie.id.value ? "":"checked"}> 아이디 기억</label> |
-        <a href="">비밀번호 찾기</a>
-        <button id="test">회원가입</button>
-    </div>
+</form>
+</div>
+</div>
+
+
+
+    <br/><br/><br/>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script>
         function formCheck(frm) {
             let msg ='';
@@ -42,7 +76,40 @@
                 element.select();
             }
         }
+
+        function nonUsrAuth(){
+            $(".form-inp").hide();
+            $("#loginTitle").hide();
+            $(".form-inp-nonUsr").show();
+            $("#rsvTitle").show();
+            $("#nonUsrBt").css({
+                'border-bottom': '3px solid #333333',
+                'color' : '#333333'
+            });
+
+            $("#usrBt").css({
+                'border-bottom': '3px solid #E6E6E6',
+                'color' : 'gray'
+            });
+        }
+
+        function usrLogin(){
+            $("#rsvTitle").hide();
+            $(".form-inp-nonUsr").hide();
+            $(".form-inp").show();
+            $("#loginTitle").show();
+            $("#usrBt").css({
+                'border-bottom': '3px solid #333333',
+                'color' : '#333333'
+            });
+
+            $("#nonUsrBt").css({
+                'border-bottom': '3px solid #E6E6E6',
+                'color' : 'gray'
+            });
+
+        }
+
     </script>
-</form>
 </body>
 </html>

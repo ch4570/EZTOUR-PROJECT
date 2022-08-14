@@ -36,4 +36,9 @@ public class ProductServiceImpl implements ProductService{
     public int insertProductImg(Prd_img_dto prd_img_dto) {
         return productDao.insertProductImg(prd_img_dto);
     }
+
+    @Override
+    public int insertScheduleImage(Trv_sch_img_dto trv_sch_img_dto) {
+        return productDao.insertScheduleImage(trv_sch_img_dto);
+    }
 }

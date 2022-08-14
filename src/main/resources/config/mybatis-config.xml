@@ -3,10 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-<!--    <settings>-->
-<!--        <setting name="mapUnderscoreToCamelCase" value="true"/>-->
-<!--    </settings>-->
-
     <typeAliases>
         <!--선경님 시작-->
         <typeAlias alias="UserDto" type="com.devcamp.eztour.domain.user.UserDto"/>
@@ -25,7 +21,7 @@
         <typeAlias alias="Trv_prd_dtl_dto" type="com.devcamp.eztour.domain.product.Trv_prd_dtl_dto"/>
         <typeAlias alias="Trv_prd_dto" type="com.devcamp.eztour.domain.product.Trv_prd_dto"/>
         <typeAlias alias="Trv_prd_prc_dto" type="com.devcamp.eztour.domain.product.Trv_prd_prc_dto"/>
-
+        <typeAlias alias="Trv_sch_img_dto" type="com.devcamp.eztour.domain.product.Trv_sch_img_dto"/>
         <!-- 서창희 끝 -->
 
         <!-- 혜경님 시작 -->
