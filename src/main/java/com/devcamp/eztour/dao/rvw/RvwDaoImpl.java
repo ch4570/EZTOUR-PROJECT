@@ -1,6 +1,7 @@
 package com.devcamp.eztour.dao.rvw;
 
 import com.devcamp.eztour.domain.rvw.RvwDto;
+import com.devcamp.eztour.domain.rvw.SearchCondition;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -73,6 +74,16 @@ public class RvwDaoImpl implements RvwDao {
     @Override
     public List<RvwDto> selectUsernmEmailPrdnm(String usr_id) throws Exception {
         return session.selectList(namespace + "selectUsernmEmailPrdnm", usr_id);
+    }
+
+    @Override
+    public List<RvwDto> searchSelectPage(SearchCondition sc) throws Exception {
+        return session.selectList(namespace + "searchSelectPage", sc);
+    }
+
+    @Override
+    public int searchResultCnt(SearchCondition sc) throws Exception {
+        return session.selectOne(namespace + "searchResultCnt", sc);
     }
 
 
