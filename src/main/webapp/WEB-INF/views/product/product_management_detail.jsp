@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="<c:url value='/css/product/product_management_style.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/product/product_management_detail_style.css'/>">
 </head>
 <body>
 <div class="wrap">
@@ -43,24 +43,25 @@
             </div>
             <div class="board">
                 <div class="board_title">
-                    <span>상품코드</span> <span>테마코드</span> <span>상품이름</span> <span>시작가격</span> <span>등록일</span>
+                    <span>상품상세코드</span> <span>상품코드</span> <span>항공사이름</span> <span>시작가격</span> <span>출발일자</span>
                 </div>
-                <c:forEach var="prd_list" items="${prd_list}">
+                <c:forEach var="list" items="${prd_dtl_list}">
                     <div class="board_content">
                         <div class="board_content_detail">
-                            <div><span>${prd_list.prd_cd}</span></div> <div><span>${prd_list.cmn_cd_thm}</span></div>
-                            <div><a href="<c:url value='/product/read?prd_cd=${prd_list.prd_cd}'/>"><span>${prd_list.prd_nm}</span></a></div>
-                            <div><span><fmt:formatNumber value="${prd_list.prd_str_prc}" pattern="#,##0"/></span></div>
-                            <div><span><fmt:formatDate value="${prd_list.frs_reg_date}" pattern="yyyy-MM-dd"/></span></div>
+                            <div><span>${list.prd_dtl_cd}</span></div> <div><span>${list.prd_cd}</span></div>
+                            <div><a href="<c:url value='/product/detail/read?prd_dtl_cd=${list.prd_dtl_cd}'/>"><span>${list.arl_nm}</span></a></div>
+                            <div><span><fmt:formatNumber value="${list.prd_str_prc}" pattern="#,##0"/></span></div>
+                            <fmt:parseDate value="${list.dpr_date}" var="dpr_date" pattern="yyyy-MM-dd"/>
+                            <div><span><fmt:formatDate value="${dpr_date}" pattern="yyyy-MM-dd"/></span></div>
                         </div>
                     </div>
                 </c:forEach>
                 <div class="search_option_form">
-                    <form action="<c:url value='/product/management'/>">
+                    <form action="<c:url value='/product/management/detail'/>">
                         <select name="search_option" id="search_option">
                             <option value="" selected>검색옵션</option>
+                            <option value="prd_dtl_cd">상품상세코드</option>
                             <option value="prd_cd">상품코드</option>
-                            <option value="prd_nm" >상품이름</option>
                         </select>
                         <input type="text" name="search_keyword" placeholder="검색어" id="search_keyword">
                         <input type="submit" id="search_btn" value="검색">
@@ -68,13 +69,13 @@
                 </div>
                 <div class="paging_list">
                     <c:if test="${paging.preView eq 'true'}">
-                        <a href="<c:url value="/product/management?page=${paging.beginPage-1}&search_keyword=${paging.search_keyword}&search_option=${paging.search_option}"/>"><span>&lt;</span></a>
+                        <a href="<c:url value="/product/management/detail?page=${paging.beginPage-1}&search_keyword=${paging.search_keyword}&search_option=${paging.search_option}"/>"><span>&lt;</span></a>
                     </c:if>
                     <c:forEach var="i" begin="${paging.beginPage}" end="${paging.endPage}">
-                        <a href="<c:url value='/product/management?page=${i}&search_keyword=${paging.search_keyword}&search_option=${paging.search_option}'/>"><span>${i}</span></a>
+                        <a href="<c:url value='/product/management/detail?page=${i}&search_keyword=${paging.search_keyword}&search_option=${paging.search_option}'/>"><span>${i}</span></a>
                     </c:forEach>
                     <c:if test="${paging.nextView eq 'true'}">
-                        <a href="<c:url value="/product/management?page=${paging.endPage+1}&search_keyword=${paging.search_keyword}&search_option=${paging.search_option}"/>"><span>&gt;</span></a>
+                        <a href="<c:url value="/product/management/detail?page=${paging.endPage+1}&search_keyword=${paging.search_keyword}&search_option=${paging.search_option}"/>"><span>&gt;</span></a>
                     </c:if>
                 </div>
             </div>

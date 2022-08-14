@@ -20,7 +20,7 @@ import java.util.UUID;
 
 
 @Controller
-public class ProductController {
+public class AdminController {
 
     @Autowired
     ProductService productService;
@@ -301,6 +301,33 @@ public class ProductController {
         }else{
             return "fail";
         }
+    }
 
+    @GetMapping("/product/management/detail")
+    public String productManagementDetail(HttpSession session, Model model, @RequestParam(value = "page",defaultValue = "1") int page
+            ,String search_option,String search_keyword){
+        String id = (String)session.getAttribute("usr_id");
+        if(id==null || !id.equals("admin")){
+            return "redirect:/";
+        }else{
+            if(search_option==null || search_option==""){
+                int totalCnt = productService.selectProductAdminDetailCnt();
+                PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page);
+                List<TrvPrdDtlDto> prdDetailList = productService.selectProductAdminDetail(paging);
+                model.addAttribute("prd_dtl_list",prdDetailList);
+                model.addAttribute("paging",paging);
+                return "product/product_management_detail.tiles";
+            }else{
+                PageHandlerProduct option = new PageHandlerProduct(search_option,search_keyword);
+                int totalCnt = productService.searchSelectProductAdminDetailCnt(option);
+                System.out.println(totalCnt);
+                PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page,search_option,search_keyword);
+                List<TrvPrdDtlDto> prdDetailList = productService.searchSelectProductAdminDetail(paging);
+                model.addAttribute("prd_dtl_list",prdDetailList);
+                model.addAttribute("paging",paging);
+                return "product/product_management_detail.tiles";
+            }
+
+        }
     }
 }

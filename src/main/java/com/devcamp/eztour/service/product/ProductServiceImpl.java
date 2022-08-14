@@ -77,4 +77,24 @@ public class ProductServiceImpl implements ProductService{
     public int deleteProduct(String prd_cd) {
         return productDao.deleteProduct(prd_cd);
     }
+
+    @Override
+    public List<TrvPrdDtlDto> selectProductAdminDetail(PageHandlerProduct pageHandlerProduct) {
+        return productDao.selectProductAdminDetail(pageHandlerProduct);
+    }
+
+    @Override
+    public int selectProductAdminDetailCnt() {
+        return productDao.selectProductAdminDetailCnt();
+    }
+
+    @Override
+    public int searchSelectProductAdminDetailCnt(PageHandlerProduct pageHandlerProduct) {
+        return productDao.searchSelectProductAdminDetailCnt(pageHandlerProduct);
+    }
+
+    @Override
+    public List<TrvPrdDtlDto> searchSelectProductAdminDetail(PageHandlerProduct pageHandlerProduct) {
+        return productDao.searchSelectProductAdminDetail(pageHandlerProduct);
+    }
 }

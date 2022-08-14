@@ -79,4 +79,24 @@ public class ProductDaoImpl implements ProductDao{
     public int deleteProduct(String prd_cd) {
         return session.delete(namespace+"deleteProduct",prd_cd);
     }
+
+    @Override
+    public List<TrvPrdDtlDto> selectProductAdminDetail(PageHandlerProduct pageHandlerProduct) {
+        return session.selectList(namespace+"selectProductAdminDetail",pageHandlerProduct);
+    }
+
+    @Override
+    public int selectProductAdminDetailCnt() {
+        return session.selectOne(namespace+"selectProductAdminDetailCnt");
+    }
+
+    @Override
+    public int searchSelectProductAdminDetailCnt(PageHandlerProduct pageHandlerProduct) {
+        return session.selectOne(namespace+"searchSelectProductAdminDetailCnt",pageHandlerProduct);
+    }
+
+    @Override
+    public List<TrvPrdDtlDto> searchSelectProductAdminDetail(PageHandlerProduct pageHandlerProduct) {
+        return session.selectList(namespace+"searchSelectProductAdminDetail",pageHandlerProduct);
+    }
 }
