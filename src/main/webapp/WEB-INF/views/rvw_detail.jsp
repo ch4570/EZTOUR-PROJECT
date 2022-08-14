@@ -36,7 +36,6 @@
         <input type="text" name="rvw_cont" value="${rvwDto.rvw_cont}" readonly="readonly">
         <input type="text" name="img_pth" value="${rvwDto.img_pth}" readonly="readonly">
         <input type="text" name="prd_nm" value="${rvwDto.prd_nm}" readonly="readonly">
-        <button type="button" id="writeBtn" class="btn">등록</button>
         <button type="button" id="modifyBtn" class="btn">수정</button>
         <button type="button" id="removeBtn" class="btn">삭제</button>
         <button type="button" id="listBtn" class="btn">목록</button>
@@ -55,12 +54,8 @@
             form.attr("method", "post");
             form.submit();
         });
-
-        $('#writeBtn').on("click", function(){
-            let form = $('#form');
-            form.attr("action", "<c:url value='/review/write'/>");
-            form.attr("method", "post");
-            form.submit();
+        $('#modifyBtn').on("click", function(){
+            location.href = "<c:url value='/review/modify'/>";
         });
     });
 </script>

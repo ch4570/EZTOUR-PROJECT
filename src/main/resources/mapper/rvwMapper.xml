@@ -87,7 +87,7 @@
         SET rvw_ttl = #{rvw_ttl},
             rvw_cont = #{rvw_cont},
             rvw_reg_date = CURRENT_TIMESTAMP
-        WHERE rvw_no = #{rvw_no}
+        WHERE rvw_no = #{rvw_no} and wrt_nm = #{wrt_nm}
     </update>
 
     <select id="selectUserEmail" parameterType="String" resultType="RvwDto">

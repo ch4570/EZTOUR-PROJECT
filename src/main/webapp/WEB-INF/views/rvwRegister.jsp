@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <title>fastcampus</title>
     <link rel="stylesheet" href="<c:url value='/css/rvw/menu.css'/>">
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 </head>
 <body>
@@ -23,20 +24,45 @@
         <li><a href=""><i class="fa fa-search"></i></a></li>
     </ul>
 </div>
+<script>
+    let msg="${msg}";
+    if(msg=="WRT_ERR") alert("게시물 등록에 실패했습니다. 다시 시도해주세요.")
+</script>
 <div style="text-align:center">
     <h1>This is HOME</h1>
     <h1>This is HOME</h1>
     <h1>This is HOME</h1>
 </div>
-<form action="<c:url value='/review/write'/>" method="post">
-    <input type="hidden" name="usr_id" value="${rvwDto.usr_id}" readonly="readonly">
-    <input type="hidden" name="prd_cd" value="${rvwDto.prd_cd}" readonly="readonly">
-    <input type="text" name="wrt_nm" value="${rvwDto.wrt_nm}" readonly="readonly"><br>
-    <input type="text" name="wrt_email" value="${rvwDto.wrt_email}" readonly="readonly"><br>
-    <input type="text" name="trv_nm" value="프랑스 패키지" readonly="readonly"><br>
-    <input type="text" name="rvw_ttl" value="${rvwDto.rvw_ttl}" placeholder="리뷰 제목"><br>
-    <input type="text" name="rvw_cont" value="${rvwDto.rvw_cont}" placeholder="리뷰 내용"><br>
-    <input type="submit" value="등록">
-</form>
+<div style="text-align:center">
+    <h2> 후기글 등록 or 후기글 수정 </h2>
+    <form action="" id="form">
+        <input type="hidden" name="rvw_no" value="${rvwDto.rvw_no}" readonly="readonly">
+        <input type="hidden" name="usr_id" value="${rvwDto.usr_id}" readonly="readonly">
+        <input type="hidden" name="prd_cd" value="${rvwDto.prd_cd}" readonly="readonly">
+        <input type="text" name="wrt_nm" value="${rvwDto.wrt_nm}" readonly="readonly"><br>
+        <input type="text" name="wrt_email" value="${rvwDto.wrt_email}" readonly="readonly"><br>
+        <input type="text" name="trv_nm" value="프랑스 패키지" readonly="readonly"><br>
+        <input type="text" name="rvw_ttl" value="${rvwDto.rvw_ttl}" placeholder="리뷰 제목"><br>
+        <input type="text" name="rvw_cont" value="${rvwDto.rvw_cont}" placeholder="리뷰 내용"><br>
+        <button type="button" id="writeBtn" class="btn">등록</button>
+        <button type="button" id="modifyBtn" class="btn">수정</button>
+    </form>
+</div>
+<script>
+    $(document).ready(function (){
+        $('#writeBtn').on("click", function(){
+            let form = $('#form');
+            form.attr("action", "<c:url value='/review/write'/>");
+            form.attr("method", "post");
+            form.submit();
+        });
+        $('#modifyBtn').on("click", function(){
+            let form = $('#form');
+            form.attr("action", "<c:url value='/review/modify'/>");
+            form.attr("method", "post");
+            form.submit();
+        });
+    });
+</script>
 </body>
 </html>

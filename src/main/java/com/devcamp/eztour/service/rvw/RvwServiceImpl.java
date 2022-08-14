@@ -63,4 +63,9 @@ public class RvwServiceImpl implements RvwService {
         return rvwDao.selectUserEmail(usr_id);
     }
 
+    @Override
+    public List<RvwDto> selectUsernmEmailPrdnm(String usr_id) throws Exception {
+        return rvwDao.selectUsernmEmailPrdnm(usr_id);
+    }
+
 }

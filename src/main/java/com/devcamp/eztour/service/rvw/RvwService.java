@@ -25,4 +25,6 @@ public interface RvwService {
     int insert(RvwDto rvwDto) throws Exception;
 
     RvwDto selectUserEmail(String usr_id) throws Exception;
+
+    List<RvwDto> selectUsernmEmailPrdnm(String usr_id) throws Exception;
 }

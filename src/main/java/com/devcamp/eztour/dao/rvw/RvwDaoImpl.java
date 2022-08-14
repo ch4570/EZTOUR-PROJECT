@@ -35,11 +35,6 @@ public class RvwDaoImpl implements RvwDao {
     }
 
     @Override
-    public RvwDto selectUsernmEmailPrdnm(String usr_id) throws Exception {
-        return session.selectOne(namespace + "selectUsernmEmailPrdnm", usr_id);
-    }
-
-    @Override
     public List<RvwDto> selectPage(Map map) throws Exception {
         return session.selectList(namespace + "selectPage", map);
     }
@@ -73,6 +68,11 @@ public class RvwDaoImpl implements RvwDao {
     @Override
     public RvwDto selectUserEmail(String usr_id) throws Exception {
         return session.selectOne(namespace + "selectUserEmail", usr_id);
+    }
+
+    @Override
+    public List<RvwDto> selectUsernmEmailPrdnm(String usr_id) throws Exception {
+        return session.selectList(namespace + "selectUsernmEmailPrdnm", usr_id);
     }
 
 

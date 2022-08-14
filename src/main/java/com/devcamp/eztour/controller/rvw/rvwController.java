@@ -101,16 +101,15 @@ public class rvwController {
     }
 
 
-
-
     @GetMapping("/write")
-    public String saveReview(HttpServletRequest request, Model m) throws Exception{
+    public String write(HttpServletRequest request, Model m) throws Exception{
         //비회원일 때 작성하기 버튼 클릭하면 접근 못하게 조건문 추가해야함.
 //        HttpSession session = request.getSession();
 //        UserDto userDto = userService.selectUserEmail("to9251");
 //        System.out.println(userDto);
 //        m.addAttribute("userDto",userDto);
         RvwDto rvwDto = rvwService.selectUserEmail("to9251");
+        rvwDto.setPrd_cd("a001");
         rvwDto.setWrt_nm(rvwDto.getUsr_nm());
         rvwDto.setWrt_email(rvwDto.getEmail());
         System.out.println(rvwDto);
@@ -119,23 +118,57 @@ public class rvwController {
     }
 
     @PostMapping("/write")
-    public String saveReview(HttpSession session, Model m) throws Exception {
-//        String usr_id = (String) session.getAttribute("id");
-        String usr_id = "to9251";
-        String prd_cd = "it";
-        RvwDto rvwDto = rvwService.selectUserEmail(usr_id);
-        rvwDto.setPrd_cd(prd_cd);
-        rvwDto.setWrt_nm(rvwDto.getUsr_nm());
-        rvwDto.setWrt_email(rvwDto.getEmail());
+    public String write(RvwDto rvwDto, HttpSession session, Model m, RedirectAttributes rattr) {
+        try {
+            int rowCnt = rvwService.write(rvwDto);
 
-        int rowCnt = rvwService.write(rvwDto);
+            if(rowCnt!=1)
+                throw new Exception("Write failed");
 
-        System.out.println("rvwDto = " + rvwDto);
+            rattr.addFlashAttribute("msg","WRT_OK");
 
-
-
-        return "redirect:/review/list";
+            return "redirect:/review/list";
+        } catch (Exception e) {
+            e.printStackTrace();
+            m.addAttribute("rvwDto", rvwDto);
+            rattr.addFlashAttribute("msg", "WRT_ERR");
+            return "rvwRegister";
+        }
     }
 
+    @GetMapping("/modify")
+    public String modify(HttpServletRequest request, Model m) throws Exception{
+        //비회원일 때 작성하기 버튼 클릭하면 접근 못하게 조건문 추가해야함.
+//        HttpSession session = request.getSession();
+//        UserDto userDto = userService.selectUserEmail("to9251");
+//        System.out.println(userDto);
+//        m.addAttribute("userDto",userDto);
+        RvwDto rvwDto = rvwService.selectUserEmail("to9251");
+        rvwDto.setRvw_no(121);
+        rvwDto.setPrd_cd("a001");
+        rvwDto.setWrt_nm(rvwDto.getUsr_nm());
+        rvwDto.setWrt_email(rvwDto.getEmail());
+        System.out.println(rvwDto);
+        m.addAttribute("rvwDto",rvwDto);
+        return "rvwRegister";
+    }
 
+    @PostMapping("/modify")
+    public String modify(RvwDto rvwDto, HttpSession session, Model m, RedirectAttributes rattr) {
+        try {
+            int rowCnt = rvwService.modify(rvwDto);
+
+            if(rowCnt!=1)
+                throw new Exception("Modify failed");
+
+            rattr.addFlashAttribute("msg","MOD_OK");
+
+            return "redirect:/review/list";
+        } catch (Exception e) {
+            e.printStackTrace();
+            m.addAttribute("rvwDto", rvwDto);
+            rattr.addFlashAttribute("msg", "MOD_ERR");
+            return "rvwRegister";
+        }
+    }
 }
