@@ -21,7 +21,7 @@ public interface UserDao {
 
     int deleteUsrHst(String usr_id, String cmn_cd_drp) throws Exception;
 
-    UserDto selectUserEmail(String usr_id)throws Exception;
+    UserDto selectUserEmail(String usr_id) throws Exception;
 
     int checkId(String usr_id)throws Exception;
 
