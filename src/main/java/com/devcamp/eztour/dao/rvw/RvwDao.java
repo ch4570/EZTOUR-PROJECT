@@ -1,6 +1,7 @@
 package com.devcamp.eztour.dao.rvw;
 
 import com.devcamp.eztour.domain.rvw.RvwDto;
+import com.devcamp.eztour.domain.rvw.SearchCondition;
 
 import java.util.List;
 import java.util.Map;
@@ -28,4 +29,8 @@ public interface RvwDao {
     RvwDto selectUserEmail(String usr_id) throws Exception;
 
     List<RvwDto> selectUsernmEmailPrdnm(String usr_id) throws Exception;
+
+    List<RvwDto> searchSelectPage(SearchCondition sc) throws Exception;
+
+    int searchResultCnt(SearchCondition sc) throws Exception;
 }

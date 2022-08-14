@@ -99,6 +99,32 @@
         WHERE usr_id = #{usr_id}
     </select>
 
+    <select id="searchSelectPage" parameterType="SearchCondition" resultType="RvwDto">
+        SELECT A.rvw_no,
+               A.rvw_ttl,
+               A.rvw_cont,
+               A.wrt_nm,
+               B.img_pth,
+               A.rvw_reg_date,
+               A.rvw_vcnt,
+               A.lk_cnt
+        FROM rvw A INNER JOIN prd_img B ON A.prd_cd = B.prd_cd
+                   INNER JOIN usr C ON A.usr_id = C.usr_id
+        WHERE true
+        AND A.rvw_ttl LIKE concat('%', #{keyword}, '%')
+        ORDER BY A.rvw_no DESC
+            LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
+        SELECT count(*)
+        FROM rvw A INNER JOIN prd_img B ON A.prd_cd = B.prd_cd
+                   INNER JOIN usr C ON A.usr_id = C.usr_id
+        WHERE true
+          AND A.rvw_ttl LIKE concat('%', #{keyword}, '%')
+        ORDER BY A.rvw_no DESC
+            LIMIT #{offset}, #{pageSize}
+    </select>
 
 
 </mapper>

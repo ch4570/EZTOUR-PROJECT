@@ -3,6 +3,7 @@ package com.devcamp.eztour.controller.rvw;
 
 import com.devcamp.eztour.domain.rvw.PageHandler;
 import com.devcamp.eztour.domain.rvw.RvwDto;
+import com.devcamp.eztour.domain.rvw.SearchCondition;
 import com.devcamp.eztour.domain.user.UserDto;
 import com.devcamp.eztour.service.rvw.RvwService;
 import com.devcamp.eztour.service.user.UserService;
@@ -58,28 +59,24 @@ public class rvwController {
     }
 
     @GetMapping("/list")
-    public String list(Integer page, Integer pageSize, Model m) {
+    public String list(SearchCondition sc, Model m) {
 
-        if(page == null) page = 1;
-        if(pageSize == null) pageSize = 10;
 
         try {
 
-            int totalCnt = rvwService.getCount();
+            int totalCnt = rvwService.getSearchResultCnt(sc);
+            System.out.println("totalCnt = " + totalCnt);
+            m.addAttribute("totalCnt", totalCnt);
 
-            PageHandler pageHandler = new PageHandler(page, pageSize, totalCnt);
+            PageHandler pageHandler = new PageHandler(totalCnt, sc);
 
-            Map map = new HashMap();
-            map.put("offset", (page-1)*pageSize);
-            map.put("pageSize", pageSize);
+            List<RvwDto> list = rvwService.getSearchResultPage(sc);
 
-            List<RvwDto> list = rvwService.getPage(map);
+
 
             m.addAttribute("list", list);
-            m.addAttribute("totalCnt", totalCnt);
             m.addAttribute("ph", pageHandler);
-            m.addAttribute("page", page);
-            m.addAttribute("pageSize", pageSize);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -171,4 +168,8 @@ public class rvwController {
             return "rvwRegister";
         }
     }
+
+
+
+
 }

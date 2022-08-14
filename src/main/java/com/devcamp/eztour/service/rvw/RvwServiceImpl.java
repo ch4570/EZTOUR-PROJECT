@@ -2,6 +2,7 @@ package com.devcamp.eztour.service.rvw;
 
 import com.devcamp.eztour.dao.rvw.RvwDao;
 import com.devcamp.eztour.domain.rvw.RvwDto;
+import com.devcamp.eztour.domain.rvw.SearchCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,6 +67,16 @@ public class RvwServiceImpl implements RvwService {
     @Override
     public List<RvwDto> selectUsernmEmailPrdnm(String usr_id) throws Exception {
         return rvwDao.selectUsernmEmailPrdnm(usr_id);
+    }
+
+    @Override
+    public List<RvwDto> getSearchResultPage(SearchCondition sc) throws Exception {
+        return rvwDao.searchSelectPage(sc);
+    }
+
+    @Override
+    public int getSearchResultCnt(SearchCondition sc) throws Exception {
+        return rvwDao.searchResultCnt(sc);
     }
 
 }
