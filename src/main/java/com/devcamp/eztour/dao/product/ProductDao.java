@@ -2,12 +2,20 @@ package com.devcamp.eztour.dao.product;
 
 import com.devcamp.eztour.domain.product.*;
 
+import java.util.List;
+
 public interface ProductDao {
 
-    public int insertProduct(Trv_prd_dto trv_prd_dto);
-    public int insertProductDetail(Trv_prd_dtl_dto trv_prd_dtl_dto);
-    public int insertProductPrice(Trv_prd_prc_dto trv_prd_prc_dto);
-    public int insertProductSchedule(Trv_sch_dto trv_sch_dto);
-    public int insertProductImg(Prd_img_dto prd_img_dto);
-    public int insertScheduleImage(Trv_sch_img_dto trv_sch_img_dto);
+    public int insertProduct(TrvPrdWriteDto trvPrdWriteDto);
+    public int insertProductDetail(TrvPrdDtlDto trv_prdDtlDto);
+    public int insertProductPrice(TrvPrdPrcDto trv_prdPrcDto);
+    public int insertProductSchedule(TrvSchDto trv_schDto);
+    public int insertProductImg(PrdImgDto prd_imgDto);
+    public int insertScheduleImage(TrvSchImgDto trv_schImgDto);
+    public List<TrvPrdReadDto> selectProductAdmin(PageHandlerProduct pageHandlerProduct);
+    public int selectProductAdminCnt();
+    public List<TrvPrdReadDto> searchSelectProductAdmin(PageHandlerProduct pageHandlerProduct);
+    public int searchSelectProductAdminCnt(PageHandlerProduct pageHandlerProduct);
+    public TrvPrdReadDto selectProduct(String prd_cd);
+    public int updateProduct(TrvPrdWriteDto trvPrdWriteDto);
 }

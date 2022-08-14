@@ -29,7 +29,7 @@ public class PageHandler {
 
     @Override
     public String toString() {
-        return "PageHandler{" +
+        return "PageHandlerProduct{" +
                 "page=" + page +
                 ", pageSize=" + pageSize +
                 ", totalCnt=" + totalCnt +

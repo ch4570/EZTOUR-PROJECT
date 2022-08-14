@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -23,7 +24,7 @@
                 </ul>
                 <ul>
                     <li class="prd_tlt">상품 등록 현황 관리</li>
-                    <li class="menu_list">상품 관리</li>
+                    <a href="<c:url value='/product/management'/>"><li class="menu_list">상품 관리</li></a>
                     <li class="menu_list">상품 상세 관리</li>
                     <li class="menu_list">상품 이미지 관리</li>
                     <li class="menu_list">상품 일정 관리</li>
@@ -44,8 +45,8 @@
                 <h1>관광지 사진 등록</h1>
                 <div class="prd_sch_img_input_form">
                     <form action="<c:url value='/product/schedule/image/insert'/>" method="post" enctype="multipart/form-data" id="image_upload">
-                        <input type="text" name="sch_no" placeholder="일정 번호 입력" class="input_prd"><br>
-                        <input type="text" name="prd_cd" placeholder="상품 번호 입력" class="input_prd"><br>
+                        일정 번호 입력&nbsp;<br><input type="text" name="sch_no" placeholder="일정 번호 입력" class="input_prd"><br>
+                        상품 번호 입력&nbsp;<br><input type="text" name="prd_cd" placeholder="상품 번호 입력" class="input_prd"><br>
                         <input type="file" name="prd_img" id="prd_img1" class="input_prd"><br>
                         <div class="preview-img">
                             <img src="" id="product_img1" width="500px" height="300px">

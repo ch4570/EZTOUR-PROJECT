@@ -5,40 +5,71 @@ import com.devcamp.eztour.domain.product.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductServiceImpl implements ProductService{
 
     @Autowired
     ProductDao productDao;
 
-
     @Override
-    public int insertProduct(Trv_prd_dto trv_prd_dto) {
-        return productDao.insertProduct(trv_prd_dto);
+    public int insertProduct(TrvPrdWriteDto trvPrdWriteDto) {
+        return productDao.insertProduct(trvPrdWriteDto);
     }
 
     @Override
-    public int insertProductDetail(Trv_prd_dtl_dto trv_prd_dtl_dto) {
-        return productDao.insertProductDetail(trv_prd_dtl_dto);
+    public int insertProductDetail(TrvPrdDtlDto trv_prdDtlDto) {
+        return productDao.insertProductDetail(trv_prdDtlDto);
     }
 
     @Override
-    public int insertProductPrice(Trv_prd_prc_dto trv_prd_prc_dto) {
-        return productDao.insertProductPrice(trv_prd_prc_dto);
+    public int insertProductPrice(TrvPrdPrcDto trv_prdPrcDto) {
+        return productDao.insertProductPrice(trv_prdPrcDto);
     }
 
     @Override
-    public int insertProductSchedule(Trv_sch_dto trv_sch_dto) {
-        return productDao.insertProductSchedule(trv_sch_dto);
+    public int insertProductSchedule(TrvSchDto trv_schDto) {
+        return productDao.insertProductSchedule(trv_schDto);
     }
 
     @Override
-    public int insertProductImg(Prd_img_dto prd_img_dto) {
-        return productDao.insertProductImg(prd_img_dto);
+    public int insertProductImg(PrdImgDto prd_imgDto) {
+        return productDao.insertProductImg(prd_imgDto);
     }
 
     @Override
-    public int insertScheduleImage(Trv_sch_img_dto trv_sch_img_dto) {
-        return productDao.insertScheduleImage(trv_sch_img_dto);
+    public int insertScheduleImage(TrvSchImgDto trv_schImgDto) {
+        return productDao.insertScheduleImage(trv_schImgDto);
+    }
+
+    @Override
+    public List<TrvPrdReadDto> selectProductAdmin(PageHandlerProduct pageHandlerProduct) {
+        return productDao.selectProductAdmin(pageHandlerProduct);
+    }
+
+    @Override
+    public int selectProductAdminCnt() {
+        return productDao.selectProductAdminCnt();
+    }
+
+    @Override
+    public List<TrvPrdReadDto> searchSelectProductAdmin(PageHandlerProduct pageHandlerProduct) {
+        return productDao.searchSelectProductAdmin(pageHandlerProduct);
+    }
+
+    @Override
+    public int searchSelectProductAdminCnt(PageHandlerProduct pageHandlerProduct) {
+        return productDao.searchSelectProductAdminCnt(pageHandlerProduct);
+    }
+
+    @Override
+    public TrvPrdReadDto selectProduct(String prd_cd) {
+        return productDao.selectProduct(prd_cd);
+    }
+
+    @Override
+    public int updateProduct(TrvPrdWriteDto trvPrdWriteDto) {
+        return productDao.updateProduct(trvPrdWriteDto);
     }
 }

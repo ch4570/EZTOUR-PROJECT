@@ -1,6 +1,6 @@
 //package com.devcamp.eztour.domain.rvw;
 //
-//import com.devcamp.eztour.domain.reserv.PageHandler;
+//import com.devcamp.eztour.domain.reserv.PageHandlerProduct;
 //import org.junit.Test;
 //import org.junit.runner.RunWith;
 //import org.springframework.test.context.ContextConfiguration;
@@ -13,7 +13,7 @@
 //public class PageHandlerTest {
 //    @Test
 //    public void test() {
-//        PageHandler ph = new PageHandler(250, 1);
+//        PageHandlerProduct ph = new PageHandlerProduct(250, 1);
 //        ph.print();
 //        System.out.println("ph = " + ph);
 //        assertTrue(ph.getBeginPage() ==1);
@@ -22,7 +22,7 @@
 //
 //    @Test
 //    public void test2() {
-//        PageHandler ph = new PageHandler(250, 6);
+//        PageHandlerProduct ph = new PageHandlerProduct(250, 6);
 //        ph.print();
 //        System.out.println("ph = " + ph);
 //        assertTrue(ph.getBeginPage() ==6);
@@ -31,7 +31,7 @@
 //
 //    @Test
 //    public void test3() {
-//        PageHandler ph = new PageHandler(255, 25);
+//        PageHandlerProduct ph = new PageHandlerProduct(255, 25);
 //        ph.print();
 //        System.out.println("ph = " + ph);
 //        assertTrue(ph.getBeginPage() ==26);

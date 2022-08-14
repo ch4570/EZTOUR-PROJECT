@@ -9,18 +9,16 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class Prd_img_dto {
-    int			prd_img_no;
-    String		prd_cd;
-    String		img_pth;
-    boolean	    mn_img_yn;
+public class PrdPcrDto {
+    int 		prd_prc_no;
+    String		prd_dtl_cd;
+    int			adt_prc;
+    int			chd_prc;
+    int			bb_prc;
     Date        frs_reg_date;
     String		frs_rgs_no;
     Date		fnl_mod_date;
     String		fnl_mod_no;
 
-    public Prd_img_dto(String prd_dtl_cd, String img_path) {
-        this.prd_cd = prd_dtl_cd;
-        this.img_pth = img_path;
-    }
+
 }

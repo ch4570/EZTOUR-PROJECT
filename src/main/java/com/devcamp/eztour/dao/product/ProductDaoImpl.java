@@ -5,6 +5,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class ProductDaoImpl implements ProductDao{
 
@@ -14,32 +16,62 @@ public class ProductDaoImpl implements ProductDao{
     private String namespace = "com.devcamp.eztour.dao.productMapper.";
 
     @Override
-    public int insertProduct(Trv_prd_dto trv_prd_dto) {
-        return session.insert(namespace+"insertProduct",trv_prd_dto);
+    public int insertProduct(TrvPrdWriteDto trvPrdWriteDto) {
+        return session.insert(namespace+"insertProduct", trvPrdWriteDto);
     }
 
     @Override
-    public int insertProductDetail(Trv_prd_dtl_dto trv_prd_dtl_dto) {
-        return session.insert(namespace+"insertProductDetail",trv_prd_dtl_dto);
+    public int insertProductDetail(TrvPrdDtlDto trv_prdDtlDto) {
+        return session.insert(namespace+"insertProductDetail", trv_prdDtlDto);
     }
 
     @Override
-    public int insertProductPrice(Trv_prd_prc_dto trv_prd_prc_dto) {
-        return session.insert(namespace+"insertProductPrice",trv_prd_prc_dto);
+    public int insertProductPrice(TrvPrdPrcDto trv_prdPrcDto) {
+        return session.insert(namespace+"insertProductPrice", trv_prdPrcDto);
     }
 
     @Override
-    public int insertProductSchedule(Trv_sch_dto trv_sch_dto) {
-        return session.insert(namespace+"insertProductSchedule",trv_sch_dto);
+    public int insertProductSchedule(TrvSchDto trv_schDto) {
+        return session.insert(namespace+"insertProductSchedule", trv_schDto);
     }
 
     @Override
-    public int insertProductImg(Prd_img_dto prd_img_dto) {
-        return session.insert(namespace+"insertProductImage",prd_img_dto);
+    public int insertProductImg(PrdImgDto prd_imgDto) {
+        return session.insert(namespace+"insertProductImage", prd_imgDto);
     }
 
     @Override
-    public int insertScheduleImage(Trv_sch_img_dto trv_sch_img_dto) {
-        return session.insert(namespace+"insertScheduleImage",trv_sch_img_dto);
+    public int insertScheduleImage(TrvSchImgDto trv_schImgDto) {
+        return session.insert(namespace+"insertScheduleImage", trv_schImgDto);
+    }
+
+    @Override
+    public List<TrvPrdReadDto> selectProductAdmin(PageHandlerProduct pageHandlerProduct) {
+        return session.selectList(namespace+"selectProductAdmin",pageHandlerProduct);
+    }
+
+    @Override
+    public int selectProductAdminCnt() {
+        return session.selectOne(namespace+"selectProductAdminCnt");
+    }
+
+    @Override
+    public List<TrvPrdReadDto> searchSelectProductAdmin(PageHandlerProduct pageHandlerProduct) {
+        return session.selectList(namespace+"searchSelectProductAdmin",pageHandlerProduct);
+    }
+
+    @Override
+    public int searchSelectProductAdminCnt(PageHandlerProduct pageHandlerProduct) {
+        return session.selectOne(namespace+"searchSelectProductAdminCnt",pageHandlerProduct);
+    }
+
+    @Override
+    public TrvPrdReadDto selectProduct(String prd_cd) {
+        return session.selectOne(namespace+"selectProduct",prd_cd);
+    }
+
+    @Override
+    public int updateProduct(TrvPrdWriteDto trvPrdWriteDto) {
+        return session.insert(namespace+"updateProduct",trvPrdWriteDto);
     }
 }
