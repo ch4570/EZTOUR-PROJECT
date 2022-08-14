@@ -27,6 +27,7 @@ public class UserDto {
     private Date lst_acc_date; // 마지막 접속 일자
     private Date rst_chg_date; // 휴면 전환 일자
     private String cmn_cd_drp; // 탈퇴 사유 코드
+    private boolean id_check; // 아이디 중복 여부
 
     public UserDto(){}
 

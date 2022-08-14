@@ -23,4 +23,6 @@ public interface UserDao {
 
     UserDto selectUserEmail(String usr_id)throws Exception;
 
+    int checkId(String usr_id)throws Exception;
+
 }

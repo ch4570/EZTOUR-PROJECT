@@ -31,6 +31,8 @@
       <input class="input-field" type="text" name="usr_id" id="usr_id" placeholder="6~12자리의 영문자와 숫자 조합"
             onkeyup="noSpaceForm(this); moreThanSixId();" onchange="noSpaceForm(this);" style="margin-bottom: 0px;"><br>
         <p id="moreThan6Id" style="margin-bottom: 20px; padding: 5px 5px; display: none; color: red" >6자이상 입력해주세요.</p>
+        <p id="usable" style="margin-bottom: 20px; padding: 5px 5px; display: none; color: forestgreen" >사용 가능한 아이디입니다.</p>
+        <p id="unusable" style="margin-bottom: 20px; padding: 5px 5px; display: none; color: red" >중복된 아이디입니다.</p>
         <p id="nonAlterId" style="margin-bottom: 20px; padding: 5px 5px;"> </p>
 
     </div>
@@ -104,10 +106,12 @@
     if(idLength < 6){
         $("#moreThan6Id").show();
         $("#nonAlterId").hide();
+        $("#usable").hide();
+        $("#unusable").hide();
+        $('#usr_id').css({"border-color": "red"});
         return false;
     }else{
         $("#moreThan6Id").hide();
-        $("#nonAlterId").show();
         return true;
     }
   }
@@ -126,24 +130,54 @@
   }
 
   function checkPwd() {
+      var pwdLength = $("#pwd1").val().length;
       var p1 = document.getElementById('pwd1').value;
       var p2 = document.getElementById('pwd2').value;
-
-      if (p1 != p2) {
-          $("#moreThan6Pwd").hide();
-          $("#alertPwd").show();
-          $("#nonAlterPwd2").hide();
-          $("#okPwd").hide();
-          return false;
-      } else {
-          $("#moreThan6Pwd").hide();
-          $("#alertPwd").hide();
-          $("#nonAlterPwd2").hide();
-          $("#okPwd").show();
-          return true;
+    if(pwdLength > 5) {
+        if (p1 != p2) {
+            $("#moreThan6Pwd").hide();
+            $("#alertPwd").show();
+            $("#nonAlterPwd2").hide();
+            $("#okPwd").hide();
+            $('#pwd1').css({"border-color": "red"});
+            $('#pwd2').css({"border-color": "red"});
+            return false;
+        } else {
+            $("#moreThan6Pwd").hide();
+            $("#alertPwd").hide();
+            $("#nonAlterPwd2").hide();
+            $("#okPwd").show();
+            $('#pwd1').css({"border-color": "forestgreen"});
+            $('#pwd2').css({"border-color": "forestgreen"});
+            return true;
         }
+    }
 
+  }
+$(document).ready(function(){
+  $("#usr_id").keyup(function(){
+      var idLength = $("#usr_id").val().length
+      if(idLength>5) {
+          let usr_id = $('#usr_id').val();
+          let uri = "/checkId/" + usr_id
+          $.get(uri, function (response) {
+              if(response=='usable'){
+                  $("#usable").show();
+                  $("#unusable").hide();
+                  $("#nonAlterId").hide();
+                  $('#usr_id').css({"border-color": "forestgreen"});
+              }else{
+                  $("#usable").hide();
+                  $("#unusable").show();
+                  $("#nonAlterId").hide();
+                  $('#usr_id').css({"border-color": "red"});
+
+              }
+          });
       }
+
+  });
+});
 </script>
 </body>
 </html>

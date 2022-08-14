@@ -163,11 +163,26 @@ public class UserController {
         userDto = userService.selectUsr(userDto.getUsr_id());
 
         if(!(userDto!=null && userDto.getPwd().equals(pwd))) {
-            String msg = URLEncoder.encode("id 또는 pwd가 일치하지 않습니다.", "utf-8");
-            return "redirect:/user/usrMod";
+            String pwCheckErr = URLEncoder.encode("pwd가 일치하지 않습니다.", "utf-8");
+            return "redirect:/user/usrMod?pwCheckErr="+pwCheckErr;
         }
         return "forward:/user/usrDel";
     }
 
-}
+    @PostMapping("/checkId")
+    public String checkId(HttpSession session, RedirectAttributes rattr) throws Exception {
+        UserDto userDto = (UserDto)session.getAttribute("userDto");
+        int checkId = userService.checkId(userDto.getUsr_id()); // 예외처리 예정
+        // 0이면 사용가능, 1이면 중복
+        if(checkId==0) {
+            // 사용 가능
+            rattr.addFlashAttribute("checkId","USABLE");
+        }else{
+            // 사용 불가
+            rattr.addFlashAttribute("checkId","UNUSABLE");
+        }
+        return "";
 
+    }
+
+}

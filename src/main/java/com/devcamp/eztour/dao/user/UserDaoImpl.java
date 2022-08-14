@@ -62,11 +62,13 @@ public class UserDaoImpl implements UserDao {
         return session.update(namespace+"deleteUsrHst", map);
     }
 
-
     @Override
     public UserDto selectUserEmail(String usr_id) {
         return session.selectOne(namespace+"selectUserEmail",usr_id);
     }
 
-
+    @Override
+    public int checkId(String usr_id) throws Exception {
+        return session.selectOne(namespace+"checkId", usr_id);
+    }
 }
