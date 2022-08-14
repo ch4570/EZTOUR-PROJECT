@@ -23,67 +23,55 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping
-    public String testMain() {
-        return "user/testMain.tiles";
-    }
-
     @GetMapping("/join")
-    public String join(Model model) {
-        String msg = "정상접속";
-        model.addAttribute("msg", msg);
-
-        return "user/join.tiles";
+    public String join(HttpSession session, RedirectAttributes rattr) {
+        if(session.getAttribute("userDto")==null)
+            return "user/join.tiles";
+        rattr.addFlashAttribute("msg", "ACC_ERR");
+        return "redirect:/";
     }
 
     @PostMapping("/join")
-    public String join(UserDto user, RedirectAttributes rattr){
+    public String join(UserDto user, RedirectAttributes rattr, HttpSession session) {
         try {
-
-            System.out.println(user);
             int rowCnt = userService.insertUsr(user);
-
-            if(rowCnt!=1)
+            if (rowCnt != 1)
                 throw new Exception("user insert error");
-
             rattr.addFlashAttribute("msg", "REG_OK");
-
-            return "redirect:/user";
+            return "redirect:/";
         } catch (Exception e) {
             e.printStackTrace();
-            rattr.addFlashAttribute("msg", "REG_ERROR");
-
+            rattr.addFlashAttribute("msg", "REG_ERR");
             return "redirect:/user/join";
         }
     }
 
     @GetMapping("/login")
-    public String loginView() {
-        return "user/login.tiles";
-    }
+    public String loginView(HttpSession session, RedirectAttributes rattr) {
+        if(session.getAttribute("userDto")==null)
+            return "user/login.tiles";
 
+        rattr.addFlashAttribute("msg", "ACC_ERR");
+        return "redirect:/";
+    }
 
     @PostMapping("/login")
     public String login(String usr_id, String pwd, boolean rememberId,
                         HttpSession session, HttpServletResponse response) throws Exception {
 
-        UserDto user = new UserDto();
-        user = userService.selectUsr(usr_id);
-        System.out.println("user==============="+user);
+        UserDto userDto = userService.selectUsr(usr_id);
+        System.out.println(usr_id);
 
-        if(!(user!=null && user.getPwd().equals(pwd))) {
+        if(!(userDto!=null && userDto.getPwd().equals(pwd))) {
             String msg = URLEncoder.encode("id 또는 pwd가 일치하지 않습니다.", "utf-8");
 
             return "redirect:/user/login?msg="+msg;
         }
 
-        String userId = user.getUsr_id();
-        String userName = user.getUsr_nm();
-        String email = user.getEmail();
-        String role = user.getRl();
+        userService.updateHstForLogin(usr_id); // 예외처리 예정 (에러 발생시 세션 안넘기고 에러메세지 + 메인 이동)
 
-        UserDto loginUser = new UserDto(userId, userName, email, role);
-        System.out.println("loginUser==============="+loginUser);
+        UserDto loginUser = new UserDto(userDto.getUsr_id(), userDto.getUsr_nm(),
+                                                 userDto.getEmail(), userDto.getRl());
         session.setAttribute("userDto", loginUser);
 
         if(rememberId) {
@@ -98,26 +86,38 @@ public class UserController {
 //        // 3. 이전에 눌렀던 url 이동 (마이페이지, 고객센터에 적용?)
 //        toURL = toURL==null || toURL.equals("") ? "/" : toURL;
 //        return "redirect:"+toURL;
-        return "redirect:/user";
+
+        return "redirect:/";
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session, String msg, RedirectAttributes rattr) {
         session.invalidate();
-        return "redirect:/user";
+        if(msg!=null)
+            rattr.addFlashAttribute("msg",msg);
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/mypage")
+    public String mypage(HttpSession session, RedirectAttributes rattr) {
+        if(session.getAttribute("userDto")==null){
+            rattr.addFlashAttribute("msg", "ACC_ERR");
+            return "redirect:/user/login";
+        }
+        return "user/mypage.tiles";
     }
 
     @GetMapping("/usrMod")
     public String usrModView(HttpSession session, RedirectAttributes rattr, Model model){
-        String usr_id = (String) session.getAttribute("usr_id");
+        UserDto userDto = (UserDto) session.getAttribute("userDto");
         try {
-            UserDto userDto = userService.selectUsr(usr_id);
-            // System.out.println(userDto);
+            userDto = userService.selectUsr(userDto.getUsr_id());
             model.addAttribute(userDto);
         } catch (Exception e) {
             e.printStackTrace();
-            rattr.addFlashAttribute("msg","GET_ERROR");
-            return "redirect:/user";
+            rattr.addFlashAttribute("msg","GET_ERR");
+            return "redirect:/";
         }
 
         return "user/usrMod.tiles";
@@ -127,7 +127,6 @@ public class UserController {
     public String usrMod(UserDto userDto, RedirectAttributes rattr){
         try {
             int rowCnt = userService.updateUsr(userDto);
-
             if(rowCnt != 1)
                 throw new Exception("user update error");
             rattr.addFlashAttribute("msg","MOD_OK");
@@ -141,21 +140,34 @@ public class UserController {
 
     @PostMapping ("/usrDel")
     public String usrDel(HttpSession session, String cmn_cd_drp, RedirectAttributes rattr){
-        String usr_id = (String)session.getAttribute("usr_id");
-        System.out.println(cmn_cd_drp); // null
-
+        UserDto userDto = (UserDto)session.getAttribute("userDto");
         try {
-            int rowCnt = userService.deleteUsr(usr_id, cmn_cd_drp);
+            int rowCnt = userService.deleteUsr(userDto.getUsr_id(), cmn_cd_drp);
 
             if(rowCnt != 1)
                 throw new Exception("user delete error");
 
-            rattr.addFlashAttribute("msg","DEL_OK");
+            String msg = "DEL_OK";
+            return "redirect:/user/logout?msg="+msg;
         } catch (Exception e) {
             e.printStackTrace();
             rattr.addFlashAttribute("msg","DEL_ERR");
             return "redirect:/user/usrMod";
         }
-        return "redirect:/user/logout";
     }
+
+    @PostMapping("/usrPwdCheck")
+    public String usrPwdCheck(HttpSession session, String pwd, String cmn_cd_drp) throws Exception {
+        UserDto userDto = (UserDto)session.getAttribute("userDto");
+
+        userDto = userService.selectUsr(userDto.getUsr_id());
+
+        if(!(userDto!=null && userDto.getPwd().equals(pwd))) {
+            String msg = URLEncoder.encode("id 또는 pwd가 일치하지 않습니다.", "utf-8");
+            return "redirect:/user/usrMod";
+        }
+        return "forward:/user/usrDel";
+    }
+
 }
+

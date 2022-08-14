@@ -13,6 +13,8 @@
     let msg = "${msg}";
     if(msg=="REG_OK")   alert("회원가입이 완료되었습니다. 로그인 해주세요.");
     if(msg=="DEL_OK")   alert("정상적으로 회원 탈퇴 되셨습니다.");
+    if(msg=="GET_ERR")   alert("회원정보를 불러오는데 문제가 생겼습니다.");
+    if(msg=="ACC_ERR")   alert("잘못된 접근입니다.");
 </script>
 <h1> 유저 테스트 메인 </h1><br>
 <c:if test="${loginId!=''}">
@@ -23,5 +25,6 @@
 <c:if test="${loginId!=''}">
 <a href="/user/usrMod">회원정보수정</a>
 </c:if>
+
 </body>
 </html>

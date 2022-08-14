@@ -24,6 +24,11 @@ public class UserServiceImpl implements UserService {
         return userDao.selectUsr(usr_id);
     }
 
+    @Override
+    public int updateHstForLogin(String usr_id) throws Exception {
+        return userDao.updateHstForLogin(usr_id);
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public int updateUsr(UserDto user) throws Exception {
         userDao.updateUsr(user);
@@ -33,7 +38,8 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(rollbackFor = Exception.class)
     public int deleteUsr(String usr_id, String cmn_cd_drp) throws Exception {
-        return userDao.deleteUsr(usr_id, cmn_cd_drp);
+        userDao.deleteUsr(usr_id);
+        return userDao.deleteUsrHst(usr_id, cmn_cd_drp);
     }
 
     @Override

@@ -41,6 +41,17 @@
             usr_id = #{usr_id}
     </select>
 
+    <!-- 로그인시 이력테이블 업데이트 -->
+    <update id="updateHstForLogin" parameterType="string">
+        UPDATE
+            usr_hst
+        SET
+            acc_cnt = acc_cnt + 1,
+            lst_acc_date = now()
+        WHERE
+            usr_id = #{usr_id}
+    </update>
+
     <update id="updateUsr" parameterType="UserDto">
         UPDATE
             usr
@@ -62,46 +73,35 @@
             usr_id = #{usr_id}
     </update>
 
-    <!--    <update id="deleteUsr" parameterType="UserDto">-->
-    <!--        UPDATE-->
-    <!--            usr-->
-    <!--        SET-->
-    <!--            cmn_cd_usr_stt = '2d'-->
-    <!--        WHERE-->
-    <!--            usr_id = #{usr_id}-->
-    <!--    </update>-->
-
-    <!--    <update id="deleteUsrHst" parameterType="UserDto">-->
-    <!--        UPDATE-->
-    <!--            usr_hst-->
-    <!--        SET-->
-    <!--            cmn_cd_drp = #{cmn_cd_drp},-->
-    <!--            drp_date = now()-->
-    <!--        WHERE-->
-    <!--            usr_id = #{usr_id}-->
-    <!--    </update>-->
-
-    <update id="deleteUsr" parameterType="map">
+    <update id="deleteUsr" parameterType="String">
         UPDATE
-            usr u
-            INNER JOIN
-            usr_hst uh
-        ON
-            u.usr_id = uh.usr_id
-            SET
-                u.cmn_cd_usr_stt = '2d',
-                uh.cmn_cd_drp = #{cmn_cd_drp},
-                uh.drp_date = now()
+            usr
+        SET
+            cmn_cd_usr_stt = '2d'
         WHERE
-            uh.usr_id = #{usr_id}
+            usr_id = #{usr_id}
+    </update>
+
+    <update id="deleteUsrHst" parameterType="map">
+        UPDATE
+            usr_hst
+        SET
+            cmn_cd_drp = #{cmn_cd_drp},
+            drp_date = now()
+        WHERE
+            usr_id = #{usr_id}
     </update>
 
     <select id="selectUserEmail" parameterType="String" resultType="UserDto">
         SELECT
             usr_nm,
             email
-        FROM usr
-        WHERE usr_id = #{usr_id}
+        FROM
+            usr
+        WHERE
+            usr_id = #{usr_id}
     </select>
+
+
 
 </mapper>
