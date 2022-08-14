@@ -35,7 +35,6 @@ public class TrvPrdReadDto {
     private String fnl_mod_no;
 
 
-
     public TrvPrdReadDto(String prd_cd, String dstn_cd, String cmn_cd_thm, String prd_nm,
                          String prd_dtl_desc, String trv_per, Integer prd_str_prc,
                          String dpr_str_date, String dpr_fin_date) {

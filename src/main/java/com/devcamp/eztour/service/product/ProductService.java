@@ -18,4 +18,5 @@ public interface ProductService {
     public int searchSelectProductAdminCnt(PageHandlerProduct pageHandlerProduct);
     public TrvPrdReadDto selectProduct(String prd_cd);
     public int updateProduct(TrvPrdWriteDto trvPrdWriteDto);
+    public int deleteProduct(String prd_cd);
 }

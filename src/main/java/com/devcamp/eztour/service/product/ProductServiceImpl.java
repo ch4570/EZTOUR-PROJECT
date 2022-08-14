@@ -72,4 +72,9 @@ public class ProductServiceImpl implements ProductService{
     public int updateProduct(TrvPrdWriteDto trvPrdWriteDto) {
         return productDao.updateProduct(trvPrdWriteDto);
     }
+
+    @Override
+    public int deleteProduct(String prd_cd) {
+        return productDao.deleteProduct(prd_cd);
+    }
 }

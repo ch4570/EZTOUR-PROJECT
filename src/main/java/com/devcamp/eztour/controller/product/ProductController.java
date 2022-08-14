@@ -291,4 +291,16 @@ public class ProductController {
 
 
     }
+
+    @ResponseBody
+    @PostMapping("/product/delete")
+    public String productDelete(String prd_cd){
+        int result = productService.deleteProduct(prd_cd);
+        if(result==1){
+            return "success";
+        }else{
+            return "fail";
+        }
+
+    }
 }

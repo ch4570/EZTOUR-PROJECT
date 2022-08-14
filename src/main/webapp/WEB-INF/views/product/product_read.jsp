@@ -65,6 +65,29 @@
            $('#modify_btn').on("click",function (){
               window.location.href = "<c:url value='/product/modify?prd_cd=${trvPrdDto.prd_cd}'/>";
            });
+
+           $('#delete_btn').on("click",function (){
+               var result = confirm("정말로 삭제 하시겠습니까?");
+               if(result){
+                   $.ajax({
+                       type: "POST",
+                       url : "<c:url value='/product/delete'/>",
+                       data: {prd_cd:"${trvPrdDto.prd_cd}"},
+                       success : function (data){
+                           if(data=="success"){
+                               alert('삭제가 성공했습니다.');
+                               window.location.href = "<c:url value='/product/management'/>"
+                           }else{
+                               alert('삭제가 실패했습니다.');
+                               window.location.href = "<c:url value="/product/read?prd_cd=${trvPrdDto.prd_cd}"/>"
+                           }
+                       }
+                   });
+               }else{
+                   return;
+               }
+
+           });
         });
     </script>
     </body>

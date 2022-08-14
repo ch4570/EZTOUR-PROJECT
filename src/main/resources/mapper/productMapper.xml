@@ -93,4 +93,7 @@
         WHERE prd_cd=#{prd_cd}
     </update>
 
+    <delete id="deleteProduct" parameterType="String">
+        DELETE FROM trv_prd WHERE prd_cd=#{prd_cd}
+    </delete>
 </mapper>

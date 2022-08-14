@@ -74,4 +74,9 @@ public class ProductDaoImpl implements ProductDao{
     public int updateProduct(TrvPrdWriteDto trvPrdWriteDto) {
         return session.insert(namespace+"updateProduct",trvPrdWriteDto);
     }
+
+    @Override
+    public int deleteProduct(String prd_cd) {
+        return session.delete(namespace+"deleteProduct",prd_cd);
+    }
 }
