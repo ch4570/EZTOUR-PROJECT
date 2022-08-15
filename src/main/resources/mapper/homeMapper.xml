@@ -16,7 +16,7 @@
         OR prd_dtl_desc LIKE concat('%', #{keyword}, '%'))
     </sql>
 
-    <select id="searchSelect" parameterType="String" resultType="TrvPrdDto">
+    <select id="searchSelect" parameterType="String" resultType="TrvPrdReadDto">
         <include refid="selectFromProduct"/>
         WHERE TRUE
         <include refid="searchCondition" />

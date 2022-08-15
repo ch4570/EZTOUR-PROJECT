@@ -43,6 +43,7 @@
 
         <!-- 영욱님 시작 -->
         <typeAlias alias="FaqDto" type="com.devcamp.eztour.domain.faq.FaqDto"/>
+        <typeAlias alias="DestinationCategoryDto" type="com.devcamp.eztour.domain.category.DestinationCategoryDto"/>
         <!-- 영욱님 끝-->
     </typeAliases>
 </configuration>

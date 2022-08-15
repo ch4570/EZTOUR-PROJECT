@@ -2,7 +2,6 @@ package com.devcamp.eztour.service.home;
 
 import com.devcamp.eztour.dao.home.HomeDao;
 import com.devcamp.eztour.domain.home.TrvPrdDto;
-import com.devcamp.eztour.domain.product.Trv_prd_dto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
