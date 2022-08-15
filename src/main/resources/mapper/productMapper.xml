@@ -18,7 +18,6 @@
         WHERE prd_cd = #{prd_cd}
     </select>
 
-
     <insert id="insertProductDetail" parameterType="TrvPrdDtlDto">
         INSERT INTO trv_prd_dtl(prd_dtl_cd,prd_cd,prd_str_prc,arl_nm,
                                 min_stt_cnt,max_stt_cnt,dpr_date)
