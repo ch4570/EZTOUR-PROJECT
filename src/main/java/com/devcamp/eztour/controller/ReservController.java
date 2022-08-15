@@ -78,6 +78,7 @@ public class ReservController {
         reservDto.setEmail(email);
         reservDto.setPay_ftr_prc(reservDto.getSum_prc());
         reservDto.setCmn_cd_rsvt_stt("6A"); //예약접수 상태 코드 넣어주기
+        reservDto.setCmn_cd_pay_stt("7E");
         //예약코드생성
         //여행지 코드 + 난수
         String rsvt_no = dstn_cd + makeRanNum();
