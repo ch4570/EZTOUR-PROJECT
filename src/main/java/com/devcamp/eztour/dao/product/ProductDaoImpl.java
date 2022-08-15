@@ -99,4 +99,6 @@ public class ProductDaoImpl implements ProductDao{
     public List<TrvPrdDtlDto> searchSelectProductAdminDetail(PageHandlerProduct pageHandlerProduct) {
         return session.selectList(namespace+"searchSelectProductAdminDetail",pageHandlerProduct);
     }
+
+
 }

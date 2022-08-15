@@ -43,6 +43,6 @@
 
         <!-- 영욱님 시작 -->
         <typeAlias alias="FaqDto" type="com.devcamp.eztour.domain.faq.FaqDto"/>
-        <!-- 영욱님 끝 -->
+        <!-- 영욱님 끝-->
     </typeAliases>
 </configuration>
