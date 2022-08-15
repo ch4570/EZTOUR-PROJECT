@@ -10,14 +10,12 @@ import java.util.Date;
 public class TrvPrdReadDto {
 
     private String prd_cd;
-    private String prd_cd_mod;
     private String dstn_cd;
     private String cmn_cd_thm;
     private String prd_nm;
     private String prd_dtl_desc;
     private String trv_per;
     private Integer prd_str_prc;
-    private String mn_img;
     private String dpr_str_date;
     private String dpr_fin_date;
     private int star;
@@ -33,6 +31,10 @@ public class TrvPrdReadDto {
     private String frs_rgs_no;
     private Date fnl_mod_date;
     private String fnl_mod_no;
+    private String img_pth;
+    private boolean mn_img_yn;
+
+
 
 
     public TrvPrdReadDto(String prd_cd, String dstn_cd, String cmn_cd_thm, String prd_nm,
@@ -56,5 +58,16 @@ public class TrvPrdReadDto {
         this.prd_nm = prd_nm;
         this.prd_str_prc = prd_str_prc;
         this.frs_reg_date = frs_reg_date;
+    }
+
+    public TrvPrdReadDto(String prd_cd, String dstn_cd, String prd_nm, String prd_dtl_desc,
+                         Integer prd_str_prc, String img_pth, boolean mn_img_yn) {
+        this.prd_cd = prd_cd;
+        this.dstn_cd = dstn_cd;
+        this.prd_nm = prd_nm;
+        this.prd_dtl_desc = prd_dtl_desc;
+        this.prd_str_prc = prd_str_prc;
+        this.img_pth = img_pth;
+        this.mn_img_yn = mn_img_yn;
     }
 }
