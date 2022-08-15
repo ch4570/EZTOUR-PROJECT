@@ -15,4 +15,10 @@ public interface FaqDao {
 
     int insertFaq(FaqDto faqDto) throws Exception;
 
+    FaqDto selectFaq(Integer faq_no) throws Exception;
+
+    int deleteFaq(Integer faq_no) throws Exception;
+
+    int updateFaq(FaqDto faqDto) throws Exception;
+
 }

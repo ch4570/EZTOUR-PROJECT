@@ -1,3 +1,10 @@
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration {
+    display: none;
+}
+
 .header-wrap{
     width: 100%;
     border-bottom: 1px solid #e5e5e5;
@@ -35,10 +42,34 @@ a:hover, a:active {
     display: flex;
 }
 
-.nav__list li {
+.nav__dropdown {
+    display: inline-block;
+    position: relative;
     margin-right: 20px;
     font-size: 18px;
     font-weight: 700;
+}
+
+.nav__list--dropdown-menu a {
+    padding-bottom: 30px;
+}
+
+.nav__list--dropdown-content {
+    margin-top: 31px;
+    position: absolute;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2);
+    display: none;
+}
+
+.nav__list--dropdown-content a {
+    padding: 12px 16px;
+    display: block;
+
+}
+
+.nav__dropdown:hover .nav__list--dropdown-content {
+    display: block;
 }
 
 .aside__list li a {
@@ -54,16 +85,27 @@ a:hover, a:active {
     color: rgba(0, 0, 0, .5);
 }
 
-.prd-search,
-.modal__cancel--button{
+.prd-search {
     all:unset;
     cursor: pointer;
 }
 
 .modal__cancel {
     width: 100%;
-    top: 10px;
-    left: 10px;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+
+.modal__cancel button {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 25px;
+}
+
+.modal__cancel button i {
+    cursor: pointer;
 }
 
 .modal {
@@ -75,6 +117,7 @@ a:hover, a:active {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1050;
 }
 
 .modal__overlay {
@@ -93,6 +136,7 @@ a:hover, a:active {
     height: 50%;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
+
 .modal__content h1 {
     margin: 50px auto;
     font-size: 40px;

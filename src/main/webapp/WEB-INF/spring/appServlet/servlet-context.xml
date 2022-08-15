@@ -38,7 +38,7 @@
 		<beans:property name="order" value="2" />
 	</beans:bean>
 
-	<view-controller path="/" view-name="home"/>
+	<view-controller path="/" view-name="/WEB-INF/views/home/home.jsp"/>
 
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 

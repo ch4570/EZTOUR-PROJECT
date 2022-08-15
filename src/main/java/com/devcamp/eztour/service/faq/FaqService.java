@@ -15,4 +15,10 @@ public interface FaqService {
 
     int writeFaq(FaqDto faqDto) throws Exception;
 
+    FaqDto getFaq(Integer faq_no) throws Exception;
+
+    int removeFaq(Integer faq_no) throws Exception;
+
+    int modifyFaq(FaqDto faqDto) throws Exception;
+
 }
