@@ -28,10 +28,10 @@ public class RvwDaoImpl implements RvwDao {
     }
 
     @Override
-    public int delete(Integer rvw_no, String usr_id) throws Exception {
+    public int delete(Integer rvw_no, String usr_nm) throws Exception {
         Map map = new HashMap();
         map.put("rvw_no", rvw_no);
-        map.put("usr_id", usr_id);
+        map.put("usr_nm", usr_nm);
         return session.delete(namespace + "delete", map);
     }
 
@@ -84,6 +84,15 @@ public class RvwDaoImpl implements RvwDao {
     @Override
     public int searchResultCnt(SearchCondition sc) throws Exception {
         return session.selectOne(namespace + "searchResultCnt", sc);
+    }
+
+    @Override
+    public int updateCommentCnt(Integer rvw_no, Integer cnt) throws Exception {
+        Map map = new HashMap();
+        map.put("rvw_no", rvw_no);
+        map.put("cnt", cnt);
+
+        return session.update(namespace + "updateCommentCnt", map);
     }
 
 
