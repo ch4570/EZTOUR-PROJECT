@@ -3,6 +3,7 @@ package com.devcamp.eztour.dao.faq;
 import com.devcamp.eztour.domain.faq.FaqDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.functors.ExceptionPredicate;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -37,4 +38,18 @@ public class FaqDaoImpl implements FaqDao {
         return session.insert(namespace + "insertFaq", faqDto);
     }
 
+    @Override
+    public FaqDto selectFaq(Integer faq_no) throws Exception {
+        return session.selectOne(namespace + "selectFaq", faq_no);
+    }
+
+    @Override
+    public int deleteFaq(Integer faq_no) throws Exception {
+        return session.delete(namespace+"deleteFaq", faq_no);
+    }
+
+    @Override
+    public int updateFaq(FaqDto faqDto) throws Exception {
+        return session.update(namespace + "updateFaq", faqDto);
+    }
 }
