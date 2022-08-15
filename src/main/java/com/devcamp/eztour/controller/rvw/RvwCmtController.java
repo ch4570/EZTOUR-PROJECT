@@ -2,6 +2,7 @@ package com.devcamp.eztour.controller.rvw;
 
 
 import com.devcamp.eztour.domain.rvw.RvwCmtDto;
+import com.devcamp.eztour.domain.rvw.RvwDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -9,17 +10,20 @@ import java.util.List;
 
 
 /**
- * [Ãß°¡ ÇØ¾ßÇÏ´Â »çÇ×] - 1
- * ´ñ±ÛÀº È¸¿ø°¡ÀÔ »óÅÂ¿¡¼­¸¸ ÀûÀ» ¼ö ÀÖÀ½.
- * ºñÈ¸¿øµµ ´ñ±Û ¹Ú½ºµµ ÀûÀ» ¼ö´Â ÀÖÁö¸¸, µî·Ï ½Ã ÆË¾÷Ã¢ÀÌ ¶ß¸é¼­ È¸¿ø°¡ÀÔÀ¸·Î À¯µµÇÏ±â
+ * [ì¶”ê°€ í•´ì•¼í•˜ëŠ” ì‚¬í•­] - 1
+ * ëŒ“ê¸€ì€ íšŒì›ê°€ì… ìƒíƒœì—ì„œë§Œ ì ì„ ìˆ˜ ìˆìŒ.
+ * ë¹„íšŒì›ë„ ëŒ“ê¸€ ë°•ìŠ¤ë„ ì ì„ ìˆ˜ëŠ” ìˆì§€ë§Œ, ë“±ë¡ ì‹œ íŒì—…ì°½ì´ ëœ¨ë©´ì„œ íšŒì›ê°€ì…ìœ¼ë¡œ ìœ ë„í•˜ê¸°
  */
 @Controller
 public class RvwCmtController {
-    @GetMapping("/comments") // comments?bno=1080 GET
-    public List<RvwCmtDto> list(Integer rvw_no) {
-
-
-    }
+//    @GetMapping("/comments") // comments?bno=1080 GET
+//    public List<RvwCmtDto> list(Integer rvw_no) {
+//
+//        List<RvwCmtDto> List;
+//        return List<RvwCmtDto> rvw_no;
+//
+//
+//    }
 
 
 }
