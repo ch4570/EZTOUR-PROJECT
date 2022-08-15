@@ -37,4 +37,6 @@ public class ProductDaoImpl implements ProductDao{
     public int insertProductImg(Prd_img_dto prd_img_dto) {
         return session.insert(namespace+"insertProductImage",prd_img_dto);
     }
+
+
 }

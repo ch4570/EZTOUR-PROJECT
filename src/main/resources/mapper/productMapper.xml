@@ -32,4 +32,11 @@
     <insert id="insertProductImage" parameterType="Prd_img_dto">
         INSERT INTO prd_img(prd_cd,img_pth) VALUES(#{prd_cd},#{img_pth})
     </insert>
+
+    <select id="selectAllProduct" resultType="Trv_prd_dto">
+        SELECT prd_cd, dstn_cd, cmn_cd_thm, prd_nm, prd_dtl_desc, trv_per, prd_str_prc, dpr_str_date, dpr_fin_date,
+               star, evnt_yn, fin_yn, act_yn, dc_yn, pc_prc, add_sv_rt, vcnt, lk_yn
+        FROM trv_prd
+    </select>
+
 </mapper>
