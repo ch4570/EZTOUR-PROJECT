@@ -13,7 +13,7 @@ public class TestInsert {
     @RequestMapping("/insert")
     public String insert() {
         int result = testService.insertTest("ch4580");
-        return "home";
+        return "home/home";
     }
 
 

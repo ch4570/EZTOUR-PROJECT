@@ -11,17 +11,20 @@
 
         <!--도형님 시작-->
         <typeAlias alias="RvwDto" type="com.devcamp.eztour.domain.rvw.RvwDto"/>
+        <typeAlias alias="SearchCondition" type="com.devcamp.eztour.domain.rvw.SearchCondition"/>
 
         <!--도형님 끝-->
 
         <!--서창희 시작-->
-        <typeAlias alias="Trv_sch_dto" type="com.devcamp.eztour.domain.product.Trv_sch_dto"/>
-        <typeAlias alias="Prd_img_dto" type="com.devcamp.eztour.domain.product.Prd_img_dto"/>
-        <typeAlias alias="Prd_pcr_dto" type="com.devcamp.eztour.domain.product.Prd_pcr_dto"/>
-        <typeAlias alias="Trv_prd_dtl_dto" type="com.devcamp.eztour.domain.product.Trv_prd_dtl_dto"/>
-        <typeAlias alias="Trv_prd_dto" type="com.devcamp.eztour.domain.product.Trv_prd_dto"/>
-        <typeAlias alias="Trv_prd_prc_dto" type="com.devcamp.eztour.domain.product.Trv_prd_prc_dto"/>
-        <typeAlias alias="Trv_sch_img_dto" type="com.devcamp.eztour.domain.product.Trv_sch_img_dto"/>
+        <typeAlias alias="TrvSchDto" type="com.devcamp.eztour.domain.product.TrvSchDto"/>
+        <typeAlias alias="PrdImgDto" type="com.devcamp.eztour.domain.product.PrdImgDto"/>
+        <typeAlias alias="PrdPcrDto" type="com.devcamp.eztour.domain.product.PrdPcrDto"/>
+        <typeAlias alias="TrvPrdDtlDto" type="com.devcamp.eztour.domain.product.TrvPrdDtlDto"/>
+        <typeAlias alias="TrvPrdReadDto" type="com.devcamp.eztour.domain.product.TrvPrdReadDto"/>
+        <typeAlias alias="TrvPrdWriteDto" type="com.devcamp.eztour.domain.product.TrvPrdWriteDto"/>
+        <typeAlias alias="TrvPrdPrcDto" type="com.devcamp.eztour.domain.product.TrvPrdPrcDto"/>
+        <typeAlias alias="TrvSchImgDto" type="com.devcamp.eztour.domain.product.TrvSchImgDto"/>
+        <typeAlias alias="PageHandlerProduct" type="com.devcamp.eztour.domain.product.PageHandlerProduct"/>
         <!-- 서창희 끝 -->
 
         <!-- 혜경님 시작 -->
@@ -40,6 +43,9 @@
 
         <!-- 영욱님 시작 -->
         <typeAlias alias="FaqDto" type="com.devcamp.eztour.domain.faq.FaqDto"/>
-        <!-- 영욱님 끝 -->
+        <typeAlias alias="TrvPrdDto" type="com.devcamp.eztour.domain.home.TrvPrdDto"/>
+        <typeAlias alias="TrvPrdDetailDto" type="com.devcamp.eztour.domain.productDetail.TrvPrdDetailDto"/>
+        <typeAlias alias="DestinationCategoryDto" type="com.devcamp.eztour.domain.category.DestinationCategoryDto"/>
+        <!-- 영욱님 끝-->
     </typeAliases>
 </configuration>

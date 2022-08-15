@@ -23,8 +23,8 @@
                 </ul>
                 <ul>
                     <li class="prd_tlt">상품 등록 현황 관리</li>
-                    <li class="menu_list">상품 관리</li>
-                    <li class="menu_list">상품 상세 관리</li>
+                    <a href="<c:url value='/product/management'/>"><li class="menu_list">상품 관리</li></a>
+                    <a href="<c:url value='/product/management/detail'/>"><li class="menu_list">상품 상세 관리</li></a>
                     <li class="menu_list">상품 이미지 관리</li>
                     <li class="menu_list">상품 일정 관리</li>
                     <li class="menu_list">상품 가격 관리</li>
@@ -44,16 +44,16 @@
                     <h1>상품 등록</h1>
                         <div class="prd_input_form">
                             <form action="<c:url value='/product/insert'/>" method="post">
-                            <input type="text"  class="input_prd" name="prd_cd" placeholder="상품코드"><br>
-                            <input type="text" class="input_prd" name="dstn_cd" placeholder="여행지 코드"><br>
-                            <input type="text" class="input_prd" name="cmn_cd_thm" placeholder="공통코드_테마상태"><br>
-                            <input type="text" class="input_prd" name="prd_nm" placeholder="상품명"><br>
-                                <textarea cols="24" rows="10" name="prd_dtl_desc" placeholder="상품 상세 설명" id="desc_area"></textarea><br>
-                            <input type="text" class="input_prd" name="trv_per" placeholder="여행기간"><br>
-                            <input type="text" class="input_prd" name="prd_str_prc" placeholder="상품시작가격"><br>
-                            <input type="date" class="input_prd" name="dpr_str_date" placeholder="출발 시작일"><br>
-                            <input type="date" class="input_prd" name="dpr_fin_date" placeholder="출발 마감"><br>
-                            <input type="submit" value="상품 등록" id="submit_btn">
+                                상품코드&nbsp;<br><input type="text"  class="input_prd" name="prd_cd" placeholder="상품코드"><br>
+                                여행지코드&nbsp;<br><input type="text" class="input_prd" name="dstn_cd" placeholder="여행지 코드"><br>
+                                테마상태&nbsp;<br><input type="text" class="input_prd" name="cmn_cd_thm" placeholder="공통코드_테마상태"><br>
+                                상품명&nbsp;<br><input type="text" class="input_prd" name="prd_nm" placeholder="상품명"><br>
+                                상품 상세 설명&nbsp;<br><textarea cols="24" rows="10" name="prd_dtl_desc" placeholder="상품 상세 설명" id="desc_area"></textarea><br>
+                                여행기간&nbsp;<br><input type="text" class="input_prd" name="trv_per" placeholder="여행기간"><br>
+                                상품시작가격&nbsp;<br><input type="text" class="input_prd" name="prd_str_prc" placeholder="상품시작가격"><br>
+                                출발 시작일&nbsp;<br><input type="date" class="input_prd" name="dpr_str_date" placeholder="출발 시작일"><br>
+                                출발 마감일&nbsp;<br><input type="date" class="input_prd" name="dpr_fin_date" placeholder="출발 마감"><br>
+                                <input type="submit" value="상품 등록" id="submit_btn">
                             </form>
                         </div>
                     </div>

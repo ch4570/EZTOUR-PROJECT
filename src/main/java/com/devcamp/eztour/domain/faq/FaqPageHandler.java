@@ -111,7 +111,7 @@ public class FaqPageHandler {
 
     @Override
     public String toString() {
-        return "PageHandler{" +
+        return "PageHandlerProduct{" +
                 "totalCnt=" + totalCnt +
                 ", pageSize=" + pageSize +
                 ", naviSize=" + naviSize +

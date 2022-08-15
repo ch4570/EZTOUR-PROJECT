@@ -1,6 +1,7 @@
 package com.devcamp.eztour.service.rvw;
 
 import com.devcamp.eztour.domain.rvw.RvwDto;
+import com.devcamp.eztour.domain.rvw.SearchCondition;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -27,4 +28,8 @@ public interface RvwService {
     RvwDto selectUserEmail(String usr_id) throws Exception;
 
     List<RvwDto> selectUsernmEmailPrdnm(String usr_id) throws Exception;
+
+    List<RvwDto> getSearchResultPage(SearchCondition sc) throws Exception;
+
+    int getSearchResultCnt(SearchCondition sc) throws Exception;
 }

@@ -1,0 +1,61 @@
+.event-board {
+    width: 70%;
+    margin: 100px auto;
+}
+
+.form-wrap {
+    width: 100%;
+}
+
+.board-content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+
+.label {
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+
+.board-content textarea {
+    width: 99.3%;
+    height: 23em;
+    border: none;
+    resize: none;
+    border: 1px solid;
+    margin-bottom: 1px;
+}
+
+.board-header_title input:focus,
+.board-content textarea:focus {
+    outline: none;
+}
+
+.board-btn {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.board-btn input,
+.board-btn button {
+    display: inline-block;
+    width: 200px;
+    padding: 10px 0;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 6px;
+    background-color: #1c1c1c;
+    transition: opacity 250ms ease-in;
+}
+
+.board-btn input:hover {
+    opacity: 0.75;
+    color:black;
+    font-weight: bold;
+    background-color: rgb(244, 168, 27);
+}

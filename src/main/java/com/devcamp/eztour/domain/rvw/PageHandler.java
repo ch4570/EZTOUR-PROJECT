@@ -3,34 +3,43 @@ package com.devcamp.eztour.domain.rvw;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Getter
 @Setter
 @ToString
 public class PageHandler {
-    private int page;
-    private int pageSize;
+//    private int page;
+//    private int pageSize;
+//    private String option;
+//    private String keyword;
+    private SearchCondition sc;
+
     private int totalCnt;
     private int totalPage;
     private int navSize = 5;
-    private int firstPage;
+    private int beginPage;
     private int endPage;
     private boolean showPrev;
     private boolean showNext;
 
-    public PageHandler() {}
-    public PageHandler(int page, int totalCnt){
-        this(page, 10, totalCnt);
+    public PageHandler(int totalCnt, SearchCondition sc) {
+        this.totalCnt = totalCnt;
+        this.sc = sc;
+
+        doPaging(totalCnt, sc);
     }
-    public PageHandler(int page, int pageSize, int totalCnt) {
-        this.page = page;
-        this.pageSize = pageSize;
+
+    public PageHandler() {}
+
+    public void doPaging(int totalCnt, SearchCondition sc) {
         this.totalCnt = totalCnt;
 
-        this.totalPage = (int)Math.ceil(totalCnt/(double)pageSize);
-        this.firstPage = (page-1)/pageSize * pageSize + 1;
-        this.endPage = Math.min((page-1)/pageSize*pageSize + pageSize, totalPage);
-        this.showPrev = firstPage != 1;
-        this.showNext = endPage != totalPage;
+        totalPage = (int)Math.ceil(totalCnt / (double)sc.getPageSize());
+        beginPage = (sc.getPage()-1) / navSize * navSize + 1;
+        endPage = Math.min(beginPage + navSize - 1, totalPage);
+        showPrev = beginPage != 1;
+        showNext = endPage != totalPage;
     }
+
 }

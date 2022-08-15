@@ -23,8 +23,8 @@
                 </ul>
                 <ul>
                     <li class="prd_tlt">상품 등록 현황 관리</li>
-                    <li class="menu_list">상품 관리</li>
-                    <li class="menu_list">상품 상세 관리</li>
+                    <a href="<c:url value='/product/management'/>"><li class="menu_list">상품 관리</li></a>
+                    <a href="<c:url value='/product/management/detail'/>"><li class="menu_list">상품 상세 관리</li></a>
                     <li class="menu_list">상품 이미지 관리</li>
                     <li class="menu_list">상품 일정 관리</li>
                     <li class="menu_list">상품 가격 관리</li>
@@ -45,7 +45,7 @@
                     <h1>상품 이미지 등록</h1>
                     <form action="<c:url value='/product/insert/image'/>" enctype="multipart/form-data" method="post" id="image_upload">
                         <input type="file" name="img_file" id="img_file" class="input_prd"><br>
-                        <input type="text" name="prd_cd" value="${param.prd_cd}" class="input_prd" placeholder="상품코드"><br>
+                        상품코드&nbsp;<br><input type="text" name="prd_cd" value="${param.prd_cd}" class="input_prd" placeholder="상품코드"><br>
                     </form>
                     <div class="preview-img">
                         <img src="" id="product_img" width="500px" height="300px">
