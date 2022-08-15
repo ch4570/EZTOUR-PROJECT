@@ -5,21 +5,21 @@
 <mapper namespace="com.devcamp.eztour.rsvtMapper">
     <insert id="insertReserv" parameterType="ReservDto">
         insert into rsvt
-        values (#{rsvtNo}, #{prdDtlCd}, #{usrId}, #{mnRsvtNm}, #{phn}, #{email}, #{sumPrc}, #{payFtrPrc},
-                #{reqCont}, #{cmnCdRsvtStt}, #{rsvtDate}, #{cncPayNo}, #{adtCnt}, #{chdCnt},
-                #{bbCnt}, now(), current_user, now(), current_user)
+        values (#{rsvt_no}, #{prd_dtl_cd}, #{usr_id}, #{mn_rsvt_nm}, #{phn}, #{email}, #{sum_prc}, #{pay_ftr_prc},
+                #{req_cont}, #{cmn_cd_rsvt_stt}, now(), #{cnc_pay_no}, #{adt_cnt}, #{chd_cnt},
+                #{bb_cnt}, now(), current_user, now(), current_user)
     </insert>
 
     <select id="selectReserv" parameterType="String" resultType="ReservDto">
-        select * from rsvt where rsvt_no = #{rsvtNo}
+        select * from rsvt where rsvt_no = #{rsvt_no}
     </select>
 
     <select id="selectReservList" parameterType="String" resultType="ReservDto">
-        SELECT * FROM rsvt WHERE usr_id = #{usrId}
+        SELECT * FROM rsvt WHERE usr_id = #{usr_id}
     </select>
 
     <select id="selectReservListPage" parameterType="Map" resultType="ReservDto">
-        SELECT * FROM rsvt WHERE usr_id = #{usrId} LIMIT #{offset}, #{pageSize}
+        SELECT * FROM rsvt WHERE usr_id = #{usr_id} LIMIT #{offset}, #{pageSize}
     </select>
 
     <select id="selectAllReserv" resultType="ReservDto">
@@ -27,15 +27,34 @@
     </select>
 
     <update id="updateReservStatus" parameterType="String">
-        update rsvt set cmn_cd_rsvt_stt = #{cmnCdRsvtStt} where rsvt_no = #{rsvtNo}
+        update rsvt set cmn_cd_rsvt_stt = #{cmn_cd_rsvt_stt} where rsvt_no = #{rsvt_no}
     </update>
 
     <delete id="deleteAllReserv">
         delete from rsvt
     </delete>
 
-    <select id="selectReservPrdInfo" parameterType="String" resultType="ReservInfoDto">
-
+    <select id="selectPrdInfo" parameterType="String" resultType="ReservInfoDto">
+        SELECT d.prd_dtl_cd, d.arl_nm, t.dstn_cd, t.prd_nm, t.trv_per, p.adt_prc, p.chd_prc, p.bb_prc
+        FROM trv_prd_dtl d JOIN trv_prd t
+                                ON d.prd_cd = t.prd_cd
+                           JOIN prd_prc p
+                                ON d.prd_cd = p.prd_cd
+        WHERE d.prd_dtl_cd = #{prd_dtl_cd}
     </select>
 
+    <select id="selectAirInfo" parameterType="java.util.List" resultType="com.devcamp.eztour.domain.reserv.AirlineReqDto">
+        SELECT * FROM arl_req WHERE prd_dtl_cd = #{prd_dtl_cd}
+    </select>
+
+    <select id="selectReservConfInfo" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.ReservConfInfoDto">
+        select r.rsvt_date, r.rsvt_no, r.prd_dtl_cd, r.adt_cnt, r.chd_cnt, r.bb_cnt, r.sum_prc, r.cmn_cd_rsvt_stt,
+               r.pay_ftr_prc, tp.prd_nm, tp.prd_cd, tp.trv_per
+        from trv_prd_dtl d INNER JOIN rsvt r
+                                      ON d.prd_dtl_cd=r.prd_dtl_cd
+                           INNER JOIN trv_prd tp on d.prd_cd = tp.prd_cd
+        where r.rsvt_no = #{rsvt_no};
+    </select>
+
+<!--    <select id="selectPayhistory" parameterType="String" resultType=""-->
 </mapper>

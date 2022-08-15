@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Slf4j
@@ -22,8 +24,10 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String home(Model m) {
+    public String home(Model m, HttpServletRequest request) {
         try {
+            HttpSession session = request.getSession();
+            session.setAttribute("usr_id","admin");
             List<DestinationCategoryDto> list = destinationCategoryService.getCategory();
             m.addAttribute("list", list);
         } catch (Exception e) {

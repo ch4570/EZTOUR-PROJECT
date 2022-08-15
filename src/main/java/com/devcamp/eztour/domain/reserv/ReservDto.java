@@ -19,93 +19,93 @@ public class ReservDto {
 //    private Integer childCnt; //아동수
 //    private Integer infantCnt; //유아수
 
-    private String rsvtNo; //예약번호
-    private String prdDtlCd; //상세상품번호
-    private String usrId; //유저아이디
-    private String mnRsvtNm; //대표예약자명
+    private String rsvt_no; //예약번호
+    private String prd_dtl_cd; //상세상품번호
+    private String usr_id; //유저아이디
+    private String mn_rsvt_nm; //대표예약자명
     private String phn; //폰번호
     private String email; //이메일
-    private long sumPrc; //합계금액
-    private long payFtrPrc; //결제예정금액
-    private String reqCont; //요청사항
-    private String cmnCdRsvtStt; //예약상태
-    private Date rsvtDate; //예약일
-    private Integer cncPayNo; //결제취소번호
-    private Integer adtCnt; //성인수
-    private Integer chdCnt; //아동수
-    private Integer bbCnt; //유아수
+    private long sum_prc; //합계금액
+    private long pay_ftr_prc; //결제예정금액
+    private String req_cont; //요청사항
+    private String cmn_cd_rsvt_stt; //예약상태
+    private Date rsvt_date; //예약일
+    private Integer cnc_pay_no; //결제취소번호
+    private Integer adt_cnt; //성인수
+    private Integer chd_cnt; //아동수
+    private Integer bb_cnt; //유아수
 
-    //ckd,
     public ReservDto(){}
-    public ReservDto(String rsvtNo, String prdDtlCd, String usrId, String mnRsvtNm, String phn, String email, long sumPrc, long payFtrPrc, String reqCont, Integer cncPayNo, Integer adtCnt, Integer chdCnt, Integer bbCnt) {
-        this.rsvtNo = rsvtNo;
-        this.prdDtlCd = prdDtlCd;
-        this.usrId = usrId;
-        this.mnRsvtNm = mnRsvtNm;
+    public ReservDto(String rsvt_no, String prd_dtl_cd, String usr_id, String mn_rsvt_nm, String phn, String email,
+                     long sum_prc, long pay_ftr_prc, String req_cont,
+                     Integer cnc_pay_no, Integer adt_cnt, Integer chd_cnt, Integer bb_cnt) {
+        this.rsvt_no = rsvt_no;
+        this.prd_dtl_cd = prd_dtl_cd;
+        this.usr_id = usr_id;
+        this.mn_rsvt_nm = mn_rsvt_nm;
         this.phn = phn;
         this.email = email;
-        this.sumPrc = sumPrc;
-        this.payFtrPrc = payFtrPrc;
-        this.reqCont = reqCont;
-        this.cmnCdRsvtStt = "6A";
-        this.rsvtDate = new Date(System.currentTimeMillis());
-        this.cncPayNo = cncPayNo;
-        this.adtCnt = adtCnt;
-        this.chdCnt = chdCnt;
-        this.bbCnt = bbCnt;
+        this.sum_prc = sum_prc;
+        this.pay_ftr_prc = pay_ftr_prc;
+        this.req_cont = req_cont;
+        this.cmn_cd_rsvt_stt = "6A";
+        this.cnc_pay_no = cnc_pay_no;
+        this.adt_cnt = adt_cnt;
+        this.chd_cnt = chd_cnt;
+        this.bb_cnt = bb_cnt;
     }
 
     @Override
     public String toString() {
         return "ReservDto{" +
-                "rsvtNo='" + rsvtNo + '\'' +
-                ", prdDtlCd='" + prdDtlCd + '\'' +
-                ", usrId='" + usrId + '\'' +
-                ", mnRsvtNm='" + mnRsvtNm + '\'' +
+                "rsvt_no='" + rsvt_no + '\'' +
+                ", prd_dtl_cd='" + prd_dtl_cd + '\'' +
+                ", usr_id='" + usr_id + '\'' +
+                ", mn_rsvt_nm='" + mn_rsvt_nm + '\'' +
                 ", phn='" + phn + '\'' +
                 ", email='" + email + '\'' +
-                ", sumPrc=" + sumPrc +
-                ", payFtrPrc=" + payFtrPrc +
-                ", reqCont='" + reqCont + '\'' +
-                ", cmnCdRsvtStt='" + cmnCdRsvtStt + '\'' +
-                ", rsvtDate=" + rsvtDate +
-                ", cncPayNo=" + cncPayNo +
-                ", adtCnt=" + adtCnt +
-                ", chdCnt=" + chdCnt +
-                ", bbCnt=" + bbCnt +
+                ", sum_prc=" + sum_prc +
+                ", pay_ftr_prc=" + pay_ftr_prc +
+                ", req_cont='" + req_cont + '\'' +
+                ", cmn_cd_rsvt_stt='" + cmn_cd_rsvt_stt + '\'' +
+                ", rsvt_date=" + rsvt_date +
+                ", cnc_pay_no=" + cnc_pay_no +
+                ", adt_cnt=" + adt_cnt +
+                ", chd_cnt=" + chd_cnt +
+                ", bb_cnt=" + bb_cnt +
                 '}';
     }
 
-    public String getRsvtNo() {
-        return rsvtNo;
+    public String getRsvt_no() {
+        return rsvt_no;
     }
 
-    public void setRsvtNo(String rsvtNo) {
-        this.rsvtNo = rsvtNo;
+    public void setRsvt_no(String rsvt_no) {
+        this.rsvt_no = rsvt_no;
     }
 
-    public String getPrdDtlCd() {
-        return prdDtlCd;
+    public String getPrd_dtl_cd() {
+        return prd_dtl_cd;
     }
 
-    public void setPrdDtlCd(String prdDtlCd) {
-        this.prdDtlCd = prdDtlCd;
+    public void setPrd_dtl_cd(String prd_dtl_cd) {
+        this.prd_dtl_cd = prd_dtl_cd;
     }
 
-    public String getUsrId() {
-        return usrId;
+    public String getUsr_id() {
+        return usr_id;
     }
 
-    public void setUsrId(String usrId) {
-        this.usrId = usrId;
+    public void setUsr_id(String usr_id) {
+        this.usr_id = usr_id;
     }
 
-    public String getMnRsvtNm() {
-        return mnRsvtNm;
+    public String getMn_rsvt_nm() {
+        return mn_rsvt_nm;
     }
 
-    public void setMnRsvtNm(String mnRsvtNm) {
-        this.mnRsvtNm = mnRsvtNm;
+    public void setMn_rsvt_nm(String mn_rsvt_nm) {
+        this.mn_rsvt_nm = mn_rsvt_nm;
     }
 
     public String getPhn() {
@@ -124,75 +124,75 @@ public class ReservDto {
         this.email = email;
     }
 
-    public long getSumPrc() {
-        return sumPrc;
+    public long getSum_prc() {
+        return sum_prc;
     }
 
-    public void setSumPrc(long sumPrc) {
-        this.sumPrc = sumPrc;
+    public void setSum_prc(long sum_prc) {
+        this.sum_prc = sum_prc;
     }
 
-    public long getPayFtrPrc() {
-        return payFtrPrc;
+    public long getPay_ftr_prc() {
+        return pay_ftr_prc;
     }
 
-    public void setPayFtrPrc(long payFtrPrc) {
-        this.payFtrPrc = payFtrPrc;
+    public void setPay_ftr_prc(long pay_ftr_prc) {
+        this.pay_ftr_prc = pay_ftr_prc;
     }
 
-    public String getReqCont() {
-        return reqCont;
+    public String getReq_cont() {
+        return req_cont;
     }
 
-    public void setReqCont(String reqCont) {
-        this.reqCont = reqCont;
+    public void setReq_cont(String req_cont) {
+        this.req_cont = req_cont;
     }
 
-    public String getCmnCdRsvtStt() {
-        return cmnCdRsvtStt;
+    public String getCmn_cd_rsvt_stt() {
+        return cmn_cd_rsvt_stt;
     }
 
-    public void setCmnCdRsvtStt(String cmnCdRsvtStt) {
-        this.cmnCdRsvtStt = cmnCdRsvtStt;
+    public void setCmn_cd_rsvt_stt(String cmn_cd_rsvt_stt) {
+        this.cmn_cd_rsvt_stt = cmn_cd_rsvt_stt;
     }
 
-    public Date getRsvtDate() {
-        return rsvtDate;
+    public Date getRsvt_date() {
+        return rsvt_date;
     }
 
-    public void setRsvtDate(Date rsvtDate) {
-        this.rsvtDate = rsvtDate;
+    public void setRsvt_date(Date rsvt_date) {
+        this.rsvt_date = rsvt_date;
     }
 
-    public Integer getCncPayNo() {
-        return cncPayNo;
+    public Integer getCnc_pay_no() {
+        return cnc_pay_no;
     }
 
-    public void setCncPayNo(Integer cncPayNo) {
-        this.cncPayNo = cncPayNo;
+    public void setCnc_pay_no(Integer cnc_pay_no) {
+        this.cnc_pay_no = cnc_pay_no;
     }
 
-    public Integer getAdtCnt() {
-        return adtCnt;
+    public Integer getAdt_cnt() {
+        return adt_cnt;
     }
 
-    public void setAdtCnt(Integer adtCnt) {
-        this.adtCnt = adtCnt;
+    public void setAdt_cnt(Integer adt_cnt) {
+        this.adt_cnt = adt_cnt;
     }
 
-    public Integer getChdCnt() {
-        return chdCnt;
+    public Integer getChd_cnt() {
+        return chd_cnt;
     }
 
-    public void setChdCnt(Integer chdCnt) {
-        this.chdCnt = chdCnt;
+    public void setChd_cnt(Integer chd_cnt) {
+        this.chd_cnt = chd_cnt;
     }
 
-    public Integer getBbCnt() {
-        return bbCnt;
+    public Integer getBb_cnt() {
+        return bb_cnt;
     }
 
-    public void setBbCnt(Integer bbCnt) {
-        this.bbCnt = bbCnt;
+    public void setBb_cnt(Integer bb_cnt) {
+        this.bb_cnt = bb_cnt;
     }
 }
