@@ -1,5 +1,6 @@
 package com.devcamp.eztour.domain.product;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,6 +11,7 @@ import java.util.Date;
 @ToString
 @Getter
 @Setter
+@EqualsAndHashCode
 public class TrvPrdWriteDto {
 
     private String prd_cd;

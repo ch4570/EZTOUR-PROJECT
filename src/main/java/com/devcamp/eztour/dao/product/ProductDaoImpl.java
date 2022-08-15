@@ -4,7 +4,6 @@ import com.devcamp.eztour.domain.product.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
@@ -16,7 +15,7 @@ public class ProductDaoImpl implements ProductDao{
     private String namespace = "com.devcamp.eztour.dao.productMapper.";
 
     @Override
-    public int insertProduct(TrvPrdWriteDto trvPrdWriteDto) {
+    public int insertProduct(TrvPrdWriteDto trvPrdWriteDto){
         return session.insert(namespace+"insertProduct", trvPrdWriteDto);
     }
 
@@ -100,5 +99,14 @@ public class ProductDaoImpl implements ProductDao{
         return session.selectList(namespace+"searchSelectProductAdminDetail",pageHandlerProduct);
     }
 
+    @Override
+    public int deleteAll() throws Exception {
+        return session.delete(namespace+"deleteAllProdcut");
+    }
+
+    @Override
+    public List<TrvPrdWriteDto> selectAllProduct() throws Exception {
+        return session.selectList(namespace+"selectAllProduct");
+    }
 
 }
