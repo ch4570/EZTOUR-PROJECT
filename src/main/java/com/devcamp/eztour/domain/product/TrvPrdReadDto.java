@@ -40,6 +40,7 @@ public class TrvPrdReadDto {
     public TrvPrdReadDto(String prd_cd, String dstn_cd, String cmn_cd_thm, String prd_nm,
                          String prd_dtl_desc, String trv_per, Integer prd_str_prc,
                          String dpr_str_date, String dpr_fin_date) {
+
         this.prd_cd = prd_cd;
         this.dstn_cd = dstn_cd;
         this.cmn_cd_thm = cmn_cd_thm;
@@ -49,6 +50,8 @@ public class TrvPrdReadDto {
         this.prd_str_prc = prd_str_prc;
         this.dpr_str_date = dpr_str_date;
         this.dpr_fin_date = dpr_fin_date;
+        this.img_pth = img_pth;
+        this.mn_img_yn = mn_img_yn;
     }
 
     public TrvPrdReadDto(String prd_cd, String cmn_cd_thm, String prd_nm,
