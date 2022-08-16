@@ -4,37 +4,148 @@
 
 <mapper namespace="com.devcamp.eztour.dao.productMapper">
 
-    <insert id="insertProduct" parameterType="Trv_prd_dto">
+    <insert id="insertProduct" parameterType="TrvPrdWriteDto">
         INSERT INTO trv_prd(prd_cd,dstn_cd,cmn_cd_thm,prd_nm,prd_dtl_desc,
-                        trv_per,prd_str_prc,dpr_str_date,dpr_fin_date)
+                            trv_per,prd_str_prc,dpr_str_date,dpr_fin_date)
         VALUES(#{prd_cd},#{dstn_cd},#{cmn_cd_thm},#{prd_nm},#{prd_dtl_desc},
-                #{trv_per},#{prd_str_prc},#{dpr_str_date},#{dpr_fin_date});
+               #{trv_per},#{prd_str_prc},#{dpr_str_date},#{dpr_fin_date});
     </insert>
 
+    <select id="selectProduct" parameterType="String" resultType="TrvPrdReadDto">
+        SELECT prd_cd,dstn_cd,cmn_cd_thm,prd_nm,prd_dtl_desc,
+               trv_per,prd_str_prc,dpr_str_date,dpr_fin_date
+        FROM trv_prd
+        WHERE prd_cd = #{prd_cd}
+    </select>
 
-    <insert id="insertProductDetail" parameterType="Trv_prd_dtl_dto">
+    <insert id="insertProductDetail" parameterType="TrvPrdDtlDto">
         INSERT INTO trv_prd_dtl(prd_dtl_cd,prd_cd,prd_str_prc,arl_nm,
                                 min_stt_cnt,max_stt_cnt,dpr_date)
         VALUES(#{prd_dtl_cd},#{prd_cd},#{prd_str_prc},#{arl_nm},#{min_stt_cnt},#{max_stt_cnt},#{dpr_date})
     </insert>
 
-    <insert id="insertProductPrice" parameterType="Trv_prd_prc_dto">
+    <insert id="insertProductPrice" parameterType="TrvPrdPrcDto">
         INSERT INTO prd_prc(prd_dtl_cd,prd_cd,adt_prc,chd_prc,bb_prc)
         VALUES(#{prd_dtl_cd},#{prd_cd},#{adt_prc},#{chd_prc},#{bb_prc});
     </insert>
 
-    <insert id="insertProductSchedule" parameterType="Trv_sch_dto">
+    <insert id="insertProductSchedule" parameterType="TrvSchDto">
         INSERT INTO trv_sch(prd_cd,trv_date,sch_ord,st_nm,sit_sh_desc,
                             sit_lo_desc,ht_inf,brk,luh,din,dstnc_tm)
         VALUES(#{prd_cd},#{trv_date},#{sch_ord},#{st_nm},#{sit_sh_desc},
                #{sit_lo_desc},#{ht_inf},#{brk},#{luh},#{din},#{dstnc_tm});
     </insert>
 
-    <insert id="insertProductImage" parameterType="Prd_img_dto">
+    <insert id="insertProductImage" parameterType="PrdImgDto">
         INSERT INTO prd_img(prd_cd,img_pth) VALUES(#{prd_cd},#{img_pth})
     </insert>
 
-    <insert id="insertScheduleImage" parameterType="Trv_sch_img_dto">
+    <insert id="insertScheduleImage" parameterType="TrvSchImgDto">
         INSERT INTO trv_sch_img(sch_no,prd_cd,prf_img_pth) VALUES(#{sch_no},#{prd_cd},#{prf_img_pth})
     </insert>
+
+    <select id="selectProductAdmin" parameterType="PageHandlerProduct" resultType="TrvPrdReadDto">
+        SELECT prd_cd,cmn_cd_thm,prd_nm,prd_str_prc,frs_reg_date
+        FROM trv_prd ORDER BY frs_reg_date DESC
+            LIMIT #{pageSize} OFFSET #{startList}
+    </select>
+
+    <select id="selectProductAdminCnt" resultType="int">
+        SELECT COUNT(*) FROM trv_prd
+    </select>
+
+    <sql id="searchCondition">
+        <choose>
+            <when test='search_option=="prd_cd"'>
+                AND prd_cd LIKE concat('%', #{search_keyword}, '%')
+            </when>
+            <when test='search_option=="prd_nm"'>
+                AND prd_nm LIKE concat('%', #{search_keyword}, '%')
+            </when>
+            <otherwise>
+                AND (prd_cd   LIKE concat('%', #{search_keyword}, '%')
+                OR   prd_nm LIKE concat('%', #{search_keyword}, '%'))
+            </otherwise>
+        </choose>
+    </sql>
+
+    <select id="searchSelectProductAdmin" parameterType="PageHandlerProduct" resultType="TrvPrdReadDto">
+        SELECT prd_cd,cmn_cd_thm,prd_nm,prd_str_prc,frs_reg_date
+        FROM  trv_prd
+        WHERE true
+        <include refid="searchCondition"/>
+        ORDER BY frs_reg_date DESC
+        LIMIT #{pageSize} OFFSET #{startList}
+    </select>
+
+    <select id="searchSelectProductAdminCnt" parameterType="PageHandlerProduct" resultType="int">
+        SELECT COUNT(*)
+        FROM trv_prd
+        WHERE TRUE
+        <include refid="searchCondition"/>
+    </select>
+
+
+    <update id="updateProduct" parameterType="TrvPrdWriteDto">
+        UPDATE trv_prd SET dstn_cd=#{dstn_cd},cmn_cd_thm=#{cmn_cd_thm},prd_nm=#{prd_nm},
+                           prd_dtl_desc=#{prd_dtl_desc},trv_per=#{trv_per},prd_str_prc=#{prd_str_prc},
+                           dpr_str_date=#{dpr_str_date},dpr_fin_date=#{dpr_fin_date}
+        WHERE prd_cd=#{prd_cd}
+    </update>
+
+    <delete id="deleteProduct" parameterType="String">
+        DELETE FROM trv_prd WHERE prd_cd=#{prd_cd}
+    </delete>
+
+    <select id="selectProductAdminDetail" parameterType="PageHandlerProduct" resultType="TrvPrdDtlDto">
+        SELECT prd_dtl_cd,prd_cd,arl_nm,prd_str_prc,dpr_date
+        FROM trv_prd_dtl
+        ORDER BY dpr_date DESC
+            LIMIT #{pageSize} OFFSET #{startList};
+    </select>
+
+    <select id="selectProductAdminDetailCnt" resultType="int">
+        SELECT COUNT(*) FROM trv_prd_dtl
+    </select>
+
+    <sql id="searchConditionDetail">
+        <choose>
+            <when test='search_option=="prd_dtl_cd"'>
+                AND prd_dtl_cd LIKE concat('%', #{search_keyword}, '%')
+            </when>
+            <when test='search_option=="prd_cd"'>
+                AND prd_cd LIKE concat('%', #{search_keyword}, '%')
+            </when>
+            <otherwise>
+                AND (prd_dtl_cd   LIKE concat('%', #{search_keyword}, '%')
+                OR   prd_cd LIKE concat('%', #{search_keyword}, '%'))
+            </otherwise>
+        </choose>
+    </sql>
+
+    <select id="searchSelectProductAdminDetail" parameterType="PageHandlerProduct" resultType="TrvPrdDtlDto">
+        SELECT prd_dtl_cd,prd_cd,arl_nm,prd_str_prc,dpr_date
+        FROM trv_prd_dtl
+        WHERE TRUE
+        <include refid="searchConditionDetail"/>
+        ORDER BY dpr_date DESC
+        LIMIT #{pageSize} OFFSET #{startList};
+    </select>
+
+    <select id="searchSelectProductAdminDetailCnt" parameterType="PageHandlerProduct" resultType="int">
+        SELECT COUNT(*)
+        from trv_prd_dtl
+        WHERE TRUE
+        <include refid="searchConditionDetail"/>
+    </select>
+
+    <delete id="deleteAllProdcut">
+        DELETE FROM trv_prd
+    </delete>
+
+    <select id="selectAllProduct" resultType="TrvPrdWriteDto">
+        SELECT prd_cd,dstn_cd,cmn_cd_thm,prd_nm,prd_dtl_desc,
+               trv_per,prd_str_prc,dpr_str_date,dpr_fin_date
+        FROM trv_prd
+    </select>
 </mapper>

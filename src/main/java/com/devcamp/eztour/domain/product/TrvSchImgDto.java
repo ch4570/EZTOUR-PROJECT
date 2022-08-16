@@ -8,8 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Setter
 @ToString
-@Slf4j
-public class Trv_sch_img_dto {
+public class TrvSchImgDto {
     private int sch_img_no;
     private int sch_no;
     private String prd_cd;
@@ -19,7 +18,7 @@ public class Trv_sch_img_dto {
     private String fnl_mod_date;
     private String fnl_mod_no;
 
-    public Trv_sch_img_dto(int sch_no, String prd_cd, String prf_img_pth) {
+    public TrvSchImgDto(int sch_no, String prd_cd, String prf_img_pth) {
         this.sch_no = sch_no;
         this.prd_cd = prd_cd;
         this.prf_img_pth = prf_img_pth;

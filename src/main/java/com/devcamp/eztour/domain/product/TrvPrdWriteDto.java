@@ -1,19 +1,21 @@
 package com.devcamp.eztour.domain.product;
 
-import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
+
+@ToString
 @Getter
 @Setter
-@ToString
-public class Trv_prd_dto {
+@EqualsAndHashCode
+public class TrvPrdWriteDto {
 
     private String prd_cd;
+    private String prd_cd_mod;
     private String dstn_cd;
     private String cmn_cd_thm;
     private String prd_nm;
@@ -37,17 +39,4 @@ public class Trv_prd_dto {
     private Date fnl_mod_date;
     private String fnl_mod_no;
 
-    public Trv_prd_dto(String prd_cd, String dstn_cd, String cmn_cd_thm, String prd_nm,
-                       String prd_dtl_desc, String trv_per, Integer prd_str_prc,
-                       String dpr_str_date, String dpr_fin_date) {
-        this.prd_cd = prd_cd;
-        this.dstn_cd = dstn_cd;
-        this.cmn_cd_thm = cmn_cd_thm;
-        this.prd_nm = prd_nm;
-        this.prd_dtl_desc = prd_dtl_desc;
-        this.trv_per = trv_per;
-        this.prd_str_prc = prd_str_prc;
-        this.dpr_str_date = dpr_str_date;
-        this.dpr_fin_date = dpr_fin_date;
-    }
 }

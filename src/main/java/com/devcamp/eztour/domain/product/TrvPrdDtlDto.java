@@ -4,12 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @ToString
-public class Trv_prd_dtl_dto {
+public class TrvPrdDtlDto {
 
     private String prd_dtl_cd;
     private String prd_cd;
@@ -26,14 +24,12 @@ public class Trv_prd_dtl_dto {
     private String  fnl_mod_date;
     private String	fnl_mod_no;
 
-    public Trv_prd_dtl_dto(String prd_dtl_cd, String prd_cd, int prd_str_prc, String arl_nm,
-                           int min_stt_cnt, int max_stt_cnt,String dpr_date) {
+    public TrvPrdDtlDto(String prd_dtl_cd, String prd_cd, String arl_nm, int prd_str_prc, String dpr_date) {
         this.prd_dtl_cd = prd_dtl_cd;
         this.prd_cd = prd_cd;
         this.prd_str_prc = prd_str_prc;
         this.arl_nm = arl_nm;
-        this.min_stt_cnt = min_stt_cnt;
-        this.max_stt_cnt = max_stt_cnt;
         this.dpr_date = dpr_date;
     }
+
 }

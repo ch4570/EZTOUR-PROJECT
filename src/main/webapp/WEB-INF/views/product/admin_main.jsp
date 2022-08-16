@@ -23,8 +23,8 @@
                 </ul>
                 <ul>
                     <li class="prd_tlt">상품 등록 현황 관리</li>
-                    <li class="menu_list">상품 관리</li>
-                    <li class="menu_list">상품 상세 관리</li>
+                    <a href="<c:url value='/product/management'/>"><li class="menu_list">상품 관리</li></a>
+                    <a href="<c:url value='/product/management/detail'/>"><li class="menu_list">상품 상세 관리</li></a>
                     <li class="menu_list">상품 이미지 관리</li>
                     <li class="menu_list">상품 일정 관리</li>
                     <li class="menu_list">상품 가격 관리</li>
@@ -34,10 +34,14 @@
                     <li class="prd_tlt">상품 승인 관리</li>
                     <li class="menu_list">상품 승인</li>
                 </ul>
+                <ul>
+                    <li class="prd_tlt">고객 관리</li>
+                    <li class="menu_list">고객 서비스 제안 관리</li>
+                    <li class="menu_list">1:1 문의 관리</li>
+                </ul>
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

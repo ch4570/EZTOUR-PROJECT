@@ -29,6 +29,21 @@
             (#{qna_cd}, #{faq_qna_cont}, #{faq_ans_cont}, now());
     </insert>
 
+    <select id="selectFaq" parameterType="int" resultType="FaqDto">
+        SELECT * FROM faq
+        WHERE faq_no = #{faq_no}
+    </select>
+
+    <delete id="deleteFaq" parameterType="int">
+        DELETE FROM faq
+        WHERE faq_no = #{faq_no}
+    </delete>
+
+    <update id="updateFaq" parameterType="FaqDto">
+        UPDATE faq
+        SET qna_cd = #{qna_cd}, faq_qna_cont = #{faq_qna_cont}, faq_ans_cont = #{faq_ans_cont}, mdf_date = now()
+        WHERE faq_no = #{faq_no}
+    </update>
 
 
 

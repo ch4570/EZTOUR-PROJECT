@@ -34,4 +34,19 @@ public class FaqServiceImpl implements FaqService {
         return faqDao.insertFaq(faqDto);
     }
 
+    @Override
+    public FaqDto getFaq(Integer faq_no) throws Exception {
+        return faqDao.selectFaq(faq_no);
+    }
+
+    @Override
+    public int removeFaq(Integer faq_no) throws Exception {
+        return faqDao.deleteFaq(faq_no);
+    }
+
+    @Override
+    public int modifyFaq(FaqDto faqDto) throws Exception {
+        return faqDao.updateFaq(faqDto);
+    }
+
 }
