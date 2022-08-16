@@ -12,6 +12,7 @@
         <!--도형님 시작-->
         <typeAlias alias="RvwDto" type="com.devcamp.eztour.domain.rvw.RvwDto"/>
         <typeAlias alias="SearchCondition" type="com.devcamp.eztour.domain.rvw.SearchCondition"/>
+        <typeAlias alias="RvwCmtDto" type="com.devcamp.eztour.domain.rvw.RvwCmtDto"/>
 
         <!--도형님 끝-->
 

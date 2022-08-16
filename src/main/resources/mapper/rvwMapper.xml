@@ -3,6 +3,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.devcamp.eztour.RvwMapper">
+    <sql id="searchCondition">
+        <choose>
+            <when test='option=="T"'>
+                AND A.rvw_ttl LIKE concat('%', #{keyword}, '%')
+            </when>
+            <when test='option=="W"'>
+                AND A.wrt_nm LIKE concat('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+                AND (A.rvw_ttl LIKE concat('%', #{keyword}, '%')
+                OR A.wrt_nm LIKE concat('%', #{keyword}, '%'))
+            </otherwise>
+        </choose>
+    </sql>
+    
     <select id="count" resultType="int"> <!-- 후기 건수 -->
         SELECT count(*) FROM rvw;
     </select>
@@ -86,7 +101,7 @@
         UPDATE rvw
         SET rvw_ttl = #{rvw_ttl},
             rvw_cont = #{rvw_cont},
-            rvw_reg_date = CURRENT_TIMESTAMP
+            rvw_mdf_date = CURRENT_TIMESTAMP
         WHERE rvw_no = #{rvw_no} and wrt_nm = #{wrt_nm}
     </update>
 
@@ -111,7 +126,7 @@
         FROM rvw A INNER JOIN prd_img B ON A.prd_cd = B.prd_cd
                    INNER JOIN usr C ON A.usr_id = C.usr_id
         WHERE true
-        AND A.rvw_ttl LIKE concat('%', #{keyword}, '%')
+          <include refid="searchCondition"/>
         ORDER BY A.rvw_no DESC
             LIMIT #{offset}, #{pageSize}
     </select>
@@ -121,10 +136,14 @@
         FROM rvw A INNER JOIN prd_img B ON A.prd_cd = B.prd_cd
                    INNER JOIN usr C ON A.usr_id = C.usr_id
         WHERE true
-          AND A.rvw_ttl LIKE concat('%', #{keyword}, '%')
-        ORDER BY A.rvw_no DESC
-            LIMIT #{offset}, #{pageSize}
+        <include refid="searchCondition"/>
     </select>
+    
+    <update id="updateCommentCnt" parameterType="map">
+        UPDATE rvw
+        SET cmt_cnt = cmt_cnt + #{cnt}
+        WHERE rvw_no = #{rvw_no}
+    </update>
 
 
 </mapper>

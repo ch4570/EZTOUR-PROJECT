@@ -3,6 +3,7 @@ package com.devcamp.eztour.domain.reserv;
 import java.util.Date;
 
 public class ReservConfInfoDto {
+    //예약 확인 페이지 정보를 보여주기 위한 Dto
     private Date rsvt_date; //예약일
     private String rsvt_no; //예약번호
     private String prd_dtl_cd; //상품상세번호
@@ -11,6 +12,7 @@ public class ReservConfInfoDto {
     private int bb_cnt; //유아수
     private long sum_prc; //총금액
     private String cmn_cd_rsvt_stt; //예약상태
+    private String cmn_cd_pay_stt;
     private String pay_ftr_prc; //결제예정금액
     private String prd_nm; //상품이름
     private String prd_cd; //상품코드
@@ -24,9 +26,9 @@ public class ReservConfInfoDto {
 
     public ReservConfInfoDto(){}
     public ReservConfInfoDto(Date rsvt_date, String rsvt_no, String prd_dtl_cd, int adt_cnt, int chd_cnt, int bb_cnt,
-                             long sum_prc, String cmn_cd_rsvt_stt, String pay_ftr_prc, String prd_nm, String prd_cd,
-                             String trv_per, String go_dpr_tm, String go_dpr_arl_id, String cb_arr_tm,
-                             String cb_arr_arl_id) {
+                             long sum_prc, String cmn_cd_rsvt_stt, String cmn_cd_pay_stt, String pay_ftr_prc,
+                             String prd_nm, String prd_cd, String trv_per, String go_dpr_tm, String go_dpr_arl_id,
+                             String cb_arr_tm, String cb_arr_arl_id) {
         this.rsvt_date = rsvt_date;
         this.rsvt_no = rsvt_no;
         this.prd_dtl_cd = prd_dtl_cd;
@@ -35,6 +37,7 @@ public class ReservConfInfoDto {
         this.bb_cnt = bb_cnt;
         this.sum_prc = sum_prc;
         this.cmn_cd_rsvt_stt = cmn_cd_rsvt_stt;
+        this.cmn_cd_pay_stt = cmn_cd_pay_stt;
         this.pay_ftr_prc = pay_ftr_prc;
         this.prd_nm = prd_nm;
         this.prd_cd = prd_cd;
@@ -43,6 +46,29 @@ public class ReservConfInfoDto {
         this.go_dpr_arl_id = go_dpr_arl_id;
         this.cb_arr_tm = cb_arr_tm;
         this.cb_arr_arl_id = cb_arr_arl_id;
+    }
+
+    @Override
+    public String toString() {
+        return "ReservConfInfoDto{" +
+                "rsvt_date=" + rsvt_date +
+                ", rsvt_no='" + rsvt_no + '\'' +
+                ", prd_dtl_cd='" + prd_dtl_cd + '\'' +
+                ", adt_cnt=" + adt_cnt +
+                ", chd_cnt=" + chd_cnt +
+                ", bb_cnt=" + bb_cnt +
+                ", sum_prc=" + sum_prc +
+                ", cmn_cd_rsvt_stt='" + cmn_cd_rsvt_stt + '\'' +
+                ", cmn_cd_pay_stt='" + cmn_cd_pay_stt + '\'' +
+                ", pay_ftr_prc='" + pay_ftr_prc + '\'' +
+                ", prd_nm='" + prd_nm + '\'' +
+                ", prd_cd='" + prd_cd + '\'' +
+                ", trv_per='" + trv_per + '\'' +
+                ", go_dpr_tm='" + go_dpr_tm + '\'' +
+                ", go_dpr_arl_id='" + go_dpr_arl_id + '\'' +
+                ", cb_arr_tm='" + cb_arr_tm + '\'' +
+                ", cb_arr_arl_id='" + cb_arr_arl_id + '\'' +
+                '}';
     }
 
     public Date getRsvt_date() {
@@ -105,8 +131,16 @@ public class ReservConfInfoDto {
         return cmn_cd_rsvt_stt;
     }
 
-    public void setCmn_cd_rsvt_stt(String cmn_rsvt_stt) {
-        this.cmn_cd_rsvt_stt = cmn_rsvt_stt;
+    public void setCmn_cd_rsvt_stt(String cmn_cd_rsvt_stt) {
+        this.cmn_cd_rsvt_stt = cmn_cd_rsvt_stt;
+    }
+
+    public String getCmn_cd_pay_stt() {
+        return cmn_cd_pay_stt;
+    }
+
+    public void setCmn_cd_pay_stt(String cmn_cd_pay_stt) {
+        this.cmn_cd_pay_stt = cmn_cd_pay_stt;
     }
 
     public String getPay_ftr_prc() {

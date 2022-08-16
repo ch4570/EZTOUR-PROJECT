@@ -9,30 +9,31 @@ import java.util.Date;
 @Setter
 public class TrvPrdReadDto {
 
-    private String prd_cd;          //상품코드
-    private String dstn_cd;         //여행지코드
-    private String cmn_cd_thm;      //테마상태
-    private String prd_nm;          //상품명
-    private String prd_dtl_desc;    //상품상세설명
-    private String trv_per;         //여행기간
-    private Integer prd_str_prc;    //상품시작가격
-    private String dpr_str_date;    //출발시작일
-    private String dpr_fin_date;    //출발마감일
-    private int star;               //별점
-    private int mn_img_yn;
+    private String prd_cd;
+    private String dstn_cd;
+    private String cmn_cd_thm;
+    private String prd_nm;
+    private String prd_dtl_desc;
+    private String trv_per;
+    private Integer prd_str_prc;
+    private String dpr_str_date;
+    private String dpr_fin_date;
+    private int star;
+    private boolean evnt_yn;
+    private boolean fin_yn;
+    private boolean act_yn;
+    private boolean dc_yn;
+    private int pr_prc;
+    private int add_sv_rt;
+    private int vcnt;
+    private boolean lk_yn;
+    private Date frs_reg_date;
+    private String frs_rgs_no;
+    private Date fnl_mod_date;
+    private String fnl_mod_no;
     private String img_pth;
-    private boolean evnt_yn;        //이벤트여부
-    private boolean fin_yn;         //마감여부
-    private boolean act_yn;         //활성화여부
-    private boolean dc_yn;          //할인여부
-    private int pr_prc;             //할인가
-    private int add_sv_rt;          //추가적립비율
-    private int vcnt;               //조회수
-    private boolean lk_yn;          //좋아요여부
-    private Date frs_reg_date;      //최초등록일자
-    private String frs_rgs_no;      //최초등록자식별번호
-    private Date fnl_mod_date;      //최종수정일자
-    private String fnl_mod_no;      //최종수정자식별번호
+    private boolean mn_img_yn;
+
 
 
 
@@ -60,5 +61,16 @@ public class TrvPrdReadDto {
         this.prd_nm = prd_nm;
         this.prd_str_prc = prd_str_prc;
         this.frs_reg_date = frs_reg_date;
+    }
+
+    public TrvPrdReadDto(String prd_cd, String dstn_cd, String prd_nm, String prd_dtl_desc,
+                         Integer prd_str_prc, String img_pth, boolean mn_img_yn) {
+        this.prd_cd = prd_cd;
+        this.dstn_cd = dstn_cd;
+        this.prd_nm = prd_nm;
+        this.prd_dtl_desc = prd_dtl_desc;
+        this.prd_str_prc = prd_str_prc;
+        this.img_pth = img_pth;
+        this.mn_img_yn = mn_img_yn;
     }
 }

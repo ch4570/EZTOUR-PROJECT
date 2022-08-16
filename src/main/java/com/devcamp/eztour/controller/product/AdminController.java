@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -25,6 +24,7 @@ public class AdminController {
     @Autowired
     ProductService productService;
 
+    // 관리자 페이지 진입
     @GetMapping("/product/admin")
     public String productAdmin(HttpSession session, RedirectAttributes rattr){
         String id = (String)session.getAttribute("usr_id");
@@ -36,6 +36,7 @@ public class AdminController {
         }
     }
 
+    // 관리자 상품 등록 페이지 진입
     @GetMapping("/product/insert")
     public String insertProduct(HttpSession session,RedirectAttributes rattr){
         String id = (String)session.getAttribute("usr_id");
@@ -48,14 +49,14 @@ public class AdminController {
 
     }
 
+    // 관리자 상품 등록(실제 정보 전송)
     @PostMapping("/product/insert")
-    public String insertProduct(TrvPrdWriteDto trvPrdWriteDto, RedirectAttributes redirectAttributes){
+    public String insertProduct(TrvPrdWriteDto trvPrdWriteDto, RedirectAttributes redirectAttributes) throws Exception{
 
         int result = productService.insertProduct(trvPrdWriteDto);
-        System.out.println(trvPrdWriteDto);
+
         if(result == 1){
             redirectAttributes.addAttribute("prd_cd", trvPrdWriteDto.getPrd_cd());
-           redirectAttributes.addAttribute("prd_str_prc", trvPrdWriteDto.getPrd_str_prc());
             return "redirect:/product/detail/insert";
         }else{
             redirectAttributes.addFlashAttribute("error_msg","상품 등록에 실패했습니다.");
@@ -64,6 +65,7 @@ public class AdminController {
 
     }
 
+    // 관리자 상품 상세 등록 페이지 진입
     @GetMapping("/product/detail/insert")
     public String productDetailInsert(HttpSession session,RedirectAttributes rattr){
         String id = (String)session.getAttribute("usr_id");
@@ -76,6 +78,7 @@ public class AdminController {
 
     }
 
+    // 관리자 상품 상세 등록(실제 정보 전송)
     @PostMapping("/product/detail/insert")
     public String productDetailInsert(TrvPrdDtlDto trv_prdDtlDto, RedirectAttributes redirectAttributes){
         int result = productService.insertProductDetail(trv_prdDtlDto);
@@ -89,6 +92,7 @@ public class AdminController {
         }
     }
 
+    // 관리자 상품 가격 등록 페이지 진입
     @GetMapping("/product/insert/price")
     public String insertProductPrice(HttpSession session,RedirectAttributes rattr){
         String id = (String)session.getAttribute("usr_id");
@@ -101,6 +105,7 @@ public class AdminController {
 
     }
 
+    // 관리자 상품 가격 등록(실제 정보 전송)
     @PostMapping("/product/insert/price")
     public String insertProductPrice(TrvPrdPrcDto trv_prdPrcDto, RedirectAttributes redirectAttributes){
         int result = productService.insertProductPrice(trv_prdPrcDto);
@@ -114,6 +119,7 @@ public class AdminController {
 
     }
 
+    // 관리자 상품 일정 등록 페이지 진입
     @GetMapping("/product/insert/schedule")
     public String insertProductSchedule(HttpSession session, RedirectAttributes rattr){
         String id = (String)session.getAttribute("usr_id");
@@ -126,6 +132,7 @@ public class AdminController {
 
     }
 
+    // 관리자 상품 일정 등록(상세 정보 전송)
     @PostMapping("/product/insert/schedule")
     public String insertProductSchedule(TrvSchDto trv_schDto, RedirectAttributes redirectAttributes){
         int result = productService.insertProductSchedule(trv_schDto);
@@ -138,6 +145,7 @@ public class AdminController {
         }
     }
 
+    // 관리 상품 이미지 등록 페이지 진입
     @GetMapping("/product/insert/image")
     public String insertProductImage(HttpSession session,RedirectAttributes rattr){
             String id = (String)session.getAttribute("usr_id");
@@ -149,6 +157,7 @@ public class AdminController {
             }
     }
 
+    // 관리 상품 이미지 등록(ajax 사용 정보 전송)
     @PostMapping("/product/insert/image")
     @ResponseBody
     public String insertProductImage(MultipartFile img_file, HttpServletRequest request, String prd_cd){
@@ -183,6 +192,7 @@ public class AdminController {
 
     }
 
+    // 관리 상품 일정 페이지 진입
     @GetMapping("/product/schedule/image/insert")
     public String insertScheduleImage(HttpSession session,RedirectAttributes rattr){
         String id = (String)session.getAttribute("usr_id");
@@ -194,12 +204,12 @@ public class AdminController {
         }
     }
 
+    // 관리 상품 일정 등록(ajax 사용 정보 전송)
     @ResponseBody
     @PostMapping("/product/schedule/image/insert")
     public String insertScheduleImage(MultipartHttpServletRequest meq, HttpServletRequest request, int sch_no, String prd_cd) {
         int result = 0;
         String type = null;
-        System.out.println(123);
         // 프로젝트 root 경로 확인 -> 이미지 경로 잡기
         HttpSession session = request.getSession();
         String root_path = session.getServletContext().getRealPath("/");
@@ -228,6 +238,7 @@ public class AdminController {
         }
     }
 
+    // 상품 관리 페이지 진입(리스트 뿌리기)
     @GetMapping("/product/management")
     public String productManagement(HttpSession session, Model model, @RequestParam(value = "page",defaultValue = "1") int page
                                     ,String search_option,String search_keyword){
@@ -254,6 +265,7 @@ public class AdminController {
         }
     }
 
+    // 상품 관리 페이지 상품 정보 읽기
     @GetMapping("/product/read")
     public String productRead(HttpSession session, String prd_cd,Model model){
         String id = (String)session.getAttribute("usr_id");
@@ -266,6 +278,7 @@ public class AdminController {
         }
     }
 
+    // 상품 수정 페이지 진입
     @GetMapping("/product/modify")
     public String productModify(HttpSession session, String prd_cd,Model model){
         String id = (String)session.getAttribute("usr_id");
@@ -278,6 +291,7 @@ public class AdminController {
         }
     }
 
+    // 상품 수정(실제 정보 전송)
     @PostMapping("/product/modify")
     public String productModify(TrvPrdWriteDto trvPrdWriteDto,RedirectAttributes redirectAttributes){
             int result = productService.updateProduct(trvPrdWriteDto);
@@ -288,10 +302,9 @@ public class AdminController {
                 redirectAttributes.addFlashAttribute("error_msg","상품 수정에 실패했습니다.");
                 return "redirect:/product/modify?prd_cd="+trvPrdWriteDto.getPrd_cd();
             }
-
-
     }
 
+    // 상품 삭제(ajax 사용정보 전송)
     @ResponseBody
     @PostMapping("/product/delete")
     public String productDelete(String prd_cd){
@@ -303,6 +316,7 @@ public class AdminController {
         }
     }
 
+    // 상품 상세 관리 페이지 진입(리스트 뿌리기)
     @GetMapping("/product/management/detail")
     public String productManagementDetail(HttpSession session, Model model, @RequestParam(value = "page",defaultValue = "1") int page
             ,String search_option,String search_keyword){
@@ -327,7 +341,6 @@ public class AdminController {
                 model.addAttribute("paging",paging);
                 return "product/product_management_detail.tiles";
             }
-
         }
     }
 }

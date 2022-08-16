@@ -6,6 +6,7 @@ public class PayDto {
     private int pay_no; //결제번호
     private String rsvt_no; //예약번호
     private String prd_dtl_cd; //상품상세번호
+    private String usr_id;
     private long pay_prc; //지불금액
     private Date pay_date; //지불날짜
     private String cmn_cd_pay_appr; //결제승인코드
@@ -15,10 +16,11 @@ public class PayDto {
     private int used_mlg;
 
     public PayDto(){}
-    public PayDto(String rsvt_no, String prd_dtl_cd, long pay_prc, Date pay_date, String cmn_cd_pay_appr,
-                  String cmn_cd_pay_stt, String pay_mthd, int used_mlg) {
+    public PayDto(String rsvt_no, String prd_dtl_cd, String usr_id, long pay_prc, Date pay_date,
+                  String cmn_cd_pay_appr, String cmn_cd_pay_stt, String pay_mthd, int used_mlg) {
         this.rsvt_no = rsvt_no;
         this.prd_dtl_cd = prd_dtl_cd;
+        this.usr_id = usr_id;
         this.pay_prc = pay_prc;
         this.pay_date = pay_date;
         this.cmn_cd_pay_appr = cmn_cd_pay_appr;
@@ -33,6 +35,7 @@ public class PayDto {
                 "pay_no=" + pay_no +
                 ", rsvt_no='" + rsvt_no + '\'' +
                 ", prd_dtl_cd='" + prd_dtl_cd + '\'' +
+                ", usr_id='" + usr_id + '\'' +
                 ", pay_prc=" + pay_prc +
                 ", pay_date=" + pay_date +
                 ", cmn_cd_pay_appr='" + cmn_cd_pay_appr + '\'' +
@@ -65,6 +68,14 @@ public class PayDto {
 
     public void setPrd_dtl_cd(String prd_dtl_cd) {
         this.prd_dtl_cd = prd_dtl_cd;
+    }
+
+    public String getUsr_id() {
+        return usr_id;
+    }
+
+    public void setUsr_id(String usr_id) {
+        this.usr_id = usr_id;
     }
 
     public long getPay_prc() {

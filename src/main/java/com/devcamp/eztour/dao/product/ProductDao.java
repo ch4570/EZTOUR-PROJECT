@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface ProductDao {
 
-    public int insertProduct(TrvPrdWriteDto trvPrdWriteDto);
-    public int insertProductDetail(TrvPrdDtlDto trv_prdDtlDto);
-    public int insertProductPrice(TrvPrdPrcDto trv_prdPrcDto);
-    public int insertProductSchedule(TrvSchDto trv_schDto);
-    public int insertProductImg(PrdImgDto prd_imgDto);
-    public int insertScheduleImage(TrvSchImgDto trv_schImgDto);
+    public int insertProduct(TrvPrdWriteDto trvPrdWriteDto) throws Exception;
+    public int insertProductDetail(TrvPrdDtlDto trvprdDtlDto);
+    public int insertProductPrice(TrvPrdPrcDto trvprdPrcDto);
+    public int insertProductSchedule(TrvSchDto trvschDto);
+    public int insertProductImg(PrdImgDto prdimgDto);
+    public int insertScheduleImage(TrvSchImgDto trvschImgDto);
     public List<TrvPrdReadDto> selectProductAdmin(PageHandlerProduct pageHandlerProduct);
     public int selectProductAdminCnt();
     public List<TrvPrdReadDto> searchSelectProductAdmin(PageHandlerProduct pageHandlerProduct);
@@ -23,4 +23,6 @@ public interface ProductDao {
     public int selectProductAdminDetailCnt();
     public int searchSelectProductAdminDetailCnt(PageHandlerProduct pageHandlerProduct);
     public List<TrvPrdDtlDto> searchSelectProductAdminDetail(PageHandlerProduct pageHandlerProduct);
+    public int deleteAll() throws Exception;
+    public List<TrvPrdWriteDto> selectAllProduct() throws Exception;
 }

@@ -33,4 +33,6 @@ public interface RvwDao {
     List<RvwDto> searchSelectPage(SearchCondition sc) throws Exception;
 
     int searchResultCnt(SearchCondition sc) throws Exception;
+
+    int updateCommentCnt(Integer rvw_no, Integer cnt) throws Exception;
 }

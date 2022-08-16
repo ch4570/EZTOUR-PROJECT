@@ -14,7 +14,7 @@ public class ProductServiceImpl implements ProductService{
     ProductDao productDao;
 
     @Override
-    public int insertProduct(TrvPrdWriteDto trvPrdWriteDto) {
+    public int insertProduct(TrvPrdWriteDto trvPrdWriteDto) throws Exception {
         return productDao.insertProduct(trvPrdWriteDto);
     }
 
@@ -96,5 +96,15 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public List<TrvPrdDtlDto> searchSelectProductAdminDetail(PageHandlerProduct pageHandlerProduct) {
         return productDao.searchSelectProductAdminDetail(pageHandlerProduct);
+    }
+
+    @Override
+    public int deleteAll() throws Exception {
+        return productDao.deleteAll();
+    }
+
+    @Override
+    public List<TrvPrdWriteDto> selectAllProduct() throws Exception {
+        return productDao.selectAllProduct();
     }
 }

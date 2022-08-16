@@ -139,4 +139,13 @@
         <include refid="searchConditionDetail"/>
     </select>
 
+    <delete id="deleteAllProdcut">
+        DELETE FROM trv_prd
+    </delete>
+
+    <select id="selectAllProduct" resultType="TrvPrdWriteDto">
+        SELECT prd_cd,dstn_cd,cmn_cd_thm,prd_nm,prd_dtl_desc,
+               trv_per,prd_str_prc,dpr_str_date,dpr_fin_date
+        FROM trv_prd
+    </select>
 </mapper>

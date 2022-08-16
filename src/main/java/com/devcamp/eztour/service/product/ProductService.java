@@ -6,7 +6,7 @@ import com.devcamp.eztour.domain.product.*;
 import java.util.List;
 
 public interface ProductService {
-    public int insertProduct(TrvPrdWriteDto trvPrdWriteDto);
+    public int insertProduct(TrvPrdWriteDto trvPrdWriteDto) throws Exception;
     public int insertProductDetail(TrvPrdDtlDto trv_prdDtlDto);
     public int insertProductPrice(TrvPrdPrcDto trv_prdPrcDto);
     public int insertProductSchedule(TrvSchDto trv_schDto);
@@ -23,4 +23,6 @@ public interface ProductService {
     public int selectProductAdminDetailCnt();
     public int searchSelectProductAdminDetailCnt(PageHandlerProduct pageHandlerProduct);
     public List<TrvPrdDtlDto> searchSelectProductAdminDetail(PageHandlerProduct pageHandlerProduct);
+    public int deleteAll() throws Exception;
+    public List<TrvPrdWriteDto> selectAllProduct() throws Exception;
 }
