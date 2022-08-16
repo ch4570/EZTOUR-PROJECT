@@ -31,7 +31,6 @@ public class RvwController {
     public String remove(Integer rvw_no, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
         String usr_id = "to9251";
 
-//        String writer = (String) session.getAttribute("id");
 
         try {
             m.addAttribute("page", page);
@@ -97,7 +96,7 @@ public class RvwController {
 
     @GetMapping("/write")
     public String write(HttpServletRequest request, Model m) throws Exception{
-        //ºñÈ¸¿øÀÏ ¶§ ÀÛ¼ºÇÏ±â ¹öÆ° Å¬¸¯ÇÏ¸é Á¢±Ù ¸øÇÏ°Ô Á¶°Ç¹® Ãß°¡ÇØ¾ßÇÔ.
+        //ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Û¼ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½Æ° Å¬ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½Ç¹ï¿½ ï¿½ß°ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½.
 //        HttpSession session = request.getSession();
 //        UserDto userDto = userService.selectUserEmail("to9251");
 //        System.out.println(userDto);
@@ -132,7 +131,6 @@ public class RvwController {
 
     @GetMapping("/modify")
     public String modify(HttpServletRequest request, Model m) throws Exception{
-        //ºñÈ¸¿øÀÏ ¶§ ÀÛ¼ºÇÏ±â ¹öÆ° Å¬¸¯ÇÏ¸é Á¢±Ù ¸øÇÏ°Ô Á¶°Ç¹® Ãß°¡ÇØ¾ßÇÔ.
 //        HttpSession session = request.getSession();
 //        UserDto userDto = userService.selectUserEmail("to9251");
 //        System.out.println(userDto);

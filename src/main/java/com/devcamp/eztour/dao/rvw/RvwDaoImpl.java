@@ -19,7 +19,7 @@ public class RvwDaoImpl implements RvwDao {
 
     @Override
     public int count() throws Exception {
-        return session.selectOne(namespace + "count"); // °Ô½Ã¹° ÃÑ ¼ö·®
+        return session.selectOne(namespace + "count"); // ï¿½Ô½Ã¹ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     @Override
