@@ -101,8 +101,6 @@ public class TestControllerTest {
                 .andExpect(jsonPath("$.body[1].name").value("우럭"))
                 .andExpect(jsonPath("$.body[2].name").value("대방어"))
                 .andDo(print());
-
-
     }
 
     private MockMvc getMockMvc(){

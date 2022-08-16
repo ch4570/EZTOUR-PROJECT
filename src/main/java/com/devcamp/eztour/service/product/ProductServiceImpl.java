@@ -19,7 +19,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public int insertProductDetail(TrvPrdDtlDto trv_prdDtlDto) {
+    public int insertProductDetail(TrvPrdDtlReadDto trv_prdDtlDto) {
         return productDao.insertProductDetail(trv_prdDtlDto);
     }
 
@@ -79,7 +79,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<TrvPrdDtlDto> selectProductAdminDetail(PageHandlerProduct pageHandlerProduct) {
+    public List<TrvPrdDtlReadDto> selectProductAdminDetail(PageHandlerProduct pageHandlerProduct) {
         return productDao.selectProductAdminDetail(pageHandlerProduct);
     }
 
@@ -94,7 +94,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<TrvPrdDtlDto> searchSelectProductAdminDetail(PageHandlerProduct pageHandlerProduct) {
+    public List<TrvPrdDtlReadDto> searchSelectProductAdminDetail(PageHandlerProduct pageHandlerProduct) {
         return productDao.searchSelectProductAdminDetail(pageHandlerProduct);
     }
 
@@ -106,5 +106,10 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public List<TrvPrdWriteDto> selectAllProduct() throws Exception {
         return productDao.selectAllProduct();
+    }
+
+    @Override
+    public TrvPrdDtlReadDto selectProductDetail(String prd_dtl_cd) {
+        return productDao.selectProductDetail(prd_dtl_cd);
     }
 }

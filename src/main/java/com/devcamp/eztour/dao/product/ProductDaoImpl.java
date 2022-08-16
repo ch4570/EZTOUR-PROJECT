@@ -20,7 +20,7 @@ public class ProductDaoImpl implements ProductDao{
     }
 
     @Override
-    public int insertProductDetail(TrvPrdDtlDto trv_prdDtlDto) {
+    public int insertProductDetail(TrvPrdDtlReadDto trv_prdDtlDto) {
         return session.insert(namespace+"insertProductDetail", trv_prdDtlDto);
     }
 
@@ -80,7 +80,7 @@ public class ProductDaoImpl implements ProductDao{
     }
 
     @Override
-    public List<TrvPrdDtlDto> selectProductAdminDetail(PageHandlerProduct pageHandlerProduct) {
+    public List<TrvPrdDtlReadDto> selectProductAdminDetail(PageHandlerProduct pageHandlerProduct) {
         return session.selectList(namespace+"selectProductAdminDetail",pageHandlerProduct);
     }
 
@@ -95,7 +95,7 @@ public class ProductDaoImpl implements ProductDao{
     }
 
     @Override
-    public List<TrvPrdDtlDto> searchSelectProductAdminDetail(PageHandlerProduct pageHandlerProduct) {
+    public List<TrvPrdDtlReadDto> searchSelectProductAdminDetail(PageHandlerProduct pageHandlerProduct) {
         return session.selectList(namespace+"searchSelectProductAdminDetail",pageHandlerProduct);
     }
 
@@ -107,6 +107,11 @@ public class ProductDaoImpl implements ProductDao{
     @Override
     public List<TrvPrdWriteDto> selectAllProduct() throws Exception {
         return session.selectList(namespace+"selectAllProduct");
+    }
+
+    @Override
+    public TrvPrdDtlReadDto selectProductDetail(String prd_dtl_cd) {
+        return session.selectOne(namespace+"selectProductDetail",prd_dtl_cd);
     }
 
 }

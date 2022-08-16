@@ -80,7 +80,7 @@ public class AdminController {
 
     // 관리자 상품 상세 등록(실제 정보 전송)
     @PostMapping("/product/detail/insert")
-    public String productDetailInsert(TrvPrdDtlDto trv_prdDtlDto, RedirectAttributes redirectAttributes){
+    public String productDetailInsert(TrvPrdDtlReadDto trv_prdDtlDto, RedirectAttributes redirectAttributes){
         int result = productService.insertProductDetail(trv_prdDtlDto);
         if(result==1){
             redirectAttributes.addAttribute("prd_dtl_cd", trv_prdDtlDto.getPrd_dtl_cd());
@@ -327,20 +327,49 @@ public class AdminController {
             if(search_option==null || search_option==""){
                 int totalCnt = productService.selectProductAdminDetailCnt();
                 PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page);
-                List<TrvPrdDtlDto> prdDetailList = productService.selectProductAdminDetail(paging);
+                List<TrvPrdDtlReadDto> prdDetailList = productService.selectProductAdminDetail(paging);
                 model.addAttribute("prd_dtl_list",prdDetailList);
                 model.addAttribute("paging",paging);
                 return "product/product_management_detail.tiles";
             }else{
                 PageHandlerProduct option = new PageHandlerProduct(search_option,search_keyword);
                 int totalCnt = productService.searchSelectProductAdminDetailCnt(option);
-                System.out.println(totalCnt);
                 PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page,search_option,search_keyword);
-                List<TrvPrdDtlDto> prdDetailList = productService.searchSelectProductAdminDetail(paging);
+                List<TrvPrdDtlReadDto> prdDetailList = productService.searchSelectProductAdminDetail(paging);
                 model.addAttribute("prd_dtl_list",prdDetailList);
                 model.addAttribute("paging",paging);
                 return "product/product_management_detail.tiles";
             }
         }
+    }
+
+    @GetMapping("/product/detail/read")
+    public String productDetailRead(HttpSession session, Model model, String prd_dtl_cd){
+        String id = (String)session.getAttribute("usr_id");
+        if(id == null || !id.equals("admin")){
+            return "redirect:/";
+        }else{
+            TrvPrdDtlReadDto trvPrdDtlDto = productService.selectProductDetail(prd_dtl_cd);
+            model.addAttribute("prd_dtl",trvPrdDtlDto);
+            return "product/product_detail_read.tiles";
+        }
+    }
+
+    @GetMapping("/product/detail/modify")
+    public String productDetailModify(HttpSession session, String prd_dtl_cd, Model model){
+        String id = (String)session.getAttribute("usr_id");
+        if(id == null || !id.equals("admin")){
+            return "redirect:/";
+        }else{
+            TrvPrdDtlReadDto trvPrdDtlDto = productService.selectProductDetail(prd_dtl_cd);
+            model.addAttribute("prd_dtl",trvPrdDtlDto);
+            return "product/product_detail_modify.tiles";
+        }
+    }
+
+    @PostMapping("/product/detail/modify")
+    public String productDetailModify(TrvPrdDtlWriteDto trvPrdDtlDto){
+        System.out.println(11111);
+        return "";
     }
 }

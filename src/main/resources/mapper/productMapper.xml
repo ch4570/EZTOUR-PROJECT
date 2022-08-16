@@ -18,10 +18,10 @@
         WHERE prd_cd = #{prd_cd}
     </select>
 
-    <insert id="insertProductDetail" parameterType="TrvPrdDtlDto">
+    <insert id="insertProductDetail" parameterType="TrvPrdDtlWriteDto">
         INSERT INTO trv_prd_dtl(prd_dtl_cd,prd_cd,prd_str_prc,arl_nm,
-                                min_stt_cnt,max_stt_cnt,dpr_date)
-        VALUES(#{prd_dtl_cd},#{prd_cd},#{prd_str_prc},#{arl_nm},#{min_stt_cnt},#{max_stt_cnt},#{dpr_date})
+                                min_stt_cnt,max_stt_cnt,dpr_date,prd_nm)
+        VALUES(#{prd_dtl_cd},#{prd_cd},#{prd_str_prc},#{arl_nm},#{min_stt_cnt},#{max_stt_cnt},#{dpr_date},#{prd_nm})
     </insert>
 
     <insert id="insertProductPrice" parameterType="TrvPrdPrcDto">
@@ -97,8 +97,8 @@
         DELETE FROM trv_prd WHERE prd_cd=#{prd_cd}
     </delete>
 
-    <select id="selectProductAdminDetail" parameterType="PageHandlerProduct" resultType="TrvPrdDtlDto">
-        SELECT prd_dtl_cd,prd_cd,arl_nm,prd_str_prc,dpr_date
+    <select id="selectProductAdminDetail" parameterType="PageHandlerProduct" resultType="TrvPrdDtlReadDto">
+        SELECT prd_dtl_cd,prd_cd,prd_nm,prd_str_prc,dpr_date,prd_nm
         FROM trv_prd_dtl
         ORDER BY dpr_date DESC
             LIMIT #{pageSize} OFFSET #{startList};
@@ -113,18 +113,18 @@
             <when test='search_option=="prd_dtl_cd"'>
                 AND prd_dtl_cd LIKE concat('%', #{search_keyword}, '%')
             </when>
-            <when test='search_option=="prd_cd"'>
-                AND prd_cd LIKE concat('%', #{search_keyword}, '%')
+            <when test='search_option=="prd_nm"'>
+                AND prd_nm LIKE concat('%', #{search_keyword}, '%')
             </when>
             <otherwise>
                 AND (prd_dtl_cd   LIKE concat('%', #{search_keyword}, '%')
-                OR   prd_cd LIKE concat('%', #{search_keyword}, '%'))
+                OR   prd_nm LIKE concat('%', #{search_keyword}, '%'))
             </otherwise>
         </choose>
     </sql>
 
-    <select id="searchSelectProductAdminDetail" parameterType="PageHandlerProduct" resultType="TrvPrdDtlDto">
-        SELECT prd_dtl_cd,prd_cd,arl_nm,prd_str_prc,dpr_date
+    <select id="searchSelectProductAdminDetail" parameterType="PageHandlerProduct" resultType="TrvPrdDtlReadDto">
+        SELECT prd_dtl_cd,prd_cd,arl_nm,prd_str_prc,dpr_date,prd_nm
         FROM trv_prd_dtl
         WHERE TRUE
         <include refid="searchConditionDetail"/>
@@ -148,4 +148,12 @@
                trv_per,prd_str_prc,dpr_str_date,dpr_fin_date
         FROM trv_prd
     </select>
+
+    <select id="selectProductDetail" parameterType="String" resultType="TrvPrdDtlReadDto">
+        SELECT prd_dtl_cd,prd_cd,prd_str_prc,arl_nm,
+               min_stt_cnt,max_stt_cnt,dpr_date,prd_nm
+        FROM trv_prd_dtl
+        WHERE prd_dtl_cd = #{prd_dtl_cd}
+    </select>
+
 </mapper>

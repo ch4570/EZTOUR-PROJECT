@@ -20,7 +20,8 @@
         <typeAlias alias="TrvSchDto" type="com.devcamp.eztour.domain.product.TrvSchDto"/>
         <typeAlias alias="PrdImgDto" type="com.devcamp.eztour.domain.product.PrdImgDto"/>
         <typeAlias alias="PrdPcrDto" type="com.devcamp.eztour.domain.product.PrdPcrDto"/>
-        <typeAlias alias="TrvPrdDtlDto" type="com.devcamp.eztour.domain.product.TrvPrdDtlDto"/>
+        <typeAlias alias="TrvPrdDtlReadDto" type="com.devcamp.eztour.domain.product.TrvPrdDtlReadDto"/>
+        <typeAlias alias="TrvPrdDtlWriteDto" type="com.devcamp.eztour.domain.product.TrvPrdDtlWriteDto"/>
         <typeAlias alias="TrvPrdReadDto" type="com.devcamp.eztour.domain.product.TrvPrdReadDto"/>
         <typeAlias alias="TrvPrdWriteDto" type="com.devcamp.eztour.domain.product.TrvPrdWriteDto"/>
         <typeAlias alias="TrvPrdPrcDto" type="com.devcamp.eztour.domain.product.TrvPrdPrcDto"/>

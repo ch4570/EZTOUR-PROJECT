@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="<c:url value='/css/product/product_detail_insert_style.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/product/product_detail_modify_style.css'/>">
 </head>
 <body>
 <div class="wrap">
@@ -41,19 +42,20 @@
                 </ul>
             </div>
             <div class="board">
-                <h1>상품 상세 등록</h1>
+                <h1>상품 상세 수정</h1>
                 <div class="prd_detail_input_form">
-                    <form action="<c:url value='/product/detail/insert'/>" method="post">
-                        상품상세코드&nbsp;<br><input type="text" name="prd_dtl_cd" placeholder="상품상세코드" value="${param.prd_cd}" class="input_prd"/><br>
-                        상품코드&nbsp;<br><input type="text" name="prd_cd" value="${param.prd_cd}" placeholder="상품코드" class="input_prd"/><br>
-                        상품이름&nbsp;<br><input type="text" name="prd_nm" placeholder="상품이름" class="input_prd"/><br>
-                        상품시작가격&nbsp;<br><input type="text" name="prd_str_prc"  placeholder="상품시작가격" class="input_prd"/><br>
-                        항공사명&nbsp;<br><input type="text" name="arl_nm" placeholder="항공사명" class="input_prd"/><br>
-                        최소출발인원&nbsp;<br><input type="text" name="min_stt_cnt" placeholder="최소출발인원" class="input_prd"/><br>
-                        최대출발인원&nbsp;<br><input type="text" name="max_stt_cnt" placeholder="최대출발인원" class="input_prd"/><br>
-                        출발일&nbsp;<br><input type="date" name="dpr_date" placeholder="출발일" class="input_prd"/><br>
-                                        <input type="submit" value="전송" id="submit_btn" class="input_prd"/>
-                    </form>
+                        <form action="<c:url value='/product/detail/modify'/>" method="post">
+                        상품상세코드&nbsp;<br><input type="text" name="prd_dtl_cd" placeholder="상품상세코드" value="${prd_dtl.prd_cd}" class="input_prd"/><br>
+                        상품코드&nbsp;<br><input type="text" name="prd_cd" value="${prd_dtl.prd_cd}" placeholder="상품코드" class="input_prd"/><br>
+                        상품이름&nbsp;<br><input type="text" name="prd_nm" placeholder="상품이름" class="input_prd" value="${prd_dtl.prd_nm}"/><br>
+                        상품시작가격&nbsp;<br><input type="text" name="prd_str_prc"  placeholder="상품시작가격" class="input_prd" value="${prd_dtl.prd_str_prc}"/><br>
+                        항공사명&nbsp;<br><input type="text" name="arl_nm" placeholder="항공사명" class="input_prd" value="${prd_dtl.arl_nm}"/><br>
+                        최소출발인원&nbsp;<br><input type="text" name="min_stt_cnt" placeholder="최소출발인원" class="input_prd" value="${prd_dtl.min_stt_cnt}"/><br>
+                        최대출발인원&nbsp;<br><input type="text" name="max_stt_cnt" placeholder="최대출발인원" class="input_prd" value="${prd_dtl.max_stt_cnt}"/><br>
+                        <fmt:parseDate var="dpr_date" value="${prd_dtl.dpr_date}" pattern="yyyy-MM-dd"/>
+                        출발일&nbsp;<br><input type="date" name="dpr_date" placeholder="출발일" class="input_prd" value="<fmt:formatDate value="${dpr_date}" pattern="yyyy-MM-dd"/>"/><br>
+                            <input type="submit" value="수정" id="submit_btn"/>
+                        </form>
                 </div>
             </div>
         </div>
