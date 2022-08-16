@@ -25,13 +25,13 @@ public class RvwCmtServiceImplTest {
 
 
 
-//    @Test
-//    public void remove() throws Exception {
+    @Test
+    public void remove() throws Exception {
 //        rvwDao.deleteAll();
-//
-//        RvwDto rvwDto = new RvwDto("to9251", "a100", "ÁÁ¾Æ¿ä", "ÁÁ¾Æ¿ä!", "ÇªÆ¾", "to9251@naver.com");
-//        assertTrue(rvwDao.insert(rvwDto) == 1);
-//        Integer rvw_no = rvwDao.selectAll().get(0).getRvw_no();
+
+        RvwDto rvwDto = new RvwDto("to9251", "a100", "ì¢‹ì•„ìš” ", "ì¢‹ì•„ìš”! ë‚´ìš©", "í‘¸í‹´", "to9251@naver.com");
+        assertTrue(rvwDao.insert(rvwDto) == 1);
+        Integer rvw_no = rvwDao.selectAll().get(0).getRvw_no();
 //        System.out.println("rvw_no = " + rvw_no);
 //
 //        rvwCmtDao.deleteAll(rvw_no);
@@ -43,12 +43,12 @@ public class RvwCmtServiceImplTest {
 //
 //        Integer cno = rvwCmtDao.selectAll(bno).get(0).getCno();
 //
-//        // ÀÏºÎ·¯ ¿¹¿Ü¸¦ ¹ß»ý½ÃÅ°°í Tx°¡ Ãë¼ÒµÇ´ÂÁö È®ÀÎÇØ¾ß.
+//        // ï¿½ÏºÎ·ï¿½ ï¿½ï¿½ï¿½Ü¸ï¿½ ï¿½ß»ï¿½ï¿½ï¿½Å°ï¿½ï¿½ Txï¿½ï¿½ ï¿½ï¿½ÒµÇ´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ø¾ï¿½.
 //        int rowCnt = commentService.remove(cno, bno, commentDto.getCommenter());
 //        assertTrue(rowCnt==1);
 //        assertTrue(rvwDao.select(bno).getComment_cnt() == 0);
-//    }
-//
+    }
+
 //    @Test
 //    public void write() throws  Exception {
 //        rvwDao.deleteAll();

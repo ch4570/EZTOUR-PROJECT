@@ -1,25 +1,114 @@
-//package com.devcamp.eztour.controller.rvw;
-//
-//
-//import com.devcamp.eztour.domain.rvw.RvwCmtDto;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.GetMapping;
-//
-//import java.util.List;
-//
-//
-///**
-// * [Ãß°¡ ÇØ¾ßÇÏ´Â »çÇ×] - 1
-// * ´ñ±ÛÀº È¸¿ø°¡ÀÔ »óÅÂ¿¡¼­¸¸ ÀûÀ» ¼ö ÀÖÀ½.
-// * ºñÈ¸¿øµµ ´ñ±Û ¹Ú½ºµµ ÀûÀ» ¼ö´Â ÀÖÁö¸¸, µî·Ï ½Ã ÆË¾÷Ã¢ÀÌ ¶ß¸é¼­ È¸¿ø°¡ÀÔÀ¸·Î À¯µµÇÏ±â
-// */
+package com.devcamp.eztour.controller.rvw;
+
+
+import com.devcamp.eztour.domain.rvw.RvwCmtDto;
+import com.devcamp.eztour.domain.rvw.RvwDto;
+import com.devcamp.eztour.service.rvwCmt.RvwCmtService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
+import java.util.List;
+
+
+/**
+ * [ì¶”ê°€ í•´ì•¼í•˜ëŠ” ì‚¬í•­] - 1
+ * ëŒ“ê¸€ì€ íšŒì›ê°€ì… ìƒíƒœì—ì„œë§Œ ì ì„ ìˆ˜ ìˆìŒ
+ * ë¹„íšŒì›ë„ ëŒ“ê¸€ ë°•ìŠ¤ì— ì ì„ ìˆ˜ ìˆì§€ë§Œ, ë“±ë¡ ì‹œ íŒì—…ì°½ì´ ëœ¨ë©´ì„œ íšŒì›ê°€ì…ìœ¼ë¡œ ìœ ë„í•˜ê¸°
+ */
 //@Controller
-//public class RvwCmtController {
-//    @GetMapping("/comments") // comments?bno=1080 GET
-//    public List<RvwCmtDto> list(Integer rvw_no) {
-//
-//
+//@ResponseBody
+@RestController
+public class RvwCmtController {
+    @Autowired
+    RvwCmtService rvwCmtService;
+//    {
+//        "pcmt":0,
+//         "cmt_cont":"hihihi",
+//            "usr_nm":"í‘¸í‹´"
 //    }
-//
-//
-//}
+
+    // ëŒ“ê¸€ ìˆ˜ì • ë©”ì„œë“œ
+    @PatchMapping("/comments/{cmt_no}") // eztour/comments/4
+    public ResponseEntity<String> modify(@PathVariable Integer cmt_no, @RequestBody RvwCmtDto rvwCmtDto, HttpSession session) {
+//        String usr_id = (String) session.getAttribute("id");
+        String usr_id = "to9251";
+        String usr_nm = "í‘¸í‹´";
+
+        rvwCmtDto.setUsr_id(usr_id);
+        rvwCmtDto.setUsr_nm(usr_nm);
+        rvwCmtDto.setCmt_no(cmt_no);
+        System.out.println("rvwCmtDto = " + rvwCmtDto);
+
+        try {
+            if(rvwCmtService.modify(rvwCmtDto)!=1)
+                throw new Exception("Modify failed");
+
+            return new ResponseEntity<>("MOD_OK", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<String>("MOD_ERR", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // ëŒ“ê¸€ì„ ë“±ë¡í•˜ëŠ” ë©”ì„œë“œ
+    @PostMapping("/comments") // eztour/comments?rvw_no=2 POST
+    public ResponseEntity<String> remove(@RequestBody RvwCmtDto rvwCmtDto, Integer rvw_no, HttpSession session) {
+    String usr_id = "to9251";
+    String usr_nm = "í‘¸í‹´";
+
+
+    rvwCmtDto.setUsr_id(usr_id);
+    rvwCmtDto.setUsr_nm(usr_nm);
+    rvwCmtDto.setRvw_no(rvw_no);
+    System.out.println("rvwCmtDto = " + rvwCmtDto);
+
+
+    try {
+        if(rvwCmtService.write(rvwCmtDto)!=1)
+            throw new Exception("Write failed");
+
+        return new ResponseEntity<>("WRT_OK", HttpStatus.OK);
+    } catch (Exception e) {
+        e.printStackTrace();
+        return new ResponseEntity<String>("WRT_ERR", HttpStatus.BAD_REQUEST);
+    }
+}
+
+    // ì§€ì •ëœ ëŒ“ê¸€ì„ ì‚­ì œí•˜ëŠ” ë©”ì„œë“œ
+    @DeleteMapping("/comments/{cmt_no}") // comments/3?rvw_no=2 <-- ì‚­ì œí•  ëŒ“ê¸€ ë²ˆí˜¸
+    public ResponseEntity<String> remove(@PathVariable Integer cmt_no, Integer rvw_no, HttpSession session) {
+//        String usr_id = (String)session.getAttribute("id"); // ë‚˜ì¤‘ì— íšŒì› ë¶™ì´ëŠ” ì‚¬ìš©í•˜ê¸°
+        String usr_nm = "í‘¸í‹´";
+        try {
+            int rowCnt = rvwCmtService.remove(cmt_no, rvw_no, usr_nm);
+
+            if(rowCnt!=1)
+                throw new Exception("Delete Failed");
+
+            return new ResponseEntity<>("DEL_OK", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("DEL_ERR", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    // ì§€ì •ëœ ê²Œì‹œë¬¼ì˜ ëª¨ë“  ëŒ“ê¸€ì„ ê°€ì ¸ì˜¤ëŠ” ë©”ì„œë“œ
+    @GetMapping("/comments") // comments?rvw_no=1080 GET
+    public ResponseEntity<List<RvwCmtDto>> list(Integer rvw_no) {
+        List<RvwCmtDto> list = null;
+        try {
+            list = rvwCmtService.getList(rvw_no);
+            return new ResponseEntity<List<RvwCmtDto>>(list, HttpStatus.OK); // 200 error
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<List<RvwCmtDto>>(HttpStatus.BAD_REQUEST); // 400 error
+        }
+    }
+
+
+}

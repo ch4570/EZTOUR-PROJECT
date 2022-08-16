@@ -39,5 +39,4 @@ public class TrvPrdWriteDto {
     private Date fnl_mod_date;
     private String fnl_mod_no;
 
-
 }
