@@ -90,6 +90,8 @@
 
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+    window.history.forward();
+
   <!-- 공백 사용 방지 -->
   function noSpaceForm(obj) {
     var str_space = /\s/;  // 공백체크

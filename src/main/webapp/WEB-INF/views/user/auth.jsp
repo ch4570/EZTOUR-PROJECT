@@ -52,7 +52,7 @@
                 $(".form-check").append("<input name='checkNum' id='checkNum' placeholder='인증번호를 입력하세요.'>");
                 // #phn 사라지고
                 authModalBtn.classList.add("hidden")
-                // submit버튼 생성
+                // submit 버튼 생성
                 checkAuthBtn.classList.remove("hidden")
             },
             error   : function(){ alert("잘못된 요청입니다.") }

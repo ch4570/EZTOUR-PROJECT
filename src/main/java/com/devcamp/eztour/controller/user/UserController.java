@@ -37,7 +37,10 @@ public class UserController {
     }
 
     @GetMapping("/join")
-    public String join(HttpSession session, RedirectAttributes rattr, String usr_nm, String phn, Model m) {
+    public String join(HttpSession session, RedirectAttributes rattr, String usr_nm, String phn, Model m, HttpServletResponse response) {
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+        response.setHeader("Expires", "0"); // Proxies.
+
         if(session.getAttribute("userDto")==null) {
             m.addAttribute("usr_nm", usr_nm);
             m.addAttribute("phn", phn);
@@ -186,5 +189,10 @@ public class UserController {
         return "forward:/user/usrDel";
     }
 
+    @GetMapping("/findIdPwd")
+    public String findIdPwd(){
+        return "user/findIdPwd.tiles";
+
+    }
 
 }

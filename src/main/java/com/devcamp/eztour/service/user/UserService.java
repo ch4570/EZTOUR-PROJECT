@@ -22,5 +22,7 @@ public interface UserService {
 
     int checkId(String usr_id) throws Exception;
 
+    String findId(String usr_nm, String phn) throws Exception;
+
 
 }

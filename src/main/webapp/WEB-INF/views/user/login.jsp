@@ -30,7 +30,7 @@
                     <label><input id="idChk" type="checkbox" name="rememberId" value="on" ${empty cookie.id.value ? "":"checked"}></label> <label>아이디 저장</label>
                 </span>
                 <span>
-                <a href="">아이디 찾기 | 비밀번호 찾기 | </a>
+                <a href="<c:url value='/user/findIdPwd'/>">아이디 찾기 | 비밀번호 찾기 | </a>
                     <a href="<c:url value='/user/join'/>" style="font-weight: bolder;">회원가입</a>
                 </span>
             </div>
@@ -47,13 +47,11 @@
             </div>
             <button id="rsvBtn">예약확인</button>
         </div>
-    <%--    <input type="hidden" name="toURL" value="${param.toURL}">--%>
+        <input type="hidden" name="toURL" value="${param.toURL}">
     </div>
 </form>
 </div>
 </div>
-
-
 
     <br/><br/><br/>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>

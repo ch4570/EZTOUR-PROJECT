@@ -52,4 +52,9 @@ public class UserServiceImpl implements UserService {
         return userDao.checkId(usr_id);
     }
 
+    @Override
+    public String findId(String usr_nm, String phn) throws Exception {
+        return userDao.findId(usr_nm, phn);
+    }
+
 }
