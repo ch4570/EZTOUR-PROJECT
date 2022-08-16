@@ -52,7 +52,7 @@ public class AdminController {
     // 관리자 상품 등록(실제 정보 전송)
     @PostMapping("/product/insert")
     public String insertProduct(TrvPrdWriteDto trvPrdWriteDto, RedirectAttributes redirectAttributes) throws Exception{
-        
+
         int result = productService.insertProduct(trvPrdWriteDto);
 
         if(result == 1){
