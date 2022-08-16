@@ -55,8 +55,13 @@
     </div>
     <div>
        <label for="">이름</label><br>
-       <input class="input-field" type="text" name="usr_nm" placeholder="홍길동"
-             onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"><br>
+       <input class="input-field" type="text" name="usr_nm" value="${param.usr_nm}"
+             onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);" readonly><br>
+    </div>
+    <div>
+        <label for="">핸드폰 번호</label><br>
+        <input class="input-field" type="text" name="brth" value="${param.phn}"
+               onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);" readonly><br>
     </div>
     <div>
        <label for="">생년월일</label><br>
@@ -73,11 +78,6 @@
     <div>
         <label for="">이메일</label><br>
         <input class="input-field" type="text" name="email" placeholder="example@fastcampus.co.kr"
-               onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"><br>
-    </div>
-    <div>
-        <label for="">핸드폰</label><br>
-        <input class="input-field" type="text" name="phn" placeholder="010-0000-0000"
                onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"><br>
     </div>
     <div style="text-align: center">
