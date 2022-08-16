@@ -35,7 +35,7 @@
         <!-- 혜경님 끝 -->
 
         <!-- 기혁님 시작 -->
-
+        <typeAlias alias="CustomerInquiryDto" type="com.devcamp.eztour.domain.customercenter.CustomerInquiryDto"/>
         <!-- 기혁님 끝 -->
 
         <!-- 종현님 시작 -->
