@@ -61,7 +61,7 @@ public class CustomerController {
     }
 
     @GetMapping("/faqWrite")
-    public String writeFaq(Integer page, Integer pageSize, Integer faq_no, Model m, HttpSession session, RedirectAttributes rattr) {
+    public String writeFaq(Integer page, Integer pageSize, Integer faq_no, Model m, RedirectAttributes rattr) {
 
         if (faq_no == null) {
             return "faq/faq_write.tiles";
@@ -88,6 +88,7 @@ public class CustomerController {
             if (rowCnt != 1) {
                 throw new Exception("FAQ Write Error");
             }
+            rattr.addAttribute("faq_no", faqDto.getFaq_no());
             rattr.addFlashAttribute("msg", "write Success");
             return "redirect:/customer/faqList";
         } catch (Exception e) {

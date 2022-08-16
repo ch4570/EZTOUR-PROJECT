@@ -1,4 +1,4 @@
-package com.devcamp.eztour.controller;
+package com.devcamp.eztour.controller.home;
 
 import com.devcamp.eztour.domain.category.DestinationCategoryDto;
 import com.devcamp.eztour.domain.home.TrvPrdDto;
@@ -54,7 +54,5 @@ public class HomeController {
         }
         return "home/search.tiles";
     }
-
-
 
 }
