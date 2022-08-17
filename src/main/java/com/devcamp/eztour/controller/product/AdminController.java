@@ -418,5 +418,89 @@ public class AdminController {
         }
     }
 
+    @GetMapping("/product/image/read")
+    public String productImageRead(String img_pth,String prd_cd,String prd_nm,Model model,HttpSession session){
+        String id = (String)session.getAttribute("usr_id");
+        if(id == null || !id.equals("admin")){
+            return "redirect:/";
+        }else{
+            model.addAttribute("img_pth",img_pth);
+            model.addAttribute("prd_cd",prd_cd);
+            model.addAttribute("prd_nm",prd_nm);
+            return "product/product_image_read.tiles";
+        }
+    }
 
+    @ResponseBody
+    @PostMapping("/product/image/delete")
+    public String productImageDelete(int prd_img_no,String img_pth,HttpServletRequest request) throws Exception{
+        int result = productService.deleteProductImage(prd_img_no);
+
+        if(result==1){
+            // 이미지를 삭제
+            boolean flag = deleteImage(request);
+            if(!flag){
+                return "success";
+            }else{
+                return "fail";
+            }
+        }
+        return "fail";
+    }
+
+    @GetMapping("/product/image/modify")
+    public String productImageModify(Integer prd_img_no,String img_pth ,String prd_cd,Model model) throws Exception{
+        model.addAttribute("prd_img_no",prd_img_no);
+        model.addAttribute("img_pth",img_pth);
+        model.addAttribute("prd_cd",prd_cd);
+        return "product/product_img_modify.tiles";
+    }
+
+
+    @ResponseBody
+    @PostMapping("/product/image/modify")
+    public String productImageModify(MultipartFile img_file,String img_pth,String prd_cd,Integer prd_img_no,
+                                     HttpServletRequest request) throws Exception{
+        // 원본 파일이 이미지 파일이 맞는지 확장자를 확인
+        File checkFile = new File(img_file.getOriginalFilename());
+        String type = null;
+        try {
+            type = Files.probeContentType(checkFile.toPath());
+            // 프로젝트 root 경로 확인 -> 이미지 경로 잡기
+            HttpSession session = request.getSession();
+            String root_path = session.getServletContext().getRealPath("/");
+            String uploadPath = root_path+"resources/image/product";
+            // 이미지 파일이 아닐경우 실패
+            if(!type.startsWith("image")){
+                return "fail";
+            }else if(type==null){
+                return "fail";
+            }else{
+                String fileName = UUID.
+                        randomUUID().toString()+".jpg";
+                System.out.println(fileName);
+                File uploadFile = new File(uploadPath, fileName);
+                img_file.transferTo(uploadFile);
+                String finalPath = "/image/product/"+fileName;
+                PrdImgDto prdImgDto = new PrdImgDto(img_pth,prd_img_no,prd_cd);
+                int result = productService.updateProductImage(prdImgDto);
+                if(result == 1){
+                    return "success";
+                }else{
+                    return "fail";
+                }
+
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private boolean deleteImage(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String root_path = session.getServletContext().getRealPath("/");
+        String uploadPath = root_path+"resources\\image\\product";
+        File file = new File(uploadPath);
+        boolean flag = file.delete();
+        return flag;
+    }
 }

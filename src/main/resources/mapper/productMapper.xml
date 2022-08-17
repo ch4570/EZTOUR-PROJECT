@@ -167,7 +167,7 @@
     </delete>
 
     <select id="selectProductImage" parameterType="PageHandlerProduct" resultType="PrdImgDto">
-        SELECT p.prd_cd,p.prd_nm,p.prd_str_prc,p.frs_reg_date,i.img_pth
+        SELECT p.prd_cd,p.prd_nm,p.prd_str_prc,p.frs_reg_date,i.img_pth,i.prd_img_no
         FROM trv_prd p
                  JOIN prd_img i
                       ON p.prd_cd = i.prd_cd
@@ -183,7 +183,7 @@
     </select>
 
     <select id="searchSelectProductImage" parameterType="PageHandlerProduct" resultType="PrdImgDto">
-        SELECT p.prd_cd,p.prd_nm,p.prd_str_prc,p.frs_reg_date,i.img_pth
+        SELECT p.prd_cd,p.prd_nm,p.prd_str_prc,p.frs_reg_date,i.img_pth,i.prd_img_no
         FROM trv_prd p
         JOIN prd_img i
         ON p.prd_cd = i.prd_cd
@@ -201,4 +201,13 @@
         WHERE TRUE
         <include refid="searchCondition"/>
     </select>
+
+    <delete id="deleteProductImage" parameterType="int">
+        DELETE FROM prd_img WHERE prd_img_no=#{prd_img_no}
+    </delete>
+
+    <update id="updateProductImage" parameterType="PrdImgDto">
+        UPDATE prd_img SET img_pth=#{img_pth} WHERE prd_cd=#{prd_cd} and prd_img_no=#{prd_img_no}
+    </update>
+
 </mapper>

@@ -42,6 +42,7 @@ public class TrvPrdDtlReadDto {
     private Date dpr_str_date;
     private Date dpr_fin_date;
 
+
     public TrvPrdDtlReadDto(String prd_dtl_cd, String prd_cd, String arl_nm, int prd_str_prc, String dpr_date, String prd_nm) {
         this.prd_dtl_cd = prd_dtl_cd;
         this.prd_cd = prd_cd;

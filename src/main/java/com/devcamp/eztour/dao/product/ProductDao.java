@@ -32,4 +32,6 @@ public interface ProductDao {
     public int selectProductImageCnt() throws Exception;
     public List<TrvPrdReadDto> searchSelectProductImage(PageHandlerProduct pageHandlerProduct) throws Exception;
     public int searchSelectProductImageCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public int deleteProductImage(int prd_img_no) throws Exception;
+    public int updateProductImage(PrdImgDto prdImgDto) throws Exception;
 }

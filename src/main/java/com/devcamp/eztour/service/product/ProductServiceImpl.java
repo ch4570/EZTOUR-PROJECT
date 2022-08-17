@@ -142,4 +142,14 @@ public class ProductServiceImpl implements ProductService{
     public int searchSelectProductImageCnt(PageHandlerProduct pageHandlerProduct) throws Exception{
         return productDao.searchSelectProductImageCnt(pageHandlerProduct);
     }
+
+    @Override
+    public int deleteProductImage(int prd_img_no) throws Exception {
+        return productDao.deleteProductImage(prd_img_no);
+    }
+
+    @Override
+    public int updateProductImage(PrdImgDto prdImgDto) throws Exception {
+        return productDao.updateProductImage(prdImgDto);
+    }
 }

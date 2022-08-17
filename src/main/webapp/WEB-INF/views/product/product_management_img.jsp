@@ -49,7 +49,7 @@
                     <div class="board_content">
                         <div class="board_content_detail">
                             <div><span><img src="<c:url value='${prd_list.img_pth}'/>" width="200px" height="200px"></span></div>
-                            <div><a href="<c:url value='/product/management/image?prd_cd=${prd_list.prd_cd}'/>"><span>${prd_list.prd_nm}</span></a></div>
+                            <div><a href="<c:url value='/product/image/read?img_pth=${prd_list.img_pth}&prd_img_no=${prd_list.prd_img_no}&prd_nm=${prd_list.prd_nm}&prd_cd=${prd_list.prd_cd}'/>"><span>${prd_list.prd_nm}</span></a></div>
                             <div><span><fmt:formatNumber value="${prd_list.prd_str_prc}" pattern="#,##0"/></span></div>
                             <div><span><fmt:formatDate value="${prd_list.frs_reg_date}" pattern="yyyy-MM-dd"/></span></div>
                         </div>
@@ -60,7 +60,7 @@
                         <select name="search_option" id="search_option">
                             <option value="" selected>검색옵션</option>
                             <option value="prd_cd">상품코드</option>
-                            <option value="prd_nm" >상품이름</option>
+                            <option value="prd_nm">상품이름</option>
                         </select>
                         <input type="text" name="search_keyword" placeholder="검색어" id="search_keyword">
                         <input type="submit" id="search_btn" value="검색">

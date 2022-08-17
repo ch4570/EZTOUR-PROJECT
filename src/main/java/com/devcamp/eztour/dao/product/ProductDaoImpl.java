@@ -1,16 +1,16 @@
 package com.devcamp.eztour.dao.product;
 
 import com.devcamp.eztour.domain.product.*;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class ProductDaoImpl implements ProductDao{
 
-    @Autowired
-    private SqlSession session;
+    private final SqlSession session;
 
     private String namespace = "com.devcamp.eztour.dao.productMapper.";
 
@@ -142,6 +142,16 @@ public class ProductDaoImpl implements ProductDao{
     @Override
     public int searchSelectProductImageCnt(PageHandlerProduct pageHandlerProduct) {
         return session.selectOne(namespace+"searchSelectProductImageCnt",pageHandlerProduct);
+    }
+
+    @Override
+    public int deleteProductImage(int prd_img_no) {
+        return session.delete(namespace+"deleteProductImage",prd_img_no);
+    }
+
+    @Override
+    public int updateProductImage(PrdImgDto prdImgDto) throws Exception {
+        return session.update(namespace+"updateProductImage",prdImgDto);
     }
 
 }
