@@ -5,7 +5,6 @@
 <head>
     <title>로그인</title>
     <link rel="stylesheet" href="/css/user/user_login.css">
-
 </head>
 <body>
 <br/>
@@ -53,60 +52,131 @@
 </div>
 </div>
 
+<a href="javascript:kakaoLogin()">kakaoLogin</a>
+
     <br/><br/><br/>
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script>
-        function formCheck(frm) {
-            let msg ='';
-            if(frm.id.value.length==0) {
-                setMessage('id를 입력해주세요.', frm.id);
-                return false;
+
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
+<script>
+    <!--카카오 로그인 init -->
+    $(document).ready(function(){
+        $.ajax({
+            type:'POST',
+            url : '/api/getKakaoApi',
+            data : {},
+            dataType : 'text',
+            success : function(data){
+                Kakao.init(data);
+            },
+            error : function(xhr, status, error){
+                alert("API 등록에 실패했습니다." +error);
             }
-            if(frm.pwd.value.length==0) {
-                setMessage('password를 입력해주세요.', frm.pwd);
-                return false;
+        });
+    });
+
+    <!-- 카카오 로그인 -->
+    function kakaoLogin() {
+        Kakao.Auth.login({
+            success: function (response) {
+                Kakao.API.request({
+                    url: '/v2/user/me',
+                    success: function (response) {
+                        kakaoLoginPro(response)
+                    },
+                    fail: function (error) {
+                        console.log(error)
+                    },
+                })
+            },
+            fail: function (error) {
+                console.log(error)
+            },
+        })
+    }
+
+    <!--카카오 로그인 데이터 받기-->
+    function kakaoLoginPro(response) {
+        var data = {id: response.id}
+        $.ajax({
+            type: 'POST',
+            url: '/user/kakaoLoginPro.do',
+            data: data,
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+                if (data.JavaData == "YES") {
+                    alert("로그인되었습니다.");
+                    location.href = '/user/usermain.do'
+                } else if (data.JavaData == "register") {
+                    $("#kakaoEmail").val(response.kakao_account.email);
+                    $("#kakaoId").val(response.id);
+                    $("#kakaoForm").submit();
+                } else {
+                    alert("로그인에 실패했습니다");
+                }
+
+            },
+            error: function (xhr, status, error) {
+                alert("로그인에 실패했습니다." + error);
             }
-            return true;
+        });
+    }
+
+
+    function formCheck(frm) {
+        let msg ='';
+        if(frm.id.value.length==0) {
+            setMessage('id를 입력해주세요.', frm.id);
+            return false;
         }
-        function setMessage(msg, element){
-            document.getElementById("msg").innerHTML = ` ${'${msg}'}`;
-            if(element) {
-                element.select();
-            }
+        if(frm.pwd.value.length==0) {
+            setMessage('password를 입력해주세요.', frm.pwd);
+            return false;
         }
-
-        function nonUsrAuth(){
-            $(".form-inp").hide();
-            $("#loginTitle").hide();
-            $(".form-inp-nonUsr").show();
-            $("#rsvTitle").show();
-            $("#nonUsrBt").css({
-                'border-bottom': '3px solid #333333',
-                'color' : '#333333'
-            });
-
-            $("#usrBt").css({
-                'border-bottom': '3px solid #E6E6E6',
-                'color' : 'gray'
-            });
+        return true;
+    }
+    function setMessage(msg, element){
+        document.getElementById("msg").innerHTML = ` ${'${msg}'}`;
+        if(element) {
+            element.select();
         }
+    }
 
-        function usrLogin(){
-            $("#rsvTitle").hide();
-            $(".form-inp-nonUsr").hide();
-            $(".form-inp").show();
-            $("#loginTitle").show();
-            $("#usrBt").css({
-                'border-bottom': '3px solid #333333',
-                'color' : '#333333'
-            });
+    function nonUsrAuth(){
+        $(".form-inp").hide();
+        $("#loginTitle").hide();
+        $(".form-inp-nonUsr").show();
+        $("#rsvTitle").show();
+        $("#nonUsrBt").css({
+            'border-bottom': '3px solid #333333',
+            'color' : '#333333'
+        });
 
-            $("#nonUsrBt").css({
-                'border-bottom': '3px solid #E6E6E6',
-                'color' : 'gray'
-            });
+        $("#usrBt").css({
+            'border-bottom': '3px solid #E6E6E6',
+            'color' : 'gray'
+        });
+    }
 
-        }
+    function usrLogin(){
+        $("#rsvTitle").hide();
+        $(".form-inp-nonUsr").hide();
+        $(".form-inp").show();
+        $("#loginTitle").show();
+        $("#usrBt").css({
+            'border-bottom': '3px solid #333333',
+            'color' : '#333333'
+        });
+
+        $("#nonUsrBt").css({
+            'border-bottom': '3px solid #E6E6E6',
+            'color' : 'gray'
+        });
+    }
+
+
 
     </script>
 </body>

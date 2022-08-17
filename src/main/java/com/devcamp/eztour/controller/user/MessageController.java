@@ -67,7 +67,6 @@ public class MessageController {
 
     }
 
-
     // 임의의 숫자 여섯 자리 만들기
     private String authNum() {
         Random random = new Random();	//랜덤 함수 선언
