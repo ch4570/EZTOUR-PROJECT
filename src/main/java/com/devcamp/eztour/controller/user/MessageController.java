@@ -24,7 +24,7 @@ public class MessageController {
     @Autowired
     UserService userService;
 
-    String authNum;
+    private String authNum;
 
     public MessageController() {
         this.messageService = NurigoApp.INSTANCE.initialize("NCSXTDUJVBHI72HL", "R5BUIF7ZNUMAGJSSLVKGRWYKATWGKOJW", "https://api.coolsms.co.kr");

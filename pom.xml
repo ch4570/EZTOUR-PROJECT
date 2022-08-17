@@ -212,12 +212,25 @@
 
 		<!--  추가 해야할 Dependency 들은 아래에 넣어 주세요  -->
 
+		<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>net.nurigo</groupId>
 			<artifactId>sdk</artifactId>
 			<version>4.2.3</version>
 		</dependency>
-
 
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-maven-plugin -->
 		<dependency>

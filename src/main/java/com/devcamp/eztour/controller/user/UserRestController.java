@@ -1,6 +1,7 @@
 package com.devcamp.eztour.controller.user;
 
 import com.devcamp.eztour.domain.user.UserDto;
+import com.devcamp.eztour.service.user.MailSendService;
 import com.devcamp.eztour.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,9 @@ public class UserRestController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    private MailSendService mailService;
 
     // 아이디 중복여부 가져오는 메서드
     @GetMapping("/checkId/{usr_id}")
@@ -47,6 +51,14 @@ public class UserRestController {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/mailCheck")
+    public String mailCheck(String email) {
+        System.out.println("이메일 인증 요청이 들어옴!");
+        System.out.println("이메일 인증 이메일 : " + email);
+
+        return mailService.joinEmail(email);
     }
 
 }
