@@ -1,8 +1,6 @@
 package com.devcamp.eztour.service.product;
 
-
 import com.devcamp.eztour.domain.product.*;
-
 import java.util.List;
 
 public interface ProductService {

@@ -4,13 +4,24 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @ToString
 public class TrvPrdDtlReadDto {
 
-    private String prd_dtl_cd;
     private String prd_cd;
+    private String dstn_cd;
+    private String cmn_cd_thm;
+    private boolean evnt_yn;
+    private boolean fin_yn;
+    private boolean act_yn;
+    private boolean dc_yn;
+    private Integer vcnt;
+    private boolean lk_yn;
+    private boolean mn_img_yn;
+    private String prd_dtl_cd;
     private int	    prd_str_prc;
     private String	arl_nm;
     private boolean	dpr_yn;
@@ -24,6 +35,12 @@ public class TrvPrdDtlReadDto {
     private String  fnl_mod_date;
     private String	fnl_mod_no;
     private String prd_nm;
+    private String prd_dtl_desc;
+    private String trv_per;
+    private Integer pc_prc;
+    private String img_pth;
+    private Date dpr_str_date;
+    private Date dpr_fin_date;
 
     public TrvPrdDtlReadDto(String prd_dtl_cd, String prd_cd, String arl_nm, int prd_str_prc, String dpr_date, String prd_nm) {
         this.prd_dtl_cd = prd_dtl_cd;
@@ -44,4 +61,36 @@ public class TrvPrdDtlReadDto {
         this.dpr_date = dpr_date;
         this.prd_nm = prd_nm;
     }
+
+    public TrvPrdDtlReadDto(String prd_cd, String dstn_cd, String cmn_cd_thm, String prd_nm, String prd_dtl_desc, String trv_per,
+                            Integer prd_str_prc, Date dpr_str_date, Date dpr_fin_date,
+                            boolean evnt_yn, boolean fin_yn, boolean act_yn, boolean dc_yn,
+                            Integer pc_prc, Integer vcnt, boolean lk_yn, String img_pth,
+                            boolean mn_img_yn, String prd_dtl_cd, String arl_nm, boolean dpr_yn, boolean rsvt_yn) {
+        this.prd_cd = prd_cd;
+        this.dstn_cd = dstn_cd;
+        this.cmn_cd_thm = cmn_cd_thm;
+        this.evnt_yn = evnt_yn;
+        this.fin_yn = fin_yn;
+        this.act_yn = act_yn;
+        this.dc_yn = dc_yn;
+        this.vcnt = vcnt;
+        this.lk_yn = lk_yn;
+        this.mn_img_yn = mn_img_yn;
+        this.prd_dtl_cd = prd_dtl_cd;
+        this.prd_str_prc = prd_str_prc;
+        this.arl_nm = arl_nm;
+        this.dpr_yn = dpr_yn;
+        this.rsvt_yn = rsvt_yn;
+        this.prd_nm = prd_nm;
+        this.prd_dtl_desc = prd_dtl_desc;
+        this.trv_per = trv_per;
+        this.pc_prc = pc_prc;
+        this.img_pth = img_pth;
+        this.dpr_str_date = dpr_str_date;
+        this.dpr_fin_date = dpr_fin_date;
+    }
+
+
+
 }

@@ -1,5 +1,6 @@
 package com.devcamp.eztour.controller.productDetail;
 
+import com.devcamp.eztour.domain.product.TrvPrdDtlReadDto;
 import com.devcamp.eztour.domain.productDetail.TrvPrdDetailDto;
 import com.devcamp.eztour.service.productDetail.ProductDetailService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class ProductDetailController {
     public String getAllProduct(Model m) {
 
         try {
-            List<TrvPrdDetailDto> list = productDetailService.getAllProduct();
+            List<TrvPrdDtlReadDto> list = productDetailService.getAllProduct();
             m.addAttribute("list", list);
         } catch (Exception e) {
             e.printStackTrace();
