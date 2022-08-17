@@ -26,7 +26,7 @@
                     <li class="prd_tlt">상품 등록 현황 관리</li>
                     <a href="<c:url value='/product/management'/>"><li class="menu_list">상품 관리</li></a>
                     <a href="<c:url value='/product/management/detail'/>"><li class="menu_list">상품 상세 관리</li></a>
-                    <li class="menu_list">상품 이미지 관리</li>
+                    <a href="<c:url value='/product/management/image'/>"><li class="menu_list">상품 이미지 관리</li></a>
                     <li class="menu_list">상품 일정 관리</li>
                     <li class="menu_list">상품 가격 관리</li>
                     <li class="menu_list">상품 일정 사진 관리</li>
@@ -45,7 +45,7 @@
                 <h1>상품 상세 수정</h1>
                 <div class="prd_detail_input_form">
                         <form action="<c:url value='/product/detail/modify'/>" method="post">
-                        상품상세코드&nbsp;<br><input type="text" name="prd_dtl_cd" placeholder="상품상세코드" value="${prd_dtl.prd_cd}" class="input_prd"/><br>
+                        상품상세코드&nbsp;<br><input type="text" name="prd_dtl_cd" placeholder="상품상세코드" value="${prd_dtl.prd_dtl_cd}" class="input_prd"/><br>
                         상품코드&nbsp;<br><input type="text" name="prd_cd" value="${prd_dtl.prd_cd}" placeholder="상품코드" class="input_prd"/><br>
                         상품이름&nbsp;<br><input type="text" name="prd_nm" placeholder="상품이름" class="input_prd" value="${prd_dtl.prd_nm}"/><br>
                         상품시작가격&nbsp;<br><input type="text" name="prd_str_prc"  placeholder="상품시작가격" class="input_prd" value="${prd_dtl.prd_str_prc}"/><br>

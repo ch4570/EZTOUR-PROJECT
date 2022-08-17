@@ -114,4 +114,34 @@ public class ProductDaoImpl implements ProductDao{
         return session.selectOne(namespace+"selectProductDetail",prd_dtl_cd);
     }
 
+    @Override
+    public int updateProductDetail(TrvPrdDtlWriteDto trvPrdDtlWriteDto) {
+        return session.update(namespace+"updateProductDetail",trvPrdDtlWriteDto);
+    }
+
+    @Override
+    public int deleteProductDetail(String prd_dtl_cd) {
+        return session.delete(namespace+"deleteProductDetail",prd_dtl_cd);
+    }
+
+    @Override
+    public List<TrvPrdReadDto> selectProductImage(PageHandlerProduct pageHandlerProduct) {
+        return session.selectList(namespace+"selectProductImage",pageHandlerProduct);
+    }
+
+    @Override
+    public int selectProductImageCnt() {
+        return session.selectOne(namespace+"selectProductImageCnt");
+    }
+
+    @Override
+    public List<TrvPrdReadDto> searchSelectProductImage(PageHandlerProduct pageHandlerProduct) {
+        return session.selectList(namespace+"searchSelectProductImage",pageHandlerProduct);
+    }
+
+    @Override
+    public int searchSelectProductImageCnt(PageHandlerProduct pageHandlerProduct) {
+        return session.selectOne(namespace+"searchSelectProductImageCnt",pageHandlerProduct);
+    }
+
 }

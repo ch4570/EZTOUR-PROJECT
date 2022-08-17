@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devcamp.eztour.dao.UserMapper">
+
+    <insert id="insertUsr" parameterType="UserDto">
+        INSERT INTO
+            usr
+        (usr_id,
+         pwd,
+         usr_nm,
+         brth,
+         gndr,
+         email,
+         phn)
+        VALUES
+            (#{usr_id},
+             #{pwd},
+             #{usr_nm},
+             #{brth},
+             #{gndr},
+             #{email},
+             #{phn})
+    </insert>
+
+    <insert id="insertUsrHis" parameterType="UserDto">
+        INSERT INTO
+            usr_hst
+            (usr_id)
+        VALUES
+            (#{usr_id})
+    </insert>
+
+    <select id="selectUsr" parameterType="string" resultType="UserDto">
+        SELECT
+            *
+        FROM
+            usr
+        WHERE
+            usr_id = #{usr_id}
+    </select>
+
+    <!-- 로그인시 이력테이블 업데이트 -->
+    <update id="updateHstForLogin" parameterType="string">
+        UPDATE
+            usr_hst
+        SET
+            acc_cnt = acc_cnt + 1,
+            lst_acc_date = now()
+        WHERE
+            usr_id = #{usr_id}
+    </update>
+
+    <update id="updateUsr" parameterType="UserDto">
+        UPDATE
+            usr
+        SET
+            pwd = #{pwd},
+            email = #{email},
+            phn = #{phn},
+            cmn_cd_prf_img = #{cmn_cd_prf_img}
+        WHERE
+            usr_id = #{usr_id}
+    </update>
+
+    <update id="updateUsrHst" parameterType="UserDto">
+        UPDATE
+            usr_hst
+        SET
+            usr_mdf_date = now()
+        WHERE
+            usr_id = #{usr_id}
+    </update>
+
+    <update id="deleteUsr" parameterType="String">
+        UPDATE
+            usr
+        SET
+            cmn_cd_usr_stt = '2d'
+        WHERE
+            usr_id = #{usr_id}
+    </update>
+
+    <update id="deleteUsrHst" parameterType="map">
+        UPDATE
+            usr_hst
+        SET
+            cmn_cd_drp = #{cmn_cd_drp},
+            drp_date = now()
+        WHERE
+            usr_id = #{usr_id}
+    </update>
+
+    <select id="selectUserEmail" parameterType="String" resultType="UserDto">
+        SELECT
+            usr_nm,
+            email
+        FROM
+            usr
+        WHERE
+            usr_id = #{usr_id}
+    </select>
+
+    <select id="checkId" parameterType="String" resultType="int">
+        SELECT
+            EXISTS
+               (
+                SELECT
+                    usr_id
+                FROM
+                    usr
+                WHERE
+                    usr_id = #{usr_id}
+               )AS id_check
+    </select>
+
+</mapper>

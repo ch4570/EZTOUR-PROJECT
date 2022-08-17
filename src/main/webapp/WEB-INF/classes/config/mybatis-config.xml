@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <!--선경님 시작-->
+        <typeAlias alias="UserDto" type="com.devcamp.eztour.domain.user.UserDto"/>
+
+        <!--선경님 끝-->
+
+        <!--도형님 시작-->
+        <typeAlias alias="RvwDto" type="com.devcamp.eztour.domain.rvw.RvwDto"/>
+        <typeAlias alias="SearchCondition" type="com.devcamp.eztour.domain.rvw.SearchCondition"/>
+        <typeAlias alias="RvwCmtDto" type="com.devcamp.eztour.domain.rvw.RvwCmtDto"/>
+
+        <!--도형님 끝-->
+
+        <!--서창희 시작-->
+        <typeAlias alias="TrvSchDto" type="com.devcamp.eztour.domain.product.TrvSchDto"/>
+        <typeAlias alias="PrdImgDto" type="com.devcamp.eztour.domain.product.PrdImgDto"/>
+        <typeAlias alias="PrdPcrDto" type="com.devcamp.eztour.domain.product.PrdPcrDto"/>
+        <typeAlias alias="TrvPrdDtlReadDto" type="com.devcamp.eztour.domain.product.TrvPrdDtlReadDto"/>
+        <typeAlias alias="TrvPrdDtlWriteDto" type="com.devcamp.eztour.domain.product.TrvPrdDtlWriteDto"/>
+        <typeAlias alias="TrvPrdReadDto" type="com.devcamp.eztour.domain.product.TrvPrdReadDto"/>
+        <typeAlias alias="TrvPrdWriteDto" type="com.devcamp.eztour.domain.product.TrvPrdWriteDto"/>
+        <typeAlias alias="TrvPrdPrcDto" type="com.devcamp.eztour.domain.product.TrvPrdPrcDto"/>
+        <typeAlias alias="TrvSchImgDto" type="com.devcamp.eztour.domain.product.TrvSchImgDto"/>
+        <typeAlias alias="PageHandlerProduct" type="com.devcamp.eztour.domain.product.PageHandlerProduct"/>
+        <!-- 서창희 끝 -->
+
+        <!-- 혜경님 시작 -->
+        <typeAlias alias="ReservDto" type="com.devcamp.eztour.domain.reserv.ReservDto"/>
+        <typeAlias alias="ReservInfoDto" type="com.devcamp.eztour.domain.reserv.ReservInfoDto"/>
+
+        <!-- 혜경님 끝 -->
+
+        <!-- 기혁님 시작 -->
+        <typeAlias alias="CustomerInquiryDto" type="com.devcamp.eztour.domain.customercenter.CustomerInquiryDto"/>
+        <!-- 기혁님 끝 -->
+
+        <!-- 종현님 시작 -->
+
+        <!-- 종현님 끝 -->
+
+        <!-- 영욱님 시작 -->
+        <typeAlias alias="FaqDto" type="com.devcamp.eztour.domain.faq.FaqDto"/>
+        <typeAlias alias="TrvPrdDto" type="com.devcamp.eztour.domain.home.TrvPrdDto"/>
+        <typeAlias alias="TrvPrdDetailDto" type="com.devcamp.eztour.domain.productDetail.TrvPrdDetailDto"/>
+        <typeAlias alias="DestinationCategoryDto" type="com.devcamp.eztour.domain.category.DestinationCategoryDto"/>
+        <!-- 영욱님 끝-->
+    </typeAliases>
+</configuration>
