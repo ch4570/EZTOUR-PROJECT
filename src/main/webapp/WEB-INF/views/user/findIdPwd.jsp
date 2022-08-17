@@ -28,16 +28,24 @@
                 </div>
 
                 <div class="form-inp-find" style="display:none;">
-                    <input id="rsvNo" type="text" name="rsvNo" placeholder="예약번호를 입력하세요" autofocus>
-                    <input id="rsvName" type="password" name="rsvNm" placeholder="이름을 입력하세요">
-                    <div class="phn">
-                        <input id="rsvPhone1" type="text" name="phn1" placeholder="010" style="width: 110px;">
-                        <input id="rsvPhone2" type="text" name="phn2" placeholder="0000">
-                        <input id="rsvPhone3" type="text" name="phn3" placeholder="0000" style="margin-right: 0px;">
-                    </div>
-                    <button id="findPwdBtn">예약확인</button>
-                </div>
-                <input type="hidden" name="toURL" value="${param.toURL}">
+                    <input id="usrid" type="text" name="usr_id" placeholder="아이디를 입력하세요." >
+                    <input id="usrnm"  name="usr_nm" placeholder="이름을 입력하세요.">
+                    <div class="input-basic">
+                        <input type="text" class="input-field" name="email1" id="email1"
+                               onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"placeholder="이메일" style="width:250px;" >
+                        <select class="input-field" name="email2" id="email2" style="width:241px;">
+                            <option>@naver.com</option>
+                            <option>@daum.net</option>
+                            <option>@gmail.com</option>
+                            <option>@hanmail.com</option>
+                            <option>@yahoo.co.kr</option>
+                        </select>
+                        <div>
+                            <input class="mail-check-input" placeholder="인증번호 6자리를 입력해주세요." disabled="disabled" maxlength="6">
+                            <span id="mail-check-warn"></span>
+
+                            <button id="mail-Check-Btn">인증하기</button>
+                        </div>
             </div>
         </form>
     </div>
@@ -116,6 +124,41 @@
             },
             error   : function(){ alert("인증번호가 일치하지 않습니다.") }
         });
+    });
+
+    $('#mail-Check-Btn').click(function() {
+        const email = $('#email1').val() + $('#email2').val(); // 이메일 주소값 얻어오기!
+        console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
+        const checkInput = $('.mail-check-input') // 인증번호 입력하는곳
+
+        $.ajax({
+            type : 'get',
+            url : '<c:url value ="/mailCheck?email="/>'+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+            success : function (data) {
+                console.log("data : " +  data);
+                checkInput.attr('disabled',false);
+                code =data;
+                alert('인증번호가 전송되었습니다.');
+            }
+        });
+    });
+
+    $('.mail-check-input').blur(function () {
+        const inputCode = $(this).val();
+        const $resultMsg = $('#mail-check-warn');
+
+        if(inputCode === code){
+            $resultMsg.html('인증번호가 일치합니다.');
+            $resultMsg.css('color','green');
+            $('#mail-Check-Btn').attr('disabled',true);
+            $('#email1').attr('readonly',true);
+            $('#email2').attr('readonly',true);
+            $('#email2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
+            $('#email2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+        }else{
+            $resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+            $resultMsg.css('color','red');
+        }
     });
 
 </script>

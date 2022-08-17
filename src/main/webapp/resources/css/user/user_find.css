@@ -48,7 +48,7 @@
     width: 540px;
 }
 
-#usr_nm, #phn, #rsvNo, #rsvName, #rsvPhone, #checkNum{
+#usr_nm, #phn, #usrid, #usrnm, #email, #checkNum, #email1, #email2{
     width: 500px;
     font-size: 15px;
     font-weight: 400;
