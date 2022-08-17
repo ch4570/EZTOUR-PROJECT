@@ -6,8 +6,8 @@
 
 <!--    고객 문의 인서트-->
     <insert id="insertCustomerInquiry" parameterType="CustomerInquiryDto">
-        INSERT INTO qna (qna_cd, email, phn, qna_ttl, qna_cont)
-        VALUES (#{qna_cd}, #{email}, #{phn}, #{qna_ttl}, #{qna_cont})
+        INSERT INTO qna (usr_id, qna_cd, email, phn, qna_ttl, qna_cont)
+        VALUES (#{usr_id}, #{qna_cd}, #{email}, #{phn}, #{qna_ttl}, #{qna_cont})
     </insert>
 
 <!--    테스트를 위한 코드-->
@@ -18,4 +18,5 @@
     <select id="countCustomerInquiry" resultType="int">
         SELECT count(*) FROM qna
     </select>
+
 </mapper>
