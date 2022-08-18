@@ -1,5 +1,8 @@
 package com.devcamp.eztour.domain.customercenter;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class CustomerInquiryDto {
     private Integer qna_no;
     private String usr_id;
