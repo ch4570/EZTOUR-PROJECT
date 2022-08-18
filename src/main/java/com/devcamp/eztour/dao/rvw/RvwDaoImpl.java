@@ -15,11 +15,11 @@ public class RvwDaoImpl implements RvwDao {
 
     @Autowired
     SqlSession session;
-    String namespace = "com.devcamp.eztour.RvwMapper.";
+    String namespace = "com.devcamp.eztour.rvwMapper.";
 
     @Override
     public int count() throws Exception {
-        return session.selectOne(namespace + "count"); // �Խù� �� ����
+        return session.selectOne(namespace + "count");
     }
 
     @Override
@@ -28,10 +28,10 @@ public class RvwDaoImpl implements RvwDao {
     }
 
     @Override
-    public int delete(Integer rvw_no, String usr_nm) throws Exception {
+    public int delete(Integer rvw_no, String usr_id) throws Exception {
         Map map = new HashMap();
         map.put("rvw_no", rvw_no);
-        map.put("usr_nm", usr_nm);
+        map.put("usr_id", usr_id);
         return session.delete(namespace + "delete", map);
     }
 
@@ -67,13 +67,8 @@ public class RvwDaoImpl implements RvwDao {
     }
 
     @Override
-    public RvwDto selectUserEmail(String usr_id) throws Exception {
-        return session.selectOne(namespace + "selectUserEmail", usr_id);
-    }
-
-    @Override
-    public List<RvwDto> selectUsernmEmailPrdnm(String usr_id) throws Exception {
-        return session.selectList(namespace + "selectUsernmEmailPrdnm", usr_id);
+    public RvwDto selectUsernmEmail(String usr_id) throws Exception {
+        return session.selectOne(namespace + "selectUsernmEmail", usr_id);
     }
 
     @Override
@@ -93,6 +88,11 @@ public class RvwDaoImpl implements RvwDao {
         map.put("cnt", cnt);
 
         return session.update(namespace + "updateCommentCnt", map);
+    }
+
+    @Override
+    public List<RvwDto> selectPrdnm(String usr_id) throws Exception {
+        return session.selectList(namespace + "selectPrdnm", usr_id);
     }
 
 

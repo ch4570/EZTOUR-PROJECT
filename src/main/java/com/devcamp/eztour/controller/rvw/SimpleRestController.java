@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class SimpleRestController {
 
-    @GetMapping("/test")
+    @GetMapping("/rvwCmt")
     public String test() {
-        return "test"; //  뷰이름
+        return "rvwCmt"; //  뷰이름
     }
 }

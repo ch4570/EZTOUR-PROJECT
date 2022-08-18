@@ -28,30 +28,23 @@ public class RvwController {
     RvwService rvwService;
 
     @PostMapping("/remove")
-    public String remove(Integer rvw_no, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
+    public String remove(Integer rvw_no, SearchCondition sc, RedirectAttributes rattr, HttpSession session) {
+//        String usr_id = (String)session.getAttribute("id");
         String usr_id = "to9251";
 
 
         try {
-            m.addAttribute("page", page);
-            m.addAttribute("pageSize", pageSize);
 
-            int rowCnt = rvwService.remove(rvw_no, usr_id);
-
-            if(rowCnt!=1)
+            if(rvwService.remove(rvw_no, usr_id)!=1)
                 throw new Exception("review remove error");
 
             rattr.addFlashAttribute("msg","DEL_OK");
-
-            if(rowCnt==1){
-            }
         } catch (Exception e) {
             e.printStackTrace();
             rattr.addFlashAttribute("msg","DEL_ERR");
         }
 
-
-        return "redirect:/review/list";
+        return "redirect:/review/list"+sc.getQueryString();
     }
 
     @GetMapping("/list")
@@ -68,8 +61,6 @@ public class RvwController {
 
             List<RvwDto> list = rvwService.getSearchResultPage(sc);
 
-
-
             m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
 
@@ -80,39 +71,43 @@ public class RvwController {
     }
 
     @GetMapping("/read")
-    public String read(Integer rvw_no, Integer page, Integer pageSize, Model m) {
+    public String read(Integer rvw_no, SearchCondition sc, RedirectAttributes rattr, Model m) {
         try {
             RvwDto rvwDto = rvwService.read(rvw_no);
-            m.addAttribute("rvwDto",rvwDto);
-            m.addAttribute("page", page);
-            m.addAttribute("pageSize", pageSize);
+            m.addAttribute("rvwDto", rvwDto);
         } catch (Exception e) {
             e.printStackTrace();
+            rattr.addFlashAttribute("msg","READ_ERR");
+            return "redirect:/rvwList"+sc.getQueryString();
         }
 
-        return "rvw_detail";
+        return "rvwDetail";
     }
 
 
     @GetMapping("/write")
-    public String write(HttpServletRequest request, Model m) throws Exception{
-        //��ȸ���� �� �ۼ��ϱ� ��ư Ŭ���ϸ� ���� ���ϰ� ���ǹ� �߰��ؾ���.
-//        HttpSession session = request.getSession();
-//        UserDto userDto = userService.selectUserEmail("to9251");
-//        System.out.println(userDto);
-//        m.addAttribute("userDto",userDto);
-        RvwDto rvwDto = rvwService.selectUserEmail("to9251");
-        rvwDto.setPrd_cd("a001");
+    public String write(Model m, HttpSession session) throws Exception{
+        //        String usr_id = (String)session.getAttribute("id");
+        String usr_id = "to9251";
+
+        RvwDto rvwDto = rvwService.selectUsernmEmail(usr_id);
+
         rvwDto.setWrt_nm(rvwDto.getUsr_nm());
         rvwDto.setWrt_email(rvwDto.getEmail());
-        System.out.println(rvwDto);
-        m.addAttribute("rvwDto",rvwDto);
+
+        m.addAttribute("rvwDto", rvwDto);
+
+        List<RvwDto> list = rvwService.selectPrdnm(usr_id); // prd_cd, prd_nm, usr_id
+        System.out.println("list = " + list);
+        System.out.println("rvwDto = " + rvwDto);
+        m.addAttribute("list",list);
         return "rvwRegister";
     }
 
     @PostMapping("/write")
-    public String write(RvwDto rvwDto, HttpSession session, Model m, RedirectAttributes rattr) {
+    public String write(RvwDto rvwDto, Model m, RedirectAttributes rattr, HttpSession session) throws Exception {
         try {
+            System.out.println("rvwDto = " + rvwDto);
             int rowCnt = rvwService.write(rvwDto);
 
             if(rowCnt!=1)
@@ -123,30 +118,40 @@ public class RvwController {
             return "redirect:/review/list";
         } catch (Exception e) {
             e.printStackTrace();
+            //        String usr_id = (String)session.getAttribute("id");
+            String usr_id = "to9251";
             m.addAttribute("rvwDto", rvwDto);
+            List<RvwDto> list = rvwService.selectPrdnm(usr_id);
+            m.addAttribute("list",list);
             rattr.addFlashAttribute("msg", "WRT_ERR");
             return "rvwRegister";
         }
     }
 
     @GetMapping("/modify")
-    public String modify(HttpServletRequest request, Model m) throws Exception{
-//        HttpSession session = request.getSession();
-//        UserDto userDto = userService.selectUserEmail("to9251");
-//        System.out.println(userDto);
-//        m.addAttribute("userDto",userDto);
-        RvwDto rvwDto = rvwService.selectUserEmail("to9251");
-        rvwDto.setRvw_no(121);
-        rvwDto.setPrd_cd("a001");
+    public String modify(Integer rvw_no, Model m, HttpSession session) throws Exception{
+//        String usr_id = (String)session.getAttribute("id");
+        String usr_id = "to9251";
+
+        System.out.println("rvw_no = " + rvw_no);
+
+
+        RvwDto rvwDto = rvwService.selectUsernmEmail(usr_id);
+        rvwDto.setRvw_no(rvw_no);
         rvwDto.setWrt_nm(rvwDto.getUsr_nm());
         rvwDto.setWrt_email(rvwDto.getEmail());
-        System.out.println(rvwDto);
-        m.addAttribute("rvwDto",rvwDto);
+
+        List<RvwDto> list = rvwService.selectPrdnm(usr_id); // prd_cd, prd_nm, usr_id
+        System.out.println("list = " + list);
+        System.out.println("rvwDto = " + rvwDto);
+        m.addAttribute("list",list);
+        m.addAttribute("rvwDto", rvwDto);
+
         return "rvwRegister";
     }
 
     @PostMapping("/modify")
-    public String modify(RvwDto rvwDto, HttpSession session, Model m, RedirectAttributes rattr) {
+    public String modify(RvwDto rvwDto, SearchCondition sc, HttpSession session, Model m, RedirectAttributes rattr) {
         try {
             int rowCnt = rvwService.modify(rvwDto);
 
@@ -155,7 +160,8 @@ public class RvwController {
 
             rattr.addFlashAttribute("msg","MOD_OK");
 
-            return "redirect:/review/list";
+            return "redirect:/review/list"+sc.getQueryString();
+
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute("rvwDto", rvwDto);
