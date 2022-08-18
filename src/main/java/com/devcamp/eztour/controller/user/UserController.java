@@ -212,25 +212,24 @@ public class UserController {
         oauthToken = naverloginbo.getAccessToken(session, code, state);
         //로그인 사용자 정보를 읽어온다.
         String apiResult = naverloginbo.getUserProfile(oauthToken);
-        System.out.println("네이버 사용자 프로필 정보 =============================="+apiResult);
-
         System.out.println("apiResult =>"+apiResult);
+        // objectMapper에 json형태인 apiResult를 역직렬화, map 형태로 만든다.
         ObjectMapper objectMapper =new ObjectMapper();
         Map<String, Object> apiJson = (Map<String, Object>) objectMapper.readValue(apiResult, Map.class).get("response");
 
         Map<String, Object> naverConnectionCheck = userService.naverConnectionCheck(apiJson);
 
-        if(naverConnectionCheck == null) { //일치하는 이메일 없으면 가입
+        if(naverConnectionCheck == null) { // 일치하는 정보가 아예 없으면 가입
 
             model.addAttribute("email",apiJson.get("email"));
             model.addAttribute("password",apiJson.get("id"));
             model.addAttribute("phone",apiJson.get("mobile"));
-            return "user/setNickname";
+            return "user/setSubInfo.tiles";
         }else if(naverConnectionCheck.get("NAVERLOGIN") == null && naverConnectionCheck.get("EMAIL") != null) { //이메일 가입 되어있고 네이버 연동 안되어 있을시
             userService.setNaverConnection(apiJson);
             Map<String, Object> loginCheck = userService.userNaverLoginPro(apiJson);
             session.setAttribute("userInfo", loginCheck);
-        }else { //모두 연동 되어있을시
+        }else { //모두 연동 되어있을시, 바로 세션으로 정보 저장
             Map<String, Object> loginCheck = userService.userNaverLoginPro(apiJson);
             session.setAttribute("userInfo", loginCheck);
         }
