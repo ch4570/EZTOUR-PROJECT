@@ -272,4 +272,32 @@
                 sit_lo_desc=#{sit_lo_desc},ht_inf=#{ht_inf},brk=#{brk},luh=#{luh},din=#{din},dstnc_tm=#{dstnc_tm}
             WHERE sch_no = #{sch_no}
     </update>
+
+    <select id="selectProductPrice" parameterType="PageHandlerProduct" resultType="TrvPrdPrcDto">
+        SELECT prd_prc_no,prd_dtl_cd,adt_prc,chd_prc,bb_prc,frs_reg_date
+        FROM prd_prc
+        ORDER BY adt_prc DESC
+        LIMIT #{pageSize} OFFSET #{startList}
+    </select>
+
+    <select id="selectProductPriceCnt" resultType="int">
+        SELECT COUNT(*)
+        FROM prd_prc
+    </select>
+
+    <sql id="searchConditionPrice">
+        <choose>
+            <when test='search_option=="prd_cd"'>
+                AND prd_cd LIKE concat('%', #{search_keyword}, '%')
+            </when>
+            <when test='search_option=="prd_dtl_cd"'>
+                AND prd_dtl_cd LIKE concat('%', #{search_keyword}, '%')
+            </when>
+            <otherwise>
+                AND (prd_cd   LIKE concat('%', #{search_keyword}, '%')
+                OR   prd_dtl_cd LIKE concat('%', #{search_keyword}, '%'))
+            </otherwise>
+        </choose>
+    </sql>
+
 </mapper>

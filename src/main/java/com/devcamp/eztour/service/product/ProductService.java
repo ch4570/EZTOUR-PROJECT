@@ -39,4 +39,6 @@ public interface ProductService {
     public int getSearchScheduleCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
     public int removeSchedule(int sch_no) throws Exception;
     public int updateSchedule(TrvSchDto trvSchDto) throws Exception;
+    public List<PrdPcrDto> getProductPrice(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public int getProductPriceCnt() throws Exception;
 }

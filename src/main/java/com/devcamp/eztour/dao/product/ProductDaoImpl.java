@@ -189,4 +189,14 @@ public class ProductDaoImpl implements ProductDao{
         return session.update(namespace+"updateSchedule",trvSchDto);
     }
 
+    @Override
+    public List<PrdPcrDto> selectProductPrice(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return session.selectList(namespace+"selectProductPrice",pageHandlerProduct);
+    }
+
+    @Override
+    public int selectProductPriceCnt() throws Exception {
+        return session.selectOne(namespace+"selectProductPriceCnt");
+    }
+
 }

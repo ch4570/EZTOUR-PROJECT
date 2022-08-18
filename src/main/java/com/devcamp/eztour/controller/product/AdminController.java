@@ -582,6 +582,27 @@ public class AdminController {
         }
     }
 
+    @GetMapping("/product/management/price")
+    public String productPriceManagement(HttpSession session,Model model,@RequestParam(value = "page",defaultValue = "1") int page
+            ,String search_option,String search_keyword) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
+            return "redirect:/";
+        }else{
+            if(search_keyword == null || search_keyword ==""){
+                int totalCnt = productService.getProductPriceCnt();
+                System.out.println(totalCnt);
+                PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page);
+                List<PrdPcrDto> prdList = productService.getProductPrice(paging);
+                model.addAttribute("paging",paging);
+                model.addAttribute("list",prdList);
+            }else{
+
+            }
+            return "product/product_management_price.tiles";
+        }
+    }
+
     private boolean deleteImage(HttpServletRequest request,String img_pth){
         HttpSession session = request.getSession();
         String root_path = session.getServletContext().getRealPath("/");

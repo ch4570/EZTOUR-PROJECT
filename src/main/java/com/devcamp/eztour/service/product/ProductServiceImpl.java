@@ -187,4 +187,14 @@ public class ProductServiceImpl implements ProductService{
     public int updateSchedule(TrvSchDto trvSchDto) throws Exception {
         return productDao.updateSchedule(trvSchDto);
     }
+
+    @Override
+    public List<PrdPcrDto> getProductPrice(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.selectProductPrice(pageHandlerProduct);
+    }
+
+    @Override
+    public int getProductPriceCnt() throws Exception {
+        return productDao.selectProductPriceCnt();
+    }
 }

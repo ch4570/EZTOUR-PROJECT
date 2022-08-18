@@ -41,4 +41,6 @@ public interface ProductDao {
     public int searchSelectScheduleCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
     public int deleteSchedule(int sch_no) throws Exception;
     public int updateSchedule(TrvSchDto trvSchDto) throws Exception;
+    public List<PrdPcrDto> selectProductPrice(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public int selectProductPriceCnt() throws Exception;
 }
