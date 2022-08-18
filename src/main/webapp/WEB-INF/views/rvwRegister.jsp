@@ -38,12 +38,16 @@
     <form action="" id="form">
         <input type="hidden" name="rvw_no" value="${rvwDto.rvw_no}" readonly="readonly">
         <input type="hidden" name="usr_id" value="${rvwDto.usr_id}" readonly="readonly">
-        <input type="hidden" name="prd_cd" value="${rvwDto.prd_cd}" readonly="readonly">
-        <input type="text" name="wrt_nm" value="${rvwDto.wrt_nm}" readonly="readonly"><br>
-        <input type="text" name="wrt_email" value="${rvwDto.wrt_email}" readonly="readonly"><br>
-        <input type="text" name="trv_nm" value="프랑스 패키지" readonly="readonly"><br>
-        <input type="text" name="rvw_ttl" value="${rvwDto.rvw_ttl}" placeholder="리뷰 제목"><br>
-        <input type="text" name="rvw_cont" value="${rvwDto.rvw_cont}" placeholder="리뷰 내용"><br>
+        <input type="text" name="wrt_nm" value="${rvwDto.wrt_nm}" readonly="readonly">작성자<br>
+        <input type="text" name="wrt_email" value="${rvwDto.wrt_email}" readonly="readonly">이메일<br>
+        <select id = "prd_nm_list">
+            <option value="">선택해주세요</option>
+                <c:forEach var="rvwDto" items="${list}">
+                    <option value="${rvwDto.prd_nm}">${rvwDto.prd_nm}</option>여행 상품명<br>
+                </c:forEach>
+        </select><br>
+        <input type="text" name="rvw_ttl" value="${rvwDto.rvw_ttl}" placeholder="리뷰 제목">제목<br>
+        <input type="text" name="rvw_cont" value="${rvwDto.rvw_cont}" placeholder="리뷰 내용">내용<br>
         <button type="button" id="writeBtn" class="btn">등록</button>
         <button type="button" id="modifyBtn" class="btn">수정</button>
     </form>

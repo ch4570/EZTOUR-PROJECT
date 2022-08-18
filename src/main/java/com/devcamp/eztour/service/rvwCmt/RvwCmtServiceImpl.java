@@ -3,6 +3,7 @@ package com.devcamp.eztour.service.rvwCmt;
 import com.devcamp.eztour.dao.rvw.RvwDao;
 import com.devcamp.eztour.dao.rvwCmt.RvwCmtDao;
 import com.devcamp.eztour.domain.rvw.RvwCmtDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ public class RvwCmtServiceImpl implements RvwCmtService {
     RvwCmtDao rvwCmtDao;
     RvwDao rvwDao;
 
+    @Autowired
     public RvwCmtServiceImpl(RvwCmtDao rvwCmtDao, RvwDao rvwDao) {
         this.rvwCmtDao = rvwCmtDao;
         this.rvwDao = rvwDao;

@@ -28,14 +28,14 @@
     <h2>후기글 읽기</h2>
     <form action="" id="form">
         <input type="hidden" name="rvw_no" value="${rvwDto.rvw_no}" readonly="readonly">
-        <input type="text" name="rvw_ttl" value="${rvwDto.rvw_ttl}" readonly="readonly">
-        <input type="text" name="lk_cnt" value="${rvwDto.lk_cnt}" readonly="readonly">
-        <input type="text" name="wrt_nm" value="${rvwDto.wrt_nm}" readonly="readonly">
-        <input type="text" name="rvw_reg_date" value="${rvwDto.rvw_reg_date}" readonly="readonly">
-        <input type="text" name="rvw_vcnt" value="${rvwDto.rvw_vcnt}" readonly="readonly">
-        <input type="text" name="rvw_cont" value="${rvwDto.rvw_cont}" readonly="readonly">
-        <input type="text" name="img_pth" value="${rvwDto.img_pth}" readonly="readonly">
-        <input type="text" name="prd_nm" value="${rvwDto.prd_nm}" readonly="readonly">
+        <input type="text" name="rvw_ttl" value="${rvwDto.rvw_ttl}" readonly="readonly">제목<br>
+        <input type="text" name="lk_cnt" value="${rvwDto.lk_cnt}" readonly="readonly">좋아요수<br>
+        <input type="text" name="wrt_nm" value="${rvwDto.wrt_nm}" readonly="readonly">작성자<br>
+        <input type="text" name="rvw_reg_date" value="${rvwDto.rvw_reg_date}" readonly="readonly">등록일<br>
+        <input type="text" name="rvw_vcnt" value="${rvwDto.rvw_vcnt}" readonly="readonly">조회수<br>
+        <input type="text" name="rvw_cont" value="${rvwDto.rvw_cont}" readonly="readonly">내용<br>
+        <input type="text" name="img_pth" value="${rvwDto.img_pth}" readonly="readonly">이미지<br>
+        <input type="text" name="prd_nm" value="${rvwDto.prd_nm}" readonly="readonly">상품명<br>
         <button type="button" id="modifyBtn" class="btn">수정</button>
         <button type="button" id="removeBtn" class="btn">삭제</button>
         <button type="button" id="listBtn" class="btn">목록</button>
@@ -45,17 +45,18 @@
     $(document).ready(function (){
         $('#listBtn').on("click", function(){
             alert("listBtn clicked")
-            location.href = "<c:url value='/review/list'/>?page=${page}&pageSize=${pageSize}";
+            location.href = "<c:url value='/review/list${searchCondition.queryString}'/>";
         });
         $('#removeBtn').on("click", function(){
             if(!confirm("정말로 삭제하시겠습니까?")) return;
             let form = $('#form');
-            form.attr("action", "<c:url value='/review/remove'/>?page=${page}&pageSize=${pageSize}");
+            form.attr("action", "<c:url value='/review/remove${searchCondition.queryString}'/>");
             form.attr("method", "post");
             form.submit();
         });
         $('#modifyBtn').on("click", function(){
-            location.href = "<c:url value='/review/modify'/>";
+            alert("modifyBtn clicked")
+            location.href = "<c:url value='/review/modify${searchCondition.queryString}&rvw_no=${rvwDto.rvw_no}'/>";
         });
     });
 </script>
