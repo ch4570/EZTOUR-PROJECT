@@ -3,6 +3,8 @@ package com.devcamp.eztour.service.user;
 import com.devcamp.eztour.domain.user.UserDto;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Map;
+
 public interface UserService {
 
     @Transactional(rollbackFor = Exception.class)
@@ -24,5 +26,9 @@ public interface UserService {
 
     String findId(String usr_nm, String phn) throws Exception;
 
+    Map naverConnectionCheck(Map apiJson) throws Exception;
 
+    Map<String, Object> userNaverLoginPro(Map<String, Object> apiJson);
+
+    void setNaverConnection(Map<String, Object> apiJson);
 }

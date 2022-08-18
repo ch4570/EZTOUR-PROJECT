@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -56,5 +59,23 @@ public class UserServiceImpl implements UserService {
     public String findId(String usr_nm, String phn) throws Exception {
         return userDao.findId(usr_nm, phn);
     }
+
+    @Override
+    public Map naverConnectionCheck(Map apiJson) throws Exception{
+        Map map = new HashMap();
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> userNaverLoginPro(Map<String, Object> apiJson){
+        Map map = new HashMap();
+        return map;
+    }
+
+    @Override
+    public void setNaverConnection(Map<String, Object> apiJson){
+
+    }
+
 
 }

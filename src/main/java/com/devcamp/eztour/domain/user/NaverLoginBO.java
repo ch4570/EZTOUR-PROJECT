@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import com.devcamp.eztour.service.user.NaverLoginApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -42,9 +43,9 @@ public class NaverLoginBO {
         CLIENT_ID = value;
     }
 
-
-    private final static String REDIRECT_URI = "http://localhost:8080/";
+    private final static String REDIRECT_URI = "http://localhost:8080/user/userNaverLoginPro";
     private final static String SESSION_STATE = "oauth_state";
+
     /* 프로필 조회 API URL */
     private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
 

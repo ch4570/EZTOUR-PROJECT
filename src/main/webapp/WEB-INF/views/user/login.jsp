@@ -53,7 +53,7 @@
 </div>
 
 <a href="javascript:kakaoLogin()">kakaoLogin</a>
-
+<a href="${naverUrl}">NaverLogin</a>
     <br/><br/><br/>
 
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
