@@ -19,7 +19,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public int insertProductDetail(TrvPrdDtlReadDto trv_prdDtlDto) throws Exception {
+    public int insertProductDetail(TrvPrdDtlWriteDto trv_prdDtlDto) throws Exception {
         return productDao.insertProductDetail(trv_prdDtlDto);
     }
 
@@ -151,5 +151,40 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public int updateProductImage(PrdImgDto prdImgDto) throws Exception {
         return productDao.updateProductImage(prdImgDto);
+    }
+
+    @Override
+    public List<TrvSchDto> getScheduleList(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.selectProductSchedule(pageHandlerProduct);
+    }
+
+    @Override
+    public int getScheduleCnt() throws Exception {
+        return productDao.selectProductScheduleCnt();
+    }
+
+    @Override
+    public TrvSchDto getSchedule(int sch_no) throws Exception {
+        return productDao.selectOneProductSchedule(sch_no);
+    }
+
+    @Override
+    public List<TrvSchDto> getSearchSchedule(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.searchSelectSchedule(pageHandlerProduct);
+    }
+
+    @Override
+    public int getSearchScheduleCnt(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.searchSelectScheduleCnt(pageHandlerProduct);
+    }
+
+    @Override
+    public int removeSchedule(int sch_no) throws Exception {
+        return productDao.deleteSchedule(sch_no);
+    }
+
+    @Override
+    public int updateSchedule(TrvSchDto trvSchDto) throws Exception {
+        return productDao.updateSchedule(trvSchDto);
     }
 }

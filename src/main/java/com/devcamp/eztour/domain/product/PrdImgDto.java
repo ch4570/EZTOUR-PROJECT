@@ -22,9 +22,9 @@ public class PrdImgDto {
     String      cmn_cd_thm;
     String      prd_nm;
 
-    public PrdImgDto(String prd_dtl_cd, String img_path) {
+    public PrdImgDto(String prd_dtl_cd, String img_pth) {
         this.prd_cd = prd_dtl_cd;
-        this.img_pth = img_path;
+        this.img_pth = img_pth;
     }
 
     public PrdImgDto(String img_pth, int prd_img_no, String prd_cd) {
@@ -39,5 +39,6 @@ public class PrdImgDto {
         this.frs_reg_date = frs_rgs_date;
         this.prd_nm = prd_nm;
         this.cmn_cd_thm = cmn_cd_thm;
+        this.prd_img_no = prd_img_no;
     }
 }

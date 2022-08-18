@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface ProductService {
     public int insertProduct(TrvPrdWriteDto trvPrdWriteDto) throws Exception;
-    public int insertProductDetail(TrvPrdDtlReadDto trv_prdDtlDto) throws Exception;
+    public int insertProductDetail(TrvPrdDtlWriteDto trv_prdDtlDto) throws Exception;
     public int insertProductPrice(TrvPrdPrcDto trv_prdPrcDto) throws Exception;
     public int insertProductSchedule(TrvSchDto trv_schDto) throws Exception;
     public int insertProductImg(PrdImgDto prd_imgDto) throws Exception;
@@ -32,4 +32,11 @@ public interface ProductService {
     public int searchSelectProductImageCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
     public int deleteProductImage(int prd_img_no) throws Exception;
     public int updateProductImage(PrdImgDto prdImgDto) throws Exception;
+    public List<TrvSchDto> getScheduleList(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public int getScheduleCnt() throws Exception;
+    public TrvSchDto getSchedule(int sch_no) throws Exception;
+    public List<TrvSchDto> getSearchSchedule(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public int getSearchScheduleCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public int removeSchedule(int sch_no) throws Exception;
+    public int updateSchedule(TrvSchDto trvSchDto) throws Exception;
 }

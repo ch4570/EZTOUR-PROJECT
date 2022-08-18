@@ -20,7 +20,7 @@ public class ProductDaoImpl implements ProductDao{
     }
 
     @Override
-    public int insertProductDetail(TrvPrdDtlReadDto trv_prdDtlDto) {
+    public int insertProductDetail(TrvPrdDtlWriteDto trv_prdDtlDto) {
         return session.insert(namespace+"insertProductDetail", trv_prdDtlDto);
     }
 
@@ -152,6 +152,41 @@ public class ProductDaoImpl implements ProductDao{
     @Override
     public int updateProductImage(PrdImgDto prdImgDto) throws Exception {
         return session.update(namespace+"updateProductImage",prdImgDto);
+    }
+
+    @Override
+    public List<TrvSchDto> selectProductSchedule(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return session.selectList(namespace+"selectProductSchedule",pageHandlerProduct);
+    }
+
+    @Override
+    public int selectProductScheduleCnt() throws Exception {
+        return session.selectOne(namespace+"selectProductScheduleCnt");
+    }
+
+    @Override
+    public TrvSchDto selectOneProductSchedule(int sch_no) throws Exception{
+        return session.selectOne(namespace+"selectOneProductSchedule",sch_no);
+    }
+
+    @Override
+    public List<TrvSchDto> searchSelectSchedule(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return session.selectList(namespace+"searchSelectSchedule",pageHandlerProduct);
+    }
+
+    @Override
+    public int searchSelectScheduleCnt(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return session.selectOne(namespace+"searchSelectScheduleCnt",pageHandlerProduct);
+    }
+
+    @Override
+    public int deleteSchedule(int sch_no) throws Exception {
+        return session.delete(namespace+"deleteSchedule",sch_no);
+    }
+
+    @Override
+    public int updateSchedule(TrvSchDto trvSchDto) throws Exception {
+        return session.update(namespace+"updateSchedule",trvSchDto);
     }
 
 }

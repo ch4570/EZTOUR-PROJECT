@@ -7,7 +7,7 @@ import java.util.List;
 public interface ProductDao {
 
     public int insertProduct(TrvPrdWriteDto trvPrdWriteDto) throws Exception;
-    public int insertProductDetail(TrvPrdDtlReadDto trvprdDtlDto) throws Exception;
+    public int insertProductDetail(TrvPrdDtlWriteDto trvprdDtlDto) throws Exception;
     public int insertProductPrice(TrvPrdPrcDto trvprdPrcDto) throws Exception;
     public int insertProductSchedule(TrvSchDto trvschDto) throws Exception;
     public int insertProductImg(PrdImgDto prdimgDto) throws Exception;
@@ -34,4 +34,11 @@ public interface ProductDao {
     public int searchSelectProductImageCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
     public int deleteProductImage(int prd_img_no) throws Exception;
     public int updateProductImage(PrdImgDto prdImgDto) throws Exception;
+    public List<TrvSchDto> selectProductSchedule(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public int selectProductScheduleCnt() throws Exception;
+    public TrvSchDto selectOneProductSchedule(int sch_no) throws Exception;
+    public List<TrvSchDto> searchSelectSchedule(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public int searchSelectScheduleCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public int deleteSchedule(int sch_no) throws Exception;
+    public int updateSchedule(TrvSchDto trvSchDto) throws Exception;
 }

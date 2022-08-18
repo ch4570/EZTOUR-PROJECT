@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="<c:url value='/css/product/product_insert_price_style.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/product/product_modify_sch_style.css'/>">
 </head>
 <body>
 <div class="wrap">
@@ -41,15 +41,22 @@
                 </ul>
             </div>
             <div class="board">
-                <h1>상품 가격 등록</h1>
-                <div class="prd_price_input_form">
-                    <form action="<c:url value='/product/insert/price'/>" method="post">
-                        상품상세코드&nbsp;<br><input type="text" value="${param.prd_dtl_cd}" name="prd_dtl_cd" placeholder="상품상세코드" readonly="readonly" class="input_prd"/><br>
-                        상품코드&nbsp;<br><input type="text" value="${param.prd_cd}" name="prd_cd" placeholder="상품코드" readonly="readonly" class="input_prd"/><br>
-                        성인요금&nbsp;<br><input type="text" name="adt_prc" placeholder="성인요금" class="input_prd"/><br>
-                        아동요금&nbsp;<br><input type="text" name="chd_prc" placeholder="아동요금" class="input_prd"/><br>
-                        유아요금&nbsp;<br><input type="text" name="bb_prc" placeholder="유아요금" class="input_prd"/><br>
-                        <input type="submit" value="전송" id="submit_btn">
+                <h1>상품 일정 등록</h1>
+                <div class="prd_sch_input_form">
+                    <form action="<c:url value='/product/schedule/modify'/>" method="post">
+                        <input type="hidden" value="${list.sch_no}" name="sch_no">
+                        상품코드&nbsp;<br><input type="text" name="prd_cd" placeholder="상품코드" value="${list.prd_cd}" class="input_prd"/><br>
+                        여행일차&nbsp;<br><input type="text" name="trv_date" placeholder="여행일차" value="${list.trv_date}" class="input_prd"/><br>
+                        일정순번&nbsp;<br><input type="text" name="sch_ord" placeholder="일정순번" value="${list.sch_ord}" class="input_prd"><br>
+                        관광지이름&nbsp;<br><input type="text" name="st_nm" placeholder="관광지이름" value="${list.st_nm}" class="input_prd"/><br>
+                        관광지 간략설명&nbsp;<br><textarea name="sit_sh_desc" placeholder="관광지 간략설명" id="sit_sh_desc" cols="22" rows="5">${list.sit_sh_desc}</textarea><br>
+                        관광지 상세설명&nbsp;<br><textarea name="sit_lo_desc" placeholder="관광지 상세설명" id="sit_lo_desc" cols="22" rows="5">${list.sit_lo_desc}</textarea><br>
+                        호텔정보&nbsp;<br><input type="text" name="ht_inf" placeholder="호텔정보" value="${list.ht_inf}" class="input_prd"/><br>
+                        아침&nbsp;<br><input type="text" name="brk" placeholder="아침" value="${list.brk}" class="input_prd"/><br>
+                        점심&nbsp;<br><input type="text" name="luh" placeholder="점심" value="${list.luh}" class="input_prd"/><br>
+                        저녁&nbsp;<br><input type="text" name="din" placeholder="저녁" value="${list.din}" class="input_prd"/><br>
+                        이동소요기간&nbsp;<br><input type="text" name="dstnc_tm" placeholder="이동소요시간" value="${list.dstnc_tm}" class="input_prd"/><br>
+                        <input type="submit" value="수정" id="submit_btn"/>
                     </form>
                 </div>
             </div>
