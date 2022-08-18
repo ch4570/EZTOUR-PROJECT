@@ -32,6 +32,9 @@ Latest commit d71d760 2 days ago
 #RDS config
 db.properties
 
+#Application Key config
+api.properties
+
 pom.properties
 MANIFEST.MF
 
