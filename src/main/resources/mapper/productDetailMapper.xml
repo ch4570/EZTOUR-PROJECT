@@ -4,9 +4,9 @@
 
 <mapper namespace="com.devcamp.eztour.dao.productDetailMapper">
 
-    <select id="selectAllProduct" resultType="TrvPrdDtlDto">
+    <select id="selectAllProduct" resultType="TrvPrdDtlReadDto">
             SELECT A.prd_cd, A.dstn_cd, A.cmn_cd_thm, A.prd_nm, A.prd_dtl_desc, A.trv_per, A.prd_str_prc, A.dpr_str_date, A.dpr_fin_date,
-            A.evnt_yn, A.fin_yn, A.act_yn, A.dc_yn, A.vcnt, A.lk_yn, B.img_pth, B.mn_img_yn, C.prd_dtl_cd, C.arl_nm, C.dpr_yn, C.rsvt_yn
+            A.evnt_yn, A.fin_yn, A.act_yn, A.dc_yn, A.pc_prc, A.vcnt, A.lk_yn, B.img_pth, B.mn_img_yn, C.prd_dtl_cd, C.arl_nm, C.dpr_yn, C.rsvt_yn
             FROM trv_prd A
             JOIN prd_img B ON A.prd_cd = B.prd_cd
             JOIN trv_prd_dtl C ON A.prd_cd = C.prd_cd;

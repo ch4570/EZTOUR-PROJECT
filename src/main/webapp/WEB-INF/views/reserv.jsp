@@ -29,6 +29,7 @@
 <div>
     <form action="<c:url value="/reserv/reserv"/> " method="post">
         <input type="hidden" name="prd_dtl_cd" value="${rid.prd_dtl_cd}">
+        <input type="hidden" name="prd_cd" value="${rid.prd_cd}">
         <input type="hidden" name="dstn_cd" value="${rid.dstn_cd}">
         <input type="hidden" name="adt_prc" value="${rid.adt_prc}">
         <input type="hidden" name="chd_prc" value="${rid.chd_prc}">

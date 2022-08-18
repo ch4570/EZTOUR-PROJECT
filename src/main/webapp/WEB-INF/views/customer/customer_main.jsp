@@ -22,6 +22,7 @@
     <div class="customer-menu">
         <a href="#" class="menu__link">
             <span><i class="fa-solid fa-comments"></i></span>
+<%--            1:1 문의로 넘어가는 주소 입력해줘야함.--%>
             <span>1:1문의</span>
         </a>
         <a href="#" class="menu__link">

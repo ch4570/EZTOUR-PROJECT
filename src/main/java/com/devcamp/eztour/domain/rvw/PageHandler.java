@@ -24,7 +24,7 @@ public class PageHandler {
     private boolean showNext;
 
     public PageHandler(int totalCnt, SearchCondition sc) {
-        this.totalCnt = totalCnt;
+        this.totalCnt = totalCnt; //127
         this.sc = sc;
 
         doPaging(totalCnt, sc);
@@ -35,7 +35,7 @@ public class PageHandler {
     public void doPaging(int totalCnt, SearchCondition sc) {
         this.totalCnt = totalCnt;
 
-        totalPage = (int)Math.ceil(totalCnt / (double)sc.getPageSize());
+        totalPage = (int)Math.ceil(totalCnt / (double)sc.getPageSize()); // Math.ceil = 올림
         beginPage = (sc.getPage()-1) / navSize * navSize + 1;
         endPage = Math.min(beginPage + navSize - 1, totalPage);
         showPrev = beginPage != 1;

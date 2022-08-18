@@ -1,6 +1,7 @@
 package com.devcamp.eztour.domain.reserv;
 
 public class ReservInfoDto {
+    //예약페이지 정보 보여주기 위한 Dto
     private String prd_dtl_cd;
     private String prd_cd;
     private String dstn_cd; //여행지코드

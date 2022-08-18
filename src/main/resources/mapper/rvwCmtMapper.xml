@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devcamp.eztour.rvwCmtMapper">
+    <delete id="deleteAll" parameterType="int">
+        DELETE FROM rvw_cmt
+        WHERE  rvw_no = #{rvw_no}
+    </delete>
+
+    <select id="count" parameterType="int" resultType="int">
+        SELECT count(*) FROM rvw_cmt
+        WHERE  rvw_no = #{rvw_no}
+    </select>
+
+    <delete id="delete" parameterType="map">
+        DELETE FROM rvw_cmt WHERE cmt_no = #{cmt_no} AND usr_nm = #{usr_nm}
+    </delete>
+
+    <insert id="insert" parameterType="RvwCmtDto">
+        INSERT INTO rvw_cmt
+            (usr_id, rvw_no, pcmt_no, cmt_cont, usr_nm, reg_date, mdf_date)
+        VALUES
+            (#{usr_id}, #{rvw_no}, #{pcmt_no}, #{cmt_cont}, #{usr_nm}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    </insert>
+
+    <select id="selectAll" parameterType="int" resultType="RvwCmtDto">
+        SELECT cmt_no, rvw_no, ifnull(pcmt_no, cmt_no) as pcmt_no, cmt_cont, usr_nm, reg_date, mdf_date
+        FROM rvw_cmt
+        WHERE rvw_no = #{rvw_no}
+        ORDER BY pcmt_no ASC, cmt_no asc;
+    </select>
+
+    <select id="select" parameterType="int" resultType="RvwCmtDto">
+        SELECT cmt_no, rvw_no, pcmt_no, cmt_cont, usr_nm, reg_date, mdf_date
+        FROM rvw_cmt
+        WHERE cmt_no = #{cmt_no}
+    </select>
+
+    <update id="update" parameterType="RvwCmtDto">
+        UPDATE rvw_cmt
+        SET cmt_cont = #{cmt_cont}
+          , mdf_date = CURRENT_TIMESTAMP
+        WHERE cmt_no = #{cmt_no} and usr_nm = #{usr_nm}
+    </update>
+</mapper>

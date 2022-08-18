@@ -25,9 +25,9 @@
                     <li class="prd_tlt">상품 등록 현황 관리</li>
                     <a href="<c:url value='/product/management'/>"><li class="menu_list">상품 관리</li></a>
                     <a href="<c:url value='/product/management/detail'/>"><li class="menu_list">상품 상세 관리</li></a>
-                    <li class="menu_list">상품 이미지 관리</li>
-                    <li class="menu_list">상품 일정 관리</li>
-                    <li class="menu_list">상품 가격 관리</li>
+                    <a href="<c:url value='/product/management/image'/>"><li class="menu_list">상품 이미지 관리</li></a>
+                    <a href="<c:url value='/product/management/schedule'/>"><li class="menu_list">상품 일정 관리</li></a>
+                    <a href="<c:url value='/product/management/price'/>"><li class="menu_list">상품 가격 관리</li></a>
                     <li class="menu_list">상품 일정 사진 관리</li>
                 </ul>
                 <ul>
@@ -60,35 +60,35 @@
             </div>
         </div>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script>
-        $(document).ready(function (){
-           $('#modify_btn').on("click",function (){
-              window.location.href = "<c:url value='/product/modify?prd_cd=${trvPrdDto.prd_cd}'/>";
-           });
-
-           $('#delete_btn').on("click",function (){
-               var result = confirm("정말로 삭제 하시겠습니까?");
-               if(result){
-                   $.ajax({
-                       type: "POST",
-                       url : "<c:url value='/product/delete'/>",
-                       data: {prd_cd:"${trvPrdDto.prd_cd}"},
-                       success : function (data){
-                           if(data=="success"){
-                               alert('삭제가 성공했습니다.');
-                               window.location.href = "<c:url value='/product/management'/>"
-                           }else{
-                               alert('삭제가 실패했습니다.');
-                               window.location.href = "<c:url value="/product/read?prd_cd=${trvPrdDto.prd_cd}"/>"
-                           }
-                       }
-                   });
-               }else{
-                   return;
-               }
-
-           });
+<script>
+    $(document).ready(function (){
+        $('#modify_btn').on("click",function (){
+            window.location.href = "<c:url value='/product/modify?prd_cd=${trvPrdDto.prd_cd}'/>";
         });
-    </script>
+
+        $('#delete_btn').on("click",function (){
+            var result = confirm("정말로 삭제 하시겠습니까?");
+            if(result){
+                $.ajax({
+                    type: "POST",
+                    url : "<c:url value='/product/delete'/>",
+                    data: {prd_cd:"${trvPrdDto.prd_cd}"},
+                    success : function (data){
+                        if(data=="success"){
+                            alert('삭제가 성공했습니다.');
+                            window.location.href = "<c:url value='/product/management'/>"
+                        }else{
+                            alert('삭제가 실패했습니다.');
+                            window.location.href = "<c:url value="/product/read?prd_cd=${trvPrdDto.prd_cd}"/>"
+                        }
+                    }
+                });
+            }else{
+                return;
+            }
+
+        });
+    });
+</script>
     </body>
 </html>

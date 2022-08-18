@@ -2,31 +2,54 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.devcamp.eztour.RvwMapper">
-    <select id="count" resultType="int"> <!-- 후기 건수 -->
+<mapper namespace="com.devcamp.eztour.rvwMapper">
+
+    <sql id="searchCondition">
+        <choose>
+            <when test='option=="T"'>
+                AND A.rvw_ttl LIKE concat('%', #{keyword}, '%')
+            </when>
+            <when test='option=="W"'>
+                AND A.wrt_nm LIKE concat('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+                AND (A.rvw_ttl LIKE concat('%', #{keyword}, '%')
+                OR A.wrt_nm LIKE concat('%', #{keyword}, '%'))
+            </otherwise>
+        </choose>
+    </sql>
+    
+    <select id="count" resultType="int">
         SELECT count(*) FROM rvw;
     </select>
 
-    <delete id="deleteAll"> <!-- 후기 리스트 전체삭제 -->
+    <delete id="deleteAll">
         DELETE FROM rvw
     </delete>
 
-    <delete id="delete" parameterType="map"> <!-- 후기 삭제-->
+    <delete id="delete" parameterType="map">
         DELETE FROM rvw WHERE rvw_no = #{rvw_no} and usr_id = #{usr_id}
     </delete>
 
-    
-    <select id="selectUsernmEmailPrdnm" parameterType="String" resultType="RvwDto"> <!-- 후기 등록 화면 -->
-        SELECT B.usr_nm,
-               B.email,
-               C.prd_nm
-        FROM rvw A INNER JOIN usr B ON A.usr_id = B.usr_id
-                   INNER JOIN trv_prd C ON A.prd_cd = C.prd_cd
-        WHERE B.usr_id = #{usr_id}
+    <select id="selectUsernmEmail" parameterType="String" resultType="RvwDto">
+        SELECT usr_id,
+               usr_nm,
+               email
+        FROM usr
+        WHERE usr_id = #{usr_id}
+    </select>
+
+    <select id="selectPrdnm" parameterType="String" resultType="RvwDto">
+        SELECT B.prd_cd,
+               B.prd_nm
+        FROM rsvt A INNER JOIN trv_prd B ON A.prd_cd = B.prd_cd
+        WHERE A.cmn_cd_pay_stt ='7C'
+          AND B.dpr_fin_date <![CDATA[<=]]> CURRENT_TIMESTAMP
+          AND A.usr_id = #{usr_id}
     </select>
 
 
-    <select id="selectPage" parameterType="map" resultType="RvwDto"> <!-- 후기 리스트 페이지 핸들러-->
+    <select id="selectPage" parameterType="map" resultType="RvwDto">
         SELECT A.rvw_no,
             A.rvw_ttl,
                 A.rvw_cont,
@@ -41,7 +64,7 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="selectAll" resultType="RvwDto"> <!-- 후기 리스트 전체보기 -->
+    <select id="selectAll" resultType="RvwDto">
         SELECT A.rvw_ttl,
                A.rvw_cont,
                A.wrt_nm,
@@ -86,18 +109,9 @@
         UPDATE rvw
         SET rvw_ttl = #{rvw_ttl},
             rvw_cont = #{rvw_cont},
-            rvw_reg_date = CURRENT_TIMESTAMP
+            rvw_mdf_date = CURRENT_TIMESTAMP
         WHERE rvw_no = #{rvw_no} and wrt_nm = #{wrt_nm}
     </update>
-
-    <select id="selectUserEmail" parameterType="String" resultType="RvwDto">
-        SELECT
-            usr_id,
-            usr_nm,
-            email
-        FROM usr
-        WHERE usr_id = #{usr_id}
-    </select>
 
     <select id="searchSelectPage" parameterType="SearchCondition" resultType="RvwDto">
         SELECT A.rvw_no,
@@ -111,7 +125,7 @@
         FROM rvw A INNER JOIN prd_img B ON A.prd_cd = B.prd_cd
                    INNER JOIN usr C ON A.usr_id = C.usr_id
         WHERE true
-        AND A.rvw_ttl LIKE concat('%', #{keyword}, '%')
+          <include refid="searchCondition"/>
         ORDER BY A.rvw_no DESC
             LIMIT #{offset}, #{pageSize}
     </select>
@@ -121,10 +135,13 @@
         FROM rvw A INNER JOIN prd_img B ON A.prd_cd = B.prd_cd
                    INNER JOIN usr C ON A.usr_id = C.usr_id
         WHERE true
-          AND A.rvw_ttl LIKE concat('%', #{keyword}, '%')
-        ORDER BY A.rvw_no DESC
-            LIMIT #{offset}, #{pageSize}
+        <include refid="searchCondition"/>
     </select>
-
+    
+    <update id="updateCommentCnt" parameterType="map">
+        UPDATE rvw
+        SET cmt_cnt = cmt_cnt + #{cnt}
+        WHERE rvw_no = #{rvw_no}
+    </update>
 
 </mapper>
