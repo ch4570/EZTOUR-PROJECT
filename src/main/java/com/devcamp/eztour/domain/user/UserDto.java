@@ -41,11 +41,12 @@ public class UserDto {
         this.phn = phn;
     }
 
-    public UserDto(String usr_id, String usr_nm, String email, String rl) {
+    public UserDto(String usr_id, String usr_nm, String email, String rl, String phn) {
             this.usr_id = usr_id;
             this.usr_nm = usr_nm;
             this.email = email;
             this.rl = rl;
+            this.phn = phn;
     }
 
 }

@@ -34,7 +34,6 @@
         <p id="usable" style="margin-bottom: 20px; padding: 5px 5px; display: none; color: forestgreen" >사용 가능한 아이디입니다.</p>
         <p id="unusable" style="margin-bottom: 20px; padding: 5px 5px; display: none; color: red" >중복된 아이디입니다.</p>
         <p id="nonAlterId" style="margin-bottom: 20px; padding: 5px 5px;"> </p>
-
     </div>
     <div class="input-pwd">
       <label for="">비밀번호</label><br>
@@ -50,36 +49,49 @@
         <p id="nonAlterPwd2" style="margin-bottom: 20px; padding: 5px 5px;"> </p>
         <p id="alertPwd" style="margin-bottom: 20px; padding: 5px 5px; display: none; color: red" >비밀번호가 일치하지 않습니다.</p>
         <p id="okPwd" style="margin-bottom: 20px; padding: 5px 5px; display: none; color: forestgreen" >비밀번호가 일치합니다.</p>
-
-
     </div>
-    <div>
+    <div class="input-basic">
        <label for="">이름</label><br>
-       <input class="input-field" type="text" name="usr_nm" placeholder="홍길동"
-             onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"><br>
+       <input class="input-field" type="text" name="usr_nm" value="${param.usr_nm}"
+             onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);" readonly><br>
     </div>
-    <div>
+    <div class="input-basic">
+        <label for="">핸드폰 번호</label><br>
+        <input class="input-field" type="text" name="brth" value="${param.phn}"
+               onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);" readonly><br>
+    </div>
+    <div class="input-basic">
        <label for="">생년월일</label><br>
        <input class="input-field" type="text" name="brth" placeholder="20201231"
               onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"><br>
     </div>
-    <div>
+    <div class="input-basic">
         <label for="">성별</label><br>
-        <div class="select"  style="display: flex; justify-content: space-between; padding-left: 0px; padding-right: 0px;">
+        <div class="select"  style="display: flex; justify-content: space-between;">
         <input type="radio" id="select" name="gndr" value="남성" checked><label for="select" id="man">남성</label>
         <input type="radio" id="select2" name="gndr" value="여성"><label for="select2" id="woman">여성</label>
         </div>
     </div>
-    <div>
+    <div class="input-basic">
         <label for="">이메일</label><br>
-        <input class="input-field" type="text" name="email" placeholder="example@fastcampus.co.kr"
-               onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"><br>
-    </div>
+        <input type="text" class="input-field" name="email1" id="email1"
+               onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"placeholder="이메일" style="width:270px;" >
+        <select class="input-field" name="email2" id="email2" style="width:229px;">
+            <option>@naver.com</option>
+            <option>@daum.net</option>
+            <option>@gmail.com</option>
+            <option>@hanmail.com</option>
+            <option>@yahoo.co.kr</option>
+        </select>
     <div>
-        <label for="">핸드폰</label><br>
-        <input class="input-field" type="text" name="phn" placeholder="010-0000-0000"
-               onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"><br>
+    <input type="button" id="mail-Check-Btn" value="이메일 인증">
+    <input class="mail-check-input" placeholder="인증번호 6자리를 입력해주세요." disabled="disabled" maxlength="6">
+
+    <span id="mail-check-warn"></span>
     </div>
+
+    </div>
+
     <div style="text-align: center">
         <input type="button" id="goback" onclick="history.back()" value="취소">
         <button id="submit">확인</button>
@@ -90,6 +102,8 @@
 
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+    window.history.forward();
+
   <!-- 공백 사용 방지 -->
   function noSpaceForm(obj) {
     var str_space = /\s/;  // 공백체크
@@ -152,32 +166,67 @@
             return true;
         }
     }
-
   }
-$(document).ready(function(){
-  $("#usr_id").keyup(function(){
-      var idLength = $("#usr_id").val().length
-      if(idLength>5) {
-          let usr_id = $('#usr_id').val();
-          let uri = "/checkId/" + usr_id
-          $.get(uri, function (response) {
-              if(response=='usable'){
-                  $("#usable").show();
-                  $("#unusable").hide();
-                  $("#nonAlterId").hide();
-                  $('#usr_id').css({"border-color": "forestgreen"});
-              }else{
-                  $("#usable").hide();
-                  $("#unusable").show();
-                  $("#nonAlterId").hide();
-                  $('#usr_id').css({"border-color": "red"});
+    $(document).ready(function(){
+      $("#usr_id").keyup(function(){
+          var idLength = $("#usr_id").val().length
+          if(idLength>5) {
+              let usr_id = $('#usr_id').val();
+              let uri = "/checkId/" + usr_id
+              $.get(uri, function (response) {
+                  if(response=='usable'){
+                      $("#usable").show();
+                      $("#unusable").hide();
+                      $("#nonAlterId").hide();
+                      $('#usr_id').css({"border-color": "forestgreen"});
+                  }else{
+                      $("#usable").hide();
+                      $("#unusable").show();
+                      $("#nonAlterId").hide();
+                      $('#usr_id').css({"border-color": "red"});
 
-              }
-          });
-      }
+                  }
+              });
+          }
 
-  });
-});
+      });
+    });
+
+    $('#mail-Check-Btn').click(function() {
+        const email = $('#email1').val() + $('#email2').val(); // 이메일 주소값 얻어오기!
+        console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
+        const checkInput = $('.mail-check-input') // 인증번호 입력하는곳
+
+        $.ajax({
+            type : 'get',
+            url : '<c:url value ="/mailCheck?email="/>'+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+            success : function (data) {
+                console.log("data : " +  data);
+                checkInput.attr('disabled',false);
+                code =data;
+                alert('인증번호가 전송되었습니다.');
+            }
+        });
+    });
+
+    $('.mail-check-input').blur(function () {
+        const inputCode = $(this).val();
+        const $resultMsg = $('#mail-check-warn');
+
+        if(inputCode === code){
+            $resultMsg.html('인증번호가 일치합니다.');
+            $resultMsg.css('color','green');
+            $('#mail-Check-Btn').attr('disabled',true);
+            $('#email1').attr('readonly',true);
+            $('#email2').attr('readonly',true);
+            $('#email2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
+            $('#email2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+        }else{
+            $resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+            $resultMsg.css('color','red');
+        }
+    });
+
 </script>
 </body>
 </html>

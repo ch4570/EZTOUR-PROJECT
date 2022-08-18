@@ -71,4 +71,13 @@ public class UserDaoImpl implements UserDao {
     public int checkId(String usr_id) throws Exception {
         return session.selectOne(namespace+"checkId", usr_id);
     }
+
+    @Override
+    public String findId(String usr_nm, String phn) throws Exception {
+        Map map = new HashMap<>();
+        map.put("usr_nm",usr_nm);
+        map.put("phn",phn);
+        return session.selectOne(namespace+"findId", map);
+    }
+
 }

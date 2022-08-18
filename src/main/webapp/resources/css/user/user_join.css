@@ -36,7 +36,7 @@
     padding: 0px 20px;
     min-height: 50px;
     margin-bottom: 20px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 #man, #woman{
@@ -65,4 +65,8 @@
 
 .input-id p, .input-pwd p{
     font-size: 12px;
+}
+
+.input-basic{
+    margin-bottom : 20px;
 }

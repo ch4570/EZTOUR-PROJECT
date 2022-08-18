@@ -115,4 +115,15 @@
                )AS id_check
     </select>
 
+    <select id="findId" parameterType="map" resultType="String">
+        SELECT
+            usr_id
+        FROM
+            usr
+        WHERE
+            usr_nm=#{usr_nm}
+            AND
+            phn = #{phn}
+    </select>
+
 </mapper>
