@@ -1,10 +1,13 @@
 package com.devcamp.eztour.domain.productDetail;
 
 import lombok.*;
+import org.checkerframework.checker.units.qual.A;
+import org.checkerframework.checker.units.qual.C;
 
 import java.util.Date;
 
 @Getter
+@Setter
 @RequiredArgsConstructor
 @ToString
 @EqualsAndHashCode
@@ -23,6 +26,7 @@ public class TrvPrdDetailDto {
     private final boolean fin_yn;
     private final boolean act_yn;
     private final boolean dc_yn;
+    private final Integer pc_prc;
     private final Integer vcnt;
     private final boolean lk_yn;
     private final String img_pth;

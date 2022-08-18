@@ -2,7 +2,7 @@ package com.devcamp.eztour.controller.product;
 
 import com.devcamp.eztour.domain.product.*;
 import com.devcamp.eztour.service.product.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,16 +19,16 @@ import java.util.UUID;
 
 
 @Controller
+@RequiredArgsConstructor
 public class AdminController {
 
-    @Autowired
-    ProductService productService;
+    private final ProductService productService;
 
     // 관리자 페이지 진입
     @GetMapping("/product/admin")
     public String productAdmin(HttpSession session, RedirectAttributes rattr){
-        String id = (String)session.getAttribute("usr_id");
-        if(id==null || !id.equals("admin")){
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
             rattr.addFlashAttribute("admin_error_msg","권한이 없습니다. 홈페이지로 이동합니다.");
             return "redirect:/";
         }else{
@@ -39,8 +39,8 @@ public class AdminController {
     // 관리자 상품 등록 페이지 진입
     @GetMapping("/product/insert")
     public String insertProduct(HttpSession session,RedirectAttributes rattr){
-        String id = (String)session.getAttribute("usr_id");
-        if(id==null || !id.equals("admin")){
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
             rattr.addFlashAttribute("admin_error_msg","권한이 없습니다. 홈페이지로 이동합니다.");
             return "redirect:/";
         }else{
@@ -68,8 +68,8 @@ public class AdminController {
     // 관리자 상품 상세 등록 페이지 진입
     @GetMapping("/product/detail/insert")
     public String productDetailInsert(HttpSession session,RedirectAttributes rattr){
-        String id = (String)session.getAttribute("usr_id");
-        if(id==null || !id.equals("admin")){
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
             rattr.addFlashAttribute("admin_error_msg","권한이 없습니다. 홈페이지로 이동합니다.");
             return "redirect:/";
         }else{
@@ -80,7 +80,7 @@ public class AdminController {
 
     // 관리자 상품 상세 등록(실제 정보 전송)
     @PostMapping("/product/detail/insert")
-    public String productDetailInsert(TrvPrdDtlReadDto trv_prdDtlDto, RedirectAttributes redirectAttributes){
+    public String productDetailInsert(TrvPrdDtlWriteDto trv_prdDtlDto, RedirectAttributes redirectAttributes) throws Exception{
         int result = productService.insertProductDetail(trv_prdDtlDto);
         if(result==1){
             redirectAttributes.addAttribute("prd_dtl_cd", trv_prdDtlDto.getPrd_dtl_cd());
@@ -94,9 +94,9 @@ public class AdminController {
 
     // 관리자 상품 가격 등록 페이지 진입
     @GetMapping("/product/insert/price")
-    public String insertProductPrice(HttpSession session,RedirectAttributes rattr){
-        String id = (String)session.getAttribute("usr_id");
-        if(id==null || !id.equals("admin")){
+    public String insertProductPrice(HttpSession session,RedirectAttributes rattr) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
             rattr.addFlashAttribute("admin_error_msg","권한이 없습니다. 홈페이지로 이동합니다.");
             return "redirect:/";
         }else{
@@ -107,7 +107,7 @@ public class AdminController {
 
     // 관리자 상품 가격 등록(실제 정보 전송)
     @PostMapping("/product/insert/price")
-    public String insertProductPrice(TrvPrdPrcDto trv_prdPrcDto, RedirectAttributes redirectAttributes){
+    public String insertProductPrice(TrvPrdPrcDto trv_prdPrcDto, RedirectAttributes redirectAttributes) throws Exception{
         int result = productService.insertProductPrice(trv_prdPrcDto);
         if(result==1){
             redirectAttributes.addAttribute("prd_cd", trv_prdPrcDto.getPrd_cd());
@@ -121,9 +121,9 @@ public class AdminController {
 
     // 관리자 상품 일정 등록 페이지 진입
     @GetMapping("/product/insert/schedule")
-    public String insertProductSchedule(HttpSession session, RedirectAttributes rattr){
-        String id = (String)session.getAttribute("usr_id");
-        if(id==null || !id.equals("admin")){
+    public String insertProductSchedule(HttpSession session, RedirectAttributes rattr) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
             rattr.addFlashAttribute("admin_error_msg","권한이 없습니다. 홈페이지로 이동합니다.");
             return "redirect:/";
         }else{
@@ -134,7 +134,7 @@ public class AdminController {
 
     // 관리자 상품 일정 등록(상세 정보 전송)
     @PostMapping("/product/insert/schedule")
-    public String insertProductSchedule(TrvSchDto trv_schDto, RedirectAttributes redirectAttributes){
+    public String insertProductSchedule(TrvSchDto trv_schDto, RedirectAttributes redirectAttributes) throws Exception{
         int result = productService.insertProductSchedule(trv_schDto);
         if(result==1){
             redirectAttributes.addAttribute("prd_cd", trv_schDto.getPrd_cd());
@@ -148,8 +148,8 @@ public class AdminController {
     // 관리 상품 이미지 등록 페이지 진입
     @GetMapping("/product/insert/image")
     public String insertProductImage(HttpSession session,RedirectAttributes rattr){
-            String id = (String)session.getAttribute("usr_id");
-            if(id==null || !id.equals("admin")){
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
                 rattr.addFlashAttribute("admin_error_msg","권한이 없습니다. 홈페이지로 이동합니다.");
                 return "redirect:/";
             }else{
@@ -160,7 +160,7 @@ public class AdminController {
     // 관리 상품 이미지 등록(ajax 사용 정보 전송)
     @PostMapping("/product/insert/image")
     @ResponseBody
-    public String insertProductImage(MultipartFile img_file, HttpServletRequest request, String prd_cd){
+    public String insertProductImage(MultipartFile img_file, HttpServletRequest request, String prd_cd) throws Exception{
         // 원본 파일이 이미지 파일이 맞는지 확장자를 확인
         File checkFile = new File(img_file.getOriginalFilename());
         String type = null;
@@ -178,7 +178,6 @@ public class AdminController {
             }else{
                 String fileName = UUID.
                         randomUUID().toString()+".jpg";
-                System.out.println(fileName);
                 File uploadFile = new File(uploadPath, fileName);
                 img_file.transferTo(uploadFile);
                 String finalPath = "/image/product/"+fileName;
@@ -195,8 +194,8 @@ public class AdminController {
     // 관리 상품 일정 페이지 진입
     @GetMapping("/product/schedule/image/insert")
     public String insertScheduleImage(HttpSession session,RedirectAttributes rattr){
-        String id = (String)session.getAttribute("usr_id");
-        if(id==null || !id.equals("admin")){
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
             rattr.addFlashAttribute("admin_error_msg","권한이 없습니다. 홈페이지로 이동합니다.");
             return "redirect:/";
         }else{
@@ -207,7 +206,7 @@ public class AdminController {
     // 관리 상품 일정 등록(ajax 사용 정보 전송)
     @ResponseBody
     @PostMapping("/product/schedule/image/insert")
-    public String insertScheduleImage(MultipartHttpServletRequest meq, HttpServletRequest request, int sch_no, String prd_cd) {
+    public String insertScheduleImage(MultipartHttpServletRequest meq, HttpServletRequest request, int sch_no, String prd_cd) throws Exception{
         int result = 0;
         String type = null;
         // 프로젝트 root 경로 확인 -> 이미지 경로 잡기
@@ -241,9 +240,9 @@ public class AdminController {
     // 상품 관리 페이지 진입(리스트 뿌리기)
     @GetMapping("/product/management")
     public String productManagement(HttpSession session, Model model, @RequestParam(value = "page",defaultValue = "1") int page
-                                    ,String search_option,String search_keyword){
-        String id = (String)session.getAttribute("usr_id");
-        if(id==null || !id.equals("admin")){
+                                    ,String search_option,String search_keyword) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
             return "redirect:/";
         }else{
             if(search_keyword==null || search_keyword==""){
@@ -267,9 +266,9 @@ public class AdminController {
 
     // 상품 관리 페이지 상품 정보 읽기
     @GetMapping("/product/read")
-    public String productRead(HttpSession session, String prd_cd,Model model){
-        String id = (String)session.getAttribute("usr_id");
-        if(id==null || !id.equals("admin")){
+    public String productRead(HttpSession session, String prd_cd,Model model) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
             return "redirect:/";
         }else{
             TrvPrdReadDto trvPrdDto = productService.selectProduct(prd_cd);
@@ -280,9 +279,9 @@ public class AdminController {
 
     // 상품 수정 페이지 진입
     @GetMapping("/product/modify")
-    public String productModify(HttpSession session, String prd_cd,Model model){
-        String id = (String)session.getAttribute("usr_id");
-        if(id==null || !id.equals("admin")){
+    public String productModify(HttpSession session, String prd_cd,Model model) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
             return "redirect:/";
         }else{
             TrvPrdReadDto trvPrdDto = productService.selectProduct(prd_cd);
@@ -293,7 +292,7 @@ public class AdminController {
 
     // 상품 수정(실제 정보 전송)
     @PostMapping("/product/modify")
-    public String productModify(TrvPrdWriteDto trvPrdWriteDto,RedirectAttributes redirectAttributes){
+    public String productModify(TrvPrdWriteDto trvPrdWriteDto,RedirectAttributes redirectAttributes) throws Exception{
             int result = productService.updateProduct(trvPrdWriteDto);
             if(result==1){
                 redirectAttributes.addFlashAttribute("success_msg","상품 수정에 성공했습니다.");
@@ -307,7 +306,7 @@ public class AdminController {
     // 상품 삭제(ajax 사용정보 전송)
     @ResponseBody
     @PostMapping("/product/delete")
-    public String productDelete(String prd_cd){
+    public String productDelete(String prd_cd) throws Exception{
         int result = productService.deleteProduct(prd_cd);
         if(result==1){
             return "success";
@@ -319,9 +318,9 @@ public class AdminController {
     // 상품 상세 관리 페이지 진입(리스트 뿌리기)
     @GetMapping("/product/management/detail")
     public String productManagementDetail(HttpSession session, Model model, @RequestParam(value = "page",defaultValue = "1") int page
-            ,String search_option,String search_keyword){
-        String id = (String)session.getAttribute("usr_id");
-        if(id==null || !id.equals("admin")){
+            ,String search_option,String search_keyword) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
             return "redirect:/";
         }else{
             if(search_option==null || search_option==""){
@@ -344,9 +343,9 @@ public class AdminController {
     }
 
     @GetMapping("/product/detail/read")
-    public String productDetailRead(HttpSession session, Model model, String prd_dtl_cd){
-        String id = (String)session.getAttribute("usr_id");
-        if(id == null || !id.equals("admin")){
+    public String productDetailRead(HttpSession session, Model model, String prd_dtl_cd) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
             return "redirect:/";
         }else{
             TrvPrdDtlReadDto trvPrdDtlDto = productService.selectProductDetail(prd_dtl_cd);
@@ -356,9 +355,9 @@ public class AdminController {
     }
 
     @GetMapping("/product/detail/modify")
-    public String productDetailModify(HttpSession session, String prd_dtl_cd, Model model){
-        String id = (String)session.getAttribute("usr_id");
-        if(id == null || !id.equals("admin")){
+    public String productDetailModify(HttpSession session, String prd_dtl_cd, Model model) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
             return "redirect:/";
         }else{
             TrvPrdDtlReadDto trvPrdDtlDto = productService.selectProductDetail(prd_dtl_cd);
@@ -368,8 +367,257 @@ public class AdminController {
     }
 
     @PostMapping("/product/detail/modify")
-    public String productDetailModify(TrvPrdDtlWriteDto trvPrdDtlDto){
-        System.out.println(11111);
-        return "";
+    public String productDetailModify(TrvPrdDtlWriteDto trvPrdDtlDto,RedirectAttributes rattr) throws Exception{
+        int result = productService.updateProductDetail(trvPrdDtlDto);
+        if(result==1){
+            rattr.addFlashAttribute("success_msg","상품상세 수정이 성공하였습니다.");
+            return "redirect:/product/management/detail";
+        }else{
+            rattr.addFlashAttribute("error_msg","상품상세 수정이 실패하였습니다.");
+            rattr.addAttribute("prd_dtl",trvPrdDtlDto);
+            return "redirect:/product/detail/modify";
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/product/detail/delete")
+    public String productDetailDelete(String prd_dtl_cd) throws Exception{
+        int result = productService.deleteProductDetail(prd_dtl_cd);
+        if(result==1){
+            return "success";
+        }else{
+            return "fail";
+        }
+    }
+
+    @GetMapping("/product/management/image")
+    public String productImageManagement(HttpSession session,Model model,@RequestParam(value = "page",defaultValue = "1") int page
+            ,String search_option,String search_keyword) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
+            return "redirect:/";
+        }else{
+            if(search_option == null || search_option == ""){
+                int totalCnt = productService.selectProductImageCnt();
+                PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page,5);
+                List<TrvPrdReadDto> prdDtoList = productService.selectProductImage(paging);
+                model.addAttribute("prd_list",prdDtoList);
+                model.addAttribute("paging",paging);
+                return "product/product_management_img.tiles";
+            }else{
+                PageHandlerProduct option = new PageHandlerProduct(search_option,search_keyword);
+                int totalCnt = productService.searchSelectProductImageCnt(option);
+                PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page,search_option,search_keyword,5);
+                List<TrvPrdReadDto> prdDtoList = productService.searchSelectProductImage(paging);
+                model.addAttribute("prd_list",prdDtoList);
+                model.addAttribute("paging",paging);
+                return "product/product_management_img.tiles";
+            }
+        }
+    }
+
+    @GetMapping("/product/image/read")
+    public String productImageRead(String img_pth,String prd_cd,String prd_nm,Model model,HttpSession session){
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
+            return "redirect:/";
+        }else{
+            model.addAttribute("img_pth",img_pth);
+            model.addAttribute("prd_cd",prd_cd);
+            model.addAttribute("prd_nm",prd_nm);
+            return "product/product_image_read.tiles";
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/product/image/delete")
+    public String productImageDelete(int prd_img_no,String img_pth,HttpServletRequest request) throws Exception{
+        int result = productService.deleteProductImage(prd_img_no);
+
+        if(result==1){
+            // 이미지를 삭제
+            boolean flag = deleteImage(request,img_pth);
+            if(flag){
+                return "success";
+            }else{
+                return "fail";
+            }
+        }
+        return "fail";
+    }
+
+    @GetMapping("/product/image/modify")
+    public String productImageModify(HttpSession session,Integer prd_img_no,String img_pth ,String prd_cd,Model model) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
+            return "redirect:/";
+        }else{
+            model.addAttribute("prd_img_no",prd_img_no);
+            model.addAttribute("img_pth",img_pth);
+            model.addAttribute("prd_cd",prd_cd);
+            return "product/product_img_modify.tiles";
+        }
+
+    }
+
+
+    @ResponseBody
+    @PostMapping("/product/image/modify")
+    public String productImageModify(MultipartFile img_file,String img_pth,String prd_cd,Integer prd_img_no,
+                                     HttpServletRequest request) throws Exception{
+        // 원본 파일이 이미지 파일이 맞는지 확장자를 확인
+        File checkFile = new File(img_file.getOriginalFilename());
+        String type = null;
+        try {
+            type = Files.probeContentType(checkFile.toPath());
+            // 프로젝트 root 경로 확인 -> 이미지 경로 잡기
+            HttpSession session = request.getSession();
+            String root_path = session.getServletContext().getRealPath("/");
+            String uploadPath = root_path+"resources/image/product";
+            boolean flag = deleteImage(request,img_pth);
+            if(flag){
+                // 이미지 파일이 아닐경우 실패
+                if(!type.startsWith("image")){
+                    return "fail";
+                }else if(type==null){
+                    return "fail";
+                }else{
+                    String fileName = UUID.
+                            randomUUID().toString()+".jpg";
+                    File uploadFile = new File(uploadPath, fileName);
+                    img_file.transferTo(uploadFile);
+                    String finalPath = "/image/product/"+fileName;
+                    PrdImgDto prdImgDto = new PrdImgDto(finalPath,prd_img_no,prd_cd);
+                    int result = productService.updateProductImage(prdImgDto);
+                    if(result == 1){
+                        return "success";
+                    }else{
+                        return "fail";
+                    }
+
+                }
+            }else{
+                return "fail";
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    @GetMapping("/product/management/schedule")
+    public String productScheduleManagement(HttpSession session,Model model,@RequestParam(value = "page",defaultValue = "1") int page
+            ,String search_option,String search_keyword) throws Exception {
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
+            return "redirect:/";
+        }else{
+            if(search_option==null || search_option==""){
+                int totalCnt = productService.getScheduleCnt();
+                PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page);
+                List<TrvSchDto> trvList = productService.getScheduleList(paging);
+                model.addAttribute("list",trvList);
+                model.addAttribute("paging",paging);
+                return "product/product_management_schedule.tiles";
+            }else{
+                PageHandlerProduct option = new PageHandlerProduct(search_option,search_keyword);
+                int totalCnt = productService.getSearchScheduleCnt(option);
+                PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page,search_option,search_keyword);
+                List<TrvSchDto> trvList = productService.getSearchSchedule(paging);
+                model.addAttribute("list",trvList);
+                model.addAttribute("paging",paging);
+                return "product/product_management_schedule.tiles";
+            }
+
+        }
+
+    }
+
+    @GetMapping("/product/schedule/read")
+    public String productScheduleRead(HttpSession session, int sch_no,Model model) throws Exception {
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
+            return "redirect:/";
+        }else{
+            TrvSchDto trvSchDto = productService.getSchedule(sch_no);
+            model.addAttribute("list",trvSchDto);
+            return "product/product_sch_read.tiles";
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/product/schedule/delete")
+    public String productScheduleDelete(int sch_no) throws Exception{
+        int result = productService.removeSchedule(sch_no);
+        if(result == 1){
+            return "success";
+        }else{
+            return "fail";
+        }
+    }
+
+    @GetMapping("/product/schedule/modify")
+    public String productScheduleModify(int sch_no,Model model,HttpSession session) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
+            return "redirect:/";
+        }else{
+            TrvSchDto trvSchDto = productService.getSchedule(sch_no);
+            model.addAttribute("list",trvSchDto);
+            return "product/product_sch_modify.tiles";
+        }
+    }
+
+    @PostMapping("/product/schedule/modify")
+    public String productScheduleModify(TrvSchDto trvSchDto,RedirectAttributes rattr) throws Exception{
+        int result = productService.updateSchedule(trvSchDto);
+        if(result == 1){
+            rattr.addFlashAttribute("success_msg","상품상세 수정이 성공하였습니다.");
+            return "redirect:/product/management/schedule";
+        }else{
+            rattr.addFlashAttribute("error_msg","상품상세 수정이 실패하였습니다.");
+            rattr.addAttribute("list",trvSchDto);
+            return "redirect:/product/schedule/read";
+        }
+    }
+
+    @GetMapping("/product/management/price")
+    public String productPriceManagement(HttpSession session,Model model,@RequestParam(value = "page",defaultValue = "1") int page
+            ,String search_option,String search_keyword) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
+            return "redirect:/";
+        }else{
+            if(search_keyword == null || search_keyword ==""){
+                int totalCnt = productService.getProductPriceCnt();
+                System.out.println(totalCnt);
+                PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page);
+                List<PrdPcrDto> prdList = productService.getProductPrice(paging);
+                model.addAttribute("paging",paging);
+                model.addAttribute("list",prdList);
+            }else{
+
+            }
+            return "product/product_management_price.tiles";
+        }
+    }
+
+    private boolean deleteImage(HttpServletRequest request,String img_pth){
+        HttpSession session = request.getSession();
+        String root_path = session.getServletContext().getRealPath("/");
+        String uploadPath = root_path+"resources"+img_pth;
+        File file = new File(uploadPath);
+        boolean flag = file.delete();
+        return flag;
+    }
+
+    private boolean isAdmin(HttpSession session){
+        String id = (String)session.getAttribute("usr_id");
+        if(id.equals("admin")){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

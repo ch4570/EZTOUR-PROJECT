@@ -19,6 +19,7 @@ public class TrvPrdDtlWriteDto {
     private int		min_stt_cnt;
     private int		max_stt_cnt;
     private String	dpr_date;
+    private String  fin_date;
     private String	frs_reg_date;
     private String	frs_rgs_no;
     private String  fnl_mod_date;

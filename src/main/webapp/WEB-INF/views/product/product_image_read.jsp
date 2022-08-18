@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="<c:url value='/css/product/product_insert_sch_style.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/product/product_img_read_style.css'/>">
 </head>
 <body>
 <div class="wrap">
@@ -41,26 +41,49 @@
                 </ul>
             </div>
             <div class="board">
-                <h1>상품 일정 등록</h1>
-                <div class="prd_sch_input_form">
-                    <form action="<c:url value='/product/insert/schedule'/>" method="post">
-                        상품코드&nbsp;<br><input type="text" name="prd_cd" placeholder="상품코드" value="${param.prd_cd}" class="input_prd"/><br>
-                        여행일차&nbsp;<br><input type="text" name="trv_date" placeholder="여행일차" class="input_prd"/><br>
-                        일정순번&nbsp;<br><input type="text" name="sch_ord" placeholder="일정순번" class="input_prd"><br>
-                        관광지이름&nbsp;<br><input type="text" name="st_nm" placeholder="관광지이름" class="input_prd"/><br>
-                        관광지 간략설명&nbsp;<br><textarea name="sit_sh_desc" placeholder="관광지 간략설명" id="sit_sh_desc" cols="22" rows="5"></textarea><br>
-                        관광지 상세설명&nbsp;<br><textarea name="sit_lo_desc" placeholder="관광지 상세설명" id="sit_lo_desc" cols="22" rows="5"></textarea><br>
-                        호텔정보&nbsp;<br><input type="text" name="ht_inf" placeholder="호텔정보" class="input_prd"/><br>
-                        아침&nbsp;<br><input type="text" name="brk" placeholder="아침" class="input_prd"/><br>
-                        점심&nbsp;<br><input type="text" name="luh" placeholder="점심" class="input_prd"/><br>
-                        저녁&nbsp;<br><input type="text" name="din" placeholder="저녁" class="input_prd"/><br>
-                        이동소요기간&nbsp;<br><input type="text" name="dstnc_tm" placeholder="이동소요시간" class="input_prd"/><br>
-                        <input type="submit" value="전송" id="submit_btn"/>
-                    </form>
+                <div class="prd_img_input_form">
+                    <h1>상품 이미지 조회</h1>
+                        상품코드&nbsp;<br><input type="text" name="prd_cd" value="${param.prd_cd}" class="input_prd" placeholder="상품코드" readonly="readonly"><br>
+                        상품이름&nbsp;<br><input type="text" name="prd_nm" value="${param.prd_nm}" class="input_prd" placeholder="상품이름" readonly="readonly"><br>
+                    <div class="preview-img">
+                        <img src="${param.img_pth}" id="product_img" width="500px" height="300px">
+                        <button id="modify_btn" class="button_click">수정</button><br>
+                        <button id="delete_btn" class="button_click">삭제</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+    $(document).ready(function (){
+        $('#delete_btn').on("click",function (){
+           var result = confirm("정말 삭제하시겠습니까?");
+           if(result){
+                   $.ajax({
+                       type: "POST",
+                       url : "<c:url value='/product/image/delete'/>",
+                       data: {prd_img_no:"${param.prd_img_no}",img_pth:"${param.img_pth}"},
+                       success : function (data){
+                           if(data=="success"){
+                               alert('삭제가 성공했습니다.');
+                               window.location.href = "<c:url value='/product/management/image'/>"
+                           }else{
+                               alert('삭제가 실패했습니다.');
+                               window.location.href = "<c:url value="/product/image/read?prd_cd=${param.prd_cd}"/>"
+                           }
+                       }
+                   });
+           }else{
+               return;
+           }
+        });
+
+        $('#modify_btn').on("click",function (){
+            window.location.href = "<c:url value='/product/image/modify?img_pth=${param.img_pth}&prd_cd=${param.prd_cd}&prd_img_no=${param.prd_img_no}'/>";
+        });
+    });
+</script>
 </body>
 </html>

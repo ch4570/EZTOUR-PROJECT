@@ -34,7 +34,7 @@ public class TestControllerTest {
     public void testController1() throws Exception{
         MockMvc mockMvc = getMockMvc();
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/test"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/test2"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("test"))
                 .andDo(print())

@@ -6,8 +6,8 @@
 
 <!--    고객 문의 인서트-->
     <insert id="insertCustomerInquiry" parameterType="CustomerInquiryDto">
-        INSERT INTO qna (qna_cd, email, phn, qna_ttl, qna_cont)
-        VALUES (#{qna_cd}, #{email}, #{phn}, #{qna_ttl}, #{qna_cont})
+        INSERT INTO qna (usr_id, qna_cd, email, phn, qna_ttl, qna_cont)
+        VALUES (#{usr_id}, #{qna_cd}, #{email}, #{phn}, #{qna_ttl}, #{qna_cont})
     </insert>
 
 <!--    테스트를 위한 코드-->
@@ -18,4 +18,45 @@
     <select id="countCustomerInquiry" resultType="int">
         SELECT count(*) FROM qna
     </select>
+
+<!--    검색 기능 매퍼 시작-->
+    <select id="searchSelectPage" parameterType="CustomerSearchCondition" resultType="CustomerInquiryDto">
+        SELECT * FROM qna
+        WHERE true
+        <choose>
+            <when test='option=="T"'>
+                AND title LIKE concat('%', #{keyword}, '%')
+            </when>
+            <when test='option=="W"'>
+                AND writer LIKE concat('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+                AND (title LIKE concat('%', #{keyword}, '%')
+                OR content LIKE concat('%', #{keyword}, '%'))
+            </otherwise>
+        </choose>
+        ORDER BY qna_no DESC
+<!-- 페이징 처리 -->
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="searchResultCnt" parameterType="CustomerSearchCondition" resultType="int">
+        SELECT count(*)
+        FROM qna
+        WHERE true
+        <choose>
+            <when test='option=="T"'>
+                AND title LIKE concat('%', #{keyword}, '%')
+            </when>
+            <when test='option=="W"'>
+                AND writer LIKE concat('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+                AND (title LIKE concat('%', #{keyword}, '%')
+                OR content LIKE concat('%', #{keyword}, '%'))
+            </otherwise>
+        </choose>
+    </select>
+<!--    검색 기능 매퍼 끝-->
+
 </mapper>

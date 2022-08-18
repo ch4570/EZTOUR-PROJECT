@@ -38,6 +38,7 @@
 
         <!-- 기혁님 시작 -->
         <typeAlias alias="CustomerInquiryDto" type="com.devcamp.eztour.domain.customercenter.CustomerInquiryDto"/>
+        <typeAlias alias="CustomerSearchCondition" type="com.devcamp.eztour.domain.customercenter.CustomerSearchCondition"/>
         <!-- 기혁님 끝 -->
 
         <!-- 종현님 시작 -->

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="<c:url value='/css/product/product_read_style.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/product/product_sch_read_style.css'/>">
 </head>
 <body>
 <div class="wrap">
@@ -41,29 +41,31 @@
                 </ul>
             </div>
             <div class="board">
-                    <h1>상품 조회</h1>
-                        <div class="prd_input_form">
-                            상품코드 &nbsp;<br><input type="text"  class="input_prd" name="prd_cd" placeholder="상품코드" value="${trvPrdDto.prd_cd}" readonly="readonly"><br>
-                            여행지코드 &nbsp;<br><input type="text" class="input_prd" name="dstn_cd" placeholder="여행지 코드" value="${trvPrdDto.dstn_cd}" readonly="readonly"><br>
-                            테마상태 &nbsp;<br><input type="text" class="input_prd" name="cmn_cd_thm" placeholder="공통코드_테마상태" value="${trvPrdDto.cmn_cd_thm}" readonly="readonly"><br>
-                            상품명 &nbsp;<br><input type="text" class="input_prd" name="prd_nm" placeholder="상품명" value="${trvPrdDto.prd_nm}" readonly="readonly"><br>
-                            상품 상세 설명&nbsp;<br><textarea cols="24" rows="10" name="prd_dtl_desc" placeholder="상품 상세 설명" id="desc_area" readonly="readonly">${trvPrdDto.prd_dtl_desc}</textarea><br>
-                            여행기간 &nbsp;<br><input type="text" class="input_prd" name="trv_per" placeholder="여행기간" value="${trvPrdDto.trv_per}" readonly="readonly"><br>
-                            상품시작가격 &nbsp;<br><input type="text" class="input_prd" name="prd_str_prc" placeholder="상품시작가격" value="${trvPrdDto.prd_str_prc}" readonly="readonly"><br>
-                            출발 시작일 &nbsp;<br><input type="text" class="input_prd" name="dpr_str_date" placeholder="출발 시작일" value="${trvPrdDto.dpr_str_date}" readonly="readonly"><br>
-                            출발 마감일 &nbsp;<br><input type="text" class="input_prd" name="dpr_fin_date" placeholder="출발 마감" value="${trvPrdDto.dpr_fin_date}" readonly="readonly"><br>
-                            <button class="btn" id="modify_btn">수정</button><br>
-                            <button class="btn" id="delete_btn">삭제</button>
-                        </div>
-                    </div>
+                <h1>상품 일정 등록</h1>
+                <div class="prd_sch_input_form">
+                        상품코드&nbsp;<br><input type="text" value="${list.prd_cd}" class="input_prd" readonly="readonly"/><br>
+                        여행일차&nbsp;<br><input type="text"  value="${list.trv_date}"  class="input_prd"readonly="readonly"/><br>
+                        일정순번&nbsp;<br><input type="text"  value="${list.sch_ord}" class="input_prd" readonly="readonly"><br>
+                        관광지이름&nbsp;<br><input type="text" value="${empty list.st_nm ? '정보 없음' : list.st_nm}" class="input_prd" readonly="readonly"/><br>
+                        관광지 간략설명&nbsp;<br><textarea id="sit_sh_desc" cols="22" rows="5" readonly="readonly">${empty list.sit_sh_desc ? '정보 없음' : list.sit_sh_desc}</textarea><br>
+                        관광지 상세설명&nbsp;<br><textarea id="sit_lo_desc" cols="22" rows="5"readonly="readonly">${empty list.sit_lo_desc ? '정보 없음' : list.sit_lo_desc}</textarea><br>
+                        호텔정보&nbsp;<br><input type="text" value="${empty list.ht_inf ? '정보 없음' : list.ht_inf}" class="input_prd" readonly="readonly"/><br>
+                        아침&nbsp;<br><input type="text" value="${empty list.brk ? '정보 없음' : list.brk}" class="input_prd" readonly="readonly"/><br>
+                        점심&nbsp;<br><input type="text" value="${empty list.luh ? '정보 없음' : list.luh}" class="input_prd" readonly="readonly"/><br>
+                        저녁&nbsp;<br><input type="text" value="${empty list.din ? '정보 없음' : list.din}" class="input_prd" readonly="readonly"/><br>
+                        이동소요기간&nbsp;<br><input type="text" value="${empty list.dstnc_tm ? '정보 없음' : list.dstnc_tm}" class="input_prd" readonly="readonly"/><br>
+                        <button id="modify_btn" class="button_click">수정</button><br>
+                        <button id="delete_btn" class="button_click">삭제</button>
                 </div>
             </div>
         </div>
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script>
     $(document).ready(function (){
         $('#modify_btn').on("click",function (){
-            window.location.href = "<c:url value='/product/modify?prd_cd=${trvPrdDto.prd_cd}'/>";
+            window.location.href = "<c:url value='/product/schedule/modify?sch_no=${list.sch_no}'/>";
         });
 
         $('#delete_btn').on("click",function (){
@@ -71,15 +73,15 @@
             if(result){
                 $.ajax({
                     type: "POST",
-                    url : "<c:url value='/product/delete'/>",
-                    data: {prd_cd:"${trvPrdDto.prd_cd}"},
+                    url : "<c:url value='/product/schedule/delete'/>",
+                    data: {sch_no:"${list.sch_no}"},
                     success : function (data){
                         if(data=="success"){
                             alert('삭제가 성공했습니다.');
-                            window.location.href = "<c:url value='/product/management'/>"
+                            window.location.href = "<c:url value='/product/management/schedule'/>"
                         }else{
                             alert('삭제가 실패했습니다.');
-                            window.location.href = "<c:url value="/product/read?prd_cd=${trvPrdDto.prd_cd}"/>"
+                            window.location.href = "<c:url value="/product/schedule/read?sch_no=${list.sch_no}"/>"
                         }
                     }
                 });
@@ -90,5 +92,5 @@
         });
     });
 </script>
-    </body>
+</body>
 </html>

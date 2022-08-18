@@ -62,7 +62,6 @@ public class CustomerController {
 
     @GetMapping("/faqWrite")
     public String writeFaq(Integer page, Integer pageSize, Integer faq_no, Model m, RedirectAttributes rattr) {
-
         if (faq_no == null) {
             return "faq/faq_write.tiles";
         }
@@ -104,7 +103,6 @@ public class CustomerController {
         try {
             FaqDto faqDto = faqService.getFaq(faq_no);
             m.addAttribute("faqDto", faqDto);
-            System.out.println("faqDto = " + faqDto);
             m.addAttribute("page", page);
             m.addAttribute("pageSize", pageSize);
         } catch (Exception e) {
@@ -132,13 +130,13 @@ public class CustomerController {
     }
 
     @PostMapping("/modify")
-    public String modifyEvent(Integer page, Integer pageSize, FaqDto faqDto, Model m, RedirectAttributes rattr) {
+    public String modifyEvent(Integer page, Integer pageSize, FaqDto faqDto, Integer faq_no, Model m, RedirectAttributes rattr) {
         try {
             int rowCnt = faqService.modifyFaq(faqDto);
-
             if (rowCnt != 1) {
                 throw new Exception("FAQ Modify Error");
             }
+
             rattr.addAttribute("faq_no", faqDto.getFaq_no());
             rattr.addAttribute("page", page);
             rattr.addAttribute("pageSize", pageSize);
@@ -146,7 +144,6 @@ public class CustomerController {
             return "redirect:/customer/faq";
         } catch (Exception e) {
             e.printStackTrace();
-            m.addAttribute("event_id", faqDto.getFaq_no());
             m.addAttribute("msg", "Modify Error");
             return "customer/faq_write.tiles";
         }
