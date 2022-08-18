@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:forEach var="propDto" items="${list}"></c:forEach>
+<%--DTO값 수정--%>
+<c:forEach var="CustomerInquryDto" items="${list}"></c:forEach>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,7 +15,7 @@
     <div class="content">
         <h1>문의하기</h1>
         <p>문의 유형</p>
-        <form action="" method="post">
+        <form action="" id="form">
             <select>
                 <option value="" disabled selected>선택</option>
                 <option>예약문의</option>
@@ -89,14 +90,19 @@
     </div>
 </div>
 <script>
+<%--    입력 값 customer_inquiry_write로 보내기--%>
     $(document).ready(function (){
-        $('#writeBtn').on("click", function () {
-            //이동주소입력
-            form.attr("action", "<c:url value='#'/>");
+        $('#writeBtn').on("click", function(){
+            let form = ${'#form'};
+            form.attr("action", "<c:url value='/customer/inquiryWrite'/>");
             form.attr("method", "post");
             form.submit();
         });
     });
+</script>
+<script>
+    let msg ="${msg}";
+    if(msg=="WRT_ERR") alert("게시물 등록에 실패했습니다. 다시 시도해주세요.");
 </script>
 </body>
 </html>
