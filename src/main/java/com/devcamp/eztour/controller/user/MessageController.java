@@ -1,33 +1,48 @@
 package com.devcamp.eztour.controller.user;
 
-import com.devcamp.eztour.domain.user.UserDto;
 import com.devcamp.eztour.service.user.UserService;
-import kotlinx.serialization.json.JsonObject;
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 
 @RestController
+@PropertySource("classpath:config/api.properties")
 public class MessageController {
 
-    final DefaultMessageService messageService;
+    DefaultMessageService messageService;
 
     @Autowired
     UserService userService;
 
     private String authNum;
+    private static String smsKey;
+    private static String smsSecretKey;
 
-    public MessageController() {
-        this.messageService = NurigoApp.INSTANCE.initialize("NCSXTDUJVBHI72HL", "R5BUIF7ZNUMAGJSSLVKGRWYKATWGKOJW", "https://api.coolsms.co.kr");
+    @Value("${SMS.KEY}")
+    public void setSmsKey(String value) {
+        smsKey = value;
+    }
+
+    @Value("${SMS.SECRETKEY}")
+    public void setSmsSecretKey(String value) {
+        smsSecretKey = value;
+    }
+
+
+    @PostConstruct
+    public void MessageController() {
+        messageService = NurigoApp.INSTANCE.initialize(smsKey, smsSecretKey, "https://api.coolsms.co.kr");
     }
 
     @GetMapping("/authPhn/{phn}")

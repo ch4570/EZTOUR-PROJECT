@@ -10,7 +10,6 @@
 
 	<context:property-placeholder order="1" ignore-unresolvable="true" location="classpath:/config/db.properties"/>
 	<context:property-placeholder order="2" ignore-unresolvable="true" location="classpath:/config/api.properties"/>
-	<context:property-placeholder order="3" ignore-unresolvable="true" location="classpath:/config/email.properties"/>
 
 	<!-- RDS 연결 설정 -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -34,8 +33,8 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
-		<property name="username" value="${email.account}" />
-		<property name="password" value="${email.password}" />
+		<property name="username" value="${EMAIL.ACCOUNT}" />
+		<property name="password" value="${EMAIL.PASSWORD}" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.transport.protocol">smtp</prop>
