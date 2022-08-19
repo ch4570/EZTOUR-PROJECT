@@ -299,7 +299,5 @@
             </otherwise>
         </choose>
     </sql>
-    
-    <select id="search"
 
 </mapper>
