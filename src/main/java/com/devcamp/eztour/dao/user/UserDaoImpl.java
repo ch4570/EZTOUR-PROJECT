@@ -80,4 +80,29 @@ public class UserDaoImpl implements UserDao {
         return session.selectOne(namespace+"findId", map);
     }
 
+    @Override
+    public Map naverConnectionCheck(Map map) throws Exception {
+        return session.selectOne(namespace+"naverConnectionCheck", map);
+    }
+
+    @Override
+    public UserDto userNaverLoginPro(String naver_id) throws Exception {
+        return session.selectOne(namespace+"userNaverLoginPro",naver_id);
+    }
+
+    @Override
+    public int setNaverConnection(Map<String, Object> apiJson) throws Exception {
+        return session.update(namespace+"setNaverConnection",apiJson);
+    }
+
+    @Override
+    public Map kakaoConnectionCheck(Map paramMap) throws Exception {
+        return session.selectOne(namespace+"kakaoConnectionCheck", paramMap);
+    }
+
+    @Override
+    public UserDto userKakaoLoginPro(String kakao_id) throws Exception {
+        return session.selectOne(namespace+"userKakaoLoginPro",kakao_id);
+    }
+
 }

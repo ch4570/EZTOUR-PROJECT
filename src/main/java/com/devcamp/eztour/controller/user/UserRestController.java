@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class UserRestController {

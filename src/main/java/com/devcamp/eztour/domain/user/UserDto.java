@@ -22,6 +22,8 @@ public class UserDto {
     private String email;
     private String phn;
     private String rl;
+    private String naver_id;
+    private String kakao_id;
     private int mlg;
     private Date reg_date;
     private Date lst_acc_date; // 마지막 접속 일자

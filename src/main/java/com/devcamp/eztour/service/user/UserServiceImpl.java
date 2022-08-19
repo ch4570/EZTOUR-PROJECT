@@ -62,18 +62,32 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map naverConnectionCheck(Map apiJson) throws Exception{
-        Map map = new HashMap();
-        return map;
+
+        return userDao.naverConnectionCheck(apiJson);
     }
 
     @Override
-    public Map<String, Object> userNaverLoginPro(Map<String, Object> apiJson){
-        Map map = new HashMap();
-        return map;
+    public UserDto userNaverLoginPro(String naver_id) throws Exception {
+        return userDao.userNaverLoginPro(naver_id);
     }
 
     @Override
-    public void setNaverConnection(Map<String, Object> apiJson){
+    public void setNaverConnection(Map<String, Object> apiJson) throws Exception {
+        userDao.setNaverConnection(apiJson);
+    }
+
+    @Override
+    public Map kakaoConnectionCheck(Map paramMap) throws Exception {
+        return userDao.kakaoConnectionCheck(paramMap);
+    }
+
+    @Override
+    public UserDto userKakaoLoginPro(String kakao_id) throws Exception{
+        return userDao.userKakaoLoginPro(kakao_id);
+    }
+
+    @Override
+    public void setKakaoConnection(Map paramMap) {
 
     }
 
