@@ -77,8 +77,6 @@
         });
     });
 
-
-
     const openAuthModalBtn = document.getElementById("openAuthModalBtn");
     const authModal = document.querySelector("#authModal");
     const authOverlay = authModal.querySelector("#authOverlay");

@@ -143,6 +143,19 @@
             phn = #{phn}
     </select>
 
+    <select id="findPwd" parameterType="map" resultType="String">
+        SELECT
+            pwd
+        FROM
+            usr
+        WHERE
+            usr_id = #{usr_id}
+          AND
+            usr_nm = #{usr_nm}
+          AND
+            email = #{email}
+    </select>
+
     <select id="naverConnectionCheck" parameterType="Map" resultType="Map">
         SELECT
             naver_id, usr_nm, phn

@@ -117,8 +117,7 @@
             success: function (data) {
                 console.log(data)
                 if (data.JavaData == "login") {
-                    alert(data);
-                    alert("로그인되었습니다.");
+                    alert("카카오 계정으로 로그인되었습니다.");
                     location.href = '/'
                 } else if (data.JavaData == "register") {
                     $("#kakaoEmail").val(response.kakao_account.email);

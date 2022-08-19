@@ -81,6 +81,16 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public String findPwd(String usr_id, String usr_nm, String email) throws Exception {
+        System.out.println("이름 이상하게 나올거같음 ................................."+usr_nm);
+        Map map = new HashMap<>();
+        map.put("usr_id",usr_id);
+        map.put("usr_nm",usr_nm);
+        map.put("email",email);
+        return session.selectOne(namespace+"findPwd", map);
+    }
+
+    @Override
     public Map naverConnectionCheck(Map map) throws Exception {
         return session.selectOne(namespace+"naverConnectionCheck", map);
     }

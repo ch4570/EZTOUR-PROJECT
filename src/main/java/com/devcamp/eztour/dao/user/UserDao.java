@@ -27,6 +27,8 @@ public interface UserDao {
 
     String findId(String usr_nm, String phn)throws Exception;
 
+    String findPwd(String usr_id, String usr_nm, String email)throws Exception;
+
     Map naverConnectionCheck(Map map)throws Exception;
 
     UserDto userNaverLoginPro(String naver_id)throws Exception;

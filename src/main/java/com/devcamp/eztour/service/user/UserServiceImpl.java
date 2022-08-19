@@ -61,6 +61,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String findPwd(String usr_id, String usr_nm, String email) throws Exception {
+        return userDao.findPwd(usr_id, usr_nm, email);
+    }
+
+    @Override
     public Map naverConnectionCheck(Map apiJson) throws Exception{
 
         return userDao.naverConnectionCheck(apiJson);
