@@ -33,7 +33,7 @@
                     <a href="<c:url value='/user/join'/>" style="font-weight: bolder;">회원가입</a>
                 </span>
             </div>
-            <button id="loginBtn">로그인</button>
+            <button id="loginBtn">로그인</button
         </div>
 
         <div class="form-inp-nonUsr" style="display:none;">
@@ -47,14 +47,23 @@
             <button id="rsvBtn">예약확인</button>
         </div>
         <input type="hidden" name="toURL" value="${param.toURL}">
+        <div>
+            <div style="display: flex; justify-content: center;">
+                <a style="height: 100px; padding: 0px 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between" href="${naverUrl}"><img src="../img/user/btnG_아이콘원형.png" alt="" style="width: 70px;"><em>네이버 로그인</em></a>
+                <a style="height: 100px; padding: 0px 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between" href="javascript:kakaoLogin()"><img src="../img/user/카카오아이콘.png" alt="" style="width: 70px;"><em>카카오 로그인</em></a>
+            </div>
+        </div>
     </div>
 </form>
 </div>
 </div>
+    <br/>
+<form name="kakaoForm" id="kakaoForm" method = "post" action="/user/setSubInfo">
+    <input type="hidden" name="email" id="kakaoEmail" />
+    <input type="hidden" name="kakao_id" id="kakaoId" />
+    <input type="hidden" name="gndr" id="kakaoGender" />
+</form>
 
-<a href="javascript:kakaoLogin()">kakaoLogin</a>
-<a href="${naverUrl}">NaverLogin</a>
-    <br/><br/><br/>
 
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
@@ -83,6 +92,7 @@
                 Kakao.API.request({
                     url: '/v2/user/me',
                     success: function (response) {
+                        console.log(response);
                         kakaoLoginPro(response)
                     },
                     fail: function (error) {
@@ -98,25 +108,25 @@
 
     <!--카카오 로그인 데이터 받기-->
     function kakaoLoginPro(response) {
-        var data = {id: response.id}
+        var data = {kakao_id: response.id, email: response.kakao_account.email, gndr:response.kakao_account.gender}
         $.ajax({
             type: 'POST',
-            url: '/user/kakaoLoginPro.do',
+            url: '/api/kakaoLoginPro',
             data: data,
             dataType: 'json',
             success: function (data) {
                 console.log(data)
-                if (data.JavaData == "YES") {
-                    alert("로그인되었습니다.");
-                    location.href = '/user/usermain.do'
+                if (data.JavaData == "login") {
+                    alert("카카오 계정으로 로그인되었습니다.");
+                    location.href = '/'
                 } else if (data.JavaData == "register") {
                     $("#kakaoEmail").val(response.kakao_account.email);
                     $("#kakaoId").val(response.id);
+                    $("#kakaoGender").val(response.kakao_account.gender);
                     $("#kakaoForm").submit();
                 } else {
                     alert("로그인에 실패했습니다");
                 }
-
             },
             error: function (xhr, status, error) {
                 alert("로그인에 실패했습니다." + error);

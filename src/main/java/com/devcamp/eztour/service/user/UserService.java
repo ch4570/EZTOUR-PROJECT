@@ -26,9 +26,17 @@ public interface UserService {
 
     String findId(String usr_nm, String phn) throws Exception;
 
+    String findPwd(String usr_id, String usr_nm, String email)throws Exception;
+
     Map naverConnectionCheck(Map apiJson) throws Exception;
 
-    Map<String, Object> userNaverLoginPro(Map<String, Object> apiJson);
+    UserDto userNaverLoginPro(String naver_id) throws Exception;
 
-    void setNaverConnection(Map<String, Object> apiJson);
+    void setNaverConnection(Map<String, Object> apiJson) throws Exception;
+
+    Map kakaoConnectionCheck(Map paramMap) throws Exception;
+
+    UserDto userKakaoLoginPro(String kakao_id) throws Exception;
+
+    void setKakaoConnection(Map<String, Object> paramMap);
 }

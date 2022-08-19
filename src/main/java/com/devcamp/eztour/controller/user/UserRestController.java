@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class UserRestController {
@@ -47,6 +50,20 @@ public class UserRestController {
                 throw new Exception();
             }
             return new ResponseEntity<>(usr_id, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/findPwd/{usr_id}/{usr_nm}/{email}")
+    public ResponseEntity<String> findPwd(@PathVariable String usr_id, @PathVariable String usr_nm, @PathVariable String email){
+        try {
+            String pwd = userService.findPwd(usr_id, usr_nm, email);
+            if(pwd==null){
+                throw new Exception();
+            }
+            return new ResponseEntity<>(pwd, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -43,11 +43,32 @@
                         <div>
                             <input class="mail-check-input" placeholder="인증번호 6자리를 입력해주세요." disabled="disabled" maxlength="6">
                             <span id="mail-check-warn"></span>
-
                             <button id="mail-Check-Btn">인증하기</button>
                         </div>
             </div>
         </form>
+    </div>
+</div>
+
+<!-- 아이디/비밀번호 찾기 결과 모달창 -->
+<div class="modal hidden" id="resultModal">
+    <div class="modal__overlay" id="resultOverlay"></div>
+    <div class="modal__content">
+        <br/>
+        <h2 id="idHead">회원님의 아이디는 ...</h2>
+        <h2 id="pwdHead" style="display: none">회원님의 비밀번호는 ...</h2>
+        <hr>
+            <div style="margin-left: 30px; font-size: 18px;">
+                <div class="form-check" id="idChk">
+                    <label>회원님의 아이디는 <input class="form-check-input" name="resultId" value="" readonly></label>
+                </div>
+                <div class="form-check" id="pwdChk" style="display: none">
+                <label>회원님의 비밀번호는 <input class="form-check-input" name="resultPwd" value="" readonly></label>
+                </div>
+                <br/>
+                <hr>
+            </div>
+        <button id="closeresultModalBtn"> 닫기 </button>
     </div>
 </div>
 
@@ -94,9 +115,9 @@
             url: '/authPhn/' + phn,
             success : function(msg){
                 alert(msg);
-                $("#findIdBtn").before("<input id='checkNum' name='checkNum' placeholder='인증번호를 입력해주세요.'>");
                 findIdBtn.classList.add("hidden")
                 checkAuthBtn.classList.remove("hidden")
+                $("#checkAuthBtn").before("<input id='checkNum' name='checkNum' placeholder='인증번호를 입력해주세요.'>");
             },
             error   : function(){ alert("잘못된 요청입니다.") }
         });
@@ -111,13 +132,15 @@
             type:'GET',
             url: '/checkAuthNum/' + checkNum,
             success : function(msg){
-                alert(msg);
-
+                alert("인증에 성공했습니다.");
                 $.ajax({
                     type:'POST',
                     url: '/findId/' +usr_nm+ "/" +phn,
                     success : function(usr_id){
-                        alert(usr_id);
+                        // 1. 모달 열기
+                        openresultModal();
+                        // 2. 모달에 usr_id 전달
+                        $('input[name=resultId]').attr('value',usr_id);
                     },
                     error   : function(){ alert("존재하지 않는 사용자입니다.") }
                 });
@@ -127,7 +150,7 @@
     });
 
     $('#mail-Check-Btn').click(function() {
-        const email = $('#email1').val() + $('#email2').val(); // 이메일 주소값 얻어오기!
+        let email = $('#email1').val() + $('#email2').val(); // 이메일 주소값 얻어오기!
         console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
         const checkInput = $('.mail-check-input') // 인증번호 입력하는곳
 
@@ -147,6 +170,10 @@
         const inputCode = $(this).val();
         const $resultMsg = $('#mail-check-warn');
 
+        let email = $('#email1').val() + $('#email2').val(); // 이메일 주소값 얻어오기!
+        let usr_id = $("#usrId").val();
+        let usr_nm = $("#usrNm").val();
+
         if(inputCode === code){
             $resultMsg.html('인증번호가 일치합니다.');
             $resultMsg.css('color','green');
@@ -155,11 +182,41 @@
             $('#email2').attr('readonly',true);
             $('#email2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
             $('#email2').attr('onChange', 'this.selectedIndex = this.initialSelect');
+
+            alert("인증에 성공했습니다.")
+            $.ajax({
+                type:'POST',
+                url: '/findPwd/'+usr_id+ "/" +usr_nm+ "/" +email,
+                success : function(pwd){
+                    // 1. 모달 열기
+                    openresultModal();
+                    $("#pwdHead").show();
+                    $("#pwdChk").show();
+                    $("#idChk").hide();
+                    $("#idHead").hide();
+
+                    // 2. 모달에 usr_id 전달
+                    $('input[name=resultPwd]').attr('value',pwd);
+                },
+                error   : function(){ alert("존재하지 않는 사용자입니다.") }
+            });
         }else{
             $resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
             $resultMsg.css('color','red');
         }
     });
+
+    const resultModal = document.querySelector("#resultModal");
+    const resultOverlay = resultModal.querySelector("#resultOverlay");
+    const closeresultModalBtn = resultModal.querySelector("#closeresultModalBtn")
+    const openresultModal = () => {
+        resultModal.classList.remove("hidden");
+    }
+    const closeresultModal = () => {
+        resultModal.classList.add("hidden")
+    }
+    closeresultModalBtn.addEventListener("click", closeresultModal);
+    resultOverlay.addEventListener("click", closeresultModal);
 
 </script>
 </body>
