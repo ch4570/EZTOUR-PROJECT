@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="<c:url value='/css/product/product_insert_style.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/product/product_sch_img_insert_style.css'/>">
 </head>
 <body>
 <div class="wrap">
@@ -41,26 +42,56 @@
                 </ul>
             </div>
             <div class="board">
-                    <h1>상품 등록</h1>
-                        <div class="prd_input_form">
-                            <form action="<c:url value='/product/insert'/>" method="post">
-                                <input type="hidden" name="frs_rgs_no" value="${sessionScope.usr_id}"/>
-                                <input type="hidden" value="${list.prd_prc_no}" name="prd_prc_no" readonly="readonly"/>
-                                상품코드&nbsp;<br><input type="text"  class="input_prd" name="prd_cd" placeholder="상품코드"><br>
-                                여행지코드&nbsp;<br><input type="text" class="input_prd" name="dstn_cd" placeholder="여행지 코드"><br>
-                                테마상태&nbsp;<br><input type="text" class="input_prd" name="cmn_cd_thm" placeholder="공통코드_테마상태"><br>
-                                상품명&nbsp;<br><input type="text" class="input_prd" name="prd_nm" placeholder="상품명"><br>
-                                상품 상세 설명&nbsp;<br><textarea cols="24" rows="10" name="prd_dtl_desc" placeholder="상품 상세 설명" id="desc_area"></textarea><br>
-                                여행기간&nbsp;<br><input type="text" class="input_prd" name="trv_per" placeholder="여행기간"><br>
-                                상품시작가격&nbsp;<br><input type="text" class="input_prd" name="prd_str_prc" placeholder="상품시작가격"><br>
-                                출발 시작일&nbsp;<br><input type="date" class="input_prd" name="dpr_str_date" placeholder="출발 시작일"><br>
-                                출발 마감일&nbsp;<br><input type="date" class="input_prd" name="dpr_fin_date" placeholder="출발 마감"><br>
-                                <input type="submit" value="상품 등록" id="submit_btn">
-                            </form>
-                        </div>
-                    </div>
+                <h1>관광지 사진 조회</h1>
+                <div class="prd_sch_img_input_form">
+                        <input type="hidden" name="frs_rgs_no" value="${sessionScope.usr_id}"/>
+                    상품 번호&nbsp;<br><input type="text" value="${list[0].prd_cd}" readonly="readonly" class="input_prd"/><br>
+                        <c:forEach var="list_img" items="${list}" varStatus="i">
+                            <div class="preview_img">
+                                <input type="hidden" name="sch_img_no" value="${list_img.sch_img_no}"/>
+                                일정 번호&nbsp;<br><input type="text" value="${list_img.sch_no}" readonly="readonly" class="input_prd"/><br>
+                                <img src="<c:url value='${list_img.prf_img_pth}'/>" id="product_img${i.count}" width="500px" height="300px"/><br>
+                            </div>
+                        </c:forEach>
+                    </form>
+                    <button id="delete_btn" class="button_click">일괄삭제</button>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+    const img_pth_arr = [];
+    <c:forEach var="list_img" items="${list}" varStatus="i">
+        img_pth_arr.push("${list_img.prf_img_pth}");
+    </c:forEach>
+
+    $(document).ready(function (){
+
+
+
+        $('#delete_btn').on("click",function (){
+            $.ajax({
+                url : "<c:url value='/product/schedule/image/delete'/>",
+                type : "POST",
+                traditional: true,
+                data : {img_pth: img_pth_arr, prd_cd:"${list[0].prd_cd}"},
+                success : function(data) {
+                    if(data=="success"){
+                        alert("삭제가 성공했습니다.");
+                        window.location.href = "<c:url value='/product/management/schedule/image'/>"
+                    }else{
+                        alert("삭제가 실패했습니다.");
+                        window.location.href = "<c:url value="/product/schedule/image/read?prd_cd=${list[0].prd_cd}"/>"
+                    }
+                }
+            });
+        });
+    });
+
+
+
+</script>
+</body>
 </html>

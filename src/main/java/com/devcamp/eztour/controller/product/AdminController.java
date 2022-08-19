@@ -3,6 +3,7 @@ package com.devcamp.eztour.controller.product;
 import com.devcamp.eztour.domain.product.*;
 import com.devcamp.eztour.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +15,12 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class AdminController {
@@ -160,7 +163,7 @@ public class AdminController {
     // 관리 상품 이미지 등록(ajax 사용 정보 전송)
     @PostMapping("/product/insert/image")
     @ResponseBody
-    public String insertProductImage(MultipartFile img_file, HttpServletRequest request, String prd_cd) throws Exception{
+    public String insertProductImage(MultipartFile img_file, HttpServletRequest request, String prd_cd,String frs_rgs_no) throws Exception{
         // 원본 파일이 이미지 파일이 맞는지 확장자를 확인
         File checkFile = new File(img_file.getOriginalFilename());
         String type = null;
@@ -181,9 +184,14 @@ public class AdminController {
                 File uploadFile = new File(uploadPath, fileName);
                 img_file.transferTo(uploadFile);
                 String finalPath = "/image/product/"+fileName;
-                PrdImgDto prd_imgDto = new PrdImgDto(prd_cd,finalPath);
-                productService.insertProductImg(prd_imgDto);
-                return "success";
+                PrdImgDto prd_imgDto = new PrdImgDto(prd_cd,finalPath,frs_rgs_no);
+                int result = productService.insertProductImg(prd_imgDto);
+                if(result == 1){
+                    return "success";
+                }else{
+                    return "fail";
+                }
+
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -206,7 +214,7 @@ public class AdminController {
     // 관리 상품 일정 등록(ajax 사용 정보 전송)
     @ResponseBody
     @PostMapping("/product/schedule/image/insert")
-    public String insertScheduleImage(MultipartHttpServletRequest meq, HttpServletRequest request, int sch_no, String prd_cd) throws Exception{
+    public String insertScheduleImage(MultipartHttpServletRequest meq, HttpServletRequest request, int sch_no, String prd_cd,String frs_rgs_no) throws Exception{
         int result = 0;
         String type = null;
         // 프로젝트 root 경로 확인 -> 이미지 경로 잡기
@@ -218,14 +226,21 @@ public class AdminController {
         for (MultipartFile m : fileList) {
             File checkFile = new File(m.getOriginalFilename());
             try {
+                    type = Files.probeContentType(checkFile.toPath());
+                    if(!type.startsWith("image")){
+                        return "fail";
+                    }else if(type == null){
+                        return "fail";
+                    }else{
+                        String fileName = UUID.randomUUID().toString() + ".jpg";
+                        File uploadFile = new File(uploadPath, fileName);
+                        m.transferTo(uploadFile);
+                        String finalPath = "/image/product/sights/" + fileName;
+                        TrvSchImgDto trv_schImgDto = new TrvSchImgDto(sch_no, prd_cd,finalPath,frs_rgs_no);
+                        productService.insertScheduleImage(trv_schImgDto);
+                        result++;
+                    }
 
-                    String fileName = UUID.randomUUID().toString() + ".jpg";
-                    File uploadFile = new File(uploadPath, fileName);
-                    m.transferTo(uploadFile);
-                    String finalPath = "/image/product/sights/" + fileName;
-                    TrvSchImgDto trv_schImgDto = new TrvSchImgDto(sch_no, prd_cd, finalPath);
-                    productService.insertScheduleImage(trv_schImgDto);
-                    result++;
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -591,17 +606,131 @@ public class AdminController {
         }else{
             if(search_keyword == null || search_keyword ==""){
                 int totalCnt = productService.getProductPriceCnt();
-                System.out.println(totalCnt);
                 PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page);
                 List<PrdPcrDto> prdList = productService.getProductPrice(paging);
                 model.addAttribute("paging",paging);
                 model.addAttribute("list",prdList);
+                return "product/product_management_price.tiles";
             }else{
-
+                PageHandlerProduct option = new PageHandlerProduct(search_option,search_keyword);
+                int totalCnt = productService.getSearchProductPriceCnt(option);
+                System.out.println(totalCnt);
+                PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page,search_option,search_keyword);
+                List<TrvPrdPrcDto> prdList = productService.getSearchProductPrice(paging);
+                model.addAttribute("list",prdList);
+                model.addAttribute("paging",paging);
+                return "product/product_management_price.tiles";
             }
-            return "product/product_management_price.tiles";
         }
     }
+
+    @GetMapping("/product/price/read")
+    public String productPriceRead(HttpSession session,Model model,int prd_prc_no) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
+            return "redirect:/";
+        }else{
+            TrvPrdPrcDto trvPrdPrcDto = productService.getOneSearchProductPrice(prd_prc_no);
+            model.addAttribute("list",trvPrdPrcDto);
+            return "product/product_price_read.tiles";
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/product/price/delete")
+    public String productPriceDelete(int prd_prc_no) throws Exception{
+        System.out.println(prd_prc_no);
+        int result = productService.removeProductPrice(prd_prc_no);
+        if(result == 1){
+            return "success";
+        }else{
+            return "fail";
+        }
+    }
+
+    @GetMapping("/product/price/modify")
+    public String productPriceModify(int prd_prc_no, HttpSession session, Model model) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
+            return "redirect:/";
+        }else{
+            TrvPrdPrcDto trvPrdPrcDto = productService.getOneSearchProductPrice(prd_prc_no);
+            model.addAttribute("list",trvPrdPrcDto);
+            return "product/product_price_modify.tiles";
+        }
+    }
+
+    @PostMapping("/product/price/modify")
+    public String productPriceModify(TrvPrdPrcDto trvPrdPrcDto,RedirectAttributes rattr) throws Exception{
+        int result = productService.modifyProductPrice(trvPrdPrcDto);
+        System.out.println(trvPrdPrcDto);
+        if(result == 1){
+            rattr.addFlashAttribute("success_msg","상품상세 수정이 성공하였습니다.");
+            return "redirect:/product/management/price";
+        }else{
+            rattr.addFlashAttribute("error_msg","상품상세 수정이 실패하였습니다.");
+            rattr.addAttribute("list",trvPrdPrcDto);
+            return "redirect:/product/price/read";
+        }
+    }
+
+    @GetMapping("/product/management/schedule/image")
+    public String productScheduleImageManagement(HttpSession session,Model model,@RequestParam(value = "page",defaultValue = "1") int page
+            ,String search_option,String search_keyword) throws Exception{
+        boolean isAdmin =  isAdmin(session);
+        if(!isAdmin){
+            return "redirect:/";
+        }else{
+            if(search_keyword == null || search_keyword == ""){
+                int totalCnt = productService.getAllScheduleImageCnt();
+                PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page);
+                List<TrvSchImgDto> list = productService.getAllScheduleImage(paging);
+                model.addAttribute("list",list);
+                model.addAttribute("paging",paging);
+                return "product/product_management_schedule_img.tiles";
+            }else{
+                PageHandlerProduct option = new PageHandlerProduct(search_option,search_keyword);
+                int totalCnt = productService.getSearchScheduleImageCnt(option);
+                PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page,search_option,search_keyword);
+                List<TrvSchImgDto> list = productService.getSearchScheduleImage(paging);
+                model.addAttribute("list",list);
+                model.addAttribute("paging",paging);
+                return "product/product_management_schedule_img.tiles";
+            }
+
+        }
+    }
+
+    @GetMapping("/product/schedule/image/read")
+    public String productScheduleImageRead(String prd_cd,HttpSession session,Model model) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
+            return "redirect:/";
+        }else{
+            List<TrvSchImgDto> list = productService.getScheduleImage(prd_cd);
+            model.addAttribute("list",list);
+            return "product/product_sch_img_read.tiles";
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/product/schedule/image/delete")
+    public String productScheduleImageDelete(HttpServletRequest request, String[] img_pth, String prd_cd) throws Exception{
+        int ImageDelCnt = 0;
+        for(String s : img_pth){
+            boolean flag = deleteImage(request,s);
+            if(flag){
+                ImageDelCnt++;
+            }
+        }
+        int dataDelCnt = productService.removeScheduleImage(prd_cd);
+        if(ImageDelCnt == 3 && dataDelCnt == 3){
+            return "success";
+        }else{
+            return "fail";
+        }
+    }
+
 
     private boolean deleteImage(HttpServletRequest request,String img_pth){
         HttpSession session = request.getSession();
