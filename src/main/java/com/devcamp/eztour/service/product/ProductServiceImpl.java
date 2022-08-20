@@ -197,4 +197,59 @@ public class ProductServiceImpl implements ProductService{
     public int getProductPriceCnt() throws Exception {
         return productDao.selectProductPriceCnt();
     }
+
+    @Override
+    public List<TrvPrdPrcDto> getSearchProductPrice(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.searchProductPrice(pageHandlerProduct);
+    }
+
+    @Override
+    public int getSearchProductPriceCnt(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.searchProductPriceCnt(pageHandlerProduct);
+    }
+
+    @Override
+    public TrvPrdPrcDto getOneSearchProductPrice(int prd_prc_no) throws Exception {
+        return productDao.selectOneProductPrice(prd_prc_no);
+    }
+
+    @Override
+    public int removeProductPrice(int prd_prc_no) throws Exception {
+        return productDao.deleteProductPrice(prd_prc_no);
+    }
+
+    @Override
+    public int modifyProductPrice(TrvPrdPrcDto trvPrdPrcDto) throws Exception {
+        return productDao.updateProductPrice(trvPrdPrcDto);
+    }
+
+    @Override
+    public List<TrvSchImgDto> getAllScheduleImage(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.selectAllScheduleImage(pageHandlerProduct);
+    }
+
+    @Override
+    public int getAllScheduleImageCnt() throws Exception {
+        return productDao.selectAllScheduleImageCnt();
+    }
+
+    @Override
+    public List<TrvSchImgDto> getScheduleImage(String prd_cd) throws Exception {
+        return productDao.selectScheduleImage(prd_cd);
+    }
+
+    @Override
+    public int removeScheduleImage(String prd_cd) throws Exception {
+        return productDao.deleteScheduleImage(prd_cd);
+    }
+
+    @Override
+    public List<TrvSchImgDto> getSearchScheduleImage(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.searchSelectScheduleImage(pageHandlerProduct);
+    }
+
+    @Override
+    public int getSearchScheduleImageCnt(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.searchSelectScheduleCnt(pageHandlerProduct);
+    }
 }

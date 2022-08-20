@@ -199,4 +199,59 @@ public class ProductDaoImpl implements ProductDao{
         return session.selectOne(namespace+"selectProductPriceCnt");
     }
 
+    @Override
+    public List<TrvPrdPrcDto> searchProductPrice(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return session.selectList(namespace+"searchProductPrice",pageHandlerProduct);
+    }
+
+    @Override
+    public int searchProductPriceCnt(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return session.selectOne(namespace+"searchProductPriceCnt",pageHandlerProduct);
+    }
+
+    @Override
+    public TrvPrdPrcDto selectOneProductPrice(int prd_prc_no) throws Exception {
+        return session.selectOne(namespace+"selectOneProductPrice",prd_prc_no);
+    }
+
+    @Override
+    public int deleteProductPrice(int prd_prc_no) throws Exception {
+        return session.delete(namespace+"deleteProductPrice",prd_prc_no);
+    }
+
+    @Override
+    public int updateProductPrice(TrvPrdPrcDto trvPrdPrcDto) throws Exception {
+        return session.update(namespace+"updateProductPrice",trvPrdPrcDto);
+    }
+
+    @Override
+    public List<TrvSchImgDto> selectAllScheduleImage(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return session.selectList(namespace+"selectAllScheduleImage",pageHandlerProduct);
+    }
+
+    @Override
+    public int selectAllScheduleImageCnt() throws Exception {
+        return session.selectOne(namespace+"selectAllScheduleImageCnt");
+    }
+
+    @Override
+    public List<TrvSchImgDto> selectScheduleImage(String prd_cd) throws Exception {
+        return session.selectList(namespace+"selectScheduleImage",prd_cd);
+    }
+
+    @Override
+    public int deleteScheduleImage(String prd_cd) throws Exception {
+        return session.delete(namespace+"deleteScheduleImage",prd_cd);
+    }
+
+    @Override
+    public List<TrvSchImgDto> searchSelectScheduleImage(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return session.selectList(namespace+"searchSelectScheduleImage",pageHandlerProduct);
+    }
+
+    @Override
+    public int searchSelectScheduleImageCnt(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return session.selectOne(namespace+"searchSelectScheduleImageCnt",pageHandlerProduct);
+    }
+
 }

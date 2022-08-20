@@ -29,7 +29,7 @@
                     <a href="<c:url value='/product/management/image'/>"><li class="menu_list">상품 이미지 관리</li></a>
                     <a href="<c:url value='/product/management/schedule'/>"><li class="menu_list">상품 일정 관리</li></a>
                     <a href="<c:url value='/product/management/price'/>"><li class="menu_list">상품 가격 관리</li></a>
-                    <li class="menu_list">상품 일정 사진 관리</li>
+                    <a href="<c:url value='/product/management/schedule/image'/>"><li class="menu_list">상품 일정 사진 관리</li></a>
                 </ul>
                 <ul>
                     <li class="prd_tlt">상품 승인 관리</li>
@@ -48,7 +48,7 @@
                 <c:forEach var="list" items="${list}">
                     <div class="board_content">
                         <div class="board_content_detail">
-                            <div><a href="<c:url value='/product/price/read?prd_dtl_cd=${list.prd_dtl_cd}'/>"><span>${list.prd_dtl_cd}</span></a></div>
+                            <div><a href="<c:url value='/product/price/read?prd_prc_no=${list.prd_prc_no}'/>"><span>${list.prd_dtl_cd}</span></a></div>
                             <div><span><fmt:formatNumber value="${list.adt_prc}" pattern="#,##0"/></span></div>
                             <div><span><fmt:formatNumber value="${list.chd_prc}" pattern="#,##0"/></span></div>
                             <div><span><fmt:formatNumber value="${list.bb_prc}" pattern="#,##0"/></span></div>

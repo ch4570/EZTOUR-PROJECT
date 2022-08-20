@@ -28,7 +28,7 @@
                     <a href="<c:url value='/product/management/image'/>"><li class="menu_list">상품 이미지 관리</li></a>
                     <a href="<c:url value='/product/management/schedule'/>"><li class="menu_list">상품 일정 관리</li></a>
                     <a href="<c:url value='/product/management/price'/>"><li class="menu_list">상품 가격 관리</li></a>
-                    <li class="menu_list">상품 일정 사진 관리</li>
+                    <a href="<c:url value='/product/management/schedule/image'/>"><li class="menu_list">상품 일정 사진 관리</li></a>
                 </ul>
                 <ul>
                     <li class="prd_tlt">상품 승인 관리</li>
@@ -44,6 +44,7 @@
                 <div class="prd_img_input_form">
                     <h1>상품 이미지 등록</h1>
                     <form action="<c:url value='/product/insert/image'/>" enctype="multipart/form-data" method="post" id="image_upload">
+                        <input type="hidden" name="frs_rgs_no" value="${sessionScope.usr_id}"/>
                         <input type="file" name="img_file" id="img_file" class="input_prd"><br>
                         상품코드&nbsp;<br><input type="text" name="prd_cd" value="${param.prd_cd}" class="input_prd" placeholder="상품코드"><br>
                     </form>

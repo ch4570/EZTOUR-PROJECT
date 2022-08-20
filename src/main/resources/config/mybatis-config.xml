@@ -33,7 +33,7 @@
         <!-- 혜경님 시작 -->
         <typeAlias alias="ReservDto" type="com.devcamp.eztour.domain.reserv.ReservDto"/>
         <typeAlias alias="ReservInfoDto" type="com.devcamp.eztour.domain.reserv.ReservInfoDto"/>
-
+        <typeAlias alias="AttPrdDto"     type="com.devcamp.eztour.domain.attPrd.AttPrdDto"/>
         <!-- 혜경님 끝 -->
 
         <!-- 기혁님 시작 -->

@@ -41,4 +41,15 @@ public interface ProductService {
     public int updateSchedule(TrvSchDto trvSchDto) throws Exception;
     public List<PrdPcrDto> getProductPrice(PageHandlerProduct pageHandlerProduct) throws Exception;
     public int getProductPriceCnt() throws Exception;
+    public List<TrvPrdPrcDto> getSearchProductPrice(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public int getSearchProductPriceCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public TrvPrdPrcDto getOneSearchProductPrice(int prd_prc_no) throws Exception;
+    public int removeProductPrice(int prd_prc_no) throws Exception;
+    public int modifyProductPrice(TrvPrdPrcDto trvPrdPrcDto) throws Exception;
+    public List<TrvSchImgDto> getAllScheduleImage(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public int getAllScheduleImageCnt() throws Exception;
+    public List<TrvSchImgDto> getScheduleImage(String prd_cd) throws Exception;
+    public int removeScheduleImage(String prd_cd) throws Exception;
+    public List<TrvSchImgDto> getSearchScheduleImage(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public int getSearchScheduleImageCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
 }
