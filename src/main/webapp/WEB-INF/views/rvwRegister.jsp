@@ -26,7 +26,8 @@
 </div>
 <script>
     let msg="${msg}";
-    if(msg=="WRT_ERR") alert("게시물 등록에 실패했습니다. 다시 시도해주세요.")
+    if(msg=="RVW_REGISTER_ERR") alert("여행 지역, 제목, 내용 하나라도 비어 있으면 등록할 수 없어요. 확인해주세요.");
+    if(msg=="WRT_ERR") alert("게시물 등록에 실패했습니다. 다시 시도해주세요.");
 </script>
 <div style="text-align:center">
     <h1>This is HOME</h1>
@@ -40,12 +41,12 @@
         <input type="hidden" name="usr_id" value="${rvwDto.usr_id}" readonly="readonly">
         <input type="text" name="wrt_nm" value="${rvwDto.wrt_nm}" readonly="readonly">작성자<br>
         <input type="text" name="wrt_email" value="${rvwDto.wrt_email}" readonly="readonly">이메일<br>
-        <select id = "prd_nm_list">
+        <select name="prd_dtl_cd">
             <option value="">선택해주세요</option>
                 <c:forEach var="rvwDto" items="${list}">
-                    <option value="${rvwDto.prd_nm}">${rvwDto.prd_nm}</option>여행 상품명<br>
+                    <option value="${rvwDto.prd_dtl_cd}">${rvwDto.prd_nm}</option>
                 </c:forEach>
-        </select><br>
+        </select>
         <input type="text" name="rvw_ttl" value="${rvwDto.rvw_ttl}" placeholder="리뷰 제목">제목<br>
         <input type="text" name="rvw_cont" value="${rvwDto.rvw_cont}" placeholder="리뷰 내용">내용<br>
         <button type="button" id="writeBtn" class="btn">등록</button>

@@ -1,55 +1,28 @@
 package com.devcamp.eztour.service.attPrd;
 
-import com.devcamp.eztour.dao.attPrd.AttPrdDao;
 import com.devcamp.eztour.domain.attPrd.AttPrdDto;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-public class AttPrdService {
-    @Autowired
-    AttPrdDao attPrdDao;
+public interface AttPrdService {
 
-    public int count() throws Exception {
-        return attPrdDao.count();
-    }
+    int count(String usr_id, String prd_cd) throws Exception;
 
-    public int checkAttPrd(AttPrdDto attPrdDto) throws Exception {
-        return attPrdDao.checkAttPrd(attPrdDto);
-    }
+    int checkAttPrd(AttPrdDto attPrdDto) throws Exception;
 
-    public int insert(AttPrdDto attPrdDto) throws Exception {
-        return attPrdDao.insert(attPrdDto);
-    }
+    int insert(AttPrdDto attPrdDto) throws Exception;
 
-    public int updateLikeUp(AttPrdDto attPrdDto) throws Exception {
-        return attPrdDao.updateLikeUp(attPrdDto);
-    }
+    int updateLikeUp(AttPrdDto attPrdDto) throws Exception;
 
-    public int updateLikeDown(AttPrdDto attPrdDto) throws Exception {
-        return attPrdDao.updateLikeDown(attPrdDto);
-    }
+    int updateLikeDown(AttPrdDto attPrdDto) throws Exception;
 
-    public List<AttPrdDto> selectAll() throws Exception {
-        return attPrdDao.selectAll();
-    }
+    List<AttPrdDto> selectAll() throws Exception;
 
-    public List<AttPrdDto> selectPage() throws Exception {
-        return attPrdDao.selectPage();
-    }
+    List<AttPrdDto> selectPage(Integer offset, Integer pageSize) throws Exception;
 
-    public int deleteAll() throws Exception {
-        return attPrdDao.deleteAll();
-    }
+    int deleteAll() throws Exception;
 
-    public int deleteUserAll(String usr_id) throws Exception {
-        return attPrdDao.deleteUserAll(usr_id);
-    }
+    int deleteUserAll(String usr_id) throws Exception;
 
-    public int delete(Integer att_prd_no, String usr_id) throws Exception {
-        return attPrdDao.delete(att_prd_no, usr_id);
-    }
-
+    int delete(Integer att_prd_no, String usr_id) throws Exception;
 }
