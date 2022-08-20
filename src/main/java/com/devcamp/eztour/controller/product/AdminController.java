@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.naming.Binding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -187,44 +187,6 @@ public class AdminController {
             }
     }
 
-    // 관리 상품 이미지 등록(ajax 사용 정보 전송)
-    @PostMapping("/product/insert/image")
-    @ResponseBody
-    public String insertProductImage(MultipartFile img_file, HttpServletRequest request, String prd_cd,String frs_rgs_no) throws Exception{
-        // 원본 파일이 이미지 파일이 맞는지 확장자를 확인
-        File checkFile = new File(img_file.getOriginalFilename());
-        String type = null;
-        try {
-            type = Files.probeContentType(checkFile.toPath());
-            // 프로젝트 root 경로 확인 -> 이미지 경로 잡기
-            HttpSession session = request.getSession();
-            String root_path = session.getServletContext().getRealPath("/");
-            String uploadPath = root_path+"resources/image/product";
-            // 이미지 파일이 아닐경우 실패
-            if(!type.startsWith("image")){
-                return "fail";
-            }else if(type==null){
-                return "fail";
-            }else{
-                String fileName = UUID.
-                        randomUUID().toString()+".jpg";
-                File uploadFile = new File(uploadPath, fileName);
-                img_file.transferTo(uploadFile);
-                String finalPath = "/image/product/"+fileName;
-                PrdImgDto prd_imgDto = new PrdImgDto(prd_cd,finalPath,frs_rgs_no);
-                int result = productService.insertProductImg(prd_imgDto);
-                if(result == 1){
-                    return "success";
-                }else{
-                    return "fail";
-                }
-
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 
     // 관리 상품 일정 페이지 진입
     @GetMapping("/product/schedule/image/insert")
@@ -238,46 +200,6 @@ public class AdminController {
         }
     }
 
-    // 관리 상품 일정 등록(ajax 사용 정보 전송)
-    @ResponseBody
-    @PostMapping("/product/schedule/image/insert")
-    public String insertScheduleImage(MultipartHttpServletRequest meq, HttpServletRequest request, int sch_no, String prd_cd,String frs_rgs_no) throws Exception{
-        int result = 0;
-        String type = null;
-        // 프로젝트 root 경로 확인 -> 이미지 경로 잡기
-        HttpSession session = request.getSession();
-        String root_path = session.getServletContext().getRealPath("/");
-        String uploadPath = root_path + "resources/image/product/sights";
-
-        List<MultipartFile> fileList =  meq.getFiles("prd_img");
-        for (MultipartFile m : fileList) {
-            File checkFile = new File(m.getOriginalFilename());
-            try {
-                    type = Files.probeContentType(checkFile.toPath());
-                    if(!type.startsWith("image")){
-                        return "fail";
-                    }else if(type == null){
-                        return "fail";
-                    }else{
-                        String fileName = UUID.randomUUID().toString() + ".jpg";
-                        File uploadFile = new File(uploadPath, fileName);
-                        m.transferTo(uploadFile);
-                        String finalPath = "/image/product/sights/" + fileName;
-                        TrvSchImgDto trv_schImgDto = new TrvSchImgDto(sch_no, prd_cd,finalPath,frs_rgs_no);
-                        productService.insertScheduleImage(trv_schImgDto);
-                        result++;
-                    }
-
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        if(result == 3){
-            return "success";
-        }else{
-            return "fail";
-        }
-    }
 
     // 상품 관리 페이지 진입(리스트 뿌리기)
     @GetMapping("/product/management")
@@ -287,7 +209,7 @@ public class AdminController {
         if(!isAdmin){
             return "redirect:/";
         }else{
-            if(search_keyword==null || search_keyword==""){
+            if(search_keyword == null || search_keyword == ""){
                 int totalCnt = productService.selectProductAdminCnt();
                 PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page);
                 List<TrvPrdReadDto> prdDtoList = productService.selectProductAdmin(paging);
@@ -351,18 +273,6 @@ public class AdminController {
             }
     }
 
-    // 상품 삭제(ajax 사용정보 전송)
-    @ResponseBody
-    @PostMapping("/product/delete")
-    public String productDelete(String prd_cd) throws Exception{
-        int result = productService.deleteProduct(prd_cd);
-        if(result==1){
-            return "success";
-        }else{
-            return "fail";
-        }
-    }
-
     // 상품 상세 관리 페이지 진입(리스트 뿌리기)
     @GetMapping("/product/management/detail")
     public String productManagementDetail(HttpSession session, Model model, @RequestParam(value = "page",defaultValue = "1") int page
@@ -419,14 +329,11 @@ public class AdminController {
     public String productDetailModify(@ModelAttribute("trvPrdDtlWriteDto") @Valid TrvPrdDtlWriteDto trvPrdDtlDto,
                                       BindingResult bindingResult, RedirectAttributes rattr) throws Exception{
 
-
         if(bindingResult.hasErrors()){
             return "product/product_detail_modify.tiles";
         }
 
-
         int result = productService.updateProductDetail(trvPrdDtlDto);
-
 
         if(result==1){
             rattr.addFlashAttribute("success_msg","상품상세 수정이 성공하였습니다.");
@@ -438,16 +345,6 @@ public class AdminController {
         }
     }
 
-    @ResponseBody
-    @PostMapping("/product/detail/delete")
-    public String productDetailDelete(String prd_dtl_cd) throws Exception{
-        int result = productService.deleteProductDetail(prd_dtl_cd);
-        if(result==1){
-            return "success";
-        }else{
-            return "fail";
-        }
-    }
 
     @GetMapping("/product/management/image")
     public String productImageManagement(HttpSession session,Model model,@RequestParam(value = "page",defaultValue = "1") int page
@@ -488,23 +385,6 @@ public class AdminController {
         }
     }
 
-    @ResponseBody
-    @PostMapping("/product/image/delete")
-    public String productImageDelete(int prd_img_no,String img_pth,HttpServletRequest request) throws Exception{
-        int result = productService.deleteProductImage(prd_img_no);
-
-        if(result==1){
-            // 이미지를 삭제
-            boolean flag = deleteImage(request,img_pth);
-            if(flag){
-                return "success";
-            }else{
-                return "fail";
-            }
-        }
-        return "fail";
-    }
-
     @GetMapping("/product/image/modify")
     public String productImageModify(HttpSession session,Integer prd_img_no,String img_pth ,String prd_cd,Model model) throws Exception{
         boolean isAdmin = isAdmin(session);
@@ -518,52 +398,6 @@ public class AdminController {
         }
 
     }
-
-
-    @ResponseBody
-    @PostMapping("/product/image/modify")
-    public String productImageModify(MultipartFile img_file,String img_pth,String prd_cd,Integer prd_img_no,
-                                     HttpServletRequest request) throws Exception{
-        // 원본 파일이 이미지 파일이 맞는지 확장자를 확인
-        File checkFile = new File(img_file.getOriginalFilename());
-        String type = null;
-        try {
-            type = Files.probeContentType(checkFile.toPath());
-            // 프로젝트 root 경로 확인 -> 이미지 경로 잡기
-            HttpSession session = request.getSession();
-            String root_path = session.getServletContext().getRealPath("/");
-            String uploadPath = root_path+"resources/image/product";
-            boolean flag = deleteImage(request,img_pth);
-            if(flag){
-                // 이미지 파일이 아닐경우 실패
-                if(!type.startsWith("image")){
-                    return "fail";
-                }else if(type==null){
-                    return "fail";
-                }else{
-                    String fileName = UUID.
-                            randomUUID().toString()+".jpg";
-                    File uploadFile = new File(uploadPath, fileName);
-                    img_file.transferTo(uploadFile);
-                    String finalPath = "/image/product/"+fileName;
-                    PrdImgDto prdImgDto = new PrdImgDto(finalPath,prd_img_no,prd_cd);
-                    int result = productService.updateProductImage(prdImgDto);
-                    if(result == 1){
-                        return "success";
-                    }else{
-                        return "fail";
-                    }
-
-                }
-            }else{
-                return "fail";
-            }
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 
     @GetMapping("/product/management/schedule")
     public String productScheduleManagement(HttpSession session,Model model,@RequestParam(value = "page",defaultValue = "1") int page
@@ -602,17 +436,6 @@ public class AdminController {
             TrvSchDto trvSchDto = productService.getSchedule(sch_no);
             model.addAttribute("list",trvSchDto);
             return "product/product_sch_read.tiles";
-        }
-    }
-
-    @ResponseBody
-    @PostMapping("/product/schedule/delete")
-    public String productScheduleDelete(int sch_no) throws Exception{
-        int result = productService.removeSchedule(sch_no);
-        if(result == 1){
-            return "success";
-        }else{
-            return "fail";
         }
     }
 
@@ -684,18 +507,6 @@ public class AdminController {
             trvPrdPrcDto.setPrd_prc_no(prd_prc_no);
             model.addAttribute("list",trvPrdPrcDto);
             return "product/product_price_read.tiles";
-        }
-    }
-
-    @ResponseBody
-    @PostMapping("/product/price/delete")
-    public String productPriceDelete(int prd_prc_no) throws Exception{
-        System.out.println(prd_prc_no);
-        int result = productService.removeProductPrice(prd_prc_no);
-        if(result == 1){
-            return "success";
-        }else{
-            return "fail";
         }
     }
 
@@ -771,32 +582,47 @@ public class AdminController {
         }
     }
 
-    @ResponseBody
-    @PostMapping("/product/schedule/image/delete")
-    public String productScheduleImageDelete(HttpServletRequest request, String[] img_pth, String prd_cd) throws Exception{
-        int ImageDelCnt = 0;
-        for(String s : img_pth){
-            boolean flag = deleteImage(request,s);
-            if(flag){
-                ImageDelCnt++;
-            }
-        }
-        int dataDelCnt = productService.removeScheduleImage(prd_cd);
-        if(ImageDelCnt == 3 && dataDelCnt == 3){
-            return "success";
+    @GetMapping("/product/recognize")
+    public String productRecognize(HttpSession session, Model model, @RequestParam(value = "page",defaultValue = "1") int page
+            ,String search_option,String search_keyword) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
+            return "redirect:/";
         }else{
-            return "fail";
+            if(search_keyword == null || search_keyword == ""){
+                int totalCnt = productService.selectProductAdminCnt();
+                PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page);
+                List<TrvPrdReadDto> prdDtoList = productService.selectProductAdmin(paging);
+                model.addAttribute("prd_list",prdDtoList);
+
+                for(TrvPrdReadDto t : prdDtoList){
+                    System.out.println(t);
+                }
+
+                model.addAttribute("paging",paging);
+                return "product/product_recognize.tiles";
+            }else{
+                PageHandlerProduct option = new PageHandlerProduct(search_option,search_keyword);
+                int totalCnt = productService.searchSelectProductAdminCnt(option);
+                PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page,search_option,search_keyword);
+                List<TrvPrdReadDto> prdDtoList = productService.searchSelectProductAdmin(paging);
+                model.addAttribute("prd_list",prdDtoList);
+                model.addAttribute("paging",paging);
+                return "product/product_recognize.tiles";
+            }
         }
     }
 
-
-    private boolean deleteImage(HttpServletRequest request,String img_pth){
-        HttpSession session = request.getSession();
-        String root_path = session.getServletContext().getRealPath("/");
-        String uploadPath = root_path+"resources"+img_pth;
-        File file = new File(uploadPath);
-        boolean flag = file.delete();
-        return flag;
+    @GetMapping("/product/recognize/read")
+    public String productRecognizeRead(HttpSession session,String prd_cd,Model model) throws Exception{
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
+            return "redirect:/";
+        }else{
+            TrvPrdReadDto trvPrdReadDto = productService.getProductRecognize(prd_cd);
+            model.addAttribute("trvPrdDto",trvPrdReadDto);
+            return "product/product_recognize_read.tiles";
+        }
     }
 
     private boolean isAdmin(HttpSession session){

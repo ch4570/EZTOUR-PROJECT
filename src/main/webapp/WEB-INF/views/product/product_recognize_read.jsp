@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="<c:url value='/css/product/product_read_style.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/product/product_recognize_read_style.css'/>">
 </head>
 <body>
 <div class="wrap">
@@ -56,8 +56,7 @@
                             <fmt:parseDate var="dpr_fin_date" value="${trvPrdDto.dpr_fin_date}" pattern="yyyy-MM-dd"/>
                             출발 시작일 &nbsp;<br><input type="date" class="input_prd" name="dpr_str_date" placeholder="출발 시작일" value="<fmt:formatDate value='${dpr_str_date}' pattern="yyyy-MM-dd"/>" readonly="readonly"><br>
                             출발 마감일 &nbsp;<br><input type="date" class="input_prd" name="dpr_fin_date" placeholder="출발 마감일" value="<fmt:formatDate value='${dpr_fin_date}' pattern="yyyy-MM-dd"/>" readonly="readonly"><br>
-                            <button class="btn" id="modify_btn">수정</button><br>
-                            <button class="btn" id="delete_btn">삭제</button>
+                            <button class="btn" id="modify_btn">${trvPrdDto.act_yn == true ? "비활성화" : "활성화"}</button><br>
                         </div>
                     </div>
                 </div>
@@ -66,24 +65,21 @@
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script>
     $(document).ready(function (){
-        $('#modify_btn').on("click",function (){
-            window.location.href = "<c:url value='/product/modify?prd_cd=${trvPrdDto.prd_cd}'/>";
-        });
 
-        $('#delete_btn').on("click",function (){
-            var result = confirm("정말로 삭제 하시겠습니까?");
+        $('#modify_btn').on("click",function (){
+            var result = confirm("활성화 상태를 변경 하시겠습니까?");
             if(result){
                 $.ajax({
                     type: "POST",
-                    url : "<c:url value='/product/delete'/>",
-                    data: {prd_cd:"${trvPrdDto.prd_cd}"},
+                    url : "<c:url value='/product/recognize/modify'/>",
+                    data: {prd_cd:"${trvPrdDto.prd_cd}",act_yn:"${trvPrdDto.act_yn}"},
                     success : function (data){
                         if(data=="success"){
-                            alert('삭제가 성공했습니다.');
-                            window.location.href = "<c:url value='/product/management'/>"
+                            alert('변경이 성공했습니다.');
+                            window.location.href = "<c:url value='/product/recognize'/>"
                         }else{
-                            alert('삭제가 실패했습니다.');
-                            window.location.href = "<c:url value="/product/read?prd_cd=${trvPrdDto.prd_cd}"/>"
+                            alert('변경이 실패했습니다.');
+                            window.location.href = "<c:url value="/product/recognize/read?prd_cd=${trvPrdDto.prd_cd}"/>"
                         }
                     }
                 });

@@ -3,6 +3,7 @@ package com.devcamp.eztour.dao.product;
 import com.devcamp.eztour.domain.product.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductDao {
 
@@ -54,4 +55,6 @@ public interface ProductDao {
     public int deleteScheduleImage(String prd_cd) throws Exception;
     public List<TrvSchImgDto> searchSelectScheduleImage(PageHandlerProduct pageHandlerProduct) throws Exception;
     public int searchSelectScheduleImageCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public TrvPrdReadDto selectRecognizeProduct(String prd_cd) throws Exception;
+    public int updateActivateStatus(Map map) throws Exception;
 }

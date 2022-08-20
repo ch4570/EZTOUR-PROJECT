@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -252,6 +253,16 @@ public class ProductDaoImpl implements ProductDao{
     @Override
     public int searchSelectScheduleImageCnt(PageHandlerProduct pageHandlerProduct) throws Exception {
         return session.selectOne(namespace+"searchSelectScheduleImageCnt",pageHandlerProduct);
+    }
+
+    @Override
+    public TrvPrdReadDto selectRecognizeProduct(String prd_cd) throws Exception {
+        return session.selectOne(namespace+"selectRecognizeProduct",prd_cd);
+    }
+
+    @Override
+    public int updateActivateStatus(Map map) throws Exception {
+        return session.update(namespace+"updateActivateStatus",map);
     }
 
 }

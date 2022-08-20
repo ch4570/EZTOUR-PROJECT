@@ -33,7 +33,7 @@
                 </ul>
                 <ul>
                     <li class="prd_tlt">상품 승인 관리</li>
-                    <li class="menu_list">상품 승인</li>
+                    <a href="<c:url value='/product/recognize'/>"><li class="menu_list">상품 승인</li></a>
                     <a href="<c:url value='/reserv/admin'/>"><li class="menu_list">예약 승인</li></a>
                 </ul>
                 <ul>

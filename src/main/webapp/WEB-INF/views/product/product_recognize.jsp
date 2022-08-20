@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="<c:url value='/css/product/product_sch_img_insert_style.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/product/product_recognize_style.css'/>">
 </head>
 <body>
 <div class="wrap">
@@ -43,56 +43,44 @@
                 </ul>
             </div>
             <div class="board">
-                <h1>관광지 사진 조회</h1>
-                <div class="prd_sch_img_input_form">
-                        <input type="hidden" name="frs_rgs_no" value="${sessionScope.usr_id}"/>
-                    상품 번호&nbsp;<br><input type="text" value="${list[0].prd_cd}" readonly="readonly" class="input_prd"/><br>
-                        <c:forEach var="list_img" items="${list}" varStatus="i">
-                            <div class="preview_img">
-                                <input type="hidden" name="sch_img_no" value="${list_img.sch_img_no}"/>
-                                일정 번호&nbsp;<br><input type="text" value="${list_img.sch_no}" readonly="readonly" class="input_prd"/><br>
-                                <img src="<c:url value='${list_img.prf_img_pth}'/>" id="product_img${i.count}" width="500px" height="300px"/><br>
-                            </div>
-                        </c:forEach>
+                <div class="board_title">
+                    <span>상품코드</span> <span>테마코드</span> <span>상품이름</span> <span>시작가격</span> <span>활성화상태</span>
+                </div>
+                <c:forEach var="prd_list" items="${prd_list}">
+                    <div class="board_content">
+                        <div class="board_content_detail">
+                            <div><span>${prd_list.prd_cd}</span></div> <div><span>${prd_list.cmn_cd_thm}</span></div>
+                            <div><a href="<c:url value='/product/recognize/read?prd_cd=${prd_list.prd_cd}'/>"><span>${prd_list.prd_nm}</span></a></div>
+                            <div><span><fmt:formatNumber value="${prd_list.prd_str_prc}" pattern="#,##0"/></span></div>
+                            <div><span style="color:${prd_list.act_yn == true ? 'blue' : 'red'}">${prd_list.act_yn == true ? '활성화' : '비활성화'}</span></div>
+                        </div>
+                    </div>
+                </c:forEach>
+                <div class="search_option_form">
+                    <form action="<c:url value='/product/recognize'/>">
+                        <select name="search_option" id="search_option">
+                            <option value="" selected>검색옵션</option>
+                            <option value="prd_cd">상품코드</option>
+                            <option value="prd_nm" >상품이름</option>
+                        </select>
+                        <input type="text" name="search_keyword" placeholder="검색어" id="search_keyword">
+                        <input type="submit" id="search_btn" value="검색">
                     </form>
-                    <button id="delete_btn" class="button_click">일괄삭제</button>
+                </div>
+                <div class="paging_list">
+                    <c:if test="${paging.preView eq 'true'}">
+                        <a href="<c:url value="/product/recognize?page=${paging.beginPage-1}&search_keyword=${paging.search_keyword}&search_option=${paging.search_option}"/>"><span>&lt;</span></a>
+                    </c:if>
+                    <c:forEach var="i" begin="${paging.beginPage}" end="${paging.endPage}">
+                        <a href="<c:url value='/product/recognize?page=${i}&search_keyword=${paging.search_keyword}&search_option=${paging.search_option}'/>"><span>${i}</span></a>
+                    </c:forEach>
+                    <c:if test="${paging.nextView eq 'true'}">
+                        <a href="<c:url value="/product/recognize?page=${paging.endPage+1}&search_keyword=${paging.search_keyword}&search_option=${paging.search_option}"/>"><span>&gt;</span></a>
+                    </c:if>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<script>
-    const img_pth_arr = [];
-    <c:forEach var="list_img" items="${list}" varStatus="i">
-        img_pth_arr.push("${list_img.prf_img_pth}");
-    </c:forEach>
-
-    $(document).ready(function (){
-
-
-
-        $('#delete_btn').on("click",function (){
-            $.ajax({
-                url : "<c:url value='/product/schedule/image/delete'/>",
-                type : "POST",
-                traditional: true,
-                data : {img_pth: img_pth_arr, prd_cd:"${list[0].prd_cd}"},
-                success : function(data) {
-                    if(data=="success"){
-                        alert("삭제가 성공했습니다.");
-                        window.location.href = "<c:url value='/product/management/schedule/image'/>"
-                    }else{
-                        alert("삭제가 실패했습니다.");
-                        window.location.href = "<c:url value="/product/schedule/image/read?prd_cd=${list[0].prd_cd}"/>"
-                    }
-                }
-            });
-        });
-    });
-
-
-
-</script>
 </body>
 </html>
