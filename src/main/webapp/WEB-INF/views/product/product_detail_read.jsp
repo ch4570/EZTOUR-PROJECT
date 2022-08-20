@@ -27,13 +27,14 @@
                     <a href="<c:url value='/product/management'/>"><li class="menu_list">상품 관리</li></a>
                     <a href="<c:url value='/product/management/detail'/>"><li class="menu_list">상품 상세 관리</li></a>
                     <a href="<c:url value='/product/management/image'/>"><li class="menu_list">상품 이미지 관리</li></a>
-                    <li class="menu_list">상품 일정 관리</li>
-                    <li class="menu_list">상품 가격 관리</li>
-                    <li class="menu_list">상품 일정 사진 관리</li>
+                    <a href="<c:url value='/product/management/schedule'/>"><li class="menu_list">상품 일정 관리</li></a>
+                    <a href="<c:url value='/product/management/price'/>"><li class="menu_list">상품 가격 관리</li></a>
+                    <a href="<c:url value='/product/management/schedule/image'/>"><li class="menu_list">상품 일정 사진 관리</li></a>
                 </ul>
                 <ul>
                     <li class="prd_tlt">상품 승인 관리</li>
-                    <li class="menu_list">상품 승인</li>
+                    <a href="<c:url value='/product/recognize'/>"><li class="menu_list">상품 승인</li></a>
+                    <a href="<c:url value='/reserv/admin'/>"><li class="menu_list">예약 승인</li></a>
                 </ul>
                 <ul>
                     <li class="prd_tlt">고객 관리</li>
@@ -51,8 +52,10 @@
                         항공사명&nbsp;<br><input type="text" name="arl_nm" placeholder="항공사명" class="input_prd" value="${prd_dtl.arl_nm}" readonly="readonly"/><br>
                         최소출발인원&nbsp;<br><input type="text" name="min_stt_cnt" placeholder="최소출발인원" class="input_prd" value="${prd_dtl.min_stt_cnt}" readonly="readonly"/><br>
                         최대출발인원&nbsp;<br><input type="text" name="max_stt_cnt" placeholder="최대출발인원" class="input_prd" value="${prd_dtl.max_stt_cnt}" readonly="readonly"/><br>
-                        <fmt:parseDate var="dpr_date" value="${prd_dtl.dpr_date}" pattern="yyyy-MM-dd"/>
-                        출발일&nbsp;<br><input type="date" name="dpr_date" placeholder="출발일" class="input_prd" value="<fmt:formatDate value="${dpr_date}" pattern="yyyy-MM-dd"/>" readonly="readonly"/><br>
+                        <fmt:parseDate var="dpr_date" value="${prd_dtl.dpr_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                        <fmt:parseDate var="fin_date" value="${prd_dtl.fin_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                        출발일&nbsp;<br><input type="datetime-local" name="dpr_date" placeholder="출발일" class="input_prd" value="<fmt:formatDate value="${dpr_date}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/><br>
+                        도착일&nbsp;<br><input type="datetime-local" name="fin_date" placeholder="도착일" class="input_prd" value="<fmt:formatDate value="${fin_date}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/><br>
                                 <button type="button" id="modify_btn" class="btn">수정</button><br>
                                 <button type="button" id="delete_btn" class="btn">삭제</button>
                 </div>

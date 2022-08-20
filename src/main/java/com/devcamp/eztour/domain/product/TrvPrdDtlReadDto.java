@@ -30,6 +30,7 @@ public class TrvPrdDtlReadDto {
     private int		min_stt_cnt;
     private int		max_stt_cnt;
     private String	dpr_date;
+    private String  fin_date;
     private String	frs_reg_date;
     private String	frs_rgs_no;
     private String  fnl_mod_date;
@@ -42,6 +43,7 @@ public class TrvPrdDtlReadDto {
     private Date dpr_str_date;
     private Date dpr_fin_date;
 
+
     public TrvPrdDtlReadDto(String prd_dtl_cd, String prd_cd, String arl_nm, int prd_str_prc, String dpr_date, String prd_nm) {
         this.prd_dtl_cd = prd_dtl_cd;
         this.prd_cd = prd_cd;
@@ -51,7 +53,8 @@ public class TrvPrdDtlReadDto {
         this.prd_nm = prd_nm;
     }
 
-    public TrvPrdDtlReadDto(String prd_dtl_cd, String prd_cd, int prd_str_prc, String arl_nm, int min_stt_cnt, int max_stt_cnt, String dpr_date, String prd_nm) {
+    public TrvPrdDtlReadDto(String prd_dtl_cd, String prd_cd, int prd_str_prc, String arl_nm, int min_stt_cnt, int max_stt_cnt,
+                            String dpr_date, String prd_nm, String fin_date) {
         this.prd_dtl_cd = prd_dtl_cd;
         this.prd_cd = prd_cd;
         this.prd_str_prc = prd_str_prc;
@@ -60,13 +63,14 @@ public class TrvPrdDtlReadDto {
         this.max_stt_cnt = max_stt_cnt;
         this.dpr_date = dpr_date;
         this.prd_nm = prd_nm;
+        this.fin_date = fin_date;
     }
 
     public TrvPrdDtlReadDto(String prd_cd, String dstn_cd, String cmn_cd_thm, String prd_nm, String prd_dtl_desc, String trv_per,
                             Integer prd_str_prc, Date dpr_str_date, Date dpr_fin_date,
                             boolean evnt_yn, boolean fin_yn, boolean act_yn, boolean dc_yn,
                             Integer pc_prc, Integer vcnt, boolean lk_yn, String img_pth,
-                            boolean mn_img_yn, String prd_dtl_cd, String arl_nm, boolean dpr_yn, boolean rsvt_yn) {
+                            boolean mn_img_yn, String prd_dtl_cd, String arl_nm, boolean dpr_yn, boolean rsvt_yn,String fin_date) {
         this.prd_cd = prd_cd;
         this.dstn_cd = dstn_cd;
         this.cmn_cd_thm = cmn_cd_thm;
@@ -89,6 +93,7 @@ public class TrvPrdDtlReadDto {
         this.img_pth = img_pth;
         this.dpr_str_date = dpr_str_date;
         this.dpr_fin_date = dpr_fin_date;
+        this.fin_date = fin_date;
     }
 
 

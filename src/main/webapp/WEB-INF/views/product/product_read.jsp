@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -26,13 +27,14 @@
                     <a href="<c:url value='/product/management'/>"><li class="menu_list">상품 관리</li></a>
                     <a href="<c:url value='/product/management/detail'/>"><li class="menu_list">상품 상세 관리</li></a>
                     <a href="<c:url value='/product/management/image'/>"><li class="menu_list">상품 이미지 관리</li></a>
-                    <li class="menu_list">상품 일정 관리</li>
-                    <li class="menu_list">상품 가격 관리</li>
-                    <li class="menu_list">상품 일정 사진 관리</li>
+                    <a href="<c:url value='/product/management/schedule'/>"><li class="menu_list">상품 일정 관리</li></a>
+                    <a href="<c:url value='/product/management/price'/>"><li class="menu_list">상품 가격 관리</li></a>
+                    <a href="<c:url value='/product/management/schedule/image'/>"><li class="menu_list">상품 일정 사진 관리</li></a>
                 </ul>
                 <ul>
                     <li class="prd_tlt">상품 승인 관리</li>
-                    <li class="menu_list">상품 승인</li>
+                    <a href="<c:url value='/product/recognize'/>"><li class="menu_list">상품 승인</li></a>
+                    <a href="<c:url value='/reserv/admin'/>"><li class="menu_list">예약 승인</li></a>
                 </ul>
                 <ul>
                     <li class="prd_tlt">고객 관리</li>
@@ -50,8 +52,10 @@
                             상품 상세 설명&nbsp;<br><textarea cols="24" rows="10" name="prd_dtl_desc" placeholder="상품 상세 설명" id="desc_area" readonly="readonly">${trvPrdDto.prd_dtl_desc}</textarea><br>
                             여행기간 &nbsp;<br><input type="text" class="input_prd" name="trv_per" placeholder="여행기간" value="${trvPrdDto.trv_per}" readonly="readonly"><br>
                             상품시작가격 &nbsp;<br><input type="text" class="input_prd" name="prd_str_prc" placeholder="상품시작가격" value="${trvPrdDto.prd_str_prc}" readonly="readonly"><br>
-                            출발 시작일 &nbsp;<br><input type="text" class="input_prd" name="dpr_str_date" placeholder="출발 시작일" value="${trvPrdDto.dpr_str_date}" readonly="readonly"><br>
-                            출발 마감일 &nbsp;<br><input type="text" class="input_prd" name="dpr_fin_date" placeholder="출발 마감" value="${trvPrdDto.dpr_fin_date}" readonly="readonly"><br>
+                            <fmt:parseDate var="dpr_str_date" value="${trvPrdDto.dpr_str_date}" pattern="yyyy-MM-dd"/>
+                            <fmt:parseDate var="dpr_fin_date" value="${trvPrdDto.dpr_fin_date}" pattern="yyyy-MM-dd"/>
+                            출발 시작일 &nbsp;<br><input type="date" class="input_prd" name="dpr_str_date" placeholder="출발 시작일" value="<fmt:formatDate value='${dpr_str_date}' pattern="yyyy-MM-dd"/>" readonly="readonly"><br>
+                            출발 마감일 &nbsp;<br><input type="date" class="input_prd" name="dpr_fin_date" placeholder="출발 마감일" value="<fmt:formatDate value='${dpr_fin_date}' pattern="yyyy-MM-dd"/>" readonly="readonly"><br>
                             <button class="btn" id="modify_btn">수정</button><br>
                             <button class="btn" id="delete_btn">삭제</button>
                         </div>
@@ -60,35 +64,35 @@
             </div>
         </div>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script>
-        $(document).ready(function (){
-           $('#modify_btn').on("click",function (){
-              window.location.href = "<c:url value='/product/modify?prd_cd=${trvPrdDto.prd_cd}'/>";
-           });
-
-           $('#delete_btn').on("click",function (){
-               var result = confirm("정말로 삭제 하시겠습니까?");
-               if(result){
-                   $.ajax({
-                       type: "POST",
-                       url : "<c:url value='/product/delete'/>",
-                       data: {prd_cd:"${trvPrdDto.prd_cd}"},
-                       success : function (data){
-                           if(data=="success"){
-                               alert('삭제가 성공했습니다.');
-                               window.location.href = "<c:url value='/product/management'/>"
-                           }else{
-                               alert('삭제가 실패했습니다.');
-                               window.location.href = "<c:url value="/product/read?prd_cd=${trvPrdDto.prd_cd}"/>"
-                           }
-                       }
-                   });
-               }else{
-                   return;
-               }
-
-           });
+<script>
+    $(document).ready(function (){
+        $('#modify_btn').on("click",function (){
+            window.location.href = "<c:url value='/product/modify?prd_cd=${trvPrdDto.prd_cd}'/>";
         });
-    </script>
+
+        $('#delete_btn').on("click",function (){
+            var result = confirm("정말로 삭제 하시겠습니까?");
+            if(result){
+                $.ajax({
+                    type: "POST",
+                    url : "<c:url value='/product/delete'/>",
+                    data: {prd_cd:"${trvPrdDto.prd_cd}"},
+                    success : function (data){
+                        if(data=="success"){
+                            alert('삭제가 성공했습니다.');
+                            window.location.href = "<c:url value='/product/management'/>"
+                        }else{
+                            alert('삭제가 실패했습니다.');
+                            window.location.href = "<c:url value="/product/read?prd_cd=${trvPrdDto.prd_cd}"/>"
+                        }
+                    }
+                });
+            }else{
+                return;
+            }
+
+        });
+    });
+</script>
     </body>
 </html>

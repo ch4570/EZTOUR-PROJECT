@@ -1,22 +1,27 @@
 package com.devcamp.eztour.controller.user;
 
 import com.devcamp.eztour.domain.user.UserDto;
+import com.devcamp.eztour.service.user.MailSendService;
 import com.devcamp.eztour.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class UserRestController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    private MailSendService mailService;
 
     // 아이디 중복여부 가져오는 메서드
     @GetMapping("/checkId/{usr_id}")
@@ -35,6 +40,42 @@ public class UserRestController {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping("/findId/{usr_nm}/{phn}")
+    public ResponseEntity<String> findId(@PathVariable String usr_nm, @PathVariable String phn){
+        try {
+            String usr_id = userService.findId(usr_nm, phn);
+            if(usr_id==null){
+                throw new Exception();
+            }
+            return new ResponseEntity<>(usr_id, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/findPwd/{usr_id}/{usr_nm}/{email}")
+    public ResponseEntity<String> findPwd(@PathVariable String usr_id, @PathVariable String usr_nm, @PathVariable String email){
+        try {
+            String pwd = userService.findPwd(usr_id, usr_nm, email);
+            if(pwd==null){
+                throw new Exception();
+            }
+            return new ResponseEntity<>(pwd, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/mailCheck")
+    public String mailCheck(String email) {
+        System.out.println("이메일 인증 요청이 들어옴!");
+        System.out.println("이메일 인증 이메일 : " + email);
+
+        return mailService.joinEmail(email);
     }
 
 }

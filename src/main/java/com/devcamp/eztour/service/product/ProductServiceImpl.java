@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public int insertProductDetail(TrvPrdDtlReadDto trv_prdDtlDto) throws Exception {
+    public int insertProductDetail(TrvPrdDtlWriteDto trv_prdDtlDto) throws Exception {
         return productDao.insertProductDetail(trv_prdDtlDto);
     }
 
@@ -141,5 +142,125 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public int searchSelectProductImageCnt(PageHandlerProduct pageHandlerProduct) throws Exception{
         return productDao.searchSelectProductImageCnt(pageHandlerProduct);
+    }
+
+    @Override
+    public int deleteProductImage(int prd_img_no) throws Exception {
+        return productDao.deleteProductImage(prd_img_no);
+    }
+
+    @Override
+    public int updateProductImage(PrdImgDto prdImgDto) throws Exception {
+        return productDao.updateProductImage(prdImgDto);
+    }
+
+    @Override
+    public List<TrvSchDto> getScheduleList(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.selectProductSchedule(pageHandlerProduct);
+    }
+
+    @Override
+    public int getScheduleCnt() throws Exception {
+        return productDao.selectProductScheduleCnt();
+    }
+
+    @Override
+    public TrvSchDto getSchedule(int sch_no) throws Exception {
+        return productDao.selectOneProductSchedule(sch_no);
+    }
+
+    @Override
+    public List<TrvSchDto> getSearchSchedule(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.searchSelectSchedule(pageHandlerProduct);
+    }
+
+    @Override
+    public int getSearchScheduleCnt(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.searchSelectScheduleCnt(pageHandlerProduct);
+    }
+
+    @Override
+    public int removeSchedule(int sch_no) throws Exception {
+        return productDao.deleteSchedule(sch_no);
+    }
+
+    @Override
+    public int updateSchedule(TrvSchDto trvSchDto) throws Exception {
+        return productDao.updateSchedule(trvSchDto);
+    }
+
+    @Override
+    public List<PrdPcrDto> getProductPrice(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.selectProductPrice(pageHandlerProduct);
+    }
+
+    @Override
+    public int getProductPriceCnt() throws Exception {
+        return productDao.selectProductPriceCnt();
+    }
+
+    @Override
+    public List<TrvPrdPrcDto> getSearchProductPrice(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.searchProductPrice(pageHandlerProduct);
+    }
+
+    @Override
+    public int getSearchProductPriceCnt(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.searchProductPriceCnt(pageHandlerProduct);
+    }
+
+    @Override
+    public TrvPrdPrcDto getOneSearchProductPrice(int prd_prc_no) throws Exception {
+        return productDao.selectOneProductPrice(prd_prc_no);
+    }
+
+    @Override
+    public int removeProductPrice(int prd_prc_no) throws Exception {
+        return productDao.deleteProductPrice(prd_prc_no);
+    }
+
+    @Override
+    public int modifyProductPrice(TrvPrdPrcDto trvPrdPrcDto) throws Exception {
+        return productDao.updateProductPrice(trvPrdPrcDto);
+    }
+
+    @Override
+    public List<TrvSchImgDto> getAllScheduleImage(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.selectAllScheduleImage(pageHandlerProduct);
+    }
+
+    @Override
+    public int getAllScheduleImageCnt() throws Exception {
+        return productDao.selectAllScheduleImageCnt();
+    }
+
+    @Override
+    public List<TrvSchImgDto> getScheduleImage(String prd_cd) throws Exception {
+        return productDao.selectScheduleImage(prd_cd);
+    }
+
+    @Override
+    public int removeScheduleImage(String prd_cd) throws Exception {
+        return productDao.deleteScheduleImage(prd_cd);
+    }
+
+    @Override
+    public List<TrvSchImgDto> getSearchScheduleImage(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.searchSelectScheduleImage(pageHandlerProduct);
+    }
+
+    @Override
+    public int getSearchScheduleImageCnt(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.searchSelectScheduleImageCnt(pageHandlerProduct);
+    }
+
+    @Override
+    public TrvPrdReadDto getProductRecognize(String prd_cd) throws Exception {
+        return productDao.selectRecognizeProduct(prd_cd);
+    }
+
+    @Override
+    public int modifyActivateStatus(Map map) throws Exception {
+        return productDao.updateActivateStatus(map);
     }
 }
