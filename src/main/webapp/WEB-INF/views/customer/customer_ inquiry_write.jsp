@@ -1,20 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:forEach var="propDto" items="${list}"></c:forEach>
-<html lang="en">
+<%--DTO값 수정--%>
+<%--<c:forEach var="CustomerInquryDto" items="${list}"></c:forEach>--%>
+<%--<html lang="en">--%>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<%--    <meta charset="UTF-8">--%>
+<%--    <meta http-equiv="X-UA-Compatible" content="IE=edge">--%>
+<%--    <meta name="viewport" content="width=device-width, initial-scale=1.0">--%>
+<%--    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>--%>
     <title>Document</title>
 </head>
 <div class="wrap">
     <div class="content">
         <h1>문의하기</h1>
         <p>문의 유형</p>
-        <form action="" method="post">
+        <form action="" id="form">
             <select>
                 <option value="" disabled selected>선택</option>
                 <option>예약문의</option>
@@ -44,7 +45,7 @@
             </select>
 
             <p>이메일</p>
-            <input type="text" name="email" value="${CustomerInquiryDto.email}" placeholder="내용을 입력해주세요."> &nbsp;@&nbsp;
+            <input type="text" name="email" value="${CustomerInquiryDto.email}" placeholder="내용을 입력해주세요."><span>@</span>
             <select>
                 <option disabled selected>직접입력</option>
                 <option>naver.com</option>
@@ -88,15 +89,20 @@
         <button type="button" id="writeBtn" onclick="location.href='<c:url value="#"/>'">등록</button>
     </div>
 </div>
-<script>
-    $(document).ready(function (){
-        $('#writeBtn').on("click", function () {
-            //이동주소입력
-            form.attr("action", "<c:url value='#'/>");
-            form.attr("method", "post");
-            form.submit();
-        });
-    });
-</script>
+<%--<script>--%>
+<%--&lt;%&ndash;    입력 값 customer_inquiry_write로 보내기&ndash;%&gt;--%>
+<%--    $(document).ready(function (){--%>
+<%--        $('#writeBtn').on("click", function(){--%>
+<%--            let form = ${'#form'};--%>
+<%--            form.attr("action", "<c:url value='/customer/inquiryWrite'/>");--%>
+<%--            form.attr("method", "post");--%>
+<%--            form.submit();--%>
+<%--        });--%>
+<%--    });--%>
+<%--</script>--%>
+<%--<script>--%>
+<%--    let msg ="${msg}";--%>
+<%--    if(msg=="WRT_ERR") alert("게시물 등록에 실패했습니다. 다시 시도해주세요.");--%>
+<%--</script>--%>
 </body>
 </html>

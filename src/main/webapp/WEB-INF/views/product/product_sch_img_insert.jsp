@@ -26,10 +26,10 @@
                     <li class="prd_tlt">상품 등록 현황 관리</li>
                     <a href="<c:url value='/product/management'/>"><li class="menu_list">상품 관리</li></a>
                     <a href="<c:url value='/product/management/detail'/>"><li class="menu_list">상품 상세 관리</li></a>
-                    <li class="menu_list">상품 이미지 관리</li>
-                    <li class="menu_list">상품 일정 관리</li>
-                    <li class="menu_list">상품 가격 관리</li>
-                    <li class="menu_list">상품 일정 사진 관리</li>
+                    <a href="<c:url value='/product/management/image'/>"><li class="menu_list">상품 이미지 관리</li></a>
+                    <a href="<c:url value='/product/management/schedule'/>"><li class="menu_list">상품 일정 관리</li></a>
+                    <a href="<c:url value='/product/management/price'/>"><li class="menu_list">상품 가격 관리</li></a>
+                    <a href="<c:url value='/product/management/schedule/image'/>"><li class="menu_list">상품 일정 사진 관리</li></a>
                 </ul>
                 <ul>
                     <li class="prd_tlt">상품 승인 관리</li>
@@ -45,6 +45,7 @@
                 <h1>관광지 사진 등록</h1>
                 <div class="prd_sch_img_input_form">
                     <form action="<c:url value='/product/schedule/image/insert'/>" method="post" enctype="multipart/form-data" id="image_upload">
+                        <input type="hidden" name="frs_rgs_no" value="${sessionScope.usr_id}"/>
                         일정 번호 입력&nbsp;<br><input type="text" name="sch_no" placeholder="일정 번호 입력" class="input_prd"><br>
                         상품 번호 입력&nbsp;<br><input type="text" name="prd_cd" placeholder="상품 번호 입력" class="input_prd"><br>
                         <input type="file" name="prd_img" id="prd_img1" class="input_prd"><br>

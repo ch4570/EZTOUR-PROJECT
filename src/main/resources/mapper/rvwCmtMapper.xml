@@ -25,10 +25,10 @@
     </insert>
 
     <select id="selectAll" parameterType="int" resultType="RvwCmtDto">
-        SELECT cmt_no, rvw_no, pcmt_no, cmt_cont, usr_nm, reg_date, mdf_date
+        SELECT cmt_no, rvw_no, ifnull(pcmt_no, cmt_no) as pcmt_no, cmt_cont, usr_nm, reg_date, mdf_date
         FROM rvw_cmt
         WHERE rvw_no = #{rvw_no}
-        ORDER BY reg_date ASC, cmt_no ASC
+        ORDER BY pcmt_no ASC, cmt_no asc;
     </select>
 
     <select id="select" parameterType="int" resultType="RvwCmtDto">

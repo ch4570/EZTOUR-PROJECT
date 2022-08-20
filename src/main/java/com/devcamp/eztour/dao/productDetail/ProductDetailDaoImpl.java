@@ -1,5 +1,6 @@
 package com.devcamp.eztour.dao.productDetail;
 
+import com.devcamp.eztour.domain.product.TrvPrdDtlReadDto;
 import com.devcamp.eztour.domain.productDetail.TrvPrdDetailDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
@@ -16,7 +17,7 @@ public class ProductDetailDaoImpl implements ProductDetailDao {
     String namespace = "com.devcamp.eztour.dao.productDetailMapper.";
 
     @Override
-    public List<TrvPrdDetailDto> selectAllProduct() throws Exception {
+    public List<TrvPrdDtlReadDto> selectAllProduct() throws Exception {
         return session.selectList(namespace + "selectAllProduct");
     }
 

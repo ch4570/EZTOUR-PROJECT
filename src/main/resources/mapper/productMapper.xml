@@ -6,9 +6,9 @@
 
     <insert id="insertProduct" parameterType="TrvPrdWriteDto">
         INSERT INTO trv_prd(prd_cd,dstn_cd,cmn_cd_thm,prd_nm,prd_dtl_desc,
-                            trv_per,prd_str_prc,dpr_str_date,dpr_fin_date)
+                            trv_per,prd_str_prc,dpr_str_date,dpr_fin_date,frs_rgs_no,frs_reg_date)
         VALUES(#{prd_cd},#{dstn_cd},#{cmn_cd_thm},#{prd_nm},#{prd_dtl_desc},
-               #{trv_per},#{prd_str_prc},#{dpr_str_date},#{dpr_fin_date});
+               #{trv_per},#{prd_str_prc},#{dpr_str_date},#{dpr_fin_date},#{frs_rgs_no},now());
     </insert>
 
     <select id="selectProduct" parameterType="String" resultType="TrvPrdReadDto">
@@ -20,28 +20,31 @@
 
     <insert id="insertProductDetail" parameterType="TrvPrdDtlWriteDto">
         INSERT INTO trv_prd_dtl(prd_dtl_cd,prd_cd,prd_str_prc,arl_nm,
-                                min_stt_cnt,max_stt_cnt,dpr_date,prd_nm)
-        VALUES(#{prd_dtl_cd},#{prd_cd},#{prd_str_prc},#{arl_nm},#{min_stt_cnt},#{max_stt_cnt},#{dpr_date},#{prd_nm})
+                                min_stt_cnt,max_stt_cnt,dpr_date,prd_nm,fin_date,frs_rgs_no,frs_reg_date)
+        VALUES(#{prd_dtl_cd},#{prd_cd},#{prd_str_prc},#{arl_nm},#{min_stt_cnt},#{max_stt_cnt},
+               #{dpr_date},#{prd_nm},#{fin_date},#{frs_rgs_no},now())
     </insert>
 
     <insert id="insertProductPrice" parameterType="TrvPrdPrcDto">
-        INSERT INTO prd_prc(prd_dtl_cd,prd_cd,adt_prc,chd_prc,bb_prc)
-        VALUES(#{prd_dtl_cd},#{prd_cd},#{adt_prc},#{chd_prc},#{bb_prc});
+        INSERT INTO prd_prc(prd_dtl_cd,prd_cd,adt_prc,chd_prc,bb_prc,frs_rgs_no,frs_reg_date)
+        VALUES(#{prd_dtl_cd},#{prd_cd},#{adt_prc},#{chd_prc},#{bb_prc},#{frs_rgs_no},now());
     </insert>
 
     <insert id="insertProductSchedule" parameterType="TrvSchDto">
         INSERT INTO trv_sch(prd_cd,trv_date,sch_ord,st_nm,sit_sh_desc,
-                            sit_lo_desc,ht_inf,brk,luh,din,dstnc_tm)
+                            sit_lo_desc,ht_inf,brk,luh,din,dstnc_tm,frs_rgs_no,frs_reg_date)
         VALUES(#{prd_cd},#{trv_date},#{sch_ord},#{st_nm},#{sit_sh_desc},
-               #{sit_lo_desc},#{ht_inf},#{brk},#{luh},#{din},#{dstnc_tm});
+               #{sit_lo_desc},#{ht_inf},#{brk},#{luh},#{din},#{dstnc_tm},#{frs_rgs_no},now());
     </insert>
 
     <insert id="insertProductImage" parameterType="PrdImgDto">
-        INSERT INTO prd_img(prd_cd,img_pth) VALUES(#{prd_cd},#{img_pth})
+        INSERT INTO prd_img(prd_cd,img_pth,frs_rgs_no,frs_reg_date)
+        VALUES(#{prd_cd},#{img_pth},#{frs_rgs_no},now())
     </insert>
 
     <insert id="insertScheduleImage" parameterType="TrvSchImgDto">
-        INSERT INTO trv_sch_img(sch_no,prd_cd,prf_img_pth) VALUES(#{sch_no},#{prd_cd},#{prf_img_pth})
+        INSERT INTO trv_sch_img(sch_no,prd_cd,prf_img_pth,frs_rgs_no,frs_reg_date)
+        VALUES(#{sch_no},#{prd_cd},#{prf_img_pth},#{frs_rgs_no},now())
     </insert>
 
     <select id="selectProductAdmin" parameterType="PageHandlerProduct" resultType="TrvPrdReadDto">
@@ -154,6 +157,233 @@
                min_stt_cnt,max_stt_cnt,dpr_date,prd_nm
         FROM trv_prd_dtl
         WHERE prd_dtl_cd = #{prd_dtl_cd}
+    </select>
+
+    <update id="updateProductDetail" parameterType="TrvPrdDtlWriteDto">
+        UPDATE trv_prd_dtl set prd_dtl_cd=#{prd_dtl_cd},prd_cd=#{prd_cd},prd_str_prc=#{prd_str_prc},arl_nm=#{arl_nm},
+                               min_stt_cnt=#{min_stt_cnt},max_stt_cnt=#{max_stt_cnt},dpr_date=#{dpr_date},prd_nm=#{prd_nm}
+        WHERE prd_dtl_cd=#{prd_dtl_cd}
+    </update>
+
+    <delete id="deleteProductDetail" parameterType="String">
+        DELETE FROM trv_prd_dtl WHERE prd_dtl_cd=#{prd_dtl_cd}
+    </delete>
+
+    <select id="selectProductImage" parameterType="PageHandlerProduct" resultType="PrdImgDto">
+        SELECT p.prd_cd,p.prd_nm,p.prd_str_prc,p.frs_reg_date,i.img_pth,i.prd_img_no
+        FROM trv_prd p
+                 JOIN prd_img i
+                      ON p.prd_cd = i.prd_cd
+        ORDER BY frs_reg_date DESC
+        LIMIT #{pageSize} OFFSET #{startList}
+    </select>
+
+    <select id="selectProductImageCnt" resultType="int">
+        SELECT COUNT(*)
+        FROM trv_prd p
+                 JOIN prd_img i
+                      ON p.prd_cd = i.prd_cd
+    </select>
+
+    <select id="searchSelectProductImage" parameterType="PageHandlerProduct" resultType="PrdImgDto">
+        SELECT p.prd_cd,p.prd_nm,p.prd_str_prc,p.frs_reg_date,i.img_pth,i.prd_img_no
+        FROM trv_prd p
+        JOIN prd_img i
+        ON p.prd_cd = i.prd_cd
+        WHERE TRUE
+        <include refid="searchCondition"/>
+        ORDER BY frs_reg_date DESC
+        LIMIT #{pageSize} OFFSET #{startList};
+    </select>
+
+    <select id="searchSelectProductImageCnt" parameterType="PageHandlerProduct" resultType="int">
+        SELECT COUNT(*)
+        FROM trv_prd p
+        JOIN prd_img i
+        ON p.prd_cd = i.prd_cd
+        WHERE TRUE
+        <include refid="searchCondition"/>
+    </select>
+
+    <delete id="deleteProductImage" parameterType="int">
+        DELETE FROM prd_img WHERE prd_img_no=#{prd_img_no}
+    </delete>
+
+    <update id="updateProductImage" parameterType="PrdImgDto">
+        UPDATE prd_img SET img_pth=#{img_pth} WHERE prd_cd=#{prd_cd} and prd_img_no=#{prd_img_no}
+    </update>
+
+    <select id="selectProductSchedule" resultType="TrvSchDto" parameterType="PageHandlerProduct">
+        SELECT sch_no,prd_cd,trv_date,sch_ord,st_nm,sit_sh_desc,
+               sit_lo_desc,ht_inf,brk,luh,din,dstnc_tm,frs_reg_date
+        FROM trv_sch
+        ORDER BY frs_reg_date DESC
+        LIMIT #{pageSize} OFFSET #{startList}
+    </select>
+
+    <select id="selectProductScheduleCnt" resultType="int">
+        SELECT COUNT(*)
+        FROM trv_sch
+    </select>
+
+    <select id="selectOneProductSchedule" parameterType="int" resultType="TrvSchDto">
+        SELECT sch_no,prd_cd,trv_date,sch_ord,st_nm,sit_sh_desc,
+               sit_lo_desc,ht_inf,brk,luh,din,dstnc_tm,frs_reg_date
+        FROM trv_sch
+        WHERE sch_no = #{sch_no}
+    </select>
+
+    <sql id="searchConditionSchedule">
+        <choose>
+            <when test='search_option=="prd_cd"'>
+                AND prd_cd LIKE concat('%', #{search_keyword}, '%')
+            </when>
+            <when test='search_option=="sit_sh_desc"'>
+                AND sit_sh_desc LIKE concat('%', #{search_keyword}, '%')
+            </when>
+            <otherwise>
+                AND (prd_cd   LIKE concat('%', #{search_keyword}, '%')
+                OR   sit_sh_desc LIKE concat('%', #{search_keyword}, '%'))
+            </otherwise>
+        </choose>
+    </sql>
+
+    <select id="searchSelectSchedule" parameterType="PageHandlerProduct" resultType="TrvSchDto">
+        SELECT sch_no,prd_cd,trv_date,sch_ord,st_nm,sit_sh_desc,
+               sit_lo_desc,ht_inf,brk,luh,din,dstnc_tm,frs_reg_date
+        FROM trv_sch
+        WHERE TRUE
+        <include refid="searchConditionSchedule"/>
+        ORDER BY frs_reg_date DESC
+        LIMIT #{pageSize} OFFSET #{startList}
+    </select>
+
+    <select id="searchSelectScheduleCnt" parameterType="PageHandlerProduct" resultType="int">
+        SELECT COUNT(*)
+        FROM trv_sch
+        WHERE TRUE
+        <include refid="searchConditionSchedule"/>
+    </select>
+
+    <delete id="deleteSchedule" parameterType="int">
+        DELETE FROM trv_sch WHERE sch_no = #{sch_no}
+    </delete>
+
+    <update id="updateSchedule" parameterType="TrvSchDto">
+            UPDATE trv_sch
+                set prd_cd=#{prd_cd},trv_date=#{trv_date},sch_ord=#{sch_ord},st_nm=#{st_nm},sit_sh_desc=#{sit_sh_desc},
+                sit_lo_desc=#{sit_lo_desc},ht_inf=#{ht_inf},brk=#{brk},luh=#{luh},din=#{din},dstnc_tm=#{dstnc_tm}
+            WHERE sch_no = #{sch_no}
+    </update>
+
+    <select id="selectProductPrice" parameterType="PageHandlerProduct" resultType="TrvPrdPrcDto">
+        SELECT prd_prc_no,prd_cd,prd_dtl_cd,adt_prc,chd_prc,bb_prc,frs_reg_date
+        FROM prd_prc
+        ORDER BY adt_prc DESC
+        LIMIT #{pageSize} OFFSET #{startList}
+    </select>
+
+    <select id="selectProductPriceCnt" resultType="int">
+        SELECT COUNT(*)
+        FROM prd_prc
+    </select>
+
+    <sql id="searchConditionPrice">
+        <choose>
+            <when test='search_option=="prd_cd"'>
+                AND prd_cd LIKE concat('%', #{search_keyword}, '%')
+            </when>
+            <when test='search_option=="prd_dtl_cd"'>
+                AND prd_dtl_cd LIKE concat('%', #{search_keyword}, '%')
+            </when>
+            <otherwise>
+                AND (prd_cd   LIKE concat('%', #{search_keyword}, '%')
+                OR   prd_dtl_cd LIKE concat('%', #{search_keyword}, '%'))
+            </otherwise>
+        </choose>
+    </sql>
+    
+    <select id="searchProductPrice" resultType="TrvPrdPrcDto" parameterType="PageHandlerProduct">
+        SELECT prd_prc_no,prd_cd,prd_dtl_cd,adt_prc,chd_prc,bb_prc,frs_reg_date
+        FROM prd_prc
+        WHERE TRUE
+        <include refid="searchConditionPrice"/>
+        ORDER BY adt_prc DESC
+        LIMIT #{pageSize} OFFSET #{startList}
+    </select>
+
+    <select id="searchProductPriceCnt" resultType="int" parameterType="PageHandlerProduct">
+        SELECT COUNT(*)
+        FROM prd_prc
+        WHERE TRUE
+        <include refid="searchConditionPrice"/>
+    </select>
+
+    <select id="selectOneProductPrice" parameterType="int" resultType="TrvPrdPrcDto">
+        SELECT prd_prc_no,prd_cd,prd_dtl_cd,adt_prc,chd_prc,bb_prc,frs_reg_date
+        FROM prd_prc
+        WHERE prd_prc_no = #{prd_prc_no}
+    </select>
+
+    <delete id="deleteProductPrice" parameterType="int">
+        DELETE
+        FROM prd_prc
+        WHERE prd_prc_no = #{prd_prc_no}
+    </delete>
+
+    <update id="updateProductPrice" parameterType="TrvPrdPrcDto">
+        UPDATE prd_prc
+        SET adt_prc = #{adt_prc},chd_prc = #{chd_prc},bb_prc = #{bb_prc}
+        WHERE prd_prc_no = #{prd_prc_no}
+    </update>
+
+    <select id="selectAllScheduleImage" parameterType="PageHandlerProduct" resultType="TrvSchImgDto">
+        SELECT sch_img_no,sch_no,prd_cd,prf_img_pth,frs_reg_date,fnl_mod_date
+        FROM trv_sch_img
+        ORDER BY frs_reg_date DESC
+        LIMIT #{pageSize} OFFSET #{startList}
+    </select>
+
+    <select id="selectAllScheduleImageCnt" resultType="int">
+        SELECT COUNT(*)
+        FROM trv_sch_img
+    </select>
+
+    <select id="selectScheduleImage" parameterType="String" resultType="TrvSchImgDto">
+        SELECT sch_img_no,sch_no,prd_cd,prf_img_pth,frs_reg_date,fnl_mod_date
+        FROM trv_sch_img
+        WHERE prd_cd = #{prd_cd}
+        ORDER BY prf_img_pth
+    </select>
+
+    <delete id="deleteScheduleImage" parameterType="String">
+        DELETE
+        FROM trv_sch_img
+        WHERE prd_cd = #{prd_cd}
+    </delete>
+
+    <sql id="searchScheduleImage">
+        <choose>
+            <when test='search_option=="prd_cd"'>
+                AND prd_cd LIKE concat('%', #{search_keyword}, '%')
+            </when>
+        </choose>
+    </sql>
+
+    <select id="searchSelectScheduleImage" parameterType="PageHandlerProduct" resultType="TrvSchImgDto">
+        SELECT sch_img_no,sch_no,prd_cd,prf_img_pth,frs_reg_date,fnl_mod_date
+        FROM trv_sch_img
+        WHERE TRUE
+        <include refid="searchScheduleImage"/>
+        ORDER BY prf_img_pth
+        LIMIT #{pageSize} OFFSET #{startList}
+    </select>
+
+    <select id="searchSelectScheduleImageCnt" parameterType="PageHandlerProduct" resultType="int">
+        SELECT COUNT(*)
+        FROM trv_sch_img
+        WHERE TRUE
+        <include refid="searchScheduleImage"/>
     </select>
 
 </mapper>

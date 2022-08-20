@@ -59,16 +59,6 @@ public class RvwServiceImpl implements RvwService {
         return rvwDao.insert(rvwDto);
     }
 
-    @Transactional(rollbackFor = Exception.class)
-    public RvwDto selectUserEmail(String usr_id) throws Exception {
-        return rvwDao.selectUserEmail(usr_id);
-    }
-
-    @Override
-    public List<RvwDto> selectUsernmEmailPrdnm(String usr_id) throws Exception {
-        return rvwDao.selectUsernmEmailPrdnm(usr_id);
-    }
-
     @Override
     public List<RvwDto> getSearchResultPage(SearchCondition sc) throws Exception {
         return rvwDao.searchSelectPage(sc);
@@ -77,6 +67,16 @@ public class RvwServiceImpl implements RvwService {
     @Override
     public int getSearchResultCnt(SearchCondition sc) throws Exception {
         return rvwDao.searchResultCnt(sc);
+    }
+
+    @Override
+    public RvwDto selectUsernmEmail(String usr_id) throws Exception {
+        return rvwDao.selectUsernmEmail(usr_id);
+    }
+
+    @Override
+    public List<RvwDto> selectPrdnm(String usr_id) throws Exception {
+        return rvwDao.selectPrdnm(usr_id);
     }
 
 }

@@ -13,7 +13,9 @@
          brth,
          gndr,
          email,
-         phn)
+         phn,
+         naver_id,
+         kakao_id)
         VALUES
             (#{usr_id},
              #{pwd},
@@ -21,12 +23,27 @@
              #{brth},
              #{gndr},
              #{email},
-             #{phn})
+             #{phn},
+             <choose>
+                <when test="naver_id != null and (kakao_id == null or kakao_id =='')">
+                    #{naver_id},
+                    null)
+                </when>
+                 <when test="(naver_id == null or naver_id == '') and kakao_id != null">
+                     null,
+                     #{kakao_id})
+                 </when>
+                <otherwise>
+                    null,
+                    null)
+                </otherwise>
+             </choose>
     </insert>
 
     <insert id="insertUsrHis" parameterType="UserDto">
         INSERT INTO
             usr_hst
+
             (usr_id)
         VALUES
             (#{usr_id})
@@ -113,6 +130,87 @@
                 WHERE
                     usr_id = #{usr_id}
                )AS id_check
+    </select>
+
+    <select id="findId" parameterType="map" resultType="String">
+        SELECT
+            usr_id
+        FROM
+            usr
+        WHERE
+            usr_nm = #{usr_nm}
+            AND
+            phn = #{phn}
+    </select>
+
+    <select id="findPwd" parameterType="map" resultType="String">
+        SELECT
+            pwd
+        FROM
+            usr
+        WHERE
+            usr_id = #{usr_id}
+          AND
+            usr_nm = #{usr_nm}
+          AND
+            email = #{email}
+    </select>
+
+    <select id="naverConnectionCheck" parameterType="Map" resultType="Map">
+        SELECT
+            naver_id, usr_nm, phn
+        FROM
+            usr
+        WHERE
+            usr_nm = #{usr_nm}
+            AND
+            phn = #{phn}
+    </select>
+
+    <update id="setNaverConnection" parameterType="map" >
+        UPDATE
+            usr
+        SET
+            naver_id = ${naver_id}
+        WHERE
+            usr_nm = #{usr_nm}
+          AND
+            phn = #{phn}
+    </update>
+
+    <select id="userNaverLoginPro" parameterType="String" resultType="UserDto">
+        SELECT
+            usr_id,
+            usr_nm,
+            email,
+            phn,
+            rl
+        FROM
+            usr
+        WHERE
+            naver_id = #{naver_id}
+    </select>
+
+    <select id="kakaoConnectionCheck" parameterType="map" resultType="map">
+        SELECT
+            kakao_id, email
+        FROM
+            usr
+        WHERE
+            email = #{email}
+    </select>
+
+    <select id="userKakaoLoginPro" parameterType="String" resultType="UserDto">
+        SELECT
+            usr_id,
+            usr_nm,
+            email,
+            phn,
+            rl
+        FROM
+            usr
+        WHERE
+            kakao_id = #{kakao_id}
     </select>
 
 </mapper>
