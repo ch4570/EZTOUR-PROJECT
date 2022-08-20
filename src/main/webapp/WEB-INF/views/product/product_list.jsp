@@ -20,7 +20,7 @@
             <a href="#">낮은가격순</a>
             <a href="#">높은가격순</a>
         </div>
-            <c:forEach var="item" items="${list}">
+            <c:forEach var="item" items="${list}" varStatus="status">
                 <section class="content--wrap">
                     <div class="content--list">
                         <div class="content--list_img">
@@ -51,7 +51,7 @@
                                     <span>원~</span>
                                 </div>
                                 <div class="item-detailBtn__wrap">
-                                    <button class="item-detailBtn" id="detailBtn" name="btnDetail" prd_cd="${item.prd_cd}">
+                                    <button class="item-detailBtn" id="detailBtn" name="btnDetail" prd_cd="${item.prd_cd}" cnt="${status.count}" able="false">
                                         <em>자세히보기<i class="fas fa-chevron-down"></i></em>
                                         <em>닫기<i class="fas fa-chevron-up"></i></em>
                                     </button>
@@ -61,8 +61,9 @@
                     </div>
 
                     <div class="content--detail-items" prd_cd="${item.prd_cd}">
+                        <input type="hidden"/>
                         <div class="content--detail__item">
-                            <ul class="detail__item--list"></ul>
+                            <ul class="detail__item--list${status.count}"></ul>
                         </div>
                     </div>
 
@@ -82,32 +83,41 @@
 
             // 변수 설정
             const prd_cd = $(this).attr('prd_cd');
+            const count = $(this).attr('cnt');
+            let able = $(this).attr('able');
 
-            // 리스트 출력
-            if ($(this).hasClass('active')) {
-                $.ajax({
-                    type: 'GET',
-                    url: "<c:url value='/product/detailList'/>",
-                    data: {prd_cd:prd_cd},
-                    headers: {"content-type": "application/json"},
-                    success: function (result) {
+            if(able=='false'){
+                $(this).attr('able','true');
+                // 리스트 출력
+                if ($(this).hasClass('active')) {
+                    $.ajax({
+                        type: 'GET',
+                        url: "<c:url value='/product/detailList'/>",
+                        data: {prd_cd:prd_cd},
+                        headers: {"content-type": "application/json"},
+                        success: function (result) {
 
-                        let ul = document.querySelector(".detail__item--list");
-                        let li = document.createElement("li");
-                        let div = document.createElement("div");
-                        let span = document.createElement("span");
+                            let ul = document.querySelector(".detail__item--list"+count);
+                            let li = document.createElement("li");
+                            let div = document.createElement("div");
+                            let span = document.createElement("span");
 
-                        result.forEach(function(product) {
-                            span.innerText = product.prd_cd
-                            li.appendChild(span);
-                            ul.appendChild(li);
-                        });
-                    },
-                    error: function () {
-                        alert("에러 발생");
-                    }
-                });
+                            result.forEach(function(product) {
+                                span.innerText = product.prd_cd
+                                li.appendChild(span);
+                                ul.appendChild(li);
+                            });
+
+                        },
+                        error: function () {
+                            alert("에러 발생");
+                        }
+                    });
+                }
+            }else{
+                return;
             }
+
         })
 
         //상품 상세 보기

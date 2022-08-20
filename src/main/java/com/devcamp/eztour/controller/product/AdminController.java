@@ -1,6 +1,7 @@
 package com.devcamp.eztour.controller.product;
 
 import com.devcamp.eztour.domain.product.*;
+import com.devcamp.eztour.domain.user.UserDto;
 import com.devcamp.eztour.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -610,8 +611,8 @@ public class AdminController {
     }
 
     private boolean isAdmin(HttpSession session){
-        String id = (String)session.getAttribute("usr_id");
-        if(id.equals("admin")){
+        UserDto userDto = (UserDto)session.getAttribute("userDto");
+        if(userDto.getRl().equals("Admin") || userDto.getRl().equals("SupAdmin")){
             return true;
         }else{
             return false;
