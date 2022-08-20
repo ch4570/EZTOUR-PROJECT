@@ -40,12 +40,13 @@
     </select>
 
     <select id="selectPrdnm" parameterType="String" resultType="RvwDto">
-        SELECT B.prd_cd,
-               B.prd_nm
-        FROM rsvt A INNER JOIN trv_prd B ON A.prd_cd = B.prd_cd
+        SELECT B.prd_dtl_cd,
+               B.prd_nm,
+               B.prd_cd
+        FROM pay A INNER JOIN trv_prd_dtl B ON A.prd_dtl_cd = B.prd_dtl_cd
         WHERE A.cmn_cd_pay_stt ='7C'
-          AND B.dpr_fin_date <![CDATA[<=]]> CURRENT_TIMESTAMP
-          AND A.usr_id = #{usr_id}
+        AND B.fin_date <![CDATA[<=]]> CURRENT_TIMESTAMP
+        AND A.usr_id = #{usr_id}
     </select>
 
 
@@ -85,9 +86,9 @@
     
     <insert id="insert" parameterType="RvwDto">
         INSERT INTO rvw
-            (usr_id, prd_cd, wrt_nm, wrt_email, rvw_ttl, rvw_cont)
+            (usr_id, prd_cd, prd_dtl_cd, wrt_nm, wrt_email, rvw_ttl, rvw_cont, frs_reg_date, frs_rgs_no, fnl_mod_date, fnl_mod_no)
         VALUES
-            (#{usr_id}, #{prd_cd}, #{wrt_nm}, #{wrt_email}, #{rvw_ttl}, #{rvw_cont})
+            (#{usr_id}, #{prd_cd}, #{prd_dtl_cd}, #{wrt_nm}, #{wrt_email}, #{rvw_ttl}, #{rvw_cont}, CURRENT_TIMESTAMP, #{usr_id}, CURRENT_TIMESTAMP, #{usr_id})
     </insert>
     
     <select id="select" parameterType="int" resultType="RvwDto">
@@ -109,7 +110,11 @@
         UPDATE rvw
         SET rvw_ttl = #{rvw_ttl},
             rvw_cont = #{rvw_cont},
-            rvw_mdf_date = CURRENT_TIMESTAMP
+            prd_cd = #{prd_cd},
+            prd_dtl_cd = #{prd_dtl_cd},
+            rvw_mdf_date = CURRENT_TIMESTAMP,
+            fnl_mod_date = CURRENT_TIMESTAMP,
+            fnl_mod_no = #{usr_id}
         WHERE rvw_no = #{rvw_no} and wrt_nm = #{wrt_nm}
     </update>
 
@@ -143,5 +148,18 @@
         SET cmt_cnt = cmt_cnt + #{cnt}
         WHERE rvw_no = #{rvw_no}
     </update>
+
+    <select id="getprdCd" parameterType="String" resultType="String">
+        SELECT prd_cd
+        FROM trv_prd_dtl
+        WHERE prd_dtl_cd = #{prd_dtl_cd}
+    </select>
+
+    <select id="checkRvwUser" parameterType="map" resultType="int">
+        SELECT count(*)
+        FROM rvw
+        WHERE usr_id = #{usr_id}
+        AND rvw_no = #{rvw_no}
+    </select>
 
 </mapper>
