@@ -3,13 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.devcamp.eztour.dao.customercenterMapper.">
-<!--기본 CRUD 매퍼-->
-    <select id="selectCustomerInquiry" resultType="CustomerInquiryDto">
-        SELECT *
-        FROM qna
---         reg_date??
-        WHERE qna_no = #{qna_no}
-    </select>
+<!--    Inquiry 매퍼-->
     <select id="countCustomerInquiry" resultType="int">
         SELECT count(*) FROM qna
     </select>
@@ -18,44 +12,49 @@
         DELETE FROM qna
     </delete>
 
-    <!--    고객 문의 인서트-->
+    <delete id="deleteCustomerInquiry" parameterType="map">
+        DELETE FROM qna WHERE qna_no = #{qna_no} and usr_id = #{usr_id}
+    </delete>
+
     <insert id="insertCustomerInquiry" parameterType="CustomerInquiryDto">
         INSERT INTO qna (usr_id, qna_cd, email, phn, qna_ttl, qna_cont)
         VALUES (#{usr_id}, #{qna_cd}, #{email}, #{phn}, #{qna_ttl}, #{qna_cont})
     </insert>
 
-    <delete id="deleteCustomerInquiry" parameterType="map">
-        DELETE FROM qna WHERE qna_no = #{qna_no} and usr_id = #{usr_id}
-    </delete>
+    <select id="selectAllCustomerInquiry" resultType="CustomerInquiryDto">
+        SELECT *
+        FROM qna
+        ORDER BY frs_reg_date DESC, qna_no DESC
+    </select>
+
+    <select id="selectCustomerInquiry" parameterType="int" resultType="CustomerInquiryDto">
+        SELECT *
+        FROM qna
+        WHERE qna_no = #{qna_no}
+    </select>
+
+    <select id="selectCustomerPage" parameterType="map" resultType="CustomerInquiryDto">
+        SELECT *
+        FROM board
+        ORDER BY frs_reg_date DESC, qna_no DESC
+            LIMIT #{offset}, #{pageSize}
+    </select>
 
     <update id="updateCustomerInquiry" parameterType="CustomerInquiryDto">
         UPDATE qna
         SET   qna_ttl = #{qna_ttl}
           , qna_cont = #{qna_cont}
           , up_date = now()
---         upd_date 맞을까?
+          , fnl_mod_date = #{fnl_mod_date}
         WHERE qna_no = #{qna_no}
     </update>
 
-
-<!--기본 매퍼 종료-->
-    <select id="countCustomerInquiry" resultType="int">
-        SELECT count(*) FROM qna
-    </select>
-<!--    조회수 증가-->
+<!--    조회수 매퍼-->
     <update id="increaseViewCntCustomerInquiry" parameterType="int">
         UPDATE qna
---         view_cnt?
         SET   view_cnt = view_cnt + 1
         WHERE qna_no = #{qna_no}
     </update>
-
-    <select id="selectCustomerPage" parameterType="map" resultType="CustomerInquiryDto">
-        SELECT *
-        FROM board
-        ORDER BY frs_reg_date DESC, qna_no DESC
-        LIMIT #{offset}, #{pageSize}
-    </select>
 
 <!--    검색 기능 매퍼 시작-->
     <select id="searchSelectCustomerPage" parameterType="CustomerSearchCondition" resultType="CustomerInquiryDto">
@@ -74,11 +73,10 @@
             </otherwise>
         </choose>
         ORDER BY frs_reg_date DESC,qna_no DESC
-<!-- 페이징 처리 -->
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="searchResultCnt" parameterType="CustomerSearchCondition" resultType="int">
+    <select id="searchResultCntCustomerPage" parameterType="CustomerSearchCondition" resultType="int">
         SELECT count(*)
         FROM qna
         WHERE true
@@ -96,5 +94,5 @@
         </choose>
     </select>
 <!--    검색 기능 매퍼 끝-->
-
+<!--inquiry 매퍼 끝-->
 </mapper>
