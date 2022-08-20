@@ -33,7 +33,7 @@ public class HomeController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "home/home.tiles";
+        return "home/home";
     }
 
     @GetMapping("/search")

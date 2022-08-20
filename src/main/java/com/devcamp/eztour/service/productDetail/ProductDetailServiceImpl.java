@@ -1,8 +1,8 @@
 package com.devcamp.eztour.service.productDetail;
 
-import com.devcamp.eztour.dao.productDetail.ProductDetailDao;
+import com.devcamp.eztour.dao.product.ProductDetailDao;
+import com.devcamp.eztour.domain.product.TrvPrdDtlDto;
 import com.devcamp.eztour.domain.product.TrvPrdDtlReadDto;
-import com.devcamp.eztour.domain.productDetail.TrvPrdDetailDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +17,10 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     @Override
     public List<TrvPrdDtlReadDto> getAllProduct() throws Exception {
         return productDetailDao.selectAllProduct();
+    }
+    @Override
+    public List<TrvPrdDtlDto> getAllDetailProduct(String prd_cd) throws Exception {
+        return productDetailDao.selectAllDetailProduct(prd_cd);
     }
 
 }

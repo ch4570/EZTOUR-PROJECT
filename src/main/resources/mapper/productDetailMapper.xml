@@ -9,7 +9,14 @@
             A.evnt_yn, A.fin_yn, A.act_yn, A.dc_yn, A.pc_prc, A.vcnt, A.lk_yn, B.img_pth, B.mn_img_yn, C.prd_dtl_cd, C.arl_nm, C.dpr_yn, C.rsvt_yn
             FROM trv_prd A
             JOIN prd_img B ON A.prd_cd = B.prd_cd
-            JOIN trv_prd_dtl C ON A.prd_cd = C.prd_cd;
+            JOIN trv_prd_dtl C ON A.prd_cd = C.prd_cd
+            WHERE act_yn=1
+    </select>
+
+    <select id="selectAllDetailProduct" parameterType="String" resultType="TrvPrdDtlDto">
+        SELECT prd_cd, prd_dtl_cd, prd_nm, dpr_date, fin_date, arl_nm, rsvt_yn, prd_str_prc
+        FROM trv_prd_dtl
+        WHERE prd_cd = #{prd_cd}
     </select>
 
 </mapper>

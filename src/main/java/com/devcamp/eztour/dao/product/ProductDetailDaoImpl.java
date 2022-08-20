@@ -1,7 +1,7 @@
-package com.devcamp.eztour.dao.productDetail;
+package com.devcamp.eztour.dao.product;
 
+import com.devcamp.eztour.domain.product.TrvPrdDtlDto;
 import com.devcamp.eztour.domain.product.TrvPrdDtlReadDto;
-import com.devcamp.eztour.domain.productDetail.TrvPrdDetailDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -19,6 +19,10 @@ public class ProductDetailDaoImpl implements ProductDetailDao {
     @Override
     public List<TrvPrdDtlReadDto> selectAllProduct() throws Exception {
         return session.selectList(namespace + "selectAllProduct");
+    }
+    @Override
+    public List<TrvPrdDtlDto> selectAllDetailProduct(String prd_cd) throws Exception {
+        return session.selectList(namespace + "selectAllDetailProduct", prd_cd);
     }
 
 }
