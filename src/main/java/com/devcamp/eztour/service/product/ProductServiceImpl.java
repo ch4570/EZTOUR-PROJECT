@@ -263,4 +263,9 @@ public class ProductServiceImpl implements ProductService{
     public int modifyActivateStatus(Map map) throws Exception {
         return productDao.updateActivateStatus(map);
     }
+
+    @Override
+    public List<PrdOptionDto> getProductOption(String nt_cd) throws Exception {
+        return productDao.selectProductOption(nt_cd);
+    }
 }

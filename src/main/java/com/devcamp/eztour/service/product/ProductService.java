@@ -55,4 +55,5 @@ public interface ProductService {
     public int getSearchScheduleImageCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
     public TrvPrdReadDto getProductRecognize(String prd_cd) throws Exception;
     public int modifyActivateStatus(Map map) throws Exception;
+    public List<PrdOptionDto> getProductOption(String nt_cd) throws Exception;
 }

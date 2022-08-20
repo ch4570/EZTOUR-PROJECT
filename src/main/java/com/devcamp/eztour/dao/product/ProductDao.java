@@ -57,4 +57,5 @@ public interface ProductDao {
     public int searchSelectScheduleImageCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
     public TrvPrdReadDto selectRecognizeProduct(String prd_cd) throws Exception;
     public int updateActivateStatus(Map map) throws Exception;
+    public List<PrdOptionDto> selectProductOption(String nt_cd) throws Exception;
 }

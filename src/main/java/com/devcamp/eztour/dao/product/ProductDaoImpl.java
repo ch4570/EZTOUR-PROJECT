@@ -265,4 +265,9 @@ public class ProductDaoImpl implements ProductDao{
         return session.update(namespace+"updateActivateStatus",map);
     }
 
+    @Override
+    public List<PrdOptionDto> selectProductOption(String nt_cd) throws Exception {
+        return session.selectList(namespace+"selectProductOption",nt_cd);
+    }
+
 }
