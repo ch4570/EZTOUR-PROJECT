@@ -154,14 +154,14 @@
 
     <select id="selectProductDetail" parameterType="String" resultType="TrvPrdDtlReadDto">
         SELECT prd_dtl_cd,prd_cd,prd_str_prc,arl_nm,
-               min_stt_cnt,max_stt_cnt,dpr_date,prd_nm
+               min_stt_cnt,max_stt_cnt,dpr_date,prd_nm,fin_date
         FROM trv_prd_dtl
         WHERE prd_dtl_cd = #{prd_dtl_cd}
     </select>
 
     <update id="updateProductDetail" parameterType="TrvPrdDtlWriteDto">
         UPDATE trv_prd_dtl set prd_dtl_cd=#{prd_dtl_cd},prd_cd=#{prd_cd},prd_str_prc=#{prd_str_prc},arl_nm=#{arl_nm},
-                               min_stt_cnt=#{min_stt_cnt},max_stt_cnt=#{max_stt_cnt},dpr_date=#{dpr_date},prd_nm=#{prd_nm}
+                               min_stt_cnt=#{min_stt_cnt},max_stt_cnt=#{max_stt_cnt},dpr_date=#{dpr_date},prd_nm=#{prd_nm},fin_date=#{fin_date}
         WHERE prd_dtl_cd=#{prd_dtl_cd}
     </update>
 

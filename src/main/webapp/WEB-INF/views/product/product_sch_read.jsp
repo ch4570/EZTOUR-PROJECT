@@ -42,7 +42,7 @@
                 </ul>
             </div>
             <div class="board">
-                <h1>상품 일정 등록</h1>
+                <h1>상품 일정 조회</h1>
                 <div class="prd_sch_input_form">
                         상품코드&nbsp;<br><input type="text" value="${list.prd_cd}" class="input_prd" readonly="readonly"/><br>
                         여행일차&nbsp;<br><input type="text"  value="${list.trv_date}"  class="input_prd"readonly="readonly"/><br>

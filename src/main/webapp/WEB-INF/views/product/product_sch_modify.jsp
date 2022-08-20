@@ -43,50 +43,50 @@
                 </ul>
             </div>
             <div class="board">
-                <h1>상품 일정 등록</h1>
+                <h1>상품 일정 수정</h1>
                 <div class="prd_sch_input_form">
                     <form:form action="/product/schedule/modify" method="post" modelAttribute="trvSchDto">
                         <input type="hidden" value="${list.sch_no}" name="sch_no">
 
                         <form:label path="prd_cd">상품코드</form:label><br>
                         <form:input path="prd_cd" placeholder="상품코드" value="${list.prd_cd}" cssClass="input_prd"/><br>
-                        <form:errors path="prd_cd"/><br><br>
+                        <form:errors path="prd_cd" cssClass="error_msg"/><br><br>
 
                         <form:label path="trv_date">여행일차</form:label><br>
                         <form:input path="trv_date" placeholder="여행일차" value="${list.trv_date}" cssClass="input_prd"/><br>
-                        <form:errors path="trv_date"/><br><br>
+                        <form:errors path="trv_date" cssClass="error_msg"/><br><br>
 
                         <form:label path="sch_ord">일정순번</form:label><br>
                         <form:input path="sch_ord" placeholder="일정순번" value="${list.sch_ord}" cssClass="input_prd"/><br>
-                        <form:errors path="sch_ord"/><br><br>
+                        <form:errors path="sch_ord" cssClass="error_msg"/><br><br>
 
                         <form:label path="st_nm">관광지이름</form:label><br>
                         <form:input path="st_nm" placeholder="관광지이름" value="${list.st_nm}" cssClass="input_prd"/><br>
-                        <form:errors path="st_nm"/><br><br>
+                        <form:errors path="st_nm" cssClass="error_msg"/><br><br>
 
                         <form:label path="sit_sh_desc">관광지 간략설명</form:label><br>
-                        <form:textarea path="sit_sh_desc" placeholder="관광지 간략설명" id="sit_sh_desc" cols="22" rows="5">${list.sit_sh_desc}</form:textarea><br>
-                        <form:errors path="sit_sh_desc"/><br><br>
+                        <textarea name="sit_sh_desc" placeholder="관광지 간략설명" id="sit_sh_desc" cols="22" rows="5">${list.sit_sh_desc}</textarea><br>
+                        <form:errors path="sit_sh_desc" cssClass="error_msg"/><br><br>
 
                         <form:label path="sit_lo_desc">관광지 상세설명</form:label><br>
-                        <form:textarea path="sit_lo_desc" placeholder="관광지 상세설명" id="sit_lo_desc" cols="22" rows="5">${list.sit_lo_desc}</form:textarea><br>
-                        <form:errors path="sit_lo_desc"/><br><br>
+                        <textarea name="sit_lo_desc" placeholder="관광지 상세설명" id="sit_lo_desc" cols="22" rows="5">${list.sit_lo_desc}</textarea><br>
+                        <form:errors path="sit_lo_desc" cssClass="error_msg"/><br><br>
 
                         <form:label path="ht_inf">호텔정보</form:label><br>
                         <form:input path="ht_inf" placeholder="호텔정보" value="${list.ht_inf}" cssClass="input_prd"/><br>
-                        <form:errors path="ht_inf"/><br><br>
+                        <form:errors path="ht_inf" cssClass="error_msg"/><br><br>
 
                         <form:label path="brk">아침</form:label><br>
                         <form:input path="brk" placeholder="아침" value="${list.brk}" cssClass="input_prd"/><br>
-                        <form:errors path="brk"/><br><br>
+                        <form:errors path="brk" cssClass="error_msg"/><br><br>
 
                         <form:label path="luh">점심</form:label><br>
                         <form:input path="luh" placeholder="점심" value="${list.luh}" cssClass="input_prd"/><br>
-                        <form:errors path="luh"/><br><br>
+                        <form:errors path="luh" cssClass="error_msg"/><br><br>
 
                         <form:label path="din">저녁</form:label><br>
                         <form:input path="din" placeholder="저녁" value="${list.din}" cssClass="input_prd"/><br>
-                        <form:errors path="din"/><br><br>
+                        <form:errors path="din" cssClass="error_msg"/><br><br>
 
                         이동소요기간&nbsp;<br><input type="text" name="dstnc_tm" placeholder="이동소요시간" value="${list.dstnc_tm}" class="input_prd"/><br>
                         <input type="submit" value="수정" id="submit_btn"/>

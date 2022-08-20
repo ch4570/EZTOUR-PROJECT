@@ -75,11 +75,16 @@
                             <form:input path="max_stt_cnt" placeholder="최대출발인원" value="${prd_dtl.max_stt_cnt}" cssClass="input_prd"/><br>
                             <form:errors path="max_stt_cnt" cssClass="error_msg"/><br><br>
 
-                            <fmt:parseDate var="dpr_date" value="${prd_dtl.dpr_date}" pattern="yyyy-MM-dd"/>
+                            <fmt:parseDate var="dpr_date" value="${prd_dtl.dpr_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                            <fmt:parseDate var="fin_date" value="${prd_dtl.fin_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
 
                             <form:label path="dpr_date">출발일</form:label><br>
-                            <input type="date" name="dpr_date" placeholder="출발일" class="input_prd" value="<fmt:formatDate value="${dpr_date}" pattern="yyyy-MM-dd"/>"/><br>
+                            <input type="datetime-local" name="dpr_date" placeholder="출발일" class="input_prd" value="<fmt:formatDate value="${dpr_date}" pattern="yyyy-MM-dd HH:mm:ss"/>"/><br>
                             <form:errors path="dpr_date" cssClass="error_msg"/><br><br>
+
+                            <form:label path="fin_date">도착일</form:label><br>
+                            <input type="datetime-local" name="fin_date" placeholder="도착일" class="input_prd" value="<fmt:formatDate value="${fin_date}" pattern="yyyy-MM-dd HH:mm:ss"/>"/><br>
+                            <form:errors path="fin_date" cssClass="error_msg"/><br><br>
 
                             <input type="submit" value="수정" id="submit_btn"/>
                         </form:form>

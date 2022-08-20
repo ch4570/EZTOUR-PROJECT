@@ -419,11 +419,15 @@ public class AdminController {
     public String productDetailModify(@ModelAttribute("trvPrdDtlWriteDto") @Valid TrvPrdDtlWriteDto trvPrdDtlDto,
                                       BindingResult bindingResult, RedirectAttributes rattr) throws Exception{
 
+
         if(bindingResult.hasErrors()){
             return "product/product_detail_modify.tiles";
         }
 
+
         int result = productService.updateProductDetail(trvPrdDtlDto);
+
+
         if(result==1){
             rattr.addFlashAttribute("success_msg","상품상세 수정이 성공하였습니다.");
             return "redirect:/product/management/detail";
@@ -677,6 +681,7 @@ public class AdminController {
             return "redirect:/";
         }else{
             TrvPrdPrcDto trvPrdPrcDto = productService.getOneSearchProductPrice(prd_prc_no);
+            trvPrdPrcDto.setPrd_prc_no(prd_prc_no);
             model.addAttribute("list",trvPrdPrcDto);
             return "product/product_price_read.tiles";
         }
@@ -711,12 +716,12 @@ public class AdminController {
     public String productPriceModify(@ModelAttribute("trvPrdPrcDto") @Valid TrvPrdPrcDto trvPrdPrcDto,
                                      BindingResult bindingResult, RedirectAttributes rattr) throws Exception{
 
+        System.out.println(trvPrdPrcDto);
         if(bindingResult.hasErrors()){
             return "product/product_price_modify.tiles";
         }
 
         int result = productService.modifyProductPrice(trvPrdPrcDto);
-        System.out.println(trvPrdPrcDto);
         if(result == 1){
             rattr.addFlashAttribute("success_msg","상품상세 수정이 성공하였습니다.");
             return "redirect:/product/management/price";

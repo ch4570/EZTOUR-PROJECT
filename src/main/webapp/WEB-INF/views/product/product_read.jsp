@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -51,8 +52,10 @@
                             상품 상세 설명&nbsp;<br><textarea cols="24" rows="10" name="prd_dtl_desc" placeholder="상품 상세 설명" id="desc_area" readonly="readonly">${trvPrdDto.prd_dtl_desc}</textarea><br>
                             여행기간 &nbsp;<br><input type="text" class="input_prd" name="trv_per" placeholder="여행기간" value="${trvPrdDto.trv_per}" readonly="readonly"><br>
                             상품시작가격 &nbsp;<br><input type="text" class="input_prd" name="prd_str_prc" placeholder="상품시작가격" value="${trvPrdDto.prd_str_prc}" readonly="readonly"><br>
-                            출발 시작일 &nbsp;<br><input type="text" class="input_prd" name="dpr_str_date" placeholder="출발 시작일" value="${trvPrdDto.dpr_str_date}" readonly="readonly"><br>
-                            출발 마감일 &nbsp;<br><input type="text" class="input_prd" name="dpr_fin_date" placeholder="출발 마감" value="${trvPrdDto.dpr_fin_date}" readonly="readonly"><br>
+                            <fmt:parseDate var="dpr_str_date" value="${trvPrdDto.dpr_str_date}" pattern="yyyy-MM-dd"/>
+                            <fmt:parseDate var="dpr_fin_date" value="${trvPrdDto.dpr_fin_date}" pattern="yyyy-MM-dd"/>
+                            출발 시작일 &nbsp;<br><input type="date" class="input_prd" name="dpr_str_date" placeholder="출발 시작일" value="<fmt:formatDate value='${dpr_str_date}' pattern="yyyy-MM-dd"/>" readonly="readonly"><br>
+                            출발 마감일 &nbsp;<br><input type="date" class="input_prd" name="dpr_fin_date" placeholder="출발 마감일" value="<fmt:formatDate value='${dpr_fin_date}' pattern="yyyy-MM-dd"/>" readonly="readonly"><br>
                             <button class="btn" id="modify_btn">수정</button><br>
                             <button class="btn" id="delete_btn">삭제</button>
                         </div>
