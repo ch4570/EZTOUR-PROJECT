@@ -99,6 +99,8 @@
 
                         result.forEach(function(product) {
                             span.innerText = product.prd_cd
+                            li.appendChild(span);
+                            ul.appendChild(li);
                         });
                     },
                     error: function () {
