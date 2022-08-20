@@ -13,10 +13,7 @@
         <typeAlias alias="RvwDto" type="com.devcamp.eztour.domain.rvw.RvwDto"/>
         <typeAlias alias="SearchCondition" type="com.devcamp.eztour.domain.rvw.SearchCondition"/>
         <typeAlias alias="RvwCmtDto" type="com.devcamp.eztour.domain.rvw.RvwCmtDto"/>
-<<<<<<< HEAD
-=======
         <typeAlias alias="AttPrdDto" type="com.devcamp.eztour.domain.attPrd.AttPrdDto"/>
->>>>>>> 3be5e2b8659a26a19c1180ada29468e6a9422fa3
 
         <!--도형님 끝-->
 
