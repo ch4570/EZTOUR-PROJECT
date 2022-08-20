@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.devcamp.eztour.dao.eventMapper">
+
+
+    <select id="eventlist" resultType="eventDto">
+        SELECT evnt_no,evnt_ttl,evnt_cont,reg_date,mdf_date,fin_date
+        FROM evnt
+        ORDER BY evnt_no DESC
+    </select>
+<!-- 위에 매퍼는 이벤트리스트 매퍼 -->
+    <select id="count" resultType="int">
+        SELECT count(*) FROM evnt
+    </select>
+
+
+    <select id="selectEventPage" parameterType="map" resultType="eventDto">
+        SELECT evnt_no,evnt_ttl,evnt_cont,reg_date,mdf_date,fin_date
+        FROM evnt
+        ORDER BY reg_date DESC, evnt_no DESC
+        LIMIT #{offset}, #{eventPageSize}
+    </select>
+
+
+</mapper>
