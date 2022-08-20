@@ -6,16 +6,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.naming.Binding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,12 +44,13 @@ public class AdminController {
 
     // 관리자 상품 등록 페이지 진입
     @GetMapping("/product/insert")
-    public String insertProduct(HttpSession session,RedirectAttributes rattr){
+    public String insertProduct(HttpSession session,RedirectAttributes rattr,Model model){
         boolean isAdmin = isAdmin(session);
         if(!isAdmin){
             rattr.addFlashAttribute("admin_error_msg","권한이 없습니다. 홈페이지로 이동합니다.");
             return "redirect:/";
         }else{
+            model.addAttribute("trvPrdWriteDto",new TrvPrdWriteDto());
             return "product/product_insert.tiles";
         }
 
@@ -54,7 +58,12 @@ public class AdminController {
 
     // 관리자 상품 등록(실제 정보 전송)
     @PostMapping("/product/insert")
-    public String insertProduct(TrvPrdWriteDto trvPrdWriteDto, RedirectAttributes redirectAttributes) throws Exception{
+    public String insertProduct(@ModelAttribute("trvPrdWriteDto") @Valid TrvPrdWriteDto trvPrdWriteDto,
+                                BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception{
+
+        if(bindingResult.hasErrors()){
+            return "product/product_insert.tiles";
+        }
 
         int result = productService.insertProduct(trvPrdWriteDto);
 
@@ -70,12 +79,13 @@ public class AdminController {
 
     // 관리자 상품 상세 등록 페이지 진입
     @GetMapping("/product/detail/insert")
-    public String productDetailInsert(HttpSession session,RedirectAttributes rattr){
+    public String productDetailInsert(HttpSession session,RedirectAttributes rattr,Model model){
         boolean isAdmin = isAdmin(session);
         if(!isAdmin){
             rattr.addFlashAttribute("admin_error_msg","권한이 없습니다. 홈페이지로 이동합니다.");
             return "redirect:/";
         }else{
+            model.addAttribute("trvPrdDtlWriteDto",new TrvPrdDtlWriteDto());
             return "product/product_detail_insert.tiles";
         }
 
@@ -83,7 +93,14 @@ public class AdminController {
 
     // 관리자 상품 상세 등록(실제 정보 전송)
     @PostMapping("/product/detail/insert")
-    public String productDetailInsert(TrvPrdDtlWriteDto trv_prdDtlDto, RedirectAttributes redirectAttributes) throws Exception{
+    public String productDetailInsert(@ModelAttribute("trvPrdDtlWriteDto") @Valid TrvPrdDtlWriteDto trv_prdDtlDto,
+                                      BindingResult bindingResult,
+                                      RedirectAttributes redirectAttributes) throws Exception{
+
+        if(bindingResult.hasErrors()){
+            return "product/product_detail_insert.tiles";
+        }
+
         int result = productService.insertProductDetail(trv_prdDtlDto);
         if(result==1){
             redirectAttributes.addAttribute("prd_dtl_cd", trv_prdDtlDto.getPrd_dtl_cd());
@@ -97,12 +114,13 @@ public class AdminController {
 
     // 관리자 상품 가격 등록 페이지 진입
     @GetMapping("/product/insert/price")
-    public String insertProductPrice(HttpSession session,RedirectAttributes rattr) throws Exception{
+    public String insertProductPrice(HttpSession session,RedirectAttributes rattr,Model model) throws Exception{
         boolean isAdmin = isAdmin(session);
         if(!isAdmin){
             rattr.addFlashAttribute("admin_error_msg","권한이 없습니다. 홈페이지로 이동합니다.");
             return "redirect:/";
         }else{
+            model.addAttribute("trvPrdPrcDto",new TrvPrdPrcDto());
             return "product/product_insert_price.tiles";
         }
 
@@ -110,7 +128,11 @@ public class AdminController {
 
     // 관리자 상품 가격 등록(실제 정보 전송)
     @PostMapping("/product/insert/price")
-    public String insertProductPrice(TrvPrdPrcDto trv_prdPrcDto, RedirectAttributes redirectAttributes) throws Exception{
+    public String insertProductPrice(@ModelAttribute("trvPrdPrcDto") @Valid TrvPrdPrcDto trv_prdPrcDto,
+                                     BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception{
+        if(bindingResult.hasErrors()){
+            return "product/product_insert_price.tiles";
+        }
         int result = productService.insertProductPrice(trv_prdPrcDto);
         if(result==1){
             redirectAttributes.addAttribute("prd_cd", trv_prdPrcDto.getPrd_cd());
@@ -124,12 +146,13 @@ public class AdminController {
 
     // 관리자 상품 일정 등록 페이지 진입
     @GetMapping("/product/insert/schedule")
-    public String insertProductSchedule(HttpSession session, RedirectAttributes rattr) throws Exception{
+    public String insertProductSchedule(HttpSession session, RedirectAttributes rattr,Model model) throws Exception{
         boolean isAdmin = isAdmin(session);
         if(!isAdmin){
             rattr.addFlashAttribute("admin_error_msg","권한이 없습니다. 홈페이지로 이동합니다.");
             return "redirect:/";
         }else{
+            model.addAttribute("trvSchDto",new TrvSchDto());
             return "product/product_insert_sch.tiles";
         }
 
@@ -137,7 +160,11 @@ public class AdminController {
 
     // 관리자 상품 일정 등록(상세 정보 전송)
     @PostMapping("/product/insert/schedule")
-    public String insertProductSchedule(TrvSchDto trv_schDto, RedirectAttributes redirectAttributes) throws Exception{
+    public String insertProductSchedule(@ModelAttribute("trvSchDto")  @Valid TrvSchDto trv_schDto,
+                                        BindingResult bindingResult,RedirectAttributes redirectAttributes) throws Exception{
+        if(bindingResult.hasErrors()){
+            return "product/product_insert_sch.tiles";
+        }
         int result = productService.insertProductSchedule(trv_schDto);
         if(result==1){
             redirectAttributes.addAttribute("prd_cd", trv_schDto.getPrd_cd());
@@ -301,13 +328,19 @@ public class AdminController {
         }else{
             TrvPrdReadDto trvPrdDto = productService.selectProduct(prd_cd);
             model.addAttribute("trvPrdDto",trvPrdDto);
+            model.addAttribute("trvPrdWriteDto",new TrvPrdWriteDto());
             return "product/product_modify.tiles";
         }
     }
 
     // 상품 수정(실제 정보 전송)
     @PostMapping("/product/modify")
-    public String productModify(TrvPrdWriteDto trvPrdWriteDto,RedirectAttributes redirectAttributes) throws Exception{
+    public String productModify(@ModelAttribute("trvPrdWriteDto") @Valid TrvPrdWriteDto trvPrdWriteDto,
+                                BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception{
+            if(bindingResult.hasErrors()){
+                return "product/product_modify.tiles";
+            }
+
             int result = productService.updateProduct(trvPrdWriteDto);
             if(result==1){
                 redirectAttributes.addFlashAttribute("success_msg","상품 수정에 성공했습니다.");
@@ -377,12 +410,19 @@ public class AdminController {
         }else{
             TrvPrdDtlReadDto trvPrdDtlDto = productService.selectProductDetail(prd_dtl_cd);
             model.addAttribute("prd_dtl",trvPrdDtlDto);
+            model.addAttribute("trvPrdDtlWriteDto",new TrvPrdDtlWriteDto());
             return "product/product_detail_modify.tiles";
         }
     }
 
     @PostMapping("/product/detail/modify")
-    public String productDetailModify(TrvPrdDtlWriteDto trvPrdDtlDto,RedirectAttributes rattr) throws Exception{
+    public String productDetailModify(@ModelAttribute("trvPrdDtlWriteDto") @Valid TrvPrdDtlWriteDto trvPrdDtlDto,
+                                      BindingResult bindingResult, RedirectAttributes rattr) throws Exception{
+
+        if(bindingResult.hasErrors()){
+            return "product/product_detail_modify.tiles";
+        }
+
         int result = productService.updateProductDetail(trvPrdDtlDto);
         if(result==1){
             rattr.addFlashAttribute("success_msg","상품상세 수정이 성공하였습니다.");
@@ -580,12 +620,18 @@ public class AdminController {
         }else{
             TrvSchDto trvSchDto = productService.getSchedule(sch_no);
             model.addAttribute("list",trvSchDto);
+            model.addAttribute("trvSchDto",new TrvSchDto());
             return "product/product_sch_modify.tiles";
         }
     }
 
     @PostMapping("/product/schedule/modify")
-    public String productScheduleModify(TrvSchDto trvSchDto,RedirectAttributes rattr) throws Exception{
+    public String productScheduleModify(@ModelAttribute("trvSchDto") @Valid TrvSchDto trvSchDto,
+                                        BindingResult bindingResult, RedirectAttributes rattr,Model model) throws Exception{
+        if(bindingResult.hasErrors()){
+            model.addAttribute("list",trvSchDto);
+            return "product/product_sch_modify.tiles";
+        }
         int result = productService.updateSchedule(trvSchDto);
         if(result == 1){
             rattr.addFlashAttribute("success_msg","상품상세 수정이 성공하였습니다.");
@@ -656,12 +702,19 @@ public class AdminController {
         }else{
             TrvPrdPrcDto trvPrdPrcDto = productService.getOneSearchProductPrice(prd_prc_no);
             model.addAttribute("list",trvPrdPrcDto);
+            model.addAttribute("trvPrdPrcDto",new TrvPrdPrcDto());
             return "product/product_price_modify.tiles";
         }
     }
 
     @PostMapping("/product/price/modify")
-    public String productPriceModify(TrvPrdPrcDto trvPrdPrcDto,RedirectAttributes rattr) throws Exception{
+    public String productPriceModify(@ModelAttribute("trvPrdPrcDto") @Valid TrvPrdPrcDto trvPrdPrcDto,
+                                     BindingResult bindingResult, RedirectAttributes rattr) throws Exception{
+
+        if(bindingResult.hasErrors()){
+            return "product/product_price_modify.tiles";
+        }
+
         int result = productService.modifyProductPrice(trvPrdPrcDto);
         System.out.println(trvPrdPrcDto);
         if(result == 1){

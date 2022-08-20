@@ -250,6 +250,6 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public int getSearchScheduleImageCnt(PageHandlerProduct pageHandlerProduct) throws Exception {
-        return productDao.searchSelectScheduleCnt(pageHandlerProduct);
+        return productDao.searchSelectScheduleImageCnt(pageHandlerProduct);
     }
 }

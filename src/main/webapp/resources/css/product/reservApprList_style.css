@@ -26,7 +26,6 @@ h1{
     width: 170px;
     height: 700px;
     margin: 0 auto;
-    position: relative;
 }
 
 .wrap .content .nav .menu ul{
@@ -43,42 +42,3 @@ h1{
     font-size: 15px;
     padding-top: 10px;
 }
-
-.wrap .content .board{
-    width: 900px;
-    height: 800px;
-    position: absolute;
-    top : 90px;
-    left: 245px;
-}
-
-.wrap .content .board .prd_price_input_form{
-    text-align: center;
-    margin: 0 auto;
-    width: 800px;
-    height: 600px;
-}
-
-
-.wrap .content .board .input_prd{
-    width: 300px;
-    height: 30px;
-    border-radius: 8px;
-    padding-left: 10px;
-    margin-bottom: 20px;
-}
-
-
-.wrap .content .board #submit_btn{
-    width: 315px;
-    height: 40px;
-    border-radius: 8px;
-}
-
-.wrap .content .board .error_msg{
-    color:red;
-    font-weight: bold;
-}
-
-
-

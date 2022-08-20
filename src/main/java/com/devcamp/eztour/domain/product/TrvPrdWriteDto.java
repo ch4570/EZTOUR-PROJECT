@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 
@@ -14,17 +16,38 @@ import java.util.Date;
 @EqualsAndHashCode
 public class TrvPrdWriteDto {
 
+    @NotBlank(message = "상품 코드는 필수 입력 항목입니다.")
     private String prd_cd;
+
     private String prd_cd_mod;
+
+    @NotBlank(message = "여행지 코드는 필수 입력 항목입니다.")
     private String dstn_cd;
+
+    @NotBlank(message = "테마 코드는 필수 입력 항목입니다.")
     private String cmn_cd_thm;
+
+    @NotBlank(message = "상품 이름은 필수 입력 항목입니다.")
     private String prd_nm;
+
+    @NotBlank(message = "상품 설명은 필수 입력 항목 입니다.")
     private String prd_dtl_desc;
+
+    @NotBlank(message = "여행기간은 필수 입력 항목입니다.")
     private String trv_per;
-    private Integer prd_str_prc;
+
+    @Min(value = 1 , message = "상품시작가격은 1원보다 커야합니다.")
+    private int prd_str_prc;
+
     private String mn_img;
+
+    @NotBlank(message = "출발 시작 날짜는 필수 입력 항목입니다.")
     private String dpr_str_date;
+
+    @NotBlank(message = "출발 마감 날짜는 필수 입력 항목입니다.")
     private String dpr_fin_date;
+
+
     private int star;
     private boolean evnt_yn;
     private boolean fin_yn;
