@@ -8,7 +8,7 @@ pageEncoding="UTF-8"%>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Insert title here</title>
+    <title></title>
   </head>
   <body>
     <div class="header-inner">
@@ -81,7 +81,7 @@ pageEncoding="UTF-8"%>
           <c:choose>
               <c:when test="${loginId==''}">
                     <li><a href="/user/login">로그인</a></li>
-                    <li><a href="/user/auth">회원가입</a></li>
+                    <li><a href="/user/join">회원가입</a></li>
               </c:when>
               <c:when test="${loginId!=''}">
                     <li><a href="/user/logout">로그아웃</a></li>
