@@ -1,36 +1,37 @@
 package com.devcamp.eztour.domain.customercenter;
 
 public class CustomerSearchCondition {
-    private String qna_ttl;
-    private String qna_cont;
+    private Integer page= 1;
+    private Integer pageSize = 10;
     private Integer offset = 0;
     private String keyword = "";
     private String option = "";
 
+
     public CustomerSearchCondition() {
     }
 
-    public CustomerSearchCondition(String qna_ttl, String qna_cont, String keyword, String option) {
-        this.qna_ttl = qna_ttl;
-        this.qna_cont = qna_cont;
+    public CustomerSearchCondition(Integer page, Integer pageSize, String keyword, String option) {
+        this.page = page;
+        this.pageSize = pageSize;
         this.keyword = keyword;
         this.option = option;
     }
 
-    public String getQna_ttl() {
-        return qna_ttl;
+    public Integer getPage() {
+        return page;
     }
 
-    public void setQna_ttl(String qna_ttl) {
-        this.qna_ttl = qna_ttl;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public String getQna_cont() {
-        return qna_cont;
+    public Integer getPageSize() {
+        return pageSize;
     }
 
-    public void setQna_cont(String qna_cont) {
-        this.qna_cont = qna_cont;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
     public Integer getOffset() {
@@ -60,8 +61,8 @@ public class CustomerSearchCondition {
     @Override
     public String toString() {
         return "CustomerSearchCondition{" +
-                "qna_ttl='" + qna_ttl + '\'' +
-                ", qna_cont='" + qna_cont + '\'' +
+                "page=" + page +
+                ", pageSize=" + pageSize +
                 ", offset=" + offset +
                 ", keyword='" + keyword + '\'' +
                 ", option='" + option + '\'' +

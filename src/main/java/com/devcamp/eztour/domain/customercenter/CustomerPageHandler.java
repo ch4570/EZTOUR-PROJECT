@@ -17,6 +17,29 @@ public class CustomerPageHandler {
         this(totalCnt, page, 10);
     }
 
+
+
+    public CustomerPageHandler(int totalCnt, int page, int pageSize) {
+        this.totalCnt = totalCnt;
+        this.page = page;
+        this.pageSize = pageSize;
+
+        totalPage = (int)Math.ceil(totalCnt /(double)pageSize);
+        beginPage = (page-1) / naviSize * naviSize + 1;
+        endPage = Math.min(beginPage + naviSize-1, totalPage);
+        showPrev = beginPage != 1;
+        showNext = endPage != totalPage;
+    }
+
+    void print() {
+        System.out.println("page = " + page);
+        System.out.print(showPrev ? "[PREV]" : "");
+        for(int i = beginPage; i <= endPage; i++) {
+            System.out.print(i+" ");
+        }
+        System.out.println(showNext ? " [NEXT]" : "");
+    }
+
     public int getTotalCnt() {
         return totalCnt;
     }
@@ -87,27 +110,6 @@ public class CustomerPageHandler {
 
     public void setShowNext(boolean showNext) {
         this.showNext = showNext;
-    }
-
-    public CustomerPageHandler(int totalCnt, int page, int pageSize) {
-        this.totalCnt = totalCnt;
-        this.page = page;
-        this.pageSize = pageSize;
-
-        totalPage = (int)Math.ceil(totalCnt /(double)pageSize);
-        beginPage = page / naviSize * naviSize + 1;
-        endPage = Math.min(beginPage + naviSize-1, totalPage);
-        showPrev = beginPage != 1;
-        showNext = endPage != totalPage;
-    }
-
-    void print() {
-        System.out.println("page = " + page);
-        System.out.print(showPrev ? "[PREV]" : "");
-        for(int i = beginPage; i <= endPage; i++) {
-            System.out.print(i+" ");
-        }
-        System.out.println(showNext ? " [NEXT]" : "");
     }
 
     @Override
