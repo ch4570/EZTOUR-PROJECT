@@ -5,7 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+    <link rel="stylesheet" href="/css/home/quick-menu.css">
 </head>
 <body>
+
+    <div class="box">A</div>
+
 </body>
 </html>
