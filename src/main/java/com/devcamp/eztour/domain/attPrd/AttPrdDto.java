@@ -13,7 +13,7 @@ import java.util.Date;
 public class AttPrdDto {
     private Integer att_prd_no;
     private String usr_id;
-    private String prd_cd;
+    private String prd_dtl_cd;
     private String prd_nm;
     private boolean lk_yn;
     private Integer prd_str_prc;
@@ -22,12 +22,14 @@ public class AttPrdDto {
     private Date fnl_mod_date;
     private String fnl_mod_no;
 
+    private String img_pth;
+
     public AttPrdDto() {}
 
-    public AttPrdDto(Integer att_prd_no, String usr_id, String prd_cd, String prd_nm, boolean lk_yn, Integer prd_str_prc, Date frs_reg_date, String frs_rgs_no, Date fnl_mod_date, String fnl_mod_no) {
+    public AttPrdDto(Integer att_prd_no, String usr_id, String prd_dtl_cd, String prd_nm, boolean lk_yn, Integer prd_str_prc, Date frs_reg_date, String frs_rgs_no, Date fnl_mod_date, String fnl_mod_no) {
         this.att_prd_no = att_prd_no;
         this.usr_id = usr_id;
-        this.prd_cd = prd_cd;
+        this.prd_dtl_cd = prd_dtl_cd;
         this.prd_nm = prd_nm;
         this.lk_yn = lk_yn;
         this.prd_str_prc = prd_str_prc;

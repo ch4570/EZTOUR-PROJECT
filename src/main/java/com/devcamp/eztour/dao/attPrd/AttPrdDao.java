@@ -5,7 +5,8 @@ import com.devcamp.eztour.domain.attPrd.AttPrdDto;
 import java.util.List;
 
 public interface AttPrdDao {
-    int count() throws Exception;
+
+    int count(String usr_id, String prd_cd) throws Exception;
 
     int checkAttPrd(AttPrdDto attPrdDto) throws Exception;
 
@@ -17,7 +18,7 @@ public interface AttPrdDao {
 
     List<AttPrdDto> selectAll() throws Exception;
 
-    List<AttPrdDto> selectPage() throws Exception;
+    List<AttPrdDto> selectPage(Integer offset, Integer pageSize) throws Exception;
 
     int deleteAll() throws Exception;
 

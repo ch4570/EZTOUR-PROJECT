@@ -14,6 +14,7 @@
         <typeAlias alias="SearchCondition" type="com.devcamp.eztour.domain.rvw.SearchCondition"/>
         <typeAlias alias="RvwCmtDto" type="com.devcamp.eztour.domain.rvw.RvwCmtDto"/>
         <typeAlias alias="AttPrdDto" type="com.devcamp.eztour.domain.attPrd.AttPrdDto"/>
+        <typeAlias alias="RvwLkAdmDto" type="com.devcamp.eztour.domain.rvw.RvwLkAdmDto"/>
 
         <!--도형님 끝-->
 

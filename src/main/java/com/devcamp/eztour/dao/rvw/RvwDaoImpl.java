@@ -86,13 +86,25 @@ public class RvwDaoImpl implements RvwDao {
         Map map = new HashMap();
         map.put("rvw_no", rvw_no);
         map.put("cnt", cnt);
-
         return session.update(namespace + "updateCommentCnt", map);
     }
 
     @Override
     public List<RvwDto> selectPrdnm(String usr_id) throws Exception {
         return session.selectList(namespace + "selectPrdnm", usr_id);
+    }
+
+    @Override
+    public String getprdCd(String prd_dtl_cd) throws Exception {
+        return session.selectOne(namespace + "getprdCd", prd_dtl_cd);
+    }
+
+    @Override
+    public int checkRvwUser(String usr_id, Integer rvw_no) throws Exception {
+        Map map = new HashMap();
+        map.put("usr_id", usr_id);
+        map.put("rvw_no", rvw_no);
+        return session.selectOne(namespace + "checkRvwUser", map);
     }
 
 
