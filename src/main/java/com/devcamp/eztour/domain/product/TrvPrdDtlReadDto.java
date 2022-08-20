@@ -66,6 +66,7 @@ public class TrvPrdDtlReadDto {
         this.fin_date = fin_date;
     }
 
+
     public TrvPrdDtlReadDto(String prd_cd, String dstn_cd, String cmn_cd_thm, String prd_nm, String prd_dtl_desc, String trv_per,
                             Integer prd_str_prc, Date dpr_str_date, Date dpr_fin_date,
                             boolean evnt_yn, boolean fin_yn, boolean act_yn, boolean dc_yn,
@@ -96,6 +97,34 @@ public class TrvPrdDtlReadDto {
         this.fin_date = fin_date;
     }
 
+    public TrvPrdDtlReadDto(String prd_cd, String dstn_cd, String cmn_cd_thm, String prd_nm, String prd_dtl_desc, String trv_per,
+                            Integer prd_str_prc, Date dpr_str_date, Date dpr_fin_date,
+                            boolean evnt_yn, boolean fin_yn, boolean act_yn, boolean dc_yn,
+                            Integer pc_prc, Integer vcnt, boolean lk_yn, String img_pth,
+                            boolean mn_img_yn, String prd_dtl_cd, String arl_nm, boolean dpr_yn, boolean rsvt_yn) {
+        this.prd_cd = prd_cd;
+        this.dstn_cd = dstn_cd;
+        this.cmn_cd_thm = cmn_cd_thm;
+        this.evnt_yn = evnt_yn;
+        this.fin_yn = fin_yn;
+        this.act_yn = act_yn;
+        this.dc_yn = dc_yn;
+        this.vcnt = vcnt;
+        this.lk_yn = lk_yn;
+        this.mn_img_yn = mn_img_yn;
+        this.prd_dtl_cd = prd_dtl_cd;
+        this.prd_str_prc = prd_str_prc;
+        this.arl_nm = arl_nm;
+        this.dpr_yn = dpr_yn;
+        this.rsvt_yn = rsvt_yn;
+        this.prd_nm = prd_nm;
+        this.prd_dtl_desc = prd_dtl_desc;
+        this.trv_per = trv_per;
+        this.pc_prc = pc_prc;
+        this.img_pth = img_pth;
+        this.dpr_str_date = dpr_str_date;
+        this.dpr_fin_date = dpr_fin_date;
+    }
 
 
 }
