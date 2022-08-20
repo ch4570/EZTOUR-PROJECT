@@ -17,8 +17,11 @@ public class AttPrdDaoImpl implements AttPrdDao {
     String namespace = "com.devcamp.eztour.attPrdMapper.";
 
     @Override
-    public int count() throws Exception {
-        return session.selectOne(namespace + "count");
+    public int count(String usr_id, String prd_cd) throws Exception {
+        Map map = new HashMap();
+        map.put("usr_id", usr_id);
+        map.put("prd_cd", prd_cd);
+        return session.selectOne(namespace + "count", map);
     }
 
     @Override
@@ -47,8 +50,11 @@ public class AttPrdDaoImpl implements AttPrdDao {
     }
 
     @Override
-    public List<AttPrdDto> selectPage() throws Exception {
-        return session.selectList(namespace + "selectPage");
+    public List<AttPrdDto> selectPage(Integer offset, Integer pageSize) throws Exception {
+        Map map = new HashMap();
+        map.put("offset", offset);
+        map.put("pageSize", pageSize);
+        return session.selectList(namespace + "selectPage", map);
     }
 
     @Override

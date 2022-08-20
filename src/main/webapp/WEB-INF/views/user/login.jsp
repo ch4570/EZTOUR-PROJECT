@@ -8,6 +8,11 @@
 </head>
 <body>
 <br/>
+<script>
+    let msg = "${msg}";
+    if(msg=="ACC_ERR")  alert("회원만 후기 등록이 가능합니다.");
+</script>
+
 <div class="outer-content">
     <div class="inner-content">
 <form action="<c:url value="/user/login"/>" method="post" onsubmit="return formCheck(this);">

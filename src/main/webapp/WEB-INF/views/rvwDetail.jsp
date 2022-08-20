@@ -36,8 +36,10 @@
         <input type="text" name="rvw_cont" value="${rvwDto.rvw_cont}" readonly="readonly">내용<br>
         <input type="text" name="img_pth" value="${rvwDto.img_pth}" readonly="readonly">이미지<br>
         <input type="text" name="prd_nm" value="${rvwDto.prd_nm}" readonly="readonly">상품명<br>
-        <button type="button" id="modifyBtn" class="btn">수정</button>
-        <button type="button" id="removeBtn" class="btn">삭제</button>
+        <c:if test="${check.equals('me')}">
+            <button type="button" id="modifyBtn" class="btn">수정</button>
+            <button type="button" id="removeBtn" class="btn">삭제</button>
+        </c:if>
         <button type="button" id="listBtn" class="btn">목록</button>
     </form>
 </div>
