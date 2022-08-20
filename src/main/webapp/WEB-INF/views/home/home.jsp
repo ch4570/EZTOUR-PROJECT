@@ -163,24 +163,31 @@
 <footer>
 
 	<div class="aside">
-		<button class="aside__btn">
-			<span><i class="fas fa-angle-left"></i></span>
-			<span><i class="fas fa-angle-right"></i></span>
+		<button class="aside__btn" name="asideBtn">
+			<em><i class="fas fa-ellipsis-v"></i></em>
 		</button>
-		<ul class="aside__menu">
-			<li>
-				<span><i class="fas fa-history"></i></span>
-				<span>최근 본 상품</span>
-			</li>
-			<li>
-				<span><i class="far fa-clone"></i></span>
-				<span>상품 비교함</span>
-			</li>
-			<li>
-				<span><i class="far fa-heart"></i></span>
-				<span>관심상품</span>
-			</li>
-		</ul>
+		<div class="aside__menu">
+			<ul class="aside__menu--list">
+				<li>
+					<a class="aside__link" href="#">
+						<span><i class="fas fa-history"></i></span>
+						<span>최근 본 상품</span>
+					</a>
+				</li>
+				<li>
+					<a class="aside__link" href="#">
+						<span><i class="far fa-clone"></i></span>
+						<span>상품 비교함</span>
+					</a>
+				</li>
+				<li>
+					<a class="aside__link" href="#">
+						<span><i class="far fa-heart"></i></span>
+						<span>관심상품</span>
+					</a>
+				</li>
+			</ul>
+		</div>
 	</div>
 
 	<div class="foot">FOOTER</div>
@@ -188,6 +195,14 @@
 </footer>
 
 <script>
+	$(document).ready(function () {
+		// 자세히보기 버튼 클릭 시 클래스 'active' 추가
+		$('button[name="asideBtn"]').on('click', function () {
+			$(".aside").toggleClass('open');
+			$(".aside__btn").toggleClass('open');
+		})
+	});
+
 	let msg = "${msg}";
 	if(msg=="REG_OK")   alert("회원가입이 완료되었습니다. 로그인 해주세요.");
 	if(msg=="DEL_OK")   alert("정상적으로 회원 탈퇴 되셨습니다.");
