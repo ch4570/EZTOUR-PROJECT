@@ -51,7 +51,8 @@
                                     <span>원~</span>
                                 </div>
                                 <div class="item-detailBtn__wrap">
-                                    <button class="item-detailBtn" id="detailBtn" name="btnDetail" prd_cd="${item.prd_cd}">
+                                    <button class="item-detailBtn" id="detailBtn" name="btnDetail" prd_cd="${item.prd_cd}" onclick="hello(${item.prd_cd})">
+
                                         <em>자세히보기<i class="fas fa-chevron-down"></i></em>
                                         <em>닫기<i class="fas fa-chevron-up"></i></em>
                                     </button>
@@ -74,21 +75,27 @@
 <script>
 
     // 상품 리스트 보기
-    $(document).ready(function () {
-        // 자세히보기 버튼 클릭 시 클래스 'active' 추가
-        $('button[name="btnDetail"]').on('click', function () {
+    // $(document).ready(function (prd_cd) {
+        //     // 자세히보기 버튼 클릭 시 클래스 'active' 추가
+        // $('button[name="btnDetail"]').on('click', function (prd_cd) {
+        //     function hello(prd_cd) {
+    document.addEventListener("buttonEvent", function () {
+        document.querySelector("detailBtn").addEventListener('click', function () {
+
+        })
+    })
             $(this).toggleClass('active');
             $(this).closest('.content--list').next().toggleClass('active');
 
             // 변수 설정
-            const prd_cd = $(this).attr('prd_cd');
+            // const prd_cd = $(this).attr('prd_cd');
 
             // 리스트 출력
             if ($(this).hasClass('active')) {
                 $.ajax({
                     type: 'GET',
                     url: "<c:url value='/product/detailList'/>",
-                    data: {prd_cd:prd_cd},
+                    data: {prd_cd: prd_cd},
                     headers: {"content-type": "application/json"},
                     success: function (result) {
 
@@ -97,27 +104,28 @@
                         let div = document.createElement("div");
                         let span = document.createElement("span");
 
-                        result.forEach(function(product) {
-                            span.innerText = product.prd_cd
-                            li.appendChild(span);
-                            ul.appendChild(li);
+                        result.forEach(function (product) {
+                            alert(product)
+                            // span.innerText = product.prd_cd
+                            // li.appendChild(span);
+                            // ul.appendChild(li);
                         });
                     },
                     error: function () {
                         alert("에러 발생");
                     }
                 });
+                //     }
+                // })
+
+                //상품 상세 보기
+                // $('button[name="detailItemBtn"]').on('click', function () {
+                //     const prd_cd = $(this).attr('prd_cd');
+                //
+                // })
             }
         })
-
-        //상품 상세 보기
-        $('button[name="detailItemBtn"]').on('click', function () {
-            const prd_cd = $(this).attr('prd_cd');
-
-        })
-
-
-    });
+    })
 
 </script>
 </body>
