@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -32,12 +33,12 @@ public class ProductController {
         return "product/product_list.tiles";
     }
 
+    @ResponseBody
     @GetMapping("/detailList")
     public ResponseEntity<List<TrvPrdDtlDto>> getMoreList(String prd_cd) {
         List<TrvPrdDtlDto> productList = null;
         try {
             productList = productDetailService.getAllDetailProduct(prd_cd);
-            System.out.println("productList = " + productList);
             return new ResponseEntity<>(productList, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
