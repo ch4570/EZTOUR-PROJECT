@@ -73,10 +73,12 @@
 </div>
 
 <script>
+
   //상품 상세 보기
-  function detail_click(){
-    alert("Hello");
+  function detail_click(prd_cd){
+    alert(prd_cd);
   }
+
   // 상품 리스트 보기
   $(document).ready(function () {
     // 자세히보기 버튼 클릭 시 클래스 'active' 추가
@@ -111,7 +113,7 @@
                         '<span>'+ this.arl_nm +'</span>'+
                         '<span>'+ this.rsvt_yn +'</span>'+
                         '<span>'+ this.prd_str_prc +'</span></div>'+
-                        '<div class="detail-item__btn"><button class="detail-item__btn--btn" name="detailItemBtn" prd_cd="' + this.prd_cd + '" onclick="detail_click();">'+
+                        '<div class="detail-item__btn"><button class="detail-item__btn--btn" prd_dtl_cd="' + this.prd_dtl_cd + '" name="detailItemBtn">'+
                         '자세히보기</button></div></li>');
               });
             },
@@ -125,14 +127,22 @@
       }
     })
 
-    $('.detail-item__btn--btn').on('click', function () {
 
-      // 변수 설정
-      const prd_cd = $(this).attr('prd_cd');
-      console.log(prd_cd)
-      location.href = '/user/login';
-    })
+    $(document).on("click",".detail-item__btn--btn",function () {
+      const prd_dtl_cd = $(this).attr('prd_dtl_cd');
 
+      $.ajax({
+        type : "POST",
+        url : "<c:url value='/product/show'/>",
+        data : {"prd_dtl_cd":prd_dtl_cd},
+        success : function (data){
+              console.log("성공");
+        },
+        error : function (){
+              console.log("실패");
+        }
+      });
+    });
   });
 
 </script>

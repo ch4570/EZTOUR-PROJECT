@@ -46,8 +46,8 @@
                 <h1>상품 가격 수정</h1>
                 <div class="prd_price_input_form">
                     <form:form action="/product/price/modify" method="post" modelAttribute="trvPrdPrcDto">
-                        <input type="hidden" name="frs_rgs_no" value="${sessionScope.usr_id}"/>
-                        <input type="hidden" name="prd_prc_no" value="${list.prd_prc_no}"/>
+                        <form:hidden path="frs_rgs_no" value="${sessionScope.usr_id}"/>
+                        <form:hidden path="prd_prc_no" value="${list.prd_prc_no}"/>
 
                         <form:label path="prd_dtl_cd">상품상세코드</form:label><br>
                         <form:input path="prd_dtl_cd" value="${list.prd_dtl_cd}" placeholder="상품상세코드" cssClass="input_prd"/><br>

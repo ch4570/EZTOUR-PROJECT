@@ -278,4 +278,9 @@ public class ProductServiceImpl implements ProductService{
     public int getSearchRecognizeProductCnt(PageHandlerProduct pageHandlerProduct) throws Exception {
         return productDao.searchRecognizeProductCnt(pageHandlerProduct);
     }
+
+    @Override
+    public TrvPrdDtlReadDto getRecentlyProduct(String prd_dtl_cd) throws Exception {
+        return productDao.selectRecentlyProduct(prd_dtl_cd);
+    }
 }

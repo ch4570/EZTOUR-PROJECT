@@ -60,4 +60,5 @@ public interface ProductDao {
     public List<PrdOptionDto> selectProductOption(String nt_cd) throws Exception;
     public List<TrvPrdReadDto> searchRecognizeProduct(PageHandlerProduct pageHandlerProduct) throws Exception;
     public int searchRecognizeProductCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public TrvPrdDtlReadDto selectRecentlyProduct(String prd_dtl_cd) throws Exception;
 }

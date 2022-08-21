@@ -64,7 +64,18 @@ public class TrvPrdDtlReadDto {
         this.dpr_date = dpr_date;
         this.prd_nm = prd_nm;
         this.fin_date = fin_date;
+
+
+        }
+
+    public TrvPrdDtlReadDto(String img_pth,boolean mn_img_yn, String prd_cd, String prd_nm,Integer prd_str_prc) {
+        this.img_pth = img_pth;
+        this.mn_img_yn = mn_img_yn;
+        this.prd_cd = prd_cd;
+        this.prd_nm = prd_nm;
+        this.prd_str_prc = prd_str_prc;
     }
+
 
 
     public TrvPrdDtlReadDto(String prd_cd, String dstn_cd, String cmn_cd_thm, String prd_nm, String prd_dtl_desc, String trv_per,
@@ -127,6 +138,5 @@ public class TrvPrdDtlReadDto {
         this.dpr_str_date = dpr_str_date;
         this.dpr_fin_date = dpr_fin_date;
     }
-
 
 }

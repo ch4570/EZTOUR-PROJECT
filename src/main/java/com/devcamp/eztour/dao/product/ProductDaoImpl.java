@@ -280,4 +280,9 @@ public class ProductDaoImpl implements ProductDao{
         return session.selectOne(namespace+"searchRecognizeProductCnt",pageHandlerProduct);
     }
 
+    @Override
+    public TrvPrdDtlReadDto selectRecentlyProduct(String prd_dtl_cd) throws Exception {
+        return session.selectOne(namespace+"selectRecentlyProduct",prd_dtl_cd);
+    }
+
 }

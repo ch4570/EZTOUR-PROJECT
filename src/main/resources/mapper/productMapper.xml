@@ -423,4 +423,12 @@
         ORDER BY nt_cd
     </select>
 
+    <select id="selectRecentlyProduct" parameterType="String" resultType="TrvPrdDtlReadDto">
+        SELECT A.img_pth,A.mn_img_yn,B.prd_cd,B.prd_nm,B.prd_str_prc
+        FROM trv_prd B
+        JOIN prd_img A ON A.prd_cd = B.prd_cd
+        JOIN trv_prd_dtl C ON B.prd_cd = C.prd_cd
+        WHERE C.prd_dtl_cd = #{prd_dtl_cd}
+    </select>
+
 </mapper>
