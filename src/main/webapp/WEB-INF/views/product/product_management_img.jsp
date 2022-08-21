@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@page import="java.net.URLEncoder"%>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -50,7 +51,7 @@
                     <div class="board_content">
                         <div class="board_content_detail">
                             <div><span><img src="<c:url value='${prd_list.img_pth}'/>" width="200px" height="200px"></span></div>
-                            <div><a href="<c:url value='/product/image/read?img_pth=${prd_list.img_pth}&prd_img_no=${prd_list.prd_img_no}&prd_nm=${prd_list.prd_nm}&prd_cd=${prd_list.prd_cd}'/>"><span>${prd_list.prd_nm}</span></a></div>
+                            <div><a href="<c:url value='/product/image/read?img_pth=${prd_list.img_pth}&prd_img_no=${prd_list.prd_img_no}&prd_nm=${URLEncoder.encode(prd_list.prd_nm,"UTF-8")}&prd_cd=${prd_list.prd_cd}'/>"><span>${prd_list.prd_nm}</span></a></div>
                             <div><span><fmt:formatNumber value="${prd_list.prd_str_prc}" pattern="#,##0"/></span></div>
                             <div><span><fmt:formatDate value="${prd_list.frs_reg_date}" pattern="yyyy-MM-dd"/></span></div>
                         </div>

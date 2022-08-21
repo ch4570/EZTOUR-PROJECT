@@ -45,7 +45,7 @@
               <span class="item-arl">${item.arl_nm}</span>
             </div>
             <div class="info-price">
-              <span class="item-dstn_cd">${item.dstn_cd}</span>
+              <span class="item-dstn_cd">${item.prd_cd}</span>
               <div class="item-prd_str_prc">
                 <span>${item.prd_str_prc}</span>
                 <span>원~</span>
@@ -74,10 +74,6 @@
 
 <script>
 
-  //상품 상세 보기
-  function detail_click(prd_cd){
-    alert(prd_cd);
-  }
 
   // 상품 리스트 보기
   $(document).ready(function () {

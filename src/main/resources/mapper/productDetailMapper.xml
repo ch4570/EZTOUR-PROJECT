@@ -27,7 +27,7 @@
                  JOIN prd_img B ON A.prd_cd = B.prd_cd
                  JOIN trv_prd_dtl C ON A.prd_cd = C.prd_cd
                  JOIN dstn_ctg D ON A.cntn_cd = D.cntn_cd
-        WHERE act_yn=1 and A.cntn_cd = #{cntn_cd} and A.nt_cd = #{nt_cd};
+        WHERE act_yn=1 and A.cntn_cd = #{cntn_cd} and A.nt_cd = #{nt_cd} and D.nt_cd_nm = #{nt_cd_nm}
     </select>
 
 </mapper>

@@ -31,7 +31,7 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/list")
-    public String getAllProduct(Model m,String cntn_cd,String nt_cd) throws Exception{
+    public String getAllProduct(Model m,String cntn_cd,String nt_cd, String nt_cd_nm) throws Exception{
 
         if(cntn_cd == null || nt_cd == null){
             try {
@@ -45,6 +45,7 @@ public class ProductController {
             Map<String,String> map = new HashMap<>();
             map.put("cntn_cd",cntn_cd);
             map.put("nt_cd",nt_cd);
+            map.put("nt_cd_nm",nt_cd_nm);
             List<TrvPrdDtlReadDto> list = productDetailService.getAllProductCategory(map);
             m.addAttribute("list",list);
             return "product/product_list.tiles";

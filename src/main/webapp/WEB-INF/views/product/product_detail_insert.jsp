@@ -48,7 +48,7 @@
                     <form:form action="/product/detail/insert" method="post" modelAttribute="trvPrdDtlWriteDto">
                         <input type="hidden" name="frs_rgs_no" value="${sessionScope.usr_id}"/>
                         <form:label path="prd_dtl_cd">상품상세코드</form:label><br>
-                        <form:input path="prd_dtl_cd" placeholder="상품상세코드" value="${param.prd_dtl_cd}" cssClass="input_prd"/><br>
+                        <form:input path="prd_dtl_cd" placeholder="상품상세코드" value="${param.prd_cd}" cssClass="input_prd"/><br>
                         <form:errors path="prd_dtl_cd" cssClass="error_msg"/><br><br>
 
                         <form:label path="prd_cd">상품코드</form:label><br>
