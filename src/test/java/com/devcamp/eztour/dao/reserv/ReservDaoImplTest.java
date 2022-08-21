@@ -1,16 +1,16 @@
 package com.devcamp.eztour.dao.reserv;
 
-import com.devcamp.eztour.domain.reserv.AirlineReqDto;
-import com.devcamp.eztour.domain.reserv.PageHandler;
-import com.devcamp.eztour.domain.reserv.ReservConfInfoDto;
-import com.devcamp.eztour.domain.reserv.ReservDto;
+import com.devcamp.eztour.dao.product.ProductDao;
+import com.devcamp.eztour.dao.productDetail.ProductDetailDao;
+import com.devcamp.eztour.dao.user.UserDao;
+import com.devcamp.eztour.domain.reserv.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +22,11 @@ import static org.junit.Assert.*;
 public class ReservDaoImplTest {
     @Autowired
     ReservDao reservDao;
+    @Autowired
+    ProductDao productDao;
+    @Autowired
+    ProductDetailDao productDetailDao;
+
 
     @Test
     public void insertReservTest() throws Exception {
@@ -219,4 +224,59 @@ public class ReservDaoImplTest {
         List<AirlineReqDto> list = reservDao.selectArlReqInfo(prd_dtl_cd);
         assertTrue(list.size()==2);
     }
+
+    @Test
+    public void selectPrdInfoTest() throws Exception {
+//        // trv_prd 상품 더미데이터
+//        TrvPrdDtoForTest pdft = new TrvPrdDtoForTest("a001", "mg", "mongol", "몽골의 드넓은 초원을 경험해보세요", "몽골은... 상세설명", "1박 2일", 1000000, "2022-10-19 00:00:00", "2022-10-20 00:00:00", 0, false, false, false, false, 0, 0, 0, false, new Date(), "adminahk", new Date(), "adminahk");
+//        TrvPrdDtoForTest pdft2 = new TrvPrdDtoForTest("a003", "usa", "healing", "미국 사막속에서 힐링을", "미국은... 상세설명", "10박 12일", 5000000, "2022-10-19 00:00:00", "2022-10-27 00:00:00", 0, false, false, false, false, 0, 0, 0, false, new Date(), "adminahk", new Date(), "adminahk");
+//        // trv_prd_dtl 상품상세코드 더미데이터
+//        TraPrdDtlForTest tpdft = new TraPrdDtlForTest("a001001", "a001", 1000000, "mongolAir", true, true, 0, 15, 25, "2022-10-19 00:00:00", new Date(), "adminAHK", new Date(), "adminAHK");
+//        TraPrdDtlForTest tpdft2 = new TraPrdDtlForTest("a001002", "a001", 1500000, "mongolAir", true, true, 0, 15, 25, "2022-10-20 00:00:00", new Date(), "adminAHK", new Date(), "adminAHK");
+//        // prd_prc 상품가격 더미데이터
+//        PrdPrcForTest ppft = new PrdPrcForTest("a001001", 1000000, 1000000, 800000, new Date(), "adminAHK", "adminAHK");
+
+//        insert into trv_prd values ("a001", "mg", "mongol", "몽골의 드넓은 초원을 경험해보세요", "몽골은... 상세설명", "1박 2일", 1000000, "2022-10-19 00:00:00", "2022-10-20 00:00:00", 0, 0, 0, 0, 0, 0, 0, 0, 0, now(), "asdf", now(), "asdf");
+//        insert into trv_prd_dtl values("a001001", "a001", 1000000, "mongolAir", true, true, 0, 15, 25, "2022-10-19 00:00:00", now(), "adminAHK", now(), "adminAHK");
+//        insert into trv_prd_dtl values("a001002", "a001", 1500000, "mongolAir", true, true, 0, 15, 25, "2022-10-20 00:00:00", now(), "adminAHK", now(), "adminAHK");
+//        insert into prd_prc(prd_dtl_cd, prd_cd, adt_prc, chd_prc, bb_prc, frs_reg_date, frs_rgs_no, fnl_mod_no) values ("a001001", "a001", 1000000, 1000000, 800000, now(), "adminAHK", "adminAHK");
+//        insert into prd_prc(prd_dtl_cd, prd_cd, adt_prc, chd_prc, bb_prc, frs_reg_date, frs_rgs_no, fnl_mod_no) values ("a001002", "a001", 1200000, 1000000, 800000, now(), "adminAHK", "adminAHK");
+    }
+
+    @Test
+    public void selectUserMlgTest() throws Exception{
+        String usr_id = "asdf";
+        int mlg = reservDao.selectUserMlg(usr_id);
+        assertTrue(mlg == 0);
+    }
+
+    @Test
+    public void updateUserMlgTest() throws Exception {
+        String usr_id = "asdf";
+        Map map = new HashMap<>();
+        map.put("option", "plus");
+        map.put("mlg", 100);
+        map.put("usr_id", usr_id);
+
+        reservDao.updateUserMlg(map);
+    }
+
+    @Test
+    public void updateRsvtSttTest() throws Exception{
+        Map map = new HashMap();
+//        map.put("cmn_cd_rsvt_stt", "6E");
+//        map.put("rsvt_no", "it1660462401002");
+        reservDao.updateRsvtStt(map);
+    }
+
+    @Test
+    public void selectPayFtrPrcTest() throws Exception{
+        String rsvt_no = "12312333312";
+        reservDao.deleteReserv(rsvt_no);
+        assertTrue(reservDao.selectReserv(rsvt_no)==null);
+
+        ReservDto reservDto = new ReservDto("12312333312", "a001001", "asdf", "asdf", "asdf","01111111111", "asdf@sdf.com", 1000000, 1000000, "aaaaa", "6A", "7A", new Date(), null, 1, 0, 0);
+        assertTrue(reservDao.insertReserv(reservDto)==1);
+    }
+
 }

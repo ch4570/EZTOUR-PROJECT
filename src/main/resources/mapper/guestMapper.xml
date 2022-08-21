@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devcamp.eztour.guestMapper">
+    <insert id="insertGuest" parameterType="com.devcamp.eztour.domain.reserv.GuestDto">
+        INSERT INTO gst VALUES (#{gst_id}, #{gst_nm}, #{phn}, now(), #{gst_id}, now(), #{gst_id});
+    </insert>
+
+    <select id="selectGuest" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.GuestDto">
+        SELECT * FROM gst WHERE gst_id = #{gst_id}
+    </select>
+
+    <select id="selectAllGuest" resultType="com.devcamp.eztour.domain.reserv.GuestDto">
+        select * from gst
+    </select>
+
+    <delete id="deleteGuest" parameterType="String">
+        DELETE FROM gst WHERE gst_id = #{gst_id}
+    </delete>
+
+    <delete id="deleteAllGuest">
+        DELETE FROM gst
+    </delete>
+</mapper>
