@@ -575,8 +575,8 @@ public class AdminController {
     @GetMapping("/product/recognize")
     public String productRecognize(HttpSession session, Model model, @RequestParam(value = "page",defaultValue = "1") int page
             ,String search_option,String search_keyword) throws Exception{
-        boolean isAdmin = isAdmin(session);
-        if(!isAdmin){
+        boolean isSupAdmin = isSupAdmin(session);
+        if(!isSupAdmin){
             return "redirect:/";
         }else{
             if(search_keyword == null || search_keyword == ""){
@@ -600,8 +600,8 @@ public class AdminController {
 
     @GetMapping("/product/recognize/read")
     public String productRecognizeRead(HttpSession session,String prd_cd,Model model) throws Exception{
-        boolean isAdmin = isAdmin(session);
-        if(!isAdmin){
+        boolean isSupAdmin = isSupAdmin(session);
+        if(!isSupAdmin){
             return "redirect:/";
         }else{
             TrvPrdReadDto trvPrdReadDto = productService.getProductRecognize(prd_cd);
@@ -612,7 +612,16 @@ public class AdminController {
 
     private boolean isAdmin(HttpSession session){
         UserDto userDto = (UserDto)session.getAttribute("userDto");
-        if(userDto.getRl().equals("Admin") || userDto.getRl().equals("SupAdmin")){
+        if(userDto.getRl().equals("Admin") || userDto.getRl().equals("supAdmin")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private boolean isSupAdmin(HttpSession session){
+        UserDto userDto = (UserDto)session.getAttribute("userDto");
+        if(userDto.getRl().equals("supAdmin")){
             return true;
         }else{
             return false;
