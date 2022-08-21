@@ -10,7 +10,7 @@
 <body>
 
 <div class="product-list__header">
-  <h1>A</h1>
+  <h1></h1>
 </div>
 
 <div class="product-list__content">

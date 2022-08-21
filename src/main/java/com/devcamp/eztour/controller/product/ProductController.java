@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -29,7 +31,7 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/list")
-    public String getAllProduct(Model m,String cntn_cd,String nt_cd) {
+    public String getAllProduct(Model m,String cntn_cd,String nt_cd) throws Exception{
 
         if(cntn_cd == null || nt_cd == null){
             try {
@@ -40,6 +42,11 @@ public class ProductController {
             }
             return "product/product_list.tiles";
         }else{
+            Map<String,String> map = new HashMap<>();
+            map.put("cntn_cd",cntn_cd);
+            map.put("nt_cd",nt_cd);
+            List<TrvPrdDtlReadDto> list = productDetailService.getAllProductCategory(map);
+            m.addAttribute("list",list);
             return "product/product_list.tiles";
         }
 
