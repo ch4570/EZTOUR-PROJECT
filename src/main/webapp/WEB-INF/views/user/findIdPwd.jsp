@@ -1,5 +1,11 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%
+  response.setHeader("Cache-Control","no-cache");
+  response.setHeader("Pragma","no-cache");
+  response.setDateHeader("Expires",0);
+%>
 
 <html>
 <head>
@@ -21,8 +27,8 @@
                 </nav>
 
                 <div class="form-inp">
-                    <input id="usr_nm" type="text" name="usr_nm"  placeholder="이름 입력" >
-                    <input id="phn" name="phn" placeholder="핸드폰 번호 입력">
+                    <input id="usr_nm" type="text" name="usr_nm"  placeholder="이름을 입력하세요." >
+                    <input id="phn" name="phn" placeholder="핸드폰 번호를 입력하세요. ('-' 제외)">
                     <input class="hidden" type="button" id="checkAuthBtn" value="인증하기">
                     <button id="findIdBtn" onclick="authPhn()">인증번호 보내기</button>
                 </div>
@@ -41,15 +47,15 @@
                             <option>@yahoo.co.kr</option>
                         </select>
                         <div>
-                            <input class="mail-check-input" placeholder="인증번호 6자리를 입력해주세요." disabled="disabled" maxlength="6">
+                            <input class="mail-check-input hidden" placeholder="인증번호 6자리를 입력해주세요." maxlength="6">
                             <span id="mail-check-warn"></span>
-                            <button id="mail-Check-Btn">인증하기</button>
+                            <input class="hidden" type="button" id="mailCheckBtn" value="인증하기" style="margin-top: 10px">
+                            <button id="mail-Check-Btn" style="margin-top: 0px;">인증번호 보내기</button>
                         </div>
             </div>
         </form>
     </div>
 </div>
-
 <!-- 아이디/비밀번호 찾기 결과 모달창 -->
 <div class="modal hidden" id="resultModal">
     <div class="modal__overlay" id="resultOverlay"></div>
@@ -68,12 +74,15 @@
                 <br/>
                 <hr>
             </div>
-        <button id="closeresultModalBtn"> 닫기 </button>
+        <button onclick="location.replace('/user/login')"> 로그인 하러 가기 </button>
     </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+
+    window.history.forward();
+
     function findPwdView(){
         $(".form-inp").hide();
         $("#findTitle").hide();
@@ -139,6 +148,10 @@
                     success : function(usr_id){
                         // 1. 모달 열기
                         openresultModal();
+                        $("#pwdHead").hide();
+                        $("#pwdChk").hide();
+                        $("#idChk").show();
+                        $("#idHead").show();
                         // 2. 모달에 usr_id 전달
                         $('input[name=resultId]').attr('value',usr_id);
                     },
@@ -148,45 +161,51 @@
             error   : function(){ alert("인증번호가 일치하지 않습니다.") }
         });
     });
-    var email = $('#email1').val() + $('#email2').val(); // 이메일 주소값 얻어오기!
+
+    var code;
 
     $('#mail-Check-Btn').click(function() {
+        let email = $('#email1').val() + $('#email2').val(); // 이메일 주소값 얻어오기
         console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
         const checkInput = $('.mail-check-input') // 인증번호 입력하는곳
+        const checkAuthInput = document.querySelector(".mail-check-input");
+        const mailAuthBtn = document.querySelector("#mailCheckBtn");
+        const mailCheckBtn = document.querySelector("#mail-Check-Btn");
+
+        $('#email1').attr('readonly',true);
+        $('#email2').attr('readonly',true);
+        $('#email2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
+        $('#email2').attr('onChange', 'this.selectedIndex = this.initialSelect'); // 이메일 인풋창 readOnly
+
+        checkAuthInput.classList.remove("hidden")
+        mailAuthBtn.classList.remove("hidden")
+        mailCheckBtn.classList.add("hidden")
+
 
         $.ajax({
             type : 'get',
-            url : '<c:url value ="/mailCheck?email="/>'+email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+            url : '<c:url value ="/mailCheck?email="/>'+email,
             success : function (data) {
                 console.log("data : " +  data);
                 checkInput.attr('disabled',false);
-                code =data;
+                code = data;
                 alert('인증번호가 전송되었습니다.');
             }
         });
     });
 
-    $('.mail-check-input').blur(function () {
-        const inputCode = $(this).val();
-        const $resultMsg = $('#mail-check-warn');
 
-        let usr_id = $("#usrId").val();
-        let usr_nm = $("#usrNm").val();
+    $('#mailCheckBtn').click(function(){
+        const inputCode = $(".mail-check-input").val();
+        let usr_id = $("#usrid").val();
+        let usr_nm = $("#usrnm").val();
+        let email = $('#email1').val() + $('#email2').val(); // 이메일 주소값 얻어오기!
 
-        if(inputCode === code){
-            $resultMsg.html('인증번호가 일치합니다.');
-            $resultMsg.css('color','green');
-            $('#mail-Check-Btn').attr('disabled',true);
-            $('#email1').attr('readonly',true);
-            $('#email2').attr('readonly',true);
-            $('#email2').attr('onFocus', 'this.initialSelect = this.selectedIndex');
-            $('#email2').attr('onChange', 'this.selectedIndex = this.initialSelect');
-
-            alert("인증에 성공했습니다.")
+        if(inputCode === code) {
             $.ajax({
-                type:'POST',
-                url: '/findPwd/'+usr_id+ "/" +usr_nm+ "/" +email,
-                success : function(pwd){
+                type: 'POST',
+                url: '/findPwd/' + usr_id + "/" + usr_nm + "/" + email,
+                success: function (pwd) {
                     // 1. 모달 열기
                     openresultModal();
                     $("#pwdHead").show();
@@ -194,29 +213,31 @@
                     $("#idChk").hide();
                     $("#idHead").hide();
 
-                    // 2. 모달에 usr_id 전달
-                    $('input[name=resultPwd]').attr('value',pwd);
+                    alert("인증에 성공했습니다.");
+                    // 2. 모달에 pwd 전달
+                    $('input[name=resultPwd]').attr('value', pwd);
                 },
-                error   : function(){ alert("존재하지 않는 사용자입니다.") }
+                error: function () {
+                    alert("존재하지 않는 사용자입니다.")
+                }
             });
-        }else{
-            $resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
-            $resultMsg.css('color','red');
-        }
+        } else{alert("인증번호를 다시 확인해주세요.");}
+
     });
 
-    const resultModal = document.querySelector("#resultModal");
-    const resultOverlay = resultModal.querySelector("#resultOverlay");
-    const closeresultModalBtn = resultModal.querySelector("#closeresultModalBtn")
-    const openresultModal = () => {
-        resultModal.classList.remove("hidden");
-    }
-    const closeresultModal = () => {
-        resultModal.classList.add("hidden")
-    }
-    closeresultModalBtn.addEventListener("click", closeresultModal);
-    resultOverlay.addEventListener("click", closeresultModal);
+        const resultModal = document.querySelector("#resultModal");
+        const resultOverlay = resultModal.querySelector("#resultOverlay");
+        const closeresultModalBtn = resultModal.querySelector("#closeresultModalBtn")
+        const openresultModal = () => {
+            resultModal.classList.remove("hidden");
+        }
+        const closeresultModal = () => {
+            resultModal.classList.add("hidden")
+        }
+        closeresultModalBtn.addEventListener("click", closeresultModal);
+        resultOverlay.addEventListener("click", closeresultModal);
 
 </script>
-</body>
+
+ </body>
 </html>

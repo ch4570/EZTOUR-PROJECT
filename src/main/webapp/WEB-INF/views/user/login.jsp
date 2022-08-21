@@ -33,7 +33,7 @@
                     <a href="<c:url value='/user/join'/>" style="font-weight: bolder;">회원가입</a>
                 </span>
             </div>
-            <button id="loginBtn">로그인</button
+            <button id="loginBtn">로그인</button>
         </div>
 
         <div class="form-inp-nonUsr" style="display:none;">
