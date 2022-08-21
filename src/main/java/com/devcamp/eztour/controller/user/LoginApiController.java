@@ -39,7 +39,7 @@ public class LoginApiController {
 
         if(kakaoConnectionCheck == null) { // 이메일과 카카오 아이디 둘다 없을시
             resultMap.put("JavaData", "register");
-        } else if(kakaoConnectionCheck.get("kakao_id") == null && kakaoConnectionCheck.get("email") != null) { //이메일 가입 되어있고 카카오 연동 안되어 있을시
+        } else if(kakaoConnectionCheck.get("kakao_id") == null && kakaoConnectionCheck.get("email") != null) { // 이메일 가입 되어있고 카카오 연동 안되어 있을시
             System.out.println("kakaoLogin");
             userService.setKakaoConnection(paramMap);
             UserDto userDto = userService.userKakaoLoginPro((String)paramMap.get("kakao_id"));

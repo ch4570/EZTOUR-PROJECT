@@ -17,12 +17,12 @@ public class UserDaoImplTest {
     @Autowired
     private UserDao userDao;
 
-    @Test
-    public void insertTest() throws Exception {
-        UserDto userDto = new UserDto("hoondal8", "1234", "훈달이", "19950101", "여성", "aaa@aaa.com", "01000000000");
-        assertTrue(userDao.insertUsr(userDto)==1);
-        assertTrue(userDao.insertUsrHis(userDto)==1);
-    }
+//    @Test
+//    public void insertTest() throws Exception {
+//        UserDto userDto = new UserDto("hoondal8", "1234", "훈달이", "19950101", "여성", "aaa@aaa.com", "01000000000");
+//        assertTrue(userDao.insertUsr(userDto)==1);
+//        assertTrue(userDao.insertUsrHis(userDto)==1);
+//    }
 
     @Test
     public void selectTest() throws Exception {

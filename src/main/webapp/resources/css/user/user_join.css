@@ -1,9 +1,11 @@
 .select {
     padding: 15px 10px;
 }
+
 .select input[type=radio]{
     display: none;
 }
+
 .select input[type=radio]+label{
     display: inline-block;
     cursor: pointer;
@@ -15,15 +17,16 @@
     font-weight:bold;
     font-size:13px;
 }
+
 .select input[type=radio]+label{
     background-color: #fff;
     color: #333;
 }
+
 .select input[type=radio]:checked+label{
     background-color: #333;
     color: #fff;
 }
-
 
 .input-field{
     width: 500px;
@@ -36,7 +39,11 @@
     padding: 0px 20px;
     min-height: 50px;
     margin-bottom: 20px;
-    margin-top: 20px;
+    margin-top: 10px;
+}
+
+.input-field[readonly]{
+    background-color:darkgray;
 }
 
 #man, #woman{
@@ -69,4 +76,20 @@
 
 .input-basic{
     margin-bottom : 20px;
+}
+
+#mail-Check-Btn {
+    all: unset;
+    background: #1c1c1c;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    font-size: 12px;
+}
+
+.span-prf-image{
+    display: flex;
+    flex-direction: column;
 }

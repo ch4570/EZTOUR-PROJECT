@@ -206,7 +206,9 @@
             usr_nm,
             email,
             phn,
-            rl
+            rl,
+            mlg,
+            cmn_cd_prf_img
         FROM
             usr
         WHERE
