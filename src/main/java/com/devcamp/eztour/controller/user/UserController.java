@@ -108,7 +108,7 @@ public class UserController {
         userService.updateHstForLogin(usr_id); // 예외처리 예정 (에러 발생시 세션 안넘기고 에러메세지 + 메인 이동)
 
         UserDto loginUser = new UserDto(userDto.getUsr_id(), userDto.getUsr_nm(),
-                                                 userDto.getEmail(), userDto.getRl(), userDto.getPhn());
+                                                 userDto.getEmail(), userDto.getRl(), userDto.getPhn(), userDto.getMlg(), userDto.getCmn_cd_prf_img());
         session.setAttribute("userDto", loginUser);
 
         if(rememberId) {
