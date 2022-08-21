@@ -58,4 +58,6 @@ public interface ProductDao {
     public TrvPrdReadDto selectRecognizeProduct(String prd_cd) throws Exception;
     public int updateActivateStatus(Map map) throws Exception;
     public List<PrdOptionDto> selectProductOption(String nt_cd) throws Exception;
+    public List<TrvPrdReadDto> searchRecognizeProduct(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public int searchRecognizeProductCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
 }

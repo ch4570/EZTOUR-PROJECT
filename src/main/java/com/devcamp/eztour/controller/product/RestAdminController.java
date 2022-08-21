@@ -229,12 +229,15 @@ public class RestAdminController {
     public String productRecognizeModify(String prd_cd, boolean act_yn) throws Exception{
         Map<String,Object> map = new HashMap<>();
         map.put("prd_cd",prd_cd);
+
         if(act_yn){
             map.put("act_yn",false);
         }else{
             map.put("act_yn",true);
         }
+
         int result = productService.modifyActivateStatus(map);
+
         if(result == 1){
             return "success";
         }else{

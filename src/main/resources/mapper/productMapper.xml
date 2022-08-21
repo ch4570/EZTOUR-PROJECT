@@ -394,6 +394,22 @@
         WHERE prd_cd = #{prd_cd}
     </select>
 
+    <select id="searchRecognizeProduct" parameterType="PageHandlerProduct" resultType="TrvPrdReadDto">
+        SELECT prd_cd,dstn_cd,cmn_cd_thm,prd_nm,prd_dtl_desc,
+               trv_per,prd_str_prc,dpr_str_date,dpr_fin_date,act_yn,frs_reg_date
+        FROM trv_prd
+        WHERE TRUE
+        <include refid="searchCondition"/>
+        LIMIT #{pageSize} OFFSET #{startList}
+    </select>
+
+    <select id="searchRecognizeProductCnt" parameterType="PageHandlerProduct" resultType="int">
+        SELECT COUNT(*)
+        FROM trv_prd
+        WHERE TRUE
+        <include refid="searchCondition"/>
+    </select>
+
     <update id="updateActivateStatus" parameterType="map">
         UPDATE trv_prd
         SET act_yn = #{act_yn}

@@ -56,4 +56,6 @@ public interface ProductService {
     public TrvPrdReadDto getProductRecognize(String prd_cd) throws Exception;
     public int modifyActivateStatus(Map map) throws Exception;
     public List<PrdOptionDto> getProductOption(String nt_cd) throws Exception;
+    public List<TrvPrdReadDto> getSearchRecognizeProduct(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public int getSearchRecognizeProductCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
 }

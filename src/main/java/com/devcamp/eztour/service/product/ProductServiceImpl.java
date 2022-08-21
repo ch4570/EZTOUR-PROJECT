@@ -268,4 +268,14 @@ public class ProductServiceImpl implements ProductService{
     public List<PrdOptionDto> getProductOption(String nt_cd) throws Exception {
         return productDao.selectProductOption(nt_cd);
     }
+
+    @Override
+    public List<TrvPrdReadDto> getSearchRecognizeProduct(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.searchRecognizeProduct(pageHandlerProduct);
+    }
+
+    @Override
+    public int getSearchRecognizeProductCnt(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.searchRecognizeProductCnt(pageHandlerProduct);
+    }
 }

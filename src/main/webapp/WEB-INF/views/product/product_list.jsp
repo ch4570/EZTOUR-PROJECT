@@ -73,7 +73,10 @@
 </div>
 
 <script>
-
+    //상품 상세 보기
+    function detail_click(){
+        alert("Hello");
+    }
     // 상품 리스트 보기
     $(document).ready(function () {
         // 자세히보기 버튼 클릭 시 클래스 'active' 추가
@@ -94,38 +97,41 @@
                         type: 'GET',
                         url: "<c:url value='/product/detailList'/>",
                         data: {prd_cd:prd_cd},
-                        headers: {"content-type": "application/json"},
                         success: function (result) {
 
-                            let ul = document.querySelector(".detail__item--list"+count);
-                            let li = document.createElement("li");
-                            let div = document.createElement("div");
-                            let span = document.createElement("span");
-
-                            result.forEach(function(product) {
-                                span.innerText = product.prd_cd
-                                li.appendChild(span);
-                                ul.appendChild(li);
+                            $(result).each(function() {
+                                $('.detail__item--list'+count).
+                                append('<li class="detail-item__list">'+
+                                    '<div class="detail-item__list--item">'+
+                                    '<span>'+ this.prd_cd +'</span>'+
+                                    '<span>'+ this.prd_dtl_cd +'</span>'+
+                                    '<span>'+ this.prd_nm +'</span>'+
+                                    '<span>'+ this.dpr_date +'</span>'+
+                                    '<span>'+ this.fin_date +'</span>'+
+                                    '<span>'+ this.arl_nm +'</span>'+
+                                    '<span>'+ this.rsvt_yn +'</span>'+
+                                    '<span>'+ this.prd_str_prc +'</span></div>'+
+                                    '<div class="detail-item__btn"><button class="detail-item__btn--btn" name="detailItemBtn" prd_cd="' + this.prd_cd + '" onclick="detail_click();">'+
+                                    '자세히보기</button></div></li>');
                             });
-
                         },
                         error: function () {
                             alert("에러 발생");
                         }
                     });
                 }
-            }else{
+            } else {
                 return;
             }
-
         })
 
-        //상품 상세 보기
-        $('button[name="detailItemBtn"]').on('click', function () {
+        $('.detail-item__btn--btn').on('click', function () {
+
+            // 변수 설정
             const prd_cd = $(this).attr('prd_cd');
-
+            console.log(prd_cd)
+            location.href = '/user/login';
         })
-
 
     });
 

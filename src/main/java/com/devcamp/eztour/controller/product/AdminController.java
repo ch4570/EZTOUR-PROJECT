@@ -588,9 +588,9 @@ public class AdminController {
                 return "product/product_recognize.tiles";
             }else{
                 PageHandlerProduct option = new PageHandlerProduct(search_option,search_keyword);
-                int totalCnt = productService.searchSelectProductAdminCnt(option);
+                int totalCnt = productService.getSearchRecognizeProductCnt(option);
                 PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page,search_option,search_keyword);
-                List<TrvPrdReadDto> prdDtoList = productService.searchSelectProductAdmin(paging);
+                List<TrvPrdReadDto> prdDtoList = productService.getSearchRecognizeProduct(paging);
                 model.addAttribute("prd_list",prdDtoList);
                 model.addAttribute("paging",paging);
                 return "product/product_recognize.tiles";

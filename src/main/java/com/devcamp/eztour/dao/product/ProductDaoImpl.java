@@ -270,4 +270,14 @@ public class ProductDaoImpl implements ProductDao{
         return session.selectList(namespace+"selectProductOption",nt_cd);
     }
 
+    @Override
+    public List<TrvPrdReadDto> searchRecognizeProduct(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return session.selectList(namespace+"searchRecognizeProduct",pageHandlerProduct);
+    }
+
+    @Override
+    public int searchRecognizeProductCnt(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return session.selectOne(namespace+"searchRecognizeProductCnt",pageHandlerProduct);
+    }
+
 }
