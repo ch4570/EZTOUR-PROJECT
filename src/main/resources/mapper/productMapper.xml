@@ -6,14 +6,14 @@
 
     <insert id="insertProduct" parameterType="TrvPrdWriteDto">
         INSERT INTO trv_prd(prd_cd,dstn_cd,cmn_cd_thm,prd_nm,prd_dtl_desc,
-                            trv_per,prd_str_prc,dpr_str_date,dpr_fin_date,frs_rgs_no,frs_reg_date)
+                            trv_per,prd_str_prc,dpr_str_date,dpr_fin_date,frs_rgs_no,frs_reg_date,cntn_cd,nt_cd)
         VALUES(#{prd_cd},#{dstn_cd},#{cmn_cd_thm},#{prd_nm},#{prd_dtl_desc},
-               #{trv_per},#{prd_str_prc},#{dpr_str_date},#{dpr_fin_date},#{frs_rgs_no},now());
+               #{trv_per},#{prd_str_prc},#{dpr_str_date},#{dpr_fin_date},#{frs_rgs_no},now(),#{cntn_cd},#{nt_cd})
     </insert>
 
     <select id="selectProduct" parameterType="String" resultType="TrvPrdReadDto">
         SELECT prd_cd,dstn_cd,cmn_cd_thm,prd_nm,prd_dtl_desc,
-               trv_per,prd_str_prc,dpr_str_date,dpr_fin_date
+               trv_per,prd_str_prc,dpr_str_date,dpr_fin_date,cntn_cd,nt_cd
         FROM trv_prd
         WHERE prd_cd = #{prd_cd}
     </select>
@@ -93,7 +93,7 @@
     <update id="updateProduct" parameterType="TrvPrdWriteDto">
         UPDATE trv_prd SET dstn_cd=#{dstn_cd},cmn_cd_thm=#{cmn_cd_thm},prd_nm=#{prd_nm},
                            prd_dtl_desc=#{prd_dtl_desc},trv_per=#{trv_per},prd_str_prc=#{prd_str_prc},
-                           dpr_str_date=#{dpr_str_date},dpr_fin_date=#{dpr_fin_date}
+                           dpr_str_date=#{dpr_str_date},dpr_fin_date=#{dpr_fin_date},cntn_cd=#{cntn_cd},nt_cd=#{nt_cd}
         WHERE prd_cd=#{prd_cd}
     </update>
 
@@ -399,5 +399,12 @@
         SET act_yn = #{act_yn}
         WHERE prd_cd = #{prd_cd}
     </update>
+
+    <select id="selectProductOption" parameterType="String" resultType="PrdOptionDto">
+        SELECT DISTINCT nt_cd,nt_cd_nm
+        FROM dstn_ctg
+        WHERE cntn_cd = #{cntn_cd}
+        ORDER BY nt_cd
+    </select>
 
 </mapper>

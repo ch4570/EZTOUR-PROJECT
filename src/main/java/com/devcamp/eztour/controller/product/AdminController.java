@@ -1,6 +1,7 @@
 package com.devcamp.eztour.controller.product;
 
 import com.devcamp.eztour.domain.product.*;
+import com.devcamp.eztour.domain.user.UserDto;
 import com.devcamp.eztour.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,19 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 
 @Slf4j
@@ -60,7 +52,6 @@ public class AdminController {
     @PostMapping("/product/insert")
     public String insertProduct(@ModelAttribute("trvPrdWriteDto") @Valid TrvPrdWriteDto trvPrdWriteDto,
                                 BindingResult bindingResult, RedirectAttributes redirectAttributes) throws Exception{
-
         if(bindingResult.hasErrors()){
             return "product/product_insert.tiles";
         }
@@ -141,7 +132,6 @@ public class AdminController {
             redirectAttributes.addAttribute("error_msg","가격 추가에 실패하였습니다.");
             return "redirect:/product/insert/price";
         }
-
     }
 
     // 관리자 상품 일정 등록 페이지 진입
@@ -585,8 +575,8 @@ public class AdminController {
     @GetMapping("/product/recognize")
     public String productRecognize(HttpSession session, Model model, @RequestParam(value = "page",defaultValue = "1") int page
             ,String search_option,String search_keyword) throws Exception{
-        boolean isAdmin = isAdmin(session);
-        if(!isAdmin){
+        boolean isSupAdmin = isSupAdmin(session);
+        if(!isSupAdmin){
             return "redirect:/";
         }else{
             if(search_keyword == null || search_keyword == ""){
@@ -594,11 +584,6 @@ public class AdminController {
                 PageHandlerProduct paging = new PageHandlerProduct(totalCnt,page);
                 List<TrvPrdReadDto> prdDtoList = productService.selectProductAdmin(paging);
                 model.addAttribute("prd_list",prdDtoList);
-
-                for(TrvPrdReadDto t : prdDtoList){
-                    System.out.println(t);
-                }
-
                 model.addAttribute("paging",paging);
                 return "product/product_recognize.tiles";
             }else{
@@ -615,8 +600,8 @@ public class AdminController {
 
     @GetMapping("/product/recognize/read")
     public String productRecognizeRead(HttpSession session,String prd_cd,Model model) throws Exception{
-        boolean isAdmin = isAdmin(session);
-        if(!isAdmin){
+        boolean isSupAdmin = isSupAdmin(session);
+        if(!isSupAdmin){
             return "redirect:/";
         }else{
             TrvPrdReadDto trvPrdReadDto = productService.getProductRecognize(prd_cd);
@@ -626,8 +611,17 @@ public class AdminController {
     }
 
     private boolean isAdmin(HttpSession session){
-        String id = (String)session.getAttribute("usr_id");
-        if(id.equals("admin")){
+        UserDto userDto = (UserDto)session.getAttribute("userDto");
+        if(userDto.getRl().equals("Admin") || userDto.getRl().equals("supAdmin")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private boolean isSupAdmin(HttpSession session){
+        UserDto userDto = (UserDto)session.getAttribute("userDto");
+        if(userDto.getRl().equals("supAdmin")){
             return true;
         }else{
             return false;

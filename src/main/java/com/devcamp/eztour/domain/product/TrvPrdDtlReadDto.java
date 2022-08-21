@@ -97,6 +97,8 @@ public class TrvPrdDtlReadDto {
         this.fin_date = fin_date;
     }
 
+
+    // 영욱님 공용 -> 수정 금지
     public TrvPrdDtlReadDto(String prd_cd, String dstn_cd, String cmn_cd_thm, String prd_nm, String prd_dtl_desc, String trv_per,
                             Integer prd_str_prc, Date dpr_str_date, Date dpr_fin_date,
                             boolean evnt_yn, boolean fin_yn, boolean act_yn, boolean dc_yn,

@@ -63,5 +63,9 @@ public class TrvPrdWriteDto {
     private String frs_rgs_no;
     private Date fnl_mod_date;
     private String fnl_mod_no;
+    @NotBlank(message = "국가코드는 필수 입력 항목입니다.")
+    private String  cntn_cd;
+
+    private String  nt_cd;
 
 }

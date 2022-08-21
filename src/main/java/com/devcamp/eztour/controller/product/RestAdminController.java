@@ -1,10 +1,13 @@
 package com.devcamp.eztour.controller.product;
 
 import com.devcamp.eztour.domain.product.PrdImgDto;
+import com.devcamp.eztour.domain.product.PrdOptionDto;
 import com.devcamp.eztour.domain.product.TrvSchImgDto;
 import com.devcamp.eztour.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -237,6 +240,18 @@ public class RestAdminController {
         }else{
             return "fail";
         }
+    }
+
+    @PostMapping("/product/option")
+    public ResponseEntity<List<PrdOptionDto>> productOption(String option) throws Exception{
+        List<PrdOptionDto> optionList = productService.getProductOption(option);
+
+        if(option == null || option == ""){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }else{
+            return new ResponseEntity<List<PrdOptionDto>>(optionList,HttpStatus.OK);
+        }
+
     }
 
     private boolean deleteImage(HttpServletRequest request,String img_pth){

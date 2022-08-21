@@ -85,7 +85,12 @@ pageEncoding="UTF-8"%>
               </c:when>
               <c:when test="${loginId!=''}">
                     <li><a href="/user/logout">로그아웃</a></li>
+                <c:if test="${sessionScope.userDto.rl == 'user'}">
                     <li><a href="/user/mypage">마이페이지</a></li>
+                </c:if>
+                <c:if test="${sessionScope.userDto.rl == 'Admin' || sessionScope.userDto.rl == 'supAdmin'}">
+                    <li><a href="<c:url value='/product/admin'/>">관리자페이지</a></li>
+                </c:if>
               </c:when>
           </c:choose>
           <li><a href="#">에약확인/결제</a></li>

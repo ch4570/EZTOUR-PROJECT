@@ -4,6 +4,7 @@
 <%@ page session="true" %>
 <c:set var="loginId" value="${sessionScope.userDto.usr_id==null ? '' : sessionScope.userDto.usr_id}"/>
 <c:set var="loginName" value="${loginId=='' ? '' : sessionScope.userDto.usr_nm}"/>
+<c:set var="adminPage" value="/product/admin"/>
 <html>
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -92,7 +93,12 @@
 					</c:when>
 					<c:when test="${loginId!=''}">
 						<li><a href="/user/logout">로그아웃</a></li>
-						<li><a href="/user/mypage">마이페이지</a></li>
+						<c:if test="${sessionScope.userDto.rl == 'user'}">
+							<li><a href="/user/mypage">마이페이지</a></li>
+						</c:if>
+						<c:if test="${sessionScope.userDto.rl == 'Admin' || sessionScope.userDto.rl == 'supAdmin'}">
+							<li><a href="<c:url value='/product/admin'/>">관리자페이지</a></li>
+						</c:if>
 					</c:when>
 				</c:choose>
 				<li><a href="#">에약확인/결제</a></li>
