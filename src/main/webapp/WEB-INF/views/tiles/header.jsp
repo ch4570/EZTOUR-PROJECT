@@ -71,7 +71,7 @@ pageEncoding="UTF-8"%>
             </div>
           </li>
           <li class="nav__dropdown">
-            <a href="#">이벤트</a>
+            <a href="/event/eventList">이벤트</a>
           </li>
         </ul>
       </nav>

@@ -22,16 +22,21 @@ public class EventDto {
   private Date frs_rgs_no;  // 최초 등록자 식별번호
   private Date fnl_mod_date;  // 최종 수정일자
   private Date fnl_mod_no;    // 최종 수정자 식별번호
+    private String evnt_img_pth;
 
-    public EventDto(int evnt_no, String evnt_ttl, String evnt_cont, Date reg_date, Date mdf_date, Date fin_date) {
+    public EventDto(int evnt_no, String evnt_ttl, String evnt_cont, Date reg_date, Date mdf_date, Date fin_date,String evnt_img_pth) {
         this.evnt_no = evnt_no;
         this.evnt_ttl = evnt_ttl;
         this.evnt_cont = evnt_cont;
         this.reg_date = reg_date;
         this.mdf_date = mdf_date;
         this.fin_date = fin_date;
+        this.evnt_img_pth = evnt_img_pth;
     }
 
+    public EventDto() {
+
+    }
 
 
     //    evnt_no,evnt_ttl,evnt_cont,reg_date,mdf_date,fln_date
