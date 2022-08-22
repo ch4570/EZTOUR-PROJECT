@@ -14,7 +14,7 @@ public class RvwLkAdmDto {
     private Integer rvw_lk_adm_no;
     private Integer rvw_no;
     private String usr_id;
-    private boolean rvw_lk_yn;
+    private Integer rvw_lk_yn;
     private Date lk_reg_date;
     private Date frs_reg_date;
     private String frs_rgs_no;
@@ -24,7 +24,9 @@ public class RvwLkAdmDto {
 
     public RvwLkAdmDto() {}
 
-    public RvwLkAdmDto(Integer rvw_lk_adm_no, Integer rvw_no, String usr_id, boolean rvw_lk_yn) {
+    public RvwLkAdmDto(Integer rvw_no, String usr_id) {}
+
+    public RvwLkAdmDto(Integer rvw_lk_adm_no, Integer rvw_no, String usr_id, Integer rvw_lk_yn) {
         this.rvw_lk_adm_no = rvw_lk_adm_no;
         this.rvw_no = rvw_no;
         this.usr_id = usr_id;

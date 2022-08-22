@@ -3,8 +3,10 @@ package com.devcamp.eztour.controller.rvw;
 
 import com.devcamp.eztour.domain.rvw.PageHandler;
 import com.devcamp.eztour.domain.rvw.RvwDto;
+import com.devcamp.eztour.domain.rvw.RvwLkAdmDto;
 import com.devcamp.eztour.domain.rvw.SearchCondition;
 import com.devcamp.eztour.domain.user.UserDto;
+import com.devcamp.eztour.service.rvw.RvwLkAdmService;
 import com.devcamp.eztour.service.rvw.RvwService;
 import com.devcamp.eztour.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class RvwController {
     UserService userService;
     @Autowired
     RvwService rvwService;
+    @Autowired
+    RvwLkAdmService rvwLkAdmService;
+
 
     @PostMapping("/remove")
     public String remove(Integer rvw_no, SearchCondition sc, RedirectAttributes rattr, HttpSession session) {
@@ -68,11 +73,11 @@ public class RvwController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "rvwList";
+        return "rvwList.tiles";
     }
 
     @GetMapping("/read")
-    public String read(Integer rvw_no, SearchCondition sc, RedirectAttributes rattr, Model m, HttpSession session) {
+    public String read(Integer rvw_no, SearchCondition sc, RedirectAttributes rattr, Model m, HttpSession session) throws Exception {
         String usr_id = null;
         try {
             UserDto userDto = (UserDto) session.getAttribute("userDto");
@@ -82,21 +87,32 @@ public class RvwController {
             usr_id = "";
         }
 
-        try {
 
-            // 내가 작성한 글만 "삭제", "수정" 버튼 보이기 위한 조건
-            int rowCnt = rvwService.checkRvwUser(usr_id, rvw_no);
-            System.out.println("rowCnt = " + rowCnt);
-            if(rowCnt == 1)
-                m.addAttribute("check", "me");
+        // 1. rvw_lk_adm 테이블 데이터가 있는지 아니면 rvw_lk_adm 테이블 데이터가 없는지 조건문
+        RvwLkAdmDto rvwLkAdmDto = rvwLkAdmService.select(usr_id, rvw_no);
+        if(rvwLkAdmDto == null && usr_id != "")
+            rvwLkAdmService.insert(usr_id, rvw_no);
+            rvwLkAdmDto = rvwLkAdmService.select(usr_id,rvw_no);
 
-            RvwDto rvwDto = rvwService.read(rvw_no);
-            m.addAttribute("rvwDto", rvwDto);
-        } catch (Exception e) {
-            e.printStackTrace();
-            rattr.addFlashAttribute("msg","READ_ERR");
-            return "redirect:/rvwList"+sc.getQueryString();
-        }
+        System.out.println("rvwLkAdmDto = " + rvwLkAdmDto);
+
+        m.addAttribute("rvwLkAdmDto", rvwLkAdmDto);
+
+        // 내가 작성한 글만 "삭제", "수정" 버튼 보이기 위한 조건
+        int rowCnt = rvwService.checkRvwUser(usr_id, rvw_no);
+        System.out.println("rowCnt = " + rowCnt);
+        if(rowCnt == 1)
+            m.addAttribute("check", "me");
+
+        RvwDto rvwDto = rvwService.read(rvw_no);
+        m.addAttribute("rvwDto", rvwDto);
+
+// 나중에 아래 내용도 같이 예외 같이 처리하기
+//        catch (Exception e) {
+//            e.printStackTrace();
+//            rattr.addFlashAttribute("msg","READ_ERR");
+//            return "redirect:/rvwList"+sc.getQueryString();
+//        }
 
         return "rvwDetail";
     }

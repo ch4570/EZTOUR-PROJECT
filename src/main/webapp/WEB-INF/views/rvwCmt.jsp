@@ -23,7 +23,7 @@ comment: <input type="text" name="cmt_cont"><br>
   let showList = function (rvw_no){
     $.ajax({
       type:'GET',       // 요청 메서드
-      url: '/eztour/comments?rvw_no='+rvw_no,  // 요청 URI
+      url: '/comments?rvw_no='+rvw_no,  // 요청 URI
       success : function(result){
         $("#rvwCmtList").html(toHtml(result));
       },
@@ -34,7 +34,7 @@ comment: <input type="text" name="cmt_cont"><br>
   }
 
 
-  $(document).ready(function() {
+  $(document).ready(function() { // ajax start
     showList(rvw_no);
 
     $("#modBtn").click(function () {
@@ -50,7 +50,7 @@ comment: <input type="text" name="cmt_cont"><br>
 
       $.ajax({
         type: 'PATCH',       // 요청 메서드
-        url: '/eztour/comments/'+cmt_no,  // 요청 URI // eztour/comments?rvw_no=2 POST
+        url: '/comments/'+cmt_no,  // 요청 URI // eztour/comments?rvw_no=2 POST
         headers: {"content-type": "application/json"}, // 요청 헤더
         data: JSON.stringify({cmt_no: cmt_no, cmt_cont: cmt_cont}),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
         success: function (result) {
@@ -76,7 +76,7 @@ comment: <input type="text" name="cmt_cont"><br>
 
       $.ajax({
         type: 'POST',       // 요청 메서드
-        url: '/eztour/comments?rvw_no=' + rvw_no,  // 요청 URI // eztour/comments?rvw_no=2 POST
+        url: '/comments?rvw_no=' + rvw_no,  // 요청 URI // eztour/comments?rvw_no=2 POST
         headers: {"content-type": "application/json"}, // 요청 헤더
         data: JSON.stringify({pcmt_no: pcmt_no, rvw_no: rvw_no, cmt_cont: cmt_cont}),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
         success: function (result) {
@@ -106,7 +106,7 @@ comment: <input type="text" name="cmt_cont"><br>
 
       $.ajax({
         type: 'POST',       // 요청 메서드
-        url: '/eztour/comments?rvw_no=' + rvw_no,  // 요청 URI // eztour/comments?rvw_no=2 POST
+        url: '/comments?rvw_no=' + rvw_no,  // 요청 URI // eztour/comments?rvw_no=2 POST
         headers: {"content-type": "application/json"}, // 요청 헤더
         data: JSON.stringify({rvw_no: rvw_no, cmt_cont: cmt_cont}),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
         success: function (result) {
@@ -146,7 +146,7 @@ comment: <input type="text" name="cmt_cont"><br>
 
         $.ajax({
           type: 'DELETE',       // 요청 메서드
-          url: '/eztour/comments/' + cmt_no + '?rvw_no=' + rvw_no,  // 요청 URI
+          url: '/comments/' + cmt_no + '?rvw_no=' + rvw_no,  // 요청 URI
           success: function (result) {
             alert(result)
             showList(rvw_no);
@@ -157,7 +157,7 @@ comment: <input type="text" name="cmt_cont"><br>
         }); // $.ajax()
 
       });
-    });
+    }); // Ajax end
 
     let toHtml = function (comments) {
       let tmp = "<ul>";

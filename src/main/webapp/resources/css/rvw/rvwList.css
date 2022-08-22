@@ -1,0 +1,286 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+* {
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+.wrap{
+    width : 100%;
+    height: 100%;
+	background: red;
+}
+
+.wrap .content{
+    width: 1200px;
+    height: 3800px;
+	background: yellow;
+	margin: 0 auto;
+	position: relative;
+}
+
+.wrap .content .paging{
+	width: 900px;
+    height: 90px;
+	background: tan;
+	position: absolute;
+	left : 5px;
+	top : 5px;
+}
+
+.wrap .content .navi{
+	width: 700px;
+	height: 120px;
+	background: blue;
+	margin: 30px auto 0;
+}
+
+.wrap .content .tit{
+	width: 200px;
+	height: 50px;
+	background: white;
+	margin: 0 auto;
+	text-align: center;
+	padding-top: 20px;
+	font-size: 30px;
+	font-weight: bold;
+	font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
+	color: #1c1c1c;
+}
+
+.wrap .content .searchArea{
+	width: 700px;
+	height: 100px;
+	background: hotpink;
+	margin: 30px auto 0;
+	position: relative;
+}
+
+
+.wrap .content .highArea{
+	width: 1000px;
+	height: 70px;
+	background: darkcyan;
+	margin: 30px auto 0;
+}
+
+.wrap .content .reviewArea{
+	width: 1000px;
+	height: 3000px;
+	background: firebrick;
+	margin: 0px auto 0;
+	padding: 10px 20px;
+	position: relative;
+	box-sizing: border-box;
+}
+
+.wrap .content .reviewArea .paging{
+	width: 900px;
+	height: 90px;
+	background: darkgreen;
+	position: absolute;
+	top: 2900px;
+	left: 50px;
+}
+
+.wrap .content .reviewArea .reviewDetail{
+	width: 900px;
+	height: 300px;
+	background: darkblue;
+	margin: 15px;
+	box-sizing: border-box;
+	position: relative;
+	border-radius: 10px;
+}
+
+.wrap .content .reviewArea .reviewDetail .reviewImg{
+	width: 290px;
+	height: 290px;
+	background: gainsboro;
+	position: absolute;
+	left : 5px;
+	top : 5px;
+	border-radius: 10px;
+
+}
+
+.wrap .content .reviewArea .reviewDetail .reviewInfo{
+	width: 590px;
+	height: 290px;
+	background: gainsboro;
+	position: absolute;
+	right : 5px;
+	top : 5px;
+	border-radius: 10px;
+}
+
+.wrap .content .reviewArea .reviewDetail .reviewInfo .reviewTitle{
+	width: 550px;
+	height: 70px;
+	background: gold;
+	position: absolute;
+	left : 5px;
+	top : 10px;
+	border-radius: 10px;
+}
+
+.wrap .content .reviewArea .reviewDetail .reviewInfo .reviewContent{
+	width: 550px;
+	height: 140px;
+	background: gold;
+	position: absolute;
+	left : 5px;
+	top : 90px;
+	border-radius: 10px;
+}
+
+.wrap .content .reviewArea .reviewDetail .reviewInfo .reviewWriter{
+	width: 200px;
+	height: 40px;
+	background: gold;
+	position: absolute;
+	left : 5px;
+	bottom: 10px;
+	border-radius: 10px;
+}
+
+.wrap .content .reviewArea .reviewDetail .reviewInfo .reviewRegisterDate{
+	width: 300px;
+	height: 40px;
+	background: gold;
+	position: absolute;
+	right : 35px;
+	bottom: 10px;
+	border-radius: 10px;
+}
+
+
+.wrap .content .searchArea .searchBox{
+	width: 600px;
+	height: 80px;
+	background: grey;
+	position: absolute;
+	top: 50%;
+  	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	font-size: 50px;
+	font-weight: bold;
+	font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
+	color: #1c1c1c;
+	position: relative;
+}
+
+.wrap .content .searchArea .searchBox .searchButton{
+	width: 90px;
+	height: 50px;
+	background: floralwhite;
+	position: absolute;
+	right: 10px;
+	top: 15px;
+}
+
+.wrap .content .searchArea .searchBox .searchOption{
+	width: 130px;
+	height: 50px;
+	background: darkgoldenrod;
+	position: absolute;
+	left: 10px;
+	top: 15px;
+}
+
+.wrap .content .searchArea .searchBox .searchInput{
+	width: 350px;
+	height: 45px;
+	background: darkcyan;
+	position: absolute;
+	right: 100px;
+	top: 15px;
+}
+
+
+
+.wrap .content .navi .menu{
+	width: 400px;
+	height: 120px;
+	background: pink;
+	margin: auto auto;
+}
+
+.wrap .content .navi .menu .menu_name{
+	font-size: 20px;
+	margin-right: 20px;
+}
+
+.wrap .content .navi .menu span:nth-child(1){
+	margin-left: 10px;
+}
+
+.wrap .content .navi .menu span:nth-child(6){
+	margin-right: 0px;
+}
+
+.wrap .content .navi .menu .nation_1{
+	width: 400px;
+	height: 30px;
+	background: green;
+	padding-top: 10px;
+	margin-bottom: 15px;
+	font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
+	color: #1c1c1c;
+}
+
+.wrap .content .navi .menu .nation_2{
+	width: 400px;
+	height: 30px;
+	background: gray;
+	padding-top: 10px;
+	font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
+	color: #1c1c1c;
+}
+
+

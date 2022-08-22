@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <title>fastcampus</title>
     <link rel="stylesheet" href="<c:url value='/css/rvw/menu.css'/>">
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 </head>
 <body>
@@ -35,56 +36,15 @@
         <input type="text" name="rvw_cont" value="${rvwDto.rvw_cont}" readonly="readonly">내용<br>
         <input type="text" name="img_pth" value="${rvwDto.img_pth}" readonly="readonly">이미지<br>
         <input type="text" name="prd_nm" value="${rvwDto.prd_nm}" readonly="readonly">상품명<br>
-        <button type="button" id="heartBtn">
-            <img src="/icon/empty_heart_icon.svg">
-            좋아요
-        </button>
         <c:if test="${check.equals('me')}">
             <button type="button" id="modifyBtn" class="btn">수정</button>
             <button type="button" id="removeBtn" class="btn">삭제</button>
         </c:if>
         <button type="button" id="listBtn" class="btn">목록</button>
-
     </form>
 </div>
-<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <script>
     $(document).ready(function (){
-        // 좋아요가 있는지 확인한 값을 heartval에 저장
-        var heartval = ${rvwLkAdmDto.rvw_lk_yn}
-        // heartval이 1이면 좋아요가 이미 되있는것이므로 full_heart_icon.svg를 출력하는 코드
-        if(heartval == 1) {
-            console.log(heartval);
-            $("#heart").prop("src", "/icon/full_heart_icon.svg");
-            $(".heart").prop('name', heartval)
-        }
-        else if(heartval == 0 || heartval == null){
-            console.log(heartval);
-            $("#heart").prop("src", "/icon/empty_heart_icon.svg");
-            $(".heart").prop('name', heartval)
-        }
-
-        // 좋아요 버튼을 클릭 시 실행되는 코드
-        $("#heartBtn").on("click", function () {
-            alert("click");
-        $.ajax({
-            url : '/heart',
-            type : 'POST',
-            headers : {"content-type": "application/json"}, // 요청 헤더
-            data : JSON.stringify({'rvw_no': ${rvwLkAdmDto.rvw_no}}),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
-            // data : {'rvw_no': rvw_no},  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
-            success : function (data){
-                if(data=="HeartUp") {
-                    $('#heart').prop("src", "/icon/full_heart_icon.svg");
-                }
-                else {
-                    $('#heart').prop("src", "/icon/empty_heart_icon.svg");
-                }
-            }
-
-        });
-        });
-
         $('#listBtn').on("click", function(){
             alert("listBtn clicked")
             location.href = "<c:url value='/review/list${searchCondition.queryString}'/>";

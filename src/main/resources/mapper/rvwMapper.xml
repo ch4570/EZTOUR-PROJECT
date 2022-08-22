@@ -162,4 +162,16 @@
         AND rvw_no = #{rvw_no}
     </select>
 
+    <update id="increaseLikeCnt" parameterType="int">
+        UPDATE rvw
+        SET lk_cnt = lk_cnt + 1
+        WHERE rvw_no = #{rvw_no}
+    </update>
+    
+    <update id="decreaseLikeCnt" parameterType="int">
+        UPDATE rvw
+        SET lk_cnt = lk_cnt - 1
+        WHERE rvw_no = #{rvw_no}
+    </update>
+
 </mapper>

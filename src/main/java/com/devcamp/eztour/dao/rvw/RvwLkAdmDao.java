@@ -7,9 +7,11 @@ public interface RvwLkAdmDao {
 
     int checkLkYn(String usr_id, Integer rvw_no);
 
-    int insert(RvwLkAdmDto rvwLkAdmDto);
+    int insert(String usr_id, Integer rvw_no);
 
-    int updateLikeUp(RvwLkAdmDto rvwLkAdmDto);
+    int updateLikeUp(String usr_id, Integer rvw_no);
 
-    int updateLikeDown(RvwLkAdmDto rvwLkAdmDto);
+    int updateLikeDown(String usr_id, Integer rvw_no);
+
+    RvwLkAdmDto select(String usr_id, Integer rvw_no);
 }
