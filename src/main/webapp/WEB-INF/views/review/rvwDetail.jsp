@@ -36,7 +36,7 @@
         <input type="text" name="img_pth" value="${rvwDto.img_pth}" readonly="readonly">이미지<br>
         <input type="text" name="prd_nm" value="${rvwDto.prd_nm}" readonly="readonly">상품명<br>
         <button type="button" id="heartBtn">
-            <img src="/icon/empty_heart_icon.svg">
+            <img id ="heart" src="/icon/empty_heart_icon.svg">
             좋아요
         </button>
         <c:if test="${check.equals('me')}">
@@ -54,11 +54,13 @@
         var heartval = ${rvwLkAdmDto.rvw_lk_yn}
         // heartval이 1이면 좋아요가 이미 되있는것이므로 full_heart_icon.svg를 출력하는 코드
         if(heartval == 1) {
+            // $("#heartBtn").attr("src", "/icon/full_heart_icon.svg");
             console.log(heartval);
             $("#heart").prop("src", "/icon/full_heart_icon.svg");
             $(".heart").prop('name', heartval)
         }
-        else if(heartval == 0 || heartval == null){
+        else if(heartval == 0){
+            // $("#heartBtn").attr("src", "/icon/empty_heart_icon.svg");
             console.log(heartval);
             $("#heart").prop("src", "/icon/empty_heart_icon.svg");
             $(".heart").prop('name', heartval)
@@ -70,15 +72,17 @@
         $.ajax({
             url : '/heart',
             type : 'POST',
-            headers : {"content-type": "application/json"}, // 요청 헤더
-            data : JSON.stringify({'rvw_no': ${rvwLkAdmDto.rvw_no}}),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
-            // data : {'rvw_no': rvw_no},  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+            // headers : {"content-type": "application/json"}, // 요청 헤더
+            <%--data : JSON.stringify({'rvw_no': ${rvwDto.rvw_no}}),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.--%>
+            data : {'rvw_no': ${rvwDto.rvw_no}},
             success : function (data){
                 if(data=="HeartUp") {
                     $('#heart').prop("src", "/icon/full_heart_icon.svg");
+                    location.reload();
                 }
                 else {
                     $('#heart').prop("src", "/icon/empty_heart_icon.svg");
+                    location.reload();
                 }
             }
 

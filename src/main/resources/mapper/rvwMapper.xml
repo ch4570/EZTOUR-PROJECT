@@ -174,4 +174,10 @@
         WHERE rvw_no = #{rvw_no}
     </update>
 
+    <select id="cntnCdSearch" parameterType="SearchCondition" resultType="RvwDto">
+        SELECT A.*
+        FROM rvw A INNER JOIN trv_prd B ON A.prd_cd = B.prd_cd
+        WHERE B.cntn_cd = #{cntn_cd};
+    </select>
+
 </mapper>

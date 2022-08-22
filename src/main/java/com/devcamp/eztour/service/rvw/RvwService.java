@@ -40,4 +40,6 @@ public interface RvwService {
     int increaseLikeCnt(Integer rvw_no) throws Exception;
 
     int decreaseLikeCnt(Integer rvw_no) throws Exception;
+
+    List<RvwDto> cntnCdSearch(SearchCondition sc) throws Exception;
 }
