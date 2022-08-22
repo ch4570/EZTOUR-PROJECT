@@ -14,6 +14,7 @@
         </c:when>
         <c:when test="${!empty faqDto.faq_no}">
             <form id="formMod" name="formMod" method="post" >
+                <input type="hidden" name="faq_no" value="${faqDto.faq_no}">
         </c:when>
     </c:choose>
         <div class="form-wrap">

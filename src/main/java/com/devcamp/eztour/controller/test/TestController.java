@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class TestController {
 
-    @GetMapping("/test")
+    @GetMapping("/test2")
     public String testMapping(){
-        return "test";
+        return "rvwCmt";
     }
 
     @DeleteMapping("/delete/test")

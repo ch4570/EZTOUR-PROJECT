@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devcamp.eztour.rvwLkAdmMapper">
+    <select id="checkRvwLkAdmUser" parameterType="map" resultType="int">
+        SELECT count(*)
+        FROM rvw_lk_adm
+        WHERE usr_id = #{usr_id}
+          AND rvw_no = #{rvw_no}
+    </select>
+
+    <select id="checkLkYn" parameterType="map" resultType="int">
+        SELECT rvw_lk_yn
+        FROM rvw_lk_adm
+        WHERE usr_id = #{usr_id}
+          AND rvw_no = #{rvw_no}
+    </select>
+
+    <insert id="insert" parameterType="RvwLkAdmDto">
+        INSERT INTO rvw_lk_adm (rvw_no, usr_id, rvw_lk_yn, lk_reg_date, frs_reg_date, frs_rgs_no, fnl_mod_date,
+                                fnl_mod_no)
+        VALUES (#{rvw_no}, #{usr_id}, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{usr_id}, CURRENT_TIMESTAMP, #{usr_id})
+    </insert>
+
+    <update id="updateLikeUp" parameterType="RvwLkAdmDto">
+        UPDATE rvw_lk_adm
+        SET rvw_lk_yn = 1,
+            fnl_mod_no = #{usr_id},
+            fnl_mod_date = CURRENT_TIMESTAMP
+        WHERE usr_id = #{usr_id}
+          AND rvw_no = #{rvw_no}
+    </update>
+
+    <update id="updateLikeDown" parameterType="RvwLkAdmDto">
+        UPDATE rvw_lk_adm
+        SET rvw_lk_yn = 0,
+            fnl_mod_no = #{usr_id},
+            fnl_mod_date = CURRENT_TIMESTAMP
+        WHERE usr_id = #{usr_id}
+          AND rvw_no = #{rvw_no}
+    </update>
+
+
+
+</mapper>

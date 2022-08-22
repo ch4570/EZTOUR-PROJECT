@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -51,5 +54,47 @@ public class UserServiceImpl implements UserService {
     public int checkId(String usr_id) throws Exception{
         return userDao.checkId(usr_id);
     }
+
+    @Override
+    public String findId(String usr_nm, String phn) throws Exception {
+        return userDao.findId(usr_nm, phn);
+    }
+
+    @Override
+    public String findPwd(String usr_id, String usr_nm, String email) throws Exception {
+        return userDao.findPwd(usr_id, usr_nm, email);
+    }
+
+    @Override
+    public Map naverConnectionCheck(Map apiJson) throws Exception{
+
+        return userDao.naverConnectionCheck(apiJson);
+    }
+
+    @Override
+    public UserDto userNaverLoginPro(String naver_id) throws Exception {
+        return userDao.userNaverLoginPro(naver_id);
+    }
+
+    @Override
+    public void setNaverConnection(Map<String, Object> apiJson) throws Exception {
+        userDao.setNaverConnection(apiJson);
+    }
+
+    @Override
+    public Map kakaoConnectionCheck(Map paramMap) throws Exception {
+        return userDao.kakaoConnectionCheck(paramMap);
+    }
+
+    @Override
+    public UserDto userKakaoLoginPro(String kakao_id) throws Exception{
+        return userDao.userKakaoLoginPro(kakao_id);
+    }
+
+    @Override
+    public void setKakaoConnection(Map paramMap) {
+
+    }
+
 
 }

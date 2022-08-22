@@ -11,7 +11,7 @@ public interface RvwService {
 
     int getCount() throws Exception;
 
-    int remove(Integer rvw_no, String rvw_nm) throws Exception;
+    int remove(Integer rvw_no, String usr_id) throws Exception;
 
     int write(RvwDto rvwDto) throws Exception;
 
@@ -25,11 +25,15 @@ public interface RvwService {
 
     int insert(RvwDto rvwDto) throws Exception;
 
-    RvwDto selectUserEmail(String usr_id) throws Exception;
-
-    List<RvwDto> selectUsernmEmailPrdnm(String usr_id) throws Exception;
-
     List<RvwDto> getSearchResultPage(SearchCondition sc) throws Exception;
 
     int getSearchResultCnt(SearchCondition sc) throws Exception;
+
+    RvwDto selectUsernmEmail(String usr_id) throws Exception;
+
+    List<RvwDto> selectPrdnm(String usr_id) throws Exception;
+
+    String getprdCd(String prd_dtl_cd) throws Exception;
+
+    int checkRvwUser(String usr_id, Integer rvw_no) throws Exception;
 }

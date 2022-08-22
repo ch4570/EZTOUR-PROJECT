@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Getter
@@ -15,6 +17,8 @@ public class PrdPcrDto {
     int			adt_prc;
     int			chd_prc;
     int			bb_prc;
+
+
     Date        frs_reg_date;
     String		frs_rgs_no;
     Date		fnl_mod_date;

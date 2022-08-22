@@ -38,8 +38,8 @@ public class RvwServiceImpl implements RvwService {
 
     @Transactional(rollbackFor = Exception.class)
     public RvwDto read(Integer rvw_no) throws Exception {
-        RvwDto rvwDto = rvwDao.select(rvw_no);
         rvwDao.increaseViewCnt(rvw_no);
+        RvwDto rvwDto = rvwDao.select(rvw_no);
         return rvwDto;
     }
 
@@ -50,6 +50,7 @@ public class RvwServiceImpl implements RvwService {
 
     @Transactional(rollbackFor = Exception.class)
     public int modify(RvwDto rvwDto) throws Exception {
+//        throw new Exception("test");
         return rvwDao.update(rvwDto);
     }
 
@@ -57,16 +58,6 @@ public class RvwServiceImpl implements RvwService {
     @Transactional(rollbackFor = Exception.class)
     public int insert(RvwDto rvwDto) throws Exception {
         return rvwDao.insert(rvwDto);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public RvwDto selectUserEmail(String usr_id) throws Exception {
-        return rvwDao.selectUserEmail(usr_id);
-    }
-
-    @Override
-    public List<RvwDto> selectUsernmEmailPrdnm(String usr_id) throws Exception {
-        return rvwDao.selectUsernmEmailPrdnm(usr_id);
     }
 
     @Override
@@ -77,6 +68,26 @@ public class RvwServiceImpl implements RvwService {
     @Override
     public int getSearchResultCnt(SearchCondition sc) throws Exception {
         return rvwDao.searchResultCnt(sc);
+    }
+
+    @Override
+    public RvwDto selectUsernmEmail(String usr_id) throws Exception {
+        return rvwDao.selectUsernmEmail(usr_id);
+    }
+
+    @Override
+    public List<RvwDto> selectPrdnm(String usr_id) throws Exception {
+        return rvwDao.selectPrdnm(usr_id);
+    }
+
+    @Override
+    public String getprdCd(String prd_dtl_cd) throws Exception {
+        return rvwDao.getprdCd(prd_dtl_cd);
+    }
+
+    @Override
+    public int checkRvwUser(String usr_id, Integer rvw_no) throws Exception {
+        return rvwDao.checkRvwUser(usr_id, rvw_no);
     }
 
 }

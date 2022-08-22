@@ -10,65 +10,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/46b11191c3.js" crossorigin="anonymous"></script>
     <title>document</title>
-    <link rel="stylesheet" href="/css/common/header.css" />
+    <link rel="stylesheet" href="/css/user/user_join.css">
+<style>
+    .label-header{
+        margin-right: 490px;
+    }
 
-    <style>
-        input[readonly] {background-color:gray;}
+    img{
+        width: 150px;
+    }
+    .img-box{
+        height: 150px;
+        width: 150px;
+        padding: 0px 5px;
+    }
 
-        .select {
-             padding: 15px 10px;
-         }
-        .select input[type=radio]{
-            display: none;
-        }
-        .select input[type=radio]+label{
-            display: inline-block;
-            cursor: pointer;
-            height: 24px;
-            width: 90px;
-            border: 1px solid #333;
-            line-height: 24px;
-            text-align: center;
-            font-weight:bold;
-            font-size:13px;
-        }
-        .select input[type=radio]+label{
-            background-color: #fff;
-            color: #333;
-        }
-        .select input[type=radio]:checked+label{
-            background-color: #333;
-            color: #fff;
-        }
-    </style>
+</style>
 </head>
 <body>
-<h1>
-    회원정보수정 공사중 ...
-</h1>
+<h2 class="login-title" id="loginTitle">회원 정보 수정</h2>
 <br><br>
-<form action="<c:url value="/user/usrMod"/>" method="POST" onsubmit="">
-    <label for="">아이디</label>
-    <input class="input-field" type="text" name="usr_id" value="<c:out value='${userDto.usr_id}'/>" readonly><br>
-    <label for="">비밀번호</label>
-    <input class="input-field" type="text" name="pwd" value="<c:out value='${userDto.pwd}'/>" ><br>
-    <label for="">이름</label>
-    <input class="input-field" type="text" name="usr_nm" value="<c:out value='${userDto.usr_nm}'/>" readonly><br>
-    <label for="">생년월일</label>
-    <input class="input-field" type="text" name="brth" value="<c:out value='${userDto.brth}'/>" readonly><br>
-    <label for="">성별</label>
-    <div class="select"/>
-        <input type="radio" id="select" name="gndr" value="남성" readonly><label for="select">남성</label>
-        <input type="radio" id="select2" name="gndr" value="여성" readonly><label for="select2">여성</label>
-    </div>
-    <label for="">이메일</label>
-    <input class="input-field" type="text" name="email" value="<c:out value='${userDto.email}'/>"><br>
-    <label for="">핸드폰</label>
-    <input class="input-field" type="text" name="phn" value="<c:out value='${userDto.phn}'/>"><br>
-    <label for="">프로필 이미지 코드</label>
-    <input class="input-field" type="text" name="cmn_cd_prf_img" value="<c:out value='${userDto.cmn_cd_prf_img}'/>"><br>
-    <button>수정</button>
-</form>
+<div style="display: flex; justify-content: center;">
+    <form action="<c:url value="/user/usrMod"/>" method="POST" onsubmit="">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <label class="label-header" for="">아이디</label>
+            <input class="input-field" type="text" name="usr_id" value="<c:out value='${userDto.usr_id}'/>" readonly><br>
+            <label class="label-header" for="">비밀번호</label>
+            <input class="input-field" type="text" name="pwd" value="<c:out value='${userDto.pwd}'/>" ><br>
+            <label class="label-header" for="">이름</label>
+            <input class="input-field" type="text" name="usr_nm" value="<c:out value='${userDto.usr_nm}'/>" readonly><br>
+            <label class="label-header" for="">생년월일</label>
+            <input class="input-field" type="text" name="brth" value="<c:out value='${userDto.brth}'/>" readonly><br>
+            <label class="label-header" for="">성별</label>
+                <div class="select"  style="display: flex; justify-content: space-between; padding-bottom: 35px;">
+                    <input type="radio" id="select" name="gndr" value="남성" readonly><label for="select" id="man">남성</label>
+                    <input type="radio" id="select2" name="gndr" value="여성" readonly><label for="select2" id="woman">여성</label>
+                </div>
+            <label class="label-header" for="">이메일</label>
+            <input class="input-field" type="text" name="email" value="<c:out value='${userDto.email}'/>"><br>
+            <label class="label-header" for="">핸드폰</label>
+            <input class="input-field" type="text" name="phn" style="margin-bottom: 50px" value="<c:out value='${userDto.phn}'/>"><br>
+            <label for="">프로필을 선택하세요</label>
+            <div style="display: flex; justify-content: space-around; margin-top: 30px;">
+                <span  class="span-prf-image">
+                    <div class="img-box">
+                        <img src="../image/user/Bikini.png" alt="" >
+                    </div>
+                    <input type="radio" name="cmn_cd_prf_img" value="3A">
+                </span>
+
+                <span class="span-prf-image">
+                    <div class="img-box">
+                        <img src="../image/user/Dancing.png" alt="" style="width: 150px;">
+                    </div>
+                    <input type="radio" name="cmn_cd_prf_img" value="3B">
+                </span>
+
+                <span class="span-prf-image">
+                    <div class="img-box">
+                        <img src="../image/user/Doggie.png" alt="" style="width: 150px;">
+                    </div>
+                    <input type="radio" name="cmn_cd_prf_img" value="3C">
+                </span>
+
+                <span class="span-prf-image">
+                     <div class="img-box">
+                        <img src="../image/user/Laying Down.png" alt="" style="width: 150px;">
+                     </div>
+                    <input type="radio" name="cmn_cd_prf_img" value="3D">
+                </span>
+
+                <span class="span-prf-image">
+                    <div class="img-box">
+                        <img src="../image/user/Meditating.png" alt="" style="width: 150px;">
+                    </div>
+                    <input type="radio" name="cmn_cd_prf_img" value="3E">
+                </span>
+            </div>
+            <div style="text-align: center; padding: 50px 50px;">
+                <input type="button" id="goback" onclick="history.back()" value="취소">
+                <button id="submit">수정하기</button>
+                <div style="text-align: center">
+                    <a id="openDelUsr">탈퇴하기</a>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
 
 <!--
     1. 모달 폼 작성
@@ -83,7 +112,6 @@
 <%--</button>--%>
 
 
-<button id="openDelUsr">탈퇴하기</button>
 <div class="modal hidden" id="delModal">
     <div class="modal__overlay" id="delOverlay"></div>
     <div class="modal__content">
@@ -146,5 +174,22 @@
 </div>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/js/user.js"></script>
+<script>
+    let msg = "${msg}";
+    if(msg=="MOD_ERR")   alert("회원정보 수정 도중 문제가 발생했습니다. 다시 시도해주세요.");
+    if(msg=="MOD_OK")   alert("회원정보가 정상적으로 수정되었습니다.");
+    if(msg=="DEL_ERR")    alert("회원 탈퇴 과정에 문제가 발생했습니다. 다시 시도해주세요.");
+
+    $.fn.radioSelect = function(val) {
+        this.each(function() {
+            var $this = $(this);
+            if($this.val() == val)
+                $this.attr('checked', true);
+        });
+        return this;
+    };
+
+    $(":radio[name='gndr']").radioSelect('${userDto.gndr}');
+</script>
 </body>
 </html>

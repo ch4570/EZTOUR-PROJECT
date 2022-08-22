@@ -73,7 +73,11 @@ h1{
     width: 315px;
     height: 40px;
     border-radius: 8px;
+}
 
+.wrap .content .board .error_msg{
+    color:red;
+    font-weight: bold;
 }
 
 

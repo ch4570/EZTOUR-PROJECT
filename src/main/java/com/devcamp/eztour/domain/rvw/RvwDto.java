@@ -12,6 +12,7 @@ public class RvwDto {
     private Integer rvw_no;
     private String usr_id;
     private String prd_cd;
+    private String prd_dtl_cd;
     private String rvw_ttl;
     private String trv_nm;
     private Integer rvw_vcnt;

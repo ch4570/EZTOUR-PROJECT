@@ -34,7 +34,7 @@ public class TestControllerTest {
     public void testController1() throws Exception{
         MockMvc mockMvc = getMockMvc();
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/test"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/test2"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("test"))
                 .andDo(print())
@@ -101,8 +101,6 @@ public class TestControllerTest {
                 .andExpect(jsonPath("$.body[1].name").value("우럭"))
                 .andExpect(jsonPath("$.body[2].name").value("대방어"))
                 .andDo(print());
-
-
     }
 
     private MockMvc getMockMvc(){
