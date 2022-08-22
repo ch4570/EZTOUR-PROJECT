@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -31,9 +32,11 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/list")
-    public String getAllProduct(Model m,String cntn_cd,String nt_cd, String nt_cd_nm) throws Exception{
+    public String getAllProduct(Model m, String cntn_cd, String nt_cd, String nt_cd_nm, String keyword, String standard) throws Exception{
 
-        if(cntn_cd == null || nt_cd == null){
+        Map<String,String> map = new HashMap<>();
+
+        if((cntn_cd == null || nt_cd == null) && (keyword == null || standard == null)){
             try {
                 List<TrvPrdDtlReadDto> list = productDetailService.getAllProduct();
                 m.addAttribute("list", list);
@@ -41,8 +44,18 @@ public class ProductController {
                 e.printStackTrace();
             }
             return "product/product_list.tiles";
+
+        }else if(keyword != null && standard != null){
+                map.put("keyword",keyword);
+                map.put("standard",standard);
+                System.out.println(map);
+                List<TrvPrdDtlReadDto> list = productDetailService.getAllProductCategoryOrder(map);
+                for(TrvPrdDtlReadDto t : list){
+                    System.out.println(t);
+                }
+                m.addAttribute("list",list);
+                return "product/product_list.tiles";
         }else{
-            Map<String,String> map = new HashMap<>();
             map.put("cntn_cd",cntn_cd);
             map.put("nt_cd",nt_cd);
             map.put("nt_cd_nm",nt_cd_nm);

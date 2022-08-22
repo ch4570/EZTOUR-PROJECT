@@ -16,9 +16,9 @@
 <div class="product-list__content">
   <div class="content--list__wrap">
     <div class="content--filter">
-      <a href="#">추천상품순</a>
-      <a href="#">낮은가격순</a>
-      <a href="#">높은가격순</a>
+      <a href="<c:url value='/product/list?keyword=vcnt&standard=DESC'/>">조회많은순</a>
+      <a href="<c:url value='/product/list?keyword=prd_str_prc&standard=ASC'/>">낮은가격순</a>
+      <a href="<c:url value='/product/list?keyword=prd_str_prc&standard=DESC'/>">높은가격순</a>
     </div>
     <c:forEach var="item" items="${list}" varStatus="status">
       <section class="content--wrap">
@@ -47,7 +47,7 @@
             <div class="info-price">
               <span class="item-dstn_cd">${item.prd_cd}</span>
               <div class="item-prd_str_prc">
-                <span>${item.prd_str_prc}</span>
+                <span><fmt:formatNumber value="${item.prd_str_prc}" pattern="#,##0"/></span>
                 <span>원~</span>
               </div>
               <div class="item-detailBtn__wrap">

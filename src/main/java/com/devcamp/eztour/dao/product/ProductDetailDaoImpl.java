@@ -31,4 +31,9 @@ public class ProductDetailDaoImpl implements ProductDetailDao {
         return session.selectList(namespace+"selectAllProductCategory",map);
     }
 
+    @Override
+    public List<TrvPrdDtlReadDto> selectAllProductOrder(Map map) throws Exception {
+        return session.selectList(namespace+"selectAllProductOrder",map);
+    }
+
 }

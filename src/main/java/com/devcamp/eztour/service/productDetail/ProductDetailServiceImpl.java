@@ -29,4 +29,9 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         return productDetailDao.selectAllProductCategory(map);
     }
 
+    @Override
+    public List<TrvPrdDtlReadDto> getAllProductOrder(Map map) throws Exception {
+        return productDetailDao.selectAllProductOrder(map);
+    }
+
 }
