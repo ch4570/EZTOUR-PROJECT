@@ -4,6 +4,6 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>에러다!!</h1>
+    <h1> 500번 에러다!!</h1>
 </body>
 </html>

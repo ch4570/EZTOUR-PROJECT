@@ -2,6 +2,7 @@ package com.devcamp.eztour.service.product;
 
 import com.devcamp.eztour.domain.product.*;
 import java.util.List;
+import java.util.Map;
 
 public interface ProductService {
     public int insertProduct(TrvPrdWriteDto trvPrdWriteDto) throws Exception;
@@ -52,4 +53,10 @@ public interface ProductService {
     public int removeScheduleImage(String prd_cd) throws Exception;
     public List<TrvSchImgDto> getSearchScheduleImage(PageHandlerProduct pageHandlerProduct) throws Exception;
     public int getSearchScheduleImageCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public TrvPrdReadDto getProductRecognize(String prd_cd) throws Exception;
+    public int modifyActivateStatus(Map map) throws Exception;
+    public List<PrdOptionDto> getProductOption(String nt_cd) throws Exception;
+    public List<TrvPrdReadDto> getSearchRecognizeProduct(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public int getSearchRecognizeProductCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
+    public TrvPrdDtlReadDto getRecentlyProduct(String prd_cd) throws Exception;
 }

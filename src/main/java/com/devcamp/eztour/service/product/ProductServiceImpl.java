@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -250,6 +251,36 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public int getSearchScheduleImageCnt(PageHandlerProduct pageHandlerProduct) throws Exception {
-        return productDao.searchSelectScheduleCnt(pageHandlerProduct);
+        return productDao.searchSelectScheduleImageCnt(pageHandlerProduct);
+    }
+
+    @Override
+    public TrvPrdReadDto getProductRecognize(String prd_cd) throws Exception {
+        return productDao.selectRecognizeProduct(prd_cd);
+    }
+
+    @Override
+    public int modifyActivateStatus(Map map) throws Exception {
+        return productDao.updateActivateStatus(map);
+    }
+
+    @Override
+    public List<PrdOptionDto> getProductOption(String nt_cd) throws Exception {
+        return productDao.selectProductOption(nt_cd);
+    }
+
+    @Override
+    public List<TrvPrdReadDto> getSearchRecognizeProduct(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.searchRecognizeProduct(pageHandlerProduct);
+    }
+
+    @Override
+    public int getSearchRecognizeProductCnt(PageHandlerProduct pageHandlerProduct) throws Exception {
+        return productDao.searchRecognizeProductCnt(pageHandlerProduct);
+    }
+
+    @Override
+    public TrvPrdDtlReadDto getRecentlyProduct(String prd_dtl_cd) throws Exception {
+        return productDao.selectRecentlyProduct(prd_dtl_cd);
     }
 }

@@ -43,12 +43,14 @@ public class UserDto {
         this.phn = phn;
     }
 
-    public UserDto(String usr_id, String usr_nm, String email, String rl, String phn) {
+    public UserDto(String usr_id, String usr_nm, String email, String rl, String phn, int mlg, String cmn_cd_prf_img) {
             this.usr_id = usr_id;
             this.usr_nm = usr_nm;
             this.email = email;
             this.rl = rl;
             this.phn = phn;
+            this.mlg = mlg;
+            this.cmn_cd_prf_img = cmn_cd_prf_img;
     }
 
 }

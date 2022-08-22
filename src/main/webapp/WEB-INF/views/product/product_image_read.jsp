@@ -32,7 +32,8 @@
                 </ul>
                 <ul>
                     <li class="prd_tlt">상품 승인 관리</li>
-                    <li class="menu_list">상품 승인</li>
+                    <a href="<c:url value='/product/recognize'/>"><li class="menu_list">상품 승인</li></a>
+                    <a href="<c:url value='/reserv/admin'/>"><li class="menu_list">예약 승인</li></a>
                 </ul>
                 <ul>
                     <li class="prd_tlt">고객 관리</li>
@@ -43,10 +44,10 @@
             <div class="board">
                 <div class="prd_img_input_form">
                     <h1>상품 이미지 조회</h1>
-                        상품코드&nbsp;<br><input type="text" name="prd_cd" value="${param.prd_cd}" class="input_prd" placeholder="상품코드" readonly="readonly"><br>
-                        상품이름&nbsp;<br><input type="text" name="prd_nm" value="${param.prd_nm}" class="input_prd" placeholder="상품이름" readonly="readonly"><br>
+                        상품코드&nbsp;<br><input type="text" name="prd_cd" value="${prd_cd}" class="input_prd" placeholder="상품코드" readonly="readonly"><br>
+                        상품이름&nbsp;<br><input type="text" name="prd_nm" value="${prd_nm}" class="input_prd" placeholder="상품이름" readonly="readonly"><br>
                     <div class="preview-img">
-                        <img src="${param.img_pth}" id="product_img" width="500px" height="300px">
+                        <img src="${img_pth}" id="product_img" width="500px" height="300px">
                         <button id="modify_btn" class="button_click">수정</button><br>
                         <button id="delete_btn" class="button_click">삭제</button>
                     </div>

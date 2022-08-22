@@ -6,14 +6,14 @@
 
     <insert id="insertProduct" parameterType="TrvPrdWriteDto">
         INSERT INTO trv_prd(prd_cd,dstn_cd,cmn_cd_thm,prd_nm,prd_dtl_desc,
-                            trv_per,prd_str_prc,dpr_str_date,dpr_fin_date,frs_rgs_no,frs_reg_date)
+                            trv_per,prd_str_prc,dpr_str_date,dpr_fin_date,frs_rgs_no,frs_reg_date,cntn_cd,nt_cd)
         VALUES(#{prd_cd},#{dstn_cd},#{cmn_cd_thm},#{prd_nm},#{prd_dtl_desc},
-               #{trv_per},#{prd_str_prc},#{dpr_str_date},#{dpr_fin_date},#{frs_rgs_no},now());
+               #{trv_per},#{prd_str_prc},#{dpr_str_date},#{dpr_fin_date},#{frs_rgs_no},now(),#{cntn_cd},#{nt_cd})
     </insert>
 
     <select id="selectProduct" parameterType="String" resultType="TrvPrdReadDto">
         SELECT prd_cd,dstn_cd,cmn_cd_thm,prd_nm,prd_dtl_desc,
-               trv_per,prd_str_prc,dpr_str_date,dpr_fin_date
+               trv_per,prd_str_prc,dpr_str_date,dpr_fin_date,cntn_cd,nt_cd
         FROM trv_prd
         WHERE prd_cd = #{prd_cd}
     </select>
@@ -48,7 +48,8 @@
     </insert>
 
     <select id="selectProductAdmin" parameterType="PageHandlerProduct" resultType="TrvPrdReadDto">
-        SELECT prd_cd,cmn_cd_thm,prd_nm,prd_str_prc,frs_reg_date
+        SELECT prd_cd,dstn_cd,cmn_cd_thm,prd_nm,prd_dtl_desc,
+               trv_per,prd_str_prc,dpr_str_date,dpr_fin_date,act_yn,frs_reg_date
         FROM trv_prd ORDER BY frs_reg_date DESC
             LIMIT #{pageSize} OFFSET #{startList}
     </select>
@@ -92,7 +93,7 @@
     <update id="updateProduct" parameterType="TrvPrdWriteDto">
         UPDATE trv_prd SET dstn_cd=#{dstn_cd},cmn_cd_thm=#{cmn_cd_thm},prd_nm=#{prd_nm},
                            prd_dtl_desc=#{prd_dtl_desc},trv_per=#{trv_per},prd_str_prc=#{prd_str_prc},
-                           dpr_str_date=#{dpr_str_date},dpr_fin_date=#{dpr_fin_date}
+                           dpr_str_date=#{dpr_str_date},dpr_fin_date=#{dpr_fin_date},cntn_cd=#{cntn_cd},nt_cd=#{nt_cd}
         WHERE prd_cd=#{prd_cd}
     </update>
 
@@ -154,14 +155,14 @@
 
     <select id="selectProductDetail" parameterType="String" resultType="TrvPrdDtlReadDto">
         SELECT prd_dtl_cd,prd_cd,prd_str_prc,arl_nm,
-               min_stt_cnt,max_stt_cnt,dpr_date,prd_nm
+               min_stt_cnt,max_stt_cnt,dpr_date,prd_nm,fin_date
         FROM trv_prd_dtl
         WHERE prd_dtl_cd = #{prd_dtl_cd}
     </select>
 
     <update id="updateProductDetail" parameterType="TrvPrdDtlWriteDto">
         UPDATE trv_prd_dtl set prd_dtl_cd=#{prd_dtl_cd},prd_cd=#{prd_cd},prd_str_prc=#{prd_str_prc},arl_nm=#{arl_nm},
-                               min_stt_cnt=#{min_stt_cnt},max_stt_cnt=#{max_stt_cnt},dpr_date=#{dpr_date},prd_nm=#{prd_nm}
+                               min_stt_cnt=#{min_stt_cnt},max_stt_cnt=#{max_stt_cnt},dpr_date=#{dpr_date},prd_nm=#{prd_nm},fin_date=#{fin_date}
         WHERE prd_dtl_cd=#{prd_dtl_cd}
     </update>
 
@@ -384,6 +385,50 @@
         FROM trv_sch_img
         WHERE TRUE
         <include refid="searchScheduleImage"/>
+    </select>
+
+    <select id="selectRecognizeProduct" parameterType="String" resultType="TrvPrdReadDto">
+        SELECT prd_cd,dstn_cd,cmn_cd_thm,prd_nm,prd_dtl_desc,
+               trv_per,prd_str_prc,dpr_str_date,dpr_fin_date,act_yn,frs_reg_date
+        FROM trv_prd
+        WHERE prd_cd = #{prd_cd}
+    </select>
+
+    <select id="searchRecognizeProduct" parameterType="PageHandlerProduct" resultType="TrvPrdReadDto">
+        SELECT prd_cd,dstn_cd,cmn_cd_thm,prd_nm,prd_dtl_desc,
+               trv_per,prd_str_prc,dpr_str_date,dpr_fin_date,act_yn,frs_reg_date
+        FROM trv_prd
+        WHERE TRUE
+        <include refid="searchCondition"/>
+        LIMIT #{pageSize} OFFSET #{startList}
+    </select>
+
+    <select id="searchRecognizeProductCnt" parameterType="PageHandlerProduct" resultType="int">
+        SELECT COUNT(*)
+        FROM trv_prd
+        WHERE TRUE
+        <include refid="searchCondition"/>
+    </select>
+
+    <update id="updateActivateStatus" parameterType="map">
+        UPDATE trv_prd
+        SET act_yn = #{act_yn}
+        WHERE prd_cd = #{prd_cd}
+    </update>
+
+    <select id="selectProductOption" parameterType="String" resultType="PrdOptionDto">
+        SELECT DISTINCT nt_cd,nt_cd_nm
+        FROM dstn_ctg
+        WHERE cntn_cd = #{cntn_cd}
+        ORDER BY nt_cd
+    </select>
+
+    <select id="selectRecentlyProduct" parameterType="String" resultType="TrvPrdDtlReadDto">
+        SELECT A.img_pth,A.mn_img_yn,B.prd_cd,B.prd_nm,B.prd_str_prc
+        FROM trv_prd B
+        JOIN prd_img A ON A.prd_cd = B.prd_cd
+        JOIN trv_prd_dtl C ON B.prd_cd = C.prd_cd
+        WHERE C.prd_dtl_cd = #{prd_dtl_cd}
     </select>
 
 </mapper>

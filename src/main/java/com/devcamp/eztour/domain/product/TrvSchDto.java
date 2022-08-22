@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
 
 @Getter
 @Setter
@@ -11,8 +14,11 @@ import lombok.ToString;
 public class TrvSchDto {
 
     private int sch_no;
+    @NotBlank(message = "상품코드는 필수 입력 항목입니다.")
     private String		prd_cd;
+    @Min(value = 1, message = "여행 일차는 1보다 커야 합니다.")
     private int			trv_date;
+    @Min(value = 1, message = "일정 순번은 1보다 커야 합니다.")
     private int			sch_ord;
     private String		st_nm;
     private String		sit_sh_desc;
