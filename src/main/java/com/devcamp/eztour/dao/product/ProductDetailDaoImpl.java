@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -23,6 +24,11 @@ public class ProductDetailDaoImpl implements ProductDetailDao {
     @Override
     public List<TrvPrdDtlDto> selectAllDetailProduct(String prd_cd) throws Exception {
         return session.selectList(namespace + "selectAllDetailProduct", prd_cd);
+    }
+
+    @Override
+    public List<TrvPrdDtlReadDto> selectAllProductCategory(Map map) throws Exception {
+        return session.selectList(namespace+"selectAllProductCategory",map);
     }
 
 }

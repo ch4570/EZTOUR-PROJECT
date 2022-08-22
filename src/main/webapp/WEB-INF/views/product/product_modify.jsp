@@ -53,6 +53,22 @@
                                 <form:input path="prd_cd" placeholder="상품코드" value="${trvPrdDto.prd_cd}" cssClass="input_prd"/><br>
                                 <form:errors path="prd_cd" cssClass="error_msg"/><br><br>
 
+                                <form:label path="cntn_cd">대륙코드</form:label><br>
+                                <select name="cntn_cd" class="input_prd" id="cntn_select">
+                                    <option value="" selected>대륙코드</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                    <option value="E">E</option>
+                                </select><br>
+                                <form:errors path="cntn_cd" cssClass="error_msg"/><br><br>
+
+                                <form:label path="nt_cd">국가코드</form:label><br>
+                                <select name="nt_cd" class="input_prd" id="nt_cd_select">
+
+                                </select><br>
+
                                 <form:label path="dstn_cd">여행지코드</form:label><br>
                                 <form:input path="dstn_cd" placeholder="여행지코드" value="${trvPrdDto.dstn_cd}" cssClass="input_prd"/><br>
                                 <form:errors path="dstn_cd" cssClass="error_msg"/><br><br>
@@ -95,5 +111,27 @@
                 </div>
             </div>
         </div>
+<script>
+    $(document).ready(function (){
+        $('#cntn_select').change(function (){
+            let value = $(this).val();
+            $.ajax({
+                type: "POST",
+                url : "<c:url value='/product/option'/>",
+                data : {option:value},
+                success : function (data){
+                    $('#nt_cd_select').empty();
+                    $(data).each(function (){
+                        $('#nt_cd_select').append("<option value="+this.nt_cd+">"+this.nt_cd_nm+"</option>");
+                    });
+                },
+                error : function (){
+                    alert("국가코드를 선택해주세요");
+                }
+
+            });
+        });
+    });
+</script>
     </body>
 </html>

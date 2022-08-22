@@ -4,6 +4,7 @@
 <%@ page session="true" %>
 <c:set var="loginId" value="${sessionScope.userDto.usr_id==null ? '' : sessionScope.userDto.usr_id}"/>
 <c:set var="loginName" value="${loginId=='' ? '' : sessionScope.userDto.usr_nm}"/>
+<c:set var="adminPage" value="/product/admin"/>
 <html>
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,52 +30,50 @@
 				<li class="nav__dropdown">
 					<div class="nav__list--dropdown-menu"><a href="#">동남아</a></div>
 					<div class="nav__list--dropdown-content">
-						<a href="#">필리핀</a>
-						<a href="#">태국</a>
-						<a href="#">베트남</a>
-						<a href="#">말레이시아</a>
-						<a href="#">라오스</a>
-						<a href="#">인도네시아</a>
-						<a href="#">싱가포르</a>
+						<a href="<c:url value='/product/list?cntn_cd=A&nt_cd=1&nt_cd_nm=필리핀'/>">필리핀</a>
+						<a href="<c:url value='/product/list?cntn_cd=A&nt_cd=2&nt_cd_nm=태국'/>">태국</a>
+						<a href="<c:url value='/product/list?cntn_cd=A&nt_cd=3&nt_cd_nm=베트남'/>">베트남</a>
+						<a href="<c:url value='/product/list?cntn_cd=A&nt_cd=5&nt_cd_nm=라오스'/>">라오스</a>
 					</div>
 				</li>
 				<li class="nav__dropdown">
 					<div class="nav__list--dropdown-menu"><a href="#">동아시아</a></div>
 					<div class="nav__list--dropdown-content">
-						<a href="#">일본</a>
-						<a href="#">중국</a>
-						<a href="#">몽골</a>
-						<a href="#">홍콩</a>
-						<a href="#">한국</a>
-						<a href="#">대만</a>
+						<a href="<c:url value='/product/list?cntn_cd=B&nt_cd=1&nt_cd_nm=싱가포르'/>">싱가포르</a>
+						<a href="<c:url value='/product/list?cntn_cd=B&nt_cd=2&nt_cd_nm=일본'/>">일본</a>
+						<a href="<c:url value='/product/list?cntn_cd=B&nt_cd=3&nt_cd_nm=중국'/>">중국</a>
+						<a href="<c:url value='/product/list?cntn_cd=B&nt_cd=4&nt_cd_nm=몽골'/>">몽골</a>
+						<a href="<c:url value='/product/list?cntn_cd=B&nt_cd=5&nt_cd_nm=홍콩'/>">홍콩</a>
+						<a href="<c:url value='/product/list?cntn_cd=B&nt_cd=6&nt_cd_nm=한국'/>">한국</a>
+						<a href="<c:url value='/product/list?cntn_cd=B&nt_cd=7&nt_cd_nm=대만'/>">대만</a>
 					</div>
 				</li>
 				<li class="nav__dropdown">
 					<div class="nav__list--dropdown-menu"><a href="#">서유럽</a></div>
 					<div class="nav__list--dropdown-content">
-						<a href="#">프랑스</a>
-						<a href="#">영국</a>
-						<a href="#">아일랜드</a>
-						<a href="#">스위스</a>
-						<a href="#">이탈리아</a>
-						<a href="#">스페인</a>
-						<a href="#">독일</a>
+						<a href="<c:url value='/product/list?cntn_cd=D&nt_cd=1&nt_cd_nm=프랑스'/>">프랑스</a>
+						<a href="<c:url value='/product/list?cntn_cd=D&nt_cd=2&nt_cd_nm=영국'/>">영국</a>
+						<a href="<c:url value='/product/list?cntn_cd=D&nt_cd=3&nt_cd_nm=아일랜드'/>">아일랜드</a>
+						<a href="<c:url value='/product/list?cntn_cd=D&nt_cd=4&nt_cd_nm=스위스'/>">스위스</a>
+						<a href="<c:url value='/product/list?cntn_cd=D&nt_cd=5&nt_cd_nm=이탈리아'/>">이탈리아</a>
+						<a href="<c:url value='/product/list?cntn_cd=D&nt_cd=6&nt_cd_nm=스페인'/>">스페인</a>
+						<a href="<c:url value='/product/list?cntn_cd=D&nt_cd=7&nt_cd_nm=독일'/>">독일</a>
 					</div>
 				</li>
 				<li class="nav__dropdown">
 					<div class="nav__list--dropdown-menu"><a href="#">동유럽</a></div>
 					<div class="nav__list--dropdown-content">
-						<a href="#">체코</a>
-						<a href="#">그리스</a>
-						<a href="#">러시아</a>
-						<a href="#">우크라이나</a>
+						<a href="<c:url value='/product/list?cntn_cd=C&nt_cd=1&nt_cd_nm=체코'/>">체코</a>
+						<a href="<c:url value='/product/list?cntn_cd=C&nt_cd=2&nt_cd_nm=그리스'/>">그리스</a>
+						<a href="<c:url value='/product/list?cntn_cd=C&nt_cd=3&nt_cd_nm=러시아'/>">러시아</a>
+						<a href="<c:url value='/product/list?cntn_cd=C&nt_cd=4&nt_cd_nm=우크라이나'/>">우크라이나</a>
 					</div>
 				</li>
 				<li class="nav__dropdown">
 					<div class="nav__list--dropdown-menu"><a href="#">오세아니아</a></div>
 					<div class="nav__list--dropdown-content">
-						<a href="#">호주</a>
-						<a href="#">뉴질랜드</a>
+						<a href="<c:url value='/product/list?cntn_cd=E&nt_cd=1&nt_cd_nm=호주'/>">호주</a>
+						<a href="<c:url value='/product/list?cntn_cd=E&nt_cd=2&nt_cd_nm=뉴질랜드'/>">뉴질랜드</a>
 					</div>
 				</li>
 				<li class="nav__dropdown">
@@ -92,7 +91,12 @@
 					</c:when>
 					<c:when test="${loginId!=''}">
 						<li><a href="/user/logout">로그아웃</a></li>
-						<li><a href="/user/mypage">마이페이지</a></li>
+						<c:if test="${sessionScope.userDto.rl == 'user'}">
+							<li><a href="/user/mypage">마이페이지</a></li>
+						</c:if>
+						<c:if test="${sessionScope.userDto.rl == 'Admin' || sessionScope.userDto.rl == 'supAdmin'}">
+							<li><a href="<c:url value='/product/admin'/>">관리자페이지</a></li>
+						</c:if>
 					</c:when>
 				</c:choose>
 				<li><a href="#">에약확인/결제</a></li>

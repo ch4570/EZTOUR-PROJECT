@@ -46,6 +46,8 @@
                     <h1>상품 조회</h1>
                         <div class="prd_input_form">
                             상품코드 &nbsp;<br><input type="text"  class="input_prd" name="prd_cd" placeholder="상품코드" value="${trvPrdDto.prd_cd}" readonly="readonly"><br>
+                            대륙코드 &nbsp;<br><input type="text"  class="input_prd" name="cntn_cd" placeholder="대륙코드" value="${trvPrdDto.cntn_cd}" readonly="readonly"><br>
+                            국가코드 &nbsp;<br><input type="text"  class="input_prd" name="nt_cd" placeholder="국가코드" value="${trvPrdDto.nt_cd}" readonly="readonly"><br>
                             여행지코드 &nbsp;<br><input type="text" class="input_prd" name="dstn_cd" placeholder="여행지 코드" value="${trvPrdDto.dstn_cd}" readonly="readonly"><br>
                             테마상태 &nbsp;<br><input type="text" class="input_prd" name="cmn_cd_thm" placeholder="공통코드_테마상태" value="${trvPrdDto.cmn_cd_thm}" readonly="readonly"><br>
                             상품명 &nbsp;<br><input type="text" class="input_prd" name="prd_nm" placeholder="상품명" value="${trvPrdDto.prd_nm}" readonly="readonly"><br>

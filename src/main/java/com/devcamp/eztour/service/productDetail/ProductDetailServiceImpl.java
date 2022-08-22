@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +22,11 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     @Override
     public List<TrvPrdDtlDto> getAllDetailProduct(String prd_cd) throws Exception {
         return productDetailDao.selectAllDetailProduct(prd_cd);
+    }
+
+    @Override
+    public List<TrvPrdDtlReadDto> getAllProductCategory(Map map) throws Exception {
+        return productDetailDao.selectAllProductCategory(map);
     }
 
 }

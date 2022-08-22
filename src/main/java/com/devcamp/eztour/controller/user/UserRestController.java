@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,8 +57,9 @@ public class UserRestController {
         }
     }
 
-    @PostMapping("/findPwd/{usr_id}/{usr_nm}/{email}")
+    @PostMapping("/findPwd/{usr_id}/{usr_nm}/{email:.+}")
     public ResponseEntity<String> findPwd(@PathVariable String usr_id, @PathVariable String usr_nm, @PathVariable String email){
+        usr_nm = URLDecoder.decode(usr_nm);
         try {
             String pwd = userService.findPwd(usr_id, usr_nm, email);
             if(pwd==null){

@@ -28,6 +28,7 @@
         <typeAlias alias="TrvPrdPrcDto" type="com.devcamp.eztour.domain.product.TrvPrdPrcDto"/>
         <typeAlias alias="TrvSchImgDto" type="com.devcamp.eztour.domain.product.TrvSchImgDto"/>
         <typeAlias alias="PageHandlerProduct" type="com.devcamp.eztour.domain.product.PageHandlerProduct"/>
+        <typeAlias alias="PrdOptionDto" type="com.devcamp.eztour.domain.product.PrdOptionDto"/>
         <!-- 서창희 끝 -->
 
         <!-- 혜경님 시작 -->
