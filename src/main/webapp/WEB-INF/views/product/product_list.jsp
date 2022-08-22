@@ -132,10 +132,10 @@
         url : "<c:url value='/product/show'/>",
         data : {"prd_dtl_cd":prd_dtl_cd},
         success : function (data){
-              console.log("성공");
+          console.log("성공");
         },
         error : function (){
-              console.log("실패");
+          console.log("실패");
         }
       });
     });

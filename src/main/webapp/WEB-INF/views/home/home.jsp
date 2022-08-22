@@ -152,6 +152,11 @@
 		</div>
 	</c:if>
 
+
+
+
+
+<%--	gallery--%>
 	<div class="home__gallery">
 		<img src="/img/greece.jpg" alt="a forest after an apocalypse">
 		<img src="/img/paris.jpg" alt="a waterfall and many rocks">
@@ -159,8 +164,13 @@
 		<img src="/img/spain.jpg" alt="sime pink flowers">
 		<img src="/img/sydney.jpg" alt="big rocks with some trees">
 	</div>
-</main>
 
+
+
+
+
+
+</main>
 
 <%--footer--%>
 
@@ -206,6 +216,10 @@
 			$(".aside__btn").toggleClass('open');
 		})
 	});
+
+
+
+
 
 	let msg = "${msg}";
 	if(msg=="REG_OK")   alert("회원가입이 완료되었습니다. 로그인 해주세요.");
