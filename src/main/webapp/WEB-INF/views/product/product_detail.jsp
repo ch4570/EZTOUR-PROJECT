@@ -121,13 +121,14 @@
             <span>1박2일</span>
         </div>
 
+        <form class="detail-item__form">
         <div class="detail-item__pay">
             <div pay_adult>
                 <div class="pay__info">
                     <span>성인</span>
                     <span>1</span>
                 </div>
-                <div class="pay__combo-box">
+                <div class="pay__combo-box" price="3200000">
                     <button
                             type="button"
                             class="minus-button"
@@ -135,7 +136,7 @@
                     ><i class="fas fa-minus"></i></button>
                     <input readonly
                            type="number"
-                           name="quantity"
+                           name="adt_quantity"
                            class="quantity"
                            min="0"
                            max="10"
@@ -155,7 +156,7 @@
                     <span>1</span>
                 </div>
 
-                <div class="pay__combo-box">
+                <div class="pay__combo-box" price="3200000">
                     <button
                             type="button"
                             class="minus-button"
@@ -163,11 +164,11 @@
                     ><i class="fas fa-minus"></i></button>
                     <input readonly
                            type="number"
-                           name="quantity"
+                           name="chd_quantity"
                            class="quantity"
                            min="0"
                            max="10"
-                           value="1"
+                           value="0"
                     />
                     <button
                             type="button"
@@ -183,7 +184,7 @@
                     <span>1</span>
                 </div>
 
-                <div class="pay__combo-box">
+                <div class="pay__combo-box" price="1200000">
                     <button
                             type="button"
                             class="minus-button"
@@ -191,11 +192,11 @@
                     ><i class="fas fa-minus"></i></button>
                     <input readonly
                            type="number"
-                           name="quantity"
+                           name="bb_quantity"
                            class="quantity"
                            min="0"
                            max="10"
-                           value="1"
+                           value="0"
                     />
                     <button
                             type="button"
@@ -208,12 +209,13 @@
 
         <div class="detail-item__total-pay">
             <span>최종 합계금액</span>
-            <div>0원</div>
+            <div><input readonly type="number" name="total_price" value="3200000"/>원</div>
         </div>
 
         <div class="detail-item__rev-btn">
             <button class="rev-btn__btn" name="revBtn">예약하기</button>
         </div>
+        </form>
     </div>
 
 </div>
@@ -230,6 +232,100 @@
             $(this).addClass('selected');
             $("#"+tab_id).addClass('selected');
         })
+
+
+
+        $('.plus-button').eq("0").on("click",function (){
+            const quantity = $('.quantity').eq("0").val();
+            if(parseInt(quantity)+1 > 10){
+                alert("예약은 최대 10명까지 가능합니다!");
+            }else{
+                $('.quantity').eq("0").val(parseInt(quantity)+1);
+                let adultPcr = parseInt($('.pay__combo-box').eq("0").attr('price'));
+                let totalPrice = parseInt($('input[name=total_price]').val());
+                totalPrice = totalPrice+adultPcr;
+                $('input[name=total_price]').val(totalPrice);
+
+            }
+
+        });
+
+        $('.plus-button').eq("1").on("click",function (){
+            const quantity = $('.quantity').eq("1").val();
+            if(parseInt(quantity)+1 > 10){
+                alert("예약은 최대 10명까지 가능합니다!");
+            }else{
+                $('.quantity').eq("1").val(parseInt(quantity)+1);
+                let childPcr = parseInt($('.pay__combo-box').eq("1").attr('price'));
+                let totalPrice = parseInt($('input[name=total_price]').val());
+                totalPrice = totalPrice+childPcr;
+                $('input[name=total_price]').val(totalPrice);
+            }
+        });
+
+        $('.plus-button').eq("2").on("click",function (){
+            const quantity = $('.quantity').eq("2").val();
+            if(parseInt(quantity)+1 > 10){
+                alert("예약은 최대 10명까지 가능합니다!");
+            }else{
+                $('.quantity').eq("2").val(parseInt(quantity)+1);
+                let babyPcr = parseInt($('.pay__combo-box').eq("2").attr('price'));
+                let totalPrice = parseInt($('input[name=total_price]').val());
+                totalPrice = totalPrice+babyPcr;
+                $('input[name=total_price]').val(totalPrice);
+            }
+        });
+
+        $('.minus-button').eq("0").on("click",function (){
+            const quantity = $('.quantity').eq("0").val();
+            let totalPrice = parseInt($('input[name=total_price]').val());
+            if(parseInt(quantity)-1 < 0){
+                alert("예약인원은 0명보다 작을 수 없습니다.");
+            }else{
+                $('.quantity').eq("0").val(parseInt(quantity)-1);
+                let adultPcr = parseInt($('.pay__combo-box').eq("0").attr('price'));
+                if(totalPrice==0){
+                    return;
+                }else{
+                    totalPrice = totalPrice-adultPcr;
+                    $('input[name=total_price]').val(totalPrice);
+                }
+            }
+        });
+
+        $('.minus-button').eq("1").on("click",function (){
+            const quantity = $('.quantity').eq("1").val();
+            let totalPrice = parseInt($('input[name=total_price]').val());
+            if(parseInt(quantity)-1 < 0){
+                alert("예약인원은 0명보다 작을 수 없습니다.");
+            }else{
+                $('.quantity').eq("1").val(parseInt(quantity)-1);
+                let childPcr = parseInt($('.pay__combo-box').eq("1").attr('price'));
+                if(totalPrice==0){
+                    return;
+                }else{
+                    totalPrice = totalPrice-childPcr;
+                    $('input[name=total_price]').val(totalPrice);
+                }
+            }
+        });
+
+        $('.minus-button').eq("2").on("click",function (){
+            const quantity = $('.quantity').eq("2").val();
+            let totalPrice = parseInt($('input[name=total_price]').val());
+            if(parseInt(quantity)-1 < 0){
+                alert("예약인원은 0명보다 작을 수 없습니다.");
+            }else{
+                $('.quantity').eq("2").val(parseInt(quantity)-1);
+                let babyPcr = parseInt($('.pay__combo-box').eq("2").attr('price'));
+                if(totalPrice==0){
+                    return;
+                }else{
+                    totalPrice = totalPrice-babyPcr;
+                    $('input[name=total_price]').val(totalPrice);
+                }
+            }
+        });
 
     });
 </script>
