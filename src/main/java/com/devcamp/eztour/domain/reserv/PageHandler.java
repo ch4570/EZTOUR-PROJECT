@@ -6,7 +6,7 @@ public class PageHandler {
     private int totalCnt;
     private int totalPage;
     private int navSize = 5;
-    private int firstPage;
+    private int beginPage;
     private int endPage;
     private boolean showPrev;
     private boolean showNext;
@@ -21,9 +21,9 @@ public class PageHandler {
         this.totalCnt = totalCnt;
 
         this.totalPage = (int)Math.ceil(totalCnt/(double)pageSize);
-        this.firstPage = (page-1)/pageSize * pageSize + 1;
+        this.beginPage = (page-1)/pageSize * pageSize + 1;
         this.endPage = Math.min((page-1)/pageSize*pageSize + pageSize, totalPage);
-        this.showPrev = firstPage != 1;
+        this.showPrev = beginPage != 1;
         this.showNext = endPage != totalPage;
     }
 
@@ -35,7 +35,7 @@ public class PageHandler {
                 ", totalCnt=" + totalCnt +
                 ", totalPage=" + totalPage +
                 ", navSize=" + navSize +
-                ", firstPage=" + firstPage +
+                ", beginPage=" + beginPage +
                 ", endPage=" + endPage +
                 ", showPrev=" + showPrev +
                 ", showNext=" + showNext +
@@ -82,12 +82,12 @@ public class PageHandler {
         this.navSize = navSize;
     }
 
-    public int getFirstPage() {
-        return firstPage;
+    public int getbeginPage() {
+        return beginPage;
     }
 
-    public void setFirstPage(int firstPage) {
-        this.firstPage = firstPage;
+    public void setbeginPage(int beginPage) {
+        this.beginPage = beginPage;
     }
 
     public int getEndPage() {

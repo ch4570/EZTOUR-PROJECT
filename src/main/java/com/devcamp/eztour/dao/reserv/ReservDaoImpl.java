@@ -69,5 +69,29 @@ public class ReservDaoImpl implements ReservDao {
         return session.selectList(namespace+"selectAirInfo", prd_dtl_cd);
     }
 
+    @Override
+    public int selectUserMlg(String usr_id) throws Exception {
+        return session.selectOne(namespace+"selectUserMlg", usr_id);
+    }
+
+    @Override
+    public int updateUserMlg(Map map) throws Exception {
+        return session.update(namespace+"updateUserMlg", map);
+    }
+
+    @Override
+    public int updateRsvtStt(Map map) throws Exception {
+        return session.update(namespace+"updateRsvtStt", map);
+    }
+
+    @Override
+    public long selectPayFtrPrc(String rsvt_no) throws Exception {
+        return session.selectOne(namespace+"selectPayFtrPrc", rsvt_no);
+    }
+
+    @Override
+    public int deleteReserv(String rsvt_no) throws Exception {
+        return session.delete(namespace+"deleteReserv", rsvt_no);
+    }
 
 }

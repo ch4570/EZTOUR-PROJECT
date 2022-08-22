@@ -3,13 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.devcamp.eztour.dao.customercenterMapper.">
-<!--기본 CRUD 매퍼-->
-    <select id="selectCustomerInquiry" resultType="CustomerInquiryDto">
-        SELECT *
-        FROM qna
---         reg_date??
-        WHERE qna_no = #{qna_no}
-    </select>
+<!--    Inquiry 매퍼-->
     <select id="countCustomerInquiry" resultType="int">
         SELECT count(*) FROM qna
     </select>
@@ -18,83 +12,132 @@
         DELETE FROM qna
     </delete>
 
-    <!--    고객 문의 인서트-->
+    <delete id="deleteCustomerInquiry" parameterType="map">
+        DELETE FROM qna WHERE qna_no = #{qna_no} and usr_id = #{usr_id}
+    </delete>
+
     <insert id="insertCustomerInquiry" parameterType="CustomerInquiryDto">
         INSERT INTO qna (usr_id, qna_cd, email, phn, qna_ttl, qna_cont)
         VALUES (#{usr_id}, #{qna_cd}, #{email}, #{phn}, #{qna_ttl}, #{qna_cont})
     </insert>
 
-    <delete id="deleteCustomerInquiry" parameterType="map">
-        DELETE FROM qna WHERE qna_no = #{qna_no} and usr_id = #{usr_id}
-    </delete>
+    <select id="selectAllCustomerInquiry" resultType="CustomerInquiryDto">
+        SELECT *
+        FROM qna
+        ORDER BY frs_reg_date DESC, qna_no DESC
+    </select>
+
+    <select id="selectCustomerInquiry" parameterType="int" resultType="CustomerInquiryDto">
+        SELECT *
+        FROM qna
+        WHERE qna_no = #{qna_no}
+    </select>
+
+    <select id="selectCustomerInquiryPage" parameterType="map" resultType="CustomerInquiryDto">
+        SELECT *
+        FROM qna
+        ORDER BY frs_reg_date DESC, qna_no DESC
+            LIMIT #{offset}, #{pageSize}
+    </select>
 
     <update id="updateCustomerInquiry" parameterType="CustomerInquiryDto">
         UPDATE qna
         SET   qna_ttl = #{qna_ttl}
           , qna_cont = #{qna_cont}
           , up_date = now()
---         upd_date 맞을까?
+          , fnl_mod_date = #{fnl_mod_date}
         WHERE qna_no = #{qna_no}
     </update>
 
-
-<!--기본 매퍼 종료-->
-    <select id="countCustomerInquiry" resultType="int">
-        SELECT count(*) FROM qna
-    </select>
-<!--    조회수 증가-->
+<!--    조회수 매퍼-->
     <update id="increaseViewCntCustomerInquiry" parameterType="int">
         UPDATE qna
---         view_cnt?
         SET   view_cnt = view_cnt + 1
         WHERE qna_no = #{qna_no}
     </update>
 
-    <select id="selectCustomerPage" parameterType="map" resultType="CustomerInquiryDto">
-        SELECT *
-        FROM board
-        ORDER BY frs_reg_date DESC, qna_no DESC
-        LIMIT #{offset}, #{pageSize}
-    </select>
-
 <!--    검색 기능 매퍼 시작-->
-    <select id="searchSelectCustomerPage" parameterType="CustomerSearchCondition" resultType="CustomerInquiryDto">
+    <select id="searchSelectCustomerInquiryPage" parameterType="CustomerSearchCondition" resultType="CustomerInquiryDto">
         SELECT * FROM qna
         WHERE true
         <choose>
             <when test='option=="T"'>
-                AND title LIKE concat('%', #{keyword}, '%')
+                AND qna_ttl LIKE concat('%', #{keyword}, '%')
             </when>
             <when test='option=="W"'>
-                AND writer LIKE concat('%', #{keyword}, '%')
+                AND usr_id LIKE concat('%', #{keyword}, '%')
             </when>
             <otherwise>
-                AND (title LIKE concat('%', #{keyword}, '%')
-                OR content LIKE concat('%', #{keyword}, '%'))
+                AND (qna_ttl LIKE concat('%', #{keyword}, '%')
+                OR qna_cont LIKE concat('%', #{keyword}, '%'))
             </otherwise>
         </choose>
         ORDER BY frs_reg_date DESC,qna_no DESC
-<!-- 페이징 처리 -->
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="searchResultCnt" parameterType="CustomerSearchCondition" resultType="int">
+    <select id="searchResultCntCustomerInquiryPage" parameterType="CustomerSearchCondition" resultType="int">
         SELECT count(*)
         FROM qna
         WHERE true
         <choose>
             <when test='option=="T"'>
-                AND title LIKE concat('%', #{keyword}, '%')
+                AND qna_ttl LIKE concat('%', #{keyword}, '%')
             </when>
             <when test='option=="W"'>
-                AND writer LIKE concat('%', #{keyword}, '%')
+                AND usr_id LIKE concat('%', #{keyword}, '%')
             </when>
             <otherwise>
-                AND (title LIKE concat('%', #{keyword}, '%')
-                OR content LIKE concat('%', #{keyword}, '%'))
+                AND (qna_ttl LIKE concat('%', #{keyword}, '%')
+                OR qna_cont LIKE concat('%', #{keyword}, '%'))
             </otherwise>
         </choose>
     </select>
 <!--    검색 기능 매퍼 끝-->
+<!--inquiry 매퍼 끝-->
 
+<!--    prop 매퍼 시작-->
+    <select id="countCustomerProp" resultType="int">
+        SELECT count(*) FROM usr_srv_prop
+    </select>
+
+    <delete id="deleteAllCustomerProp">
+        DELETE FROM usr_srv_prop
+    </delete>
+
+    <delete id="deleteCustomerProp" parameterType="map">
+        DELETE FROM usr_srv_prop WHERE prop_no = #{prop_no} and usr_id = #{usr_id}
+    </delete>
+
+    <insert id="insertCustomerProp" parameterType="CustomerPropDto">
+        INSERT INTO usr_srv_prop (prd_dtl_cd, usr_id, prop_cont, phn, email)
+        VALUES (#{prd_dtl_cd}, #{usr_id}, #{prop_cont}, #{phn}, #{email})
+    </insert>
+
+    <select id="selectAllCustomerProp" resultType="CustomerPropDto">
+        SELECT *
+        FROM usr_srv_prop
+        ORDER BY frs_reg_date DESC, prop_no DESC
+    </select>
+
+    <select id="selectCustomerProp" parameterType="int" resultType="CustomerPropDto">
+        SELECT *
+        FROM usr_srv_prop
+        WHERE prop_no = #{prop_no}
+    </select>
+
+    <select id="selectCustomerPropPage" parameterType="map" resultType="CustomerPropDto">
+        SELECT *
+        FROM usr_srv_prop
+        ORDER BY frs_reg_date DESC, prop_no DESC
+            LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <update id="updateCustomerProp" parameterType="CustomerPropDto">
+        UPDATE usr_srv_prop
+        SET   prop_cont = #{prop_cont}
+          , fnl_mod_date = #{fnl_mod_date}
+        WHERE prop_no = #{prop_no}
+    </update>
+<!--    prop 매퍼 끝-->
 </mapper>

@@ -3,8 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.devcamp.eztour.attPrdMapper">
-    <select id="count" resultType="int">
-        SELECT count(*) FROM att_prd;
+    <select id="count" parameterType="map" resultType="int">
+        SELECT count(*)
+        FROM att_prd
+        WHERE usr_id = #{usr_id}
+          AND prd_cd = #{prd_cd}
     </select>
 
     <select id="checkAttPrd" parameterType="AttPrdDto" resultType="int">
@@ -51,7 +54,8 @@
         SELECT B.img_pth,
                A.prd_cd,
                A.prd_nm,
-               A.prd_str_prc
+               A.prd_str_prc,
+               A.att_prd_no
         FROM att_prd A INNER JOIN prd_img B ON A.prd_cd = B.prd_cd
         ORDER BY A.att_prd_no DESC
         LIMIT #{offset}, #{pageSize}

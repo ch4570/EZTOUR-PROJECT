@@ -35,4 +35,12 @@ public interface RvwDao {
     int updateCommentCnt(Integer rvw_no, Integer cnt) throws Exception;
 
     List<RvwDto> selectPrdnm(String usr_id) throws Exception;
+
+    String getprdCd(String prd_dtl_cd) throws Exception;
+
+    int checkRvwUser(String usr_id, Integer rvw_no) throws Exception;
+
+    int increaseLikeCnt(Integer rvw_no) throws Exception;
+
+    int decreaseLikeCnt(Integer rvw_no) throws Exception;
 }

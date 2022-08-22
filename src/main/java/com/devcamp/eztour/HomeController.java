@@ -26,14 +26,12 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model m, HttpServletRequest request) {
         try {
-            HttpSession session = request.getSession();
-            session.setAttribute("usr_id","admin");
             List<DestinationCategoryDto> list = destinationCategoryService.getCategory();
             m.addAttribute("list", list);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "home/home.tiles";
+        return "home/home";
     }
 
     @GetMapping("/search")
@@ -56,3 +54,4 @@ public class HomeController {
     }
 
 }
+

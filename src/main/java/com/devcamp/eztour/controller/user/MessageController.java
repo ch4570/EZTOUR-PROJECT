@@ -39,8 +39,10 @@ public class MessageController {
         smsSecretKey = value;
     }
 
+//    @PostConstruct
     public void MessageController() {
         messageService = NurigoApp.INSTANCE.initialize(smsKey, smsSecretKey, "https://api.coolsms.co.kr");
+        System.out.println("===================================="+smsKey);
     }
 
     @GetMapping("/authPhn/{phn}")

@@ -89,20 +89,20 @@
         <button type="button" id="writeBtn" onclick="location.href='<c:url value="#"/>'">등록</button>
     </div>
 </div>
-<%--<script>--%>
-<%--&lt;%&ndash;    입력 값 customer_inquiry_write로 보내기&ndash;%&gt;--%>
-<%--    $(document).ready(function (){--%>
-<%--        $('#writeBtn').on("click", function(){--%>
-<%--            let form = ${'#form'};--%>
-<%--            form.attr("action", "<c:url value='/customer/inquiryWrite'/>");--%>
-<%--            form.attr("method", "post");--%>
-<%--            form.submit();--%>
-<%--        });--%>
-<%--    });--%>
-<%--</script>--%>
-<%--<script>--%>
-<%--    let msg ="${msg}";--%>
-<%--    if(msg=="WRT_ERR") alert("게시물 등록에 실패했습니다. 다시 시도해주세요.");--%>
-<%--</script>--%>
+<script>
+<%--    입력 값 customer_inquiry_write로 보내기--%>
+    $(document).ready(function (){
+        $('#writeBtn').on("click", function(){
+            let form = ${'#form'};
+            form.attr("action", "<c:url value='/customer/inquiryWrite'/>");
+            form.attr("method", "post");
+            form.submit();
+        });
+    });
+</script>
+<script>
+    let msg ="${msg}";
+    if(msg=="WRT_ERR") alert("게시물 등록에 실패했습니다. 다시 시도해주세요.");
+</script>
 </body>
 </html>

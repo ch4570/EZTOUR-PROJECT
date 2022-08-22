@@ -14,7 +14,7 @@
         <typeAlias alias="SearchCondition" type="com.devcamp.eztour.domain.rvw.SearchCondition"/>
         <typeAlias alias="RvwCmtDto" type="com.devcamp.eztour.domain.rvw.RvwCmtDto"/>
         <typeAlias alias="AttPrdDto" type="com.devcamp.eztour.domain.attPrd.AttPrdDto"/>
-
+        <typeAlias alias="RvwLkAdmDto" type="com.devcamp.eztour.domain.rvw.RvwLkAdmDto"/>
         <!--도형님 끝-->
 
         <!--서창희 시작-->
@@ -28,6 +28,7 @@
         <typeAlias alias="TrvPrdPrcDto" type="com.devcamp.eztour.domain.product.TrvPrdPrcDto"/>
         <typeAlias alias="TrvSchImgDto" type="com.devcamp.eztour.domain.product.TrvSchImgDto"/>
         <typeAlias alias="PageHandlerProduct" type="com.devcamp.eztour.domain.product.PageHandlerProduct"/>
+        <typeAlias alias="PrdOptionDto" type="com.devcamp.eztour.domain.product.PrdOptionDto"/>
         <!-- 서창희 끝 -->
 
         <!-- 혜경님 시작 -->
@@ -43,12 +44,14 @@
 
         <!-- 종현님 시작 -->
 
+        <typeAlias alias="eventDto" type="com.devcamp.eztour.domain.event.EventDto"/>
+
         <!-- 종현님 끝 -->
 
         <!-- 영욱님 시작 -->
         <typeAlias alias="FaqDto" type="com.devcamp.eztour.domain.faq.FaqDto"/>
         <typeAlias alias="TrvPrdDto" type="com.devcamp.eztour.domain.home.TrvPrdDto"/>
-        <typeAlias alias="TrvPrdDetailDto" type="com.devcamp.eztour.domain.productDetail.TrvPrdDetailDto"/>
+        <typeAlias alias="TrvPrdDtlDto" type="com.devcamp.eztour.domain.product.TrvPrdDtlDto"/>
         <typeAlias alias="DestinationCategoryDto" type="com.devcamp.eztour.domain.category.DestinationCategoryDto"/>
         <!-- 영욱님 끝-->
     </typeAliases>

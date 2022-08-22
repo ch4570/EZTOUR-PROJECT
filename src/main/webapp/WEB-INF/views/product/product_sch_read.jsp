@@ -32,7 +32,8 @@
                 </ul>
                 <ul>
                     <li class="prd_tlt">상품 승인 관리</li>
-                    <li class="menu_list">상품 승인</li>
+                    <a href="<c:url value='/product/recognize'/>"><li class="menu_list">상품 승인</li></a>
+                    <a href="<c:url value='/reserv/admin'/>"><li class="menu_list">예약 승인</li></a>
                 </ul>
                 <ul>
                     <li class="prd_tlt">고객 관리</li>
@@ -41,7 +42,7 @@
                 </ul>
             </div>
             <div class="board">
-                <h1>상품 일정 등록</h1>
+                <h1>상품 일정 조회</h1>
                 <div class="prd_sch_input_form">
                         상품코드&nbsp;<br><input type="text" value="${list.prd_cd}" class="input_prd" readonly="readonly"/><br>
                         여행일차&nbsp;<br><input type="text"  value="${list.trv_date}"  class="input_prd"readonly="readonly"/><br>

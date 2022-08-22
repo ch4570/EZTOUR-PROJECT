@@ -12,3 +12,58 @@
     padding: 50px 0;
     font-size: 50px;
 }
+
+.aside {
+    box-sizing: border-box;
+    position: fixed;
+    top: 100px;
+    right: -110px;
+    padding: 15px;
+    background-color: #1c1c1c;
+    width: 110px;
+    z-index: 99;
+    transition: all .25s ease-in-out;
+    color: #cccccc;
+}
+
+.aside__menu--list,
+.aside__menu--list li,
+.aside__menu--list li a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    color: #cccccc;
+}
+
+.aside__menu--list li:not(:last-child) {
+    margin-bottom: 30px;
+}
+
+.aside__menu--list li a span:first-child {
+    font-size: 35px;
+}
+
+.aside__menu--list li a span:last-child {
+    font-size: 13px;
+    margin-top: 15px;
+}
+
+.aside__btn {
+    display: block;
+    position: absolute;
+    left: -30px;
+    top: 50%;
+    margin-top: -32.5px;
+    font-size: 15px;
+    color: #cccccc;
+    width: 30px;
+    height: 65px;
+    background: #1c1c1c;
+    border-radius: 4px 0 0 4px;
+    transition: all .25s ease-in-out;
+}
+
+.open {
+    right: 0px;
+}

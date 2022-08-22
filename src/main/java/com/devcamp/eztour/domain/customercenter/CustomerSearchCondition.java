@@ -1,44 +1,54 @@
 package com.devcamp.eztour.domain.customercenter;
 
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class CustomerSearchCondition {
-    private String qna_ttl;
-    private String qna_cont;
-    private Integer offset = 0;
+    private Integer page= 1;
+    private Integer pageSize = 10;
     private String keyword = "";
     private String option = "";
 
     public CustomerSearchCondition() {
     }
 
-    public CustomerSearchCondition(String qna_ttl, String qna_cont, String keyword, String option) {
-        this.qna_ttl = qna_ttl;
-        this.qna_cont = qna_cont;
+    public CustomerSearchCondition(Integer page, Integer pageSize, String keyword, String option) {
+        this.page = page;
+        this.pageSize = pageSize;
         this.keyword = keyword;
         this.option = option;
     }
 
-    public String getQna_ttl() {
-        return qna_ttl;
+    public String customerGetQueryString(Integer page) {
+        return UriComponentsBuilder.newInstance()
+                .queryParam("page", page)
+                .queryParam("pageSize", pageSize)
+                .queryParam("option", option)
+                .queryParam("keyword", keyword)
+                .build().toString();
     }
 
-    public void setQna_ttl(String qna_ttl) {
-        this.qna_ttl = qna_ttl;
+    public String customerGetQueryString() {
+        return customerGetQueryString(page);
     }
 
-    public String getQna_cont() {
-        return qna_cont;
+    public Integer getPage() {
+        return page;
     }
 
-    public void setQna_cont(String qna_cont) {
-        this.qna_cont = qna_cont;
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
     public Integer getOffset() {
-        return offset;
-    }
-
-    public void setOffset(Integer offset) {
-        this.offset = offset;
+        return (page-1)*pageSize;
     }
 
     public String getKeyword() {
@@ -60,9 +70,8 @@ public class CustomerSearchCondition {
     @Override
     public String toString() {
         return "CustomerSearchCondition{" +
-                "qna_ttl='" + qna_ttl + '\'' +
-                ", qna_cont='" + qna_cont + '\'' +
-                ", offset=" + offset +
+                "page=" + page +
+                ", pageSize=" + pageSize +
                 ", keyword='" + keyword + '\'' +
                 ", option='" + option + '\'' +
                 '}';

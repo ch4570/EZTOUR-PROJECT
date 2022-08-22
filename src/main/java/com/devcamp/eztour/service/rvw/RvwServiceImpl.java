@@ -38,8 +38,8 @@ public class RvwServiceImpl implements RvwService {
 
     @Transactional(rollbackFor = Exception.class)
     public RvwDto read(Integer rvw_no) throws Exception {
-        RvwDto rvwDto = rvwDao.select(rvw_no);
         rvwDao.increaseViewCnt(rvw_no);
+        RvwDto rvwDto = rvwDao.select(rvw_no);
         return rvwDto;
     }
 
@@ -50,6 +50,7 @@ public class RvwServiceImpl implements RvwService {
 
     @Transactional(rollbackFor = Exception.class)
     public int modify(RvwDto rvwDto) throws Exception {
+//        throw new Exception("test");
         return rvwDao.update(rvwDto);
     }
 
@@ -77,6 +78,26 @@ public class RvwServiceImpl implements RvwService {
     @Override
     public List<RvwDto> selectPrdnm(String usr_id) throws Exception {
         return rvwDao.selectPrdnm(usr_id);
+    }
+
+    @Override
+    public String getprdCd(String prd_dtl_cd) throws Exception {
+        return rvwDao.getprdCd(prd_dtl_cd);
+    }
+
+    @Override
+    public int checkRvwUser(String usr_id, Integer rvw_no) throws Exception {
+        return rvwDao.checkRvwUser(usr_id, rvw_no);
+    }
+
+    @Override
+    public int increaseLikeCnt(Integer rvw_no) throws Exception {
+        return rvwDao.increaseLikeCnt(rvw_no);
+    }
+
+    @Override
+    public int decreaseLikeCnt(Integer rvw_no) throws Exception {
+        return rvwDao.decreaseLikeCnt(rvw_no);
     }
 
 }

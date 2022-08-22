@@ -76,5 +76,10 @@ h1{
 
 }
 
+.wrap .content .board .error_msg{
+    color:red;
+    font-weight: bold;
+}
+
 
 

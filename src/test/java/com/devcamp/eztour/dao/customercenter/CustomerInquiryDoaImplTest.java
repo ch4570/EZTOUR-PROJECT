@@ -18,6 +18,15 @@
 //    @Autowired
 //    private CustomerInquiryDao customerInquiryDao;
 //
+////    @Test
+////    public void insertTestData() throws Exception {
+////        customerInquiryDao.deleteAllCustomerInquiry();
+////        for (int i = 1; i <= 220; i++) {
+////            CustomerInquiryDto customerInquiryDto = new CustomerInquiryDto(테스트 넣을 값);
+////            customerInquiryDao.insertCustomerInquiry(customerInquiryDto);
+////        }
+////    }
+//
 //    @Test
 //    public void insertTest() throws Exception {
 //        customerInquiryDao.deleteAllCustomerInquiry();
@@ -35,16 +44,44 @@
 //    }
 //
 //    @Test
-//    public void customerSearchSelectPageTest() throws Exception {
+//    public void searchSelectCustomerPageTest() throws Exception {
+//        customerInquiryDao.deleteAllCustomerInquiry();
+//        for (int i = 1; i <= 20; i++) {
+//            CustomerInquiryDto customerInquiryDto = new CustomerInquiryDto("title"+i, "asdfasdf", "asdf"+i);
+//            customerInquiryDao.insertCustomerInquiry(customerInquiryDto);
+//        }
+//
+//        CustomerSearchCondition csc = new CustomerSearchCondition("1", "10", "title2", "T");
+//        List<CustomerInquiryDto> list = customerInquiryDao.searchSelectCustomerPage(csc);
+//        System.out.println("list = " + list);
+//        asserTrue(list.size()==2);
+//
+//        csc = new CustomerSearchCondition("1", "10", "title2", "T");
+//        List<CustomerInquiryDto> list = customerInquiryDao.searchSelectCustomerPage(csc);
+//        System.out.println("list = " + list);
+//        asserTrue(list.size()==2);
+//    }
+//
+//    private void asserTrue(boolean b) {
+//    }
+//
+//    @Test
+//    public void searchResultCntCustomerPageTest() throws Exception {
 //        customerInquiryDao.deleteAllCustomerInquiry();
 //        for (int i = 1; i <= 20; i++) {
 //            CustomerInquiryDto customerInquiryDto = new CustomerInquiryDto("title"+i, "asdf", "asdf");
 //            customerInquiryDao.insertCustomerInquiry(customerInquiryDto);
 //        }
 //
-//        CustomerSearchCondition csc = new CustomerSearchCondition("test", "test", "title", "T");
-//        List<CustomerInquiryDto> list = customerInquiryDao.searchSelectCustomerPage(csc);
-//        System.out.println("list = " + list);
+//        CustomerSearchCondition csc = new CustomerSearchCondition("1", "10", "title2", "T");
+//        int cnt = customerInquiryDao.searchResultCustomerCnt(csc);
+//        System.out.println("cnt = " + cnt);
+//        asserTrue(cnt ==2);
+//
+//        CustomerSearchCondition csc = new CustomerSearchCondition("1", "10", "title2", "T");
+//        cnt = customerInquiryDao.searchResultCustomerCnt(csc);
+//        System.out.println("cnt = " + cnt);
+//        asserTrue(cnt ==2);
 //    }
 //
 //    @Test

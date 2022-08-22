@@ -5,6 +5,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+
 @Repository
 public class PayDaoImpl implements PayDao {
 
@@ -17,6 +19,11 @@ public class PayDaoImpl implements PayDao {
     @Override
     public PayDto selectPay(String rsvt_no) throws Exception {
         return session.selectOne(namespace + "selectPay", rsvt_no);
+    }
+
+    @Override
+    public String selectPayStatus(Map<String, String> map)throws Exception{
+        return session.selectOne(namespace+"selectPayStatus", map);
     }
 
     @Override
