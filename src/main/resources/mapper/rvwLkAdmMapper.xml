@@ -17,13 +17,13 @@
           AND rvw_no = #{rvw_no}
     </select>
 
-    <insert id="insert" parameterType="RvwLkAdmDto">
+    <insert id="insert" parameterType="map">
         INSERT INTO rvw_lk_adm (rvw_no, usr_id, rvw_lk_yn, lk_reg_date, frs_reg_date, frs_rgs_no, fnl_mod_date,
                                 fnl_mod_no)
-        VALUES (#{rvw_no}, #{usr_id}, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{usr_id}, CURRENT_TIMESTAMP, #{usr_id})
+        VALUES (#{rvw_no}, #{usr_id}, 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{usr_id}, CURRENT_TIMESTAMP, #{usr_id})
     </insert>
 
-    <update id="updateLikeUp" parameterType="RvwLkAdmDto">
+    <update id="updateLikeUp" parameterType="map">
         UPDATE rvw_lk_adm
         SET rvw_lk_yn = 1,
             fnl_mod_no = #{usr_id},
@@ -32,7 +32,7 @@
           AND rvw_no = #{rvw_no}
     </update>
 
-    <update id="updateLikeDown" parameterType="RvwLkAdmDto">
+    <update id="updateLikeDown" parameterType="map">
         UPDATE rvw_lk_adm
         SET rvw_lk_yn = 0,
             fnl_mod_no = #{usr_id},
@@ -40,6 +40,13 @@
         WHERE usr_id = #{usr_id}
           AND rvw_no = #{rvw_no}
     </update>
+
+    <select id="select" parameterType="map" resultType="RvwLkAdmDto">
+        SELECT *
+        FROM rvw_lk_adm
+        WHERE usr_id = #{usr_id}
+          AND rvw_no = #{rvw_no}
+    </select>
 
 
 
