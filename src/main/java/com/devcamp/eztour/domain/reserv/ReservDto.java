@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class ReservDto {
     //예약정보를 저장하기 위한 Dto
+    //예약 list를 불러오기위한 Dto
     private String rsvt_no; //예약번호
     private String prd_dtl_cd; //상세상품번호
     private String usr_id; //유저아이디
@@ -21,10 +22,14 @@ public class ReservDto {
     private Integer adt_cnt; //성인수
     private Integer chd_cnt; //아동수
     private Integer bb_cnt; //유아수
+
     private String prd_nm;
     private String prd_dtl_desc;
 
     public ReservDto(){}
+    public ReservDto(String rsvt_no, String prd_dtl_cd, String usr_id, String prd_cd, String mn_rsvt_nm, String phn, String email, long sum_prc, long pay_ftr_prc, String req_cont, String cmn_cd_rsvt_stt, String cmn_cd_pay_stt, Date rsvt_date, Integer cnc_pay_no, Integer adt_cnt, Integer chd_cnt, Integer bb_cnt) {
+        this(rsvt_no, prd_dtl_cd, usr_id, prd_cd, mn_rsvt_nm, phn, email, sum_prc, pay_ftr_prc, req_cont, cmn_cd_rsvt_stt, cmn_cd_pay_stt, rsvt_date, cnc_pay_no, adt_cnt, chd_cnt, bb_cnt, null, null);
+    }
     public ReservDto(String rsvt_no, String prd_dtl_cd, String usr_id, String prd_cd, String mn_rsvt_nm, String phn, String email, long sum_prc, long pay_ftr_prc, String req_cont, String cmn_cd_rsvt_stt, String cmn_cd_pay_stt, Date rsvt_date, Integer cnc_pay_no, Integer adt_cnt, Integer chd_cnt, Integer bb_cnt, String prd_nm, String prd_dtl_desc) {
         this.rsvt_no = rsvt_no;
         this.prd_dtl_cd = prd_dtl_cd;
