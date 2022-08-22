@@ -1,0 +1,120 @@
+.detail-item__main {
+    margin: 100px auto;
+    width: 1200px;
+    height: 1000vh;
+}
+
+.detail-item__title {
+    border-bottom: 1px solid black;
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+}
+
+.detail-item__title h1 {
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -1.28px;
+}
+
+.detail-item__info {
+    width: 68%;
+    float: left;
+}
+
+.detail-item__rev {
+    width: 28%;
+    float: right;
+}
+
+.detail-item__img {
+    margin-bottom: 30px;
+}
+
+.detail-item__img img {
+    width: 828px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.detail-item__view {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.detail-item__price-info,
+.detail-item__air-info {
+    border: 1px solid rgba(0,0,0,.1);
+    display: flex;
+    justify-content: space-around;
+}
+
+.price-info__tit,
+.price-info__age1,
+.price-info__age2,
+.price-info__age3,
+.air-info__air,
+.detail-item__info-box {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-item__air-info {
+    margin: 30px 0;
+}
+
+
+ul.detail-item__tab{
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+ul.detail-item__tab li{
+    font-size: 20px;
+    font-weight: 700;
+    display: inline-block;
+    padding: 20px 33px;
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,.1);
+}
+
+ul.detail-item__tab li.selected{
+    border: 1px solid black;
+}
+
+.detail-item__rev {
+    position: sticky;
+    top: 30px;
+}
+
+.cont_box{
+    display: none;
+    padding: 12px;
+}
+
+.cont_box.selected{
+    display: inherit;
+}
+
+.detail-item__pay {
+    border-top: 1px solid rgba(0,0,0,.1);
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    margin: 30px 0;
+    padding: 30px 0;
+}
+
+.pay__combo-box {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.pay__combo-box button {
+
+}
+
+.pay__combo-box input {
+
+}
