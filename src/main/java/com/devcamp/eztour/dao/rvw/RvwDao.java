@@ -11,7 +11,7 @@ public interface RvwDao {
 
     int deleteAll() throws Exception;
 
-    int delete(Integer rvw_no, String rvw_nm) throws Exception;
+    int delete(Integer rvw_no, String usr_id) throws Exception;
 
     List<RvwDto> selectPage(Map map) throws Exception;
 
@@ -26,11 +26,17 @@ public interface RvwDao {
 
     int update(RvwDto rvwDto) throws Exception;
 
-    RvwDto selectUserEmail(String usr_id) throws Exception;
-
-    List<RvwDto> selectUsernmEmailPrdnm(String usr_id) throws Exception;
+    RvwDto selectUsernmEmail(String usr_id) throws Exception;
 
     List<RvwDto> searchSelectPage(SearchCondition sc) throws Exception;
 
     int searchResultCnt(SearchCondition sc) throws Exception;
+
+    int updateCommentCnt(Integer rvw_no, Integer cnt) throws Exception;
+
+    List<RvwDto> selectPrdnm(String usr_id) throws Exception;
+
+    String getprdCd(String prd_dtl_cd) throws Exception;
+
+    int checkRvwUser(String usr_id, Integer rvw_no) throws Exception;
 }

@@ -1,7 +1,7 @@
 package com.devcamp.eztour.dao.reserv;
 
 import com.devcamp.eztour.dao.product.ProductDao;
-import com.devcamp.eztour.dao.productDetail.ProductDetailDao;
+import com.devcamp.eztour.dao.product.ProductDetailDao;
 import com.devcamp.eztour.dao.user.UserDao;
 import com.devcamp.eztour.domain.reserv.*;
 import org.junit.Test;

@@ -26,14 +26,15 @@
                     <li class="prd_tlt">상품 등록 현황 관리</li>
                     <a href="<c:url value='/product/management'/>"><li class="menu_list">상품 관리</li></a>
                     <a href="<c:url value='/product/management/detail'/>"><li class="menu_list">상품 상세 관리</li></a>
-                    <li class="menu_list">상품 이미지 관리</li>
-                    <li class="menu_list">상품 일정 관리</li>
-                    <li class="menu_list">상품 가격 관리</li>
-                    <li class="menu_list">상품 일정 사진 관리</li>
+                    <a href="<c:url value='/product/management/image'/>"><li class="menu_list">상품 이미지 관리</li></a>
+                    <a href="<c:url value='/product/management/schedule'/>"><li class="menu_list">상품 일정 관리</li></a>
+                    <a href="<c:url value='/product/management/price'/>"><li class="menu_list">상품 가격 관리</li></a>
+                    <a href="<c:url value='/product/management/schedule/image'/>"><li class="menu_list">상품 일정 사진 관리</li></a>
                 </ul>
                 <ul>
                     <li class="prd_tlt">상품 승인 관리</li>
-                    <li class="menu_list">상품 승인</li>
+                    <a href="<c:url value='/product/recognize'/>"><li class="menu_list">상품 승인</li></a>
+                    <a href="<c:url value='/reserv/admin'/>"><li class="menu_list">예약 승인</li></a>
                 </ul>
                 <ul>
                     <li class="prd_tlt">고객 관리</li>
@@ -43,13 +44,13 @@
             </div>
             <div class="board">
                 <div class="board_title">
-                    <span>상품상세코드</span> <span>상품코드</span> <span>항공사이름</span> <span>시작가격</span> <span>출발일자</span>
+                    <span>상품상세코드</span> <span>상품코드</span> <span>상품이름</span> <span>시작가격</span> <span>출발일자</span>
                 </div>
                 <c:forEach var="list" items="${prd_dtl_list}">
                     <div class="board_content">
                         <div class="board_content_detail">
                             <div><span>${list.prd_dtl_cd}</span></div> <div><span>${list.prd_cd}</span></div>
-                            <div><a href="<c:url value='/product/detail/read?prd_dtl_cd=${list.prd_dtl_cd}'/>"><span>${list.arl_nm}</span></a></div>
+                            <div><a href="<c:url value='/product/detail/read?prd_dtl_cd=${list.prd_dtl_cd}'/>"><span>${list.prd_nm}</span></a></div>
                             <div><span><fmt:formatNumber value="${list.prd_str_prc}" pattern="#,##0"/></span></div>
                             <fmt:parseDate value="${list.dpr_date}" var="dpr_date" pattern="yyyy-MM-dd"/>
                             <div><span><fmt:formatDate value="${dpr_date}" pattern="yyyy-MM-dd"/></span></div>
@@ -61,7 +62,7 @@
                         <select name="search_option" id="search_option">
                             <option value="" selected>검색옵션</option>
                             <option value="prd_dtl_cd">상품상세코드</option>
-                            <option value="prd_cd">상품코드</option>
+                            <option value="prd_nm">상품이름</option>
                         </select>
                         <input type="text" name="search_keyword" placeholder="검색어" id="search_keyword">
                         <input type="submit" id="search_btn" value="검색">

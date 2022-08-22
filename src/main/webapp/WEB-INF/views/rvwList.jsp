@@ -217,7 +217,7 @@
             <c:forEach var="rvwDto" items="${list}">
                 <tr>
                     <td class="rvw_no">${rvwDto.rvw_no}</td>
-                    <td class="rvw_ttl"><a href="<c:url value='/review/read?rvw_no=${rvwDto.rvw_no}&page=${page}&pageSize=${pageSize}'/>">${rvwDto.rvw_ttl}</a></td>
+                    <td class="rvw_ttl"><a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>">${rvwDto.rvw_ttl}</a></td>
                     <td class="rvw_cont">${rvwDto.rvw_cont}</td>
                     <td class="wrt_nm">${rvwDto.wrt_nm}</td>
                     <td class="img_pth">${rvwDto.img_pth}</td>

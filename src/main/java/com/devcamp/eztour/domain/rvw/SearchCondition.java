@@ -8,8 +8,8 @@ public class SearchCondition {
     private Integer page = 1;
     private Integer pageSize = 5;
 //    private Integer offset = 10;
-    private String keyword = "";
     private String option = "";
+    private String keyword = "";
 
     public SearchCondition() {}
 
@@ -24,6 +24,7 @@ public class SearchCondition {
 
     public String getQueryString(Integer page) {
         // ?page=1&pageSize=10&option=T&keyword="title"
+        // ?page=1&pageSize=5&option=&keyword=
         return UriComponentsBuilder.newInstance()
                 .queryParam("page", page)
                 .queryParam("pageSize", pageSize)

@@ -34,6 +34,18 @@ public class PageHandlerProduct {
             nextView = endPage != totalPage;
         }
 
+    public PageHandlerProduct(int totalCnt, int page,int pageSize) {
+        this.totalCnt = totalCnt;
+        this.page = page;
+        this.startList = (page - 1) * pageSize;
+        totalPage = (int) Math.ceil((double) totalCnt / pageSize);
+        beginPage = (page - 1) / naviSize * naviSize + 1;
+        endPage = Math.min((((page - 1) / naviSize + 1) * naviSize), totalPage);
+        this.pageSize = pageSize;
+        preView = beginPage != 1;
+        nextView = endPage != totalPage;
+    }
+
         public PageHandlerProduct(int totalCnt, int page,String search_option,String search_keyword) {
             this.totalCnt = totalCnt;
             this.page = page;
@@ -47,6 +59,21 @@ public class PageHandlerProduct {
             this.search_option = search_option;
             this.search_keyword = search_keyword;
         }
+
+    public PageHandlerProduct(int totalCnt, int page,String search_option,String search_keyword,int pageSize) {
+        this.totalCnt = totalCnt;
+        this.page = page;
+        this.startList = (page - 1) * pageSize;
+        totalPage = (int) Math.ceil((double) totalCnt / pageSize);
+        beginPage = (page - 1) / naviSize * naviSize + 1;
+        endPage = Math.min((((page - 1) / naviSize + 1) * naviSize), totalPage);
+
+        preView = beginPage != 1;
+        nextView = endPage != totalPage;
+        this.search_option = search_option;
+        this.search_keyword = search_keyword;
+        this.pageSize = pageSize;
+    }
 
         public PageHandlerProduct(String search_option, String search_keyword) {
         this.search_option = search_option;

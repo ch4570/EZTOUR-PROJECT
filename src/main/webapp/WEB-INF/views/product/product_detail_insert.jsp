@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -25,14 +26,15 @@
                     <li class="prd_tlt">상품 등록 현황 관리</li>
                     <a href="<c:url value='/product/management'/>"><li class="menu_list">상품 관리</li></a>
                     <a href="<c:url value='/product/management/detail'/>"><li class="menu_list">상품 상세 관리</li></a>
-                    <li class="menu_list">상품 이미지 관리</li>
-                    <li class="menu_list">상품 일정 관리</li>
-                    <li class="menu_list">상품 가격 관리</li>
-                    <li class="menu_list">상품 일정 사진 관리</li>
+                    <a href="<c:url value='/product/management/image'/>"><li class="menu_list">상품 이미지 관리</li></a>
+                    <a href="<c:url value='/product/management/schedule'/>"><li class="menu_list">상품 일정 관리</li></a>
+                    <a href="<c:url value='/product/management/price'/>"><li class="menu_list">상품 가격 관리</li></a>
+                    <a href="<c:url value='/product/management/schedule/image'/>"><li class="menu_list">상품 일정 사진 관리</li></a>
                 </ul>
                 <ul>
                     <li class="prd_tlt">상품 승인 관리</li>
-                    <li class="menu_list">상품 승인</li>
+                    <a href="<c:url value='/product/recognize'/>"><li class="menu_list">상품 승인</li></a>
+                    <a href="<c:url value='/reserv/admin'/>"><li class="menu_list">예약 승인</li></a>
                 </ul>
                 <ul>
                     <li class="prd_tlt">고객 관리</li>
@@ -43,16 +45,46 @@
             <div class="board">
                 <h1>상품 상세 등록</h1>
                 <div class="prd_detail_input_form">
-                    <form action="<c:url value='/product/detail/insert'/>" method="post">
-                        상품상세코드&nbsp;<br><input type="text" name="prd_dtl_cd" placeholder="상품상세코드" value="${param.prd_cd}" class="input_prd"/><br>
-                        상품코드&nbsp;<br><input type="text" name="prd_cd" value="${param.prd_cd}" placeholder="상품코드" readonly="readonly" class="input_prd"/><br>
-                        상품시작가격&nbsp;<br><input type="text" name="prd_str_prc" value="${param.prd_str_prc}" placeholder="상품시작가격" readonly="readonly" class="input_prd"/><br>
-                        항공사명&nbsp;<br><input type="text" name="arl_nm" placeholder="항공사명" class="input_prd"/><br>
-                        최소출발인원&nbsp;<br><input type="text" name="min_stt_cnt" placeholder="최소출발인원" class="input_prd"/><br>
-                        최대출발인원&nbsp;<br><input type="text" name="max_stt_cnt" placeholder="최대출발인원" class="input_prd"/><br>
-                        출발일&nbsp;<br><input type="date" name="dpr_date" placeholder="출발일" class="input_prd"/><br>
-                                        <input type="submit" value="전송" id="submit_btn" class="input_prd"/>
-                    </form>
+                    <form:form action="/product/detail/insert" method="post" modelAttribute="trvPrdDtlWriteDto">
+                        <input type="hidden" name="frs_rgs_no" value="${sessionScope.usr_id}"/>
+                        <form:label path="prd_dtl_cd">상품상세코드</form:label><br>
+                        <form:input path="prd_dtl_cd" placeholder="상품상세코드" value="${param.prd_dtl_cd}" cssClass="input_prd"/><br>
+                        <form:errors path="prd_dtl_cd" cssClass="error_msg"/><br><br>
+
+                        <form:label path="prd_cd">상품코드</form:label><br>
+                        <form:input path="prd_cd" placeholder="상품코드" value="${param.prd_cd}" cssClass="input_prd"/><br>
+                        <form:errors path="prd_cd" cssClass="error_msg"/><br><br>
+
+                        <form:label path="prd_nm">상품이름</form:label><br>
+                        <form:input path="prd_nm" placeholder="상품이름" cssClass="input_prd"/><br>
+                        <form:errors path="prd_nm" cssClass="error_msg"/><br><br>
+
+                        <form:label path="prd_str_prc">상품시작가격</form:label><br>
+                        <form:input path="prd_str_prc" placeholder="상품시작가격" cssClass="input_prd"/><br>
+                        <form:errors path="prd_str_prc" cssClass="error_msg"/><br><br>
+
+                        <form:label path="arl_nm">항공사명</form:label><br>
+                        <form:input path="arl_nm" placeholder="항공사명" cssClass="input_prd"/><br>
+                        <form:errors path="arl_nm" cssClass="error_msg"/><br><br>
+
+                        <form:label path="min_stt_cnt">최소출발인원</form:label><br>
+                        <form:input path="min_stt_cnt" placeholder="최소출발인원" cssClass="input_prd"/><br>
+                        <form:errors path="min_stt_cnt" cssClass="error_msg"/><br><br>
+
+                        <form:label path="max_stt_cnt">최대출발인원</form:label><br>
+                        <form:input path="max_stt_cnt" placeholder="최대출발인원" cssClass="input_prd"/><br>
+                        <form:errors path="max_stt_cnt" cssClass="error_msg"/><br><br>
+
+                        <form:label path="dpr_date">출발일</form:label><br>
+                        <input type="datetime-local" name="dpr_date" placeholder="출발일" class="input_prd"/><br>
+                        <form:errors path="dpr_date" cssClass="error_msg"/><br><br>
+
+                        <form:label path="fin_date">도착일</form:label><br>
+                        <input type="datetime-local" name="fin_date" placeholder="도착일" class="input_prd"/><br>
+                        <form:errors path="fin_date" cssClass="error_msg"/><br><br>
+
+                        <input type="submit" value="전송" id="submit_btn" class="input_prd"/>
+                    </form:form>
                 </div>
             </div>
         </div>

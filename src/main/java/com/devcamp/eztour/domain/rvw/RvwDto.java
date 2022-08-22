@@ -12,21 +12,22 @@ public class RvwDto {
     private Integer rvw_no;
     private String usr_id;
     private String prd_cd;
+    private String prd_dtl_cd;
     private String rvw_ttl;
     private String trv_nm;
-    private int rvw_vcnt;
+    private Integer rvw_vcnt;
     private String rvw_cont;
     private Date rvw_reg_date;
     private Date rvw_mdf_date;
     private String wrt_nm;
     private String wrt_email;
-    private int lk_cnt;
+    private Integer lk_cnt;
     private Date frs_reg_date;
     private String frs_rgs_no;
     private Date fnl_mod_date;
     private String fnl_mod_no;
 
-    private int rvw_sum_cnt;
+    private Integer rvw_sum_cnt;
     private String img_pth;
     private String prd_nm;
     private String usr_nm;
@@ -57,8 +58,12 @@ public class RvwDto {
         this.rvw_cont = rvw_cont;
     }
 
-
-
-
-
+    public RvwDto(String usr_id, String prd_cd, String rvw_ttl, String rvw_cont, String wrt_nm, String wrt_email) {
+        this.usr_id = usr_id;
+        this.prd_cd = prd_cd;
+        this.rvw_ttl = rvw_ttl;
+        this.rvw_cont = rvw_cont;
+        this.wrt_nm = wrt_nm;
+        this.wrt_email = wrt_email;
+    }
 }

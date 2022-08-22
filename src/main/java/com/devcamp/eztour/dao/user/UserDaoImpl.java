@@ -71,4 +71,53 @@ public class UserDaoImpl implements UserDao {
     public int checkId(String usr_id) throws Exception {
         return session.selectOne(namespace+"checkId", usr_id);
     }
+
+    @Override
+    public String findId(String usr_nm, String phn) throws Exception {
+        Map map = new HashMap<>();
+        map.put("usr_nm",usr_nm);
+        map.put("phn",phn);
+        return session.selectOne(namespace+"findId", map);
+    }
+
+    @Override
+    public String findPwd(String usr_id, String usr_nm, String email) throws Exception {
+        Map map = new HashMap<>();
+        map.put("usr_id",usr_id);
+        map.put("usr_nm",usr_nm);
+        map.put("email",email);
+        String pwd = session.selectOne(namespace+"findPwd", map);
+
+        System.out.println("dao에서 받은 usr_id = " + usr_id);
+        System.out.println("dao에서 받은 usr_nm = " + usr_nm);
+        System.out.println("dao에서 받은 email = " + email);
+        System.out.println("dao에서 받은 pwd = " + pwd);
+        return pwd;
+    }
+
+    @Override
+    public Map naverConnectionCheck(Map map) throws Exception {
+        return session.selectOne(namespace+"naverConnectionCheck", map);
+    }
+
+    @Override
+    public UserDto userNaverLoginPro(String naver_id) throws Exception {
+        return session.selectOne(namespace+"userNaverLoginPro",naver_id);
+    }
+
+    @Override
+    public int setNaverConnection(Map<String, Object> apiJson) throws Exception {
+        return session.update(namespace+"setNaverConnection",apiJson);
+    }
+
+    @Override
+    public Map kakaoConnectionCheck(Map paramMap) throws Exception {
+        return session.selectOne(namespace+"kakaoConnectionCheck", paramMap);
+    }
+
+    @Override
+    public UserDto userKakaoLoginPro(String kakao_id) throws Exception {
+        return session.selectOne(namespace+"userKakaoLoginPro",kakao_id);
+    }
+
 }

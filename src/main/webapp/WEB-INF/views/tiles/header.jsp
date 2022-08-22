@@ -8,7 +8,7 @@ pageEncoding="UTF-8"%>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Insert title here</title>
+    <title></title>
   </head>
   <body>
     <div class="header-inner">
@@ -22,52 +22,52 @@ pageEncoding="UTF-8"%>
           <li class="nav__dropdown">
             <div class="nav__list--dropdown-menu"><a href="#">동남아</a></div>
             <div class="nav__list--dropdown-content">
-              <a href="#">필리핀</a>
-              <a href="#">태국</a>
-              <a href="#">베트남</a>
-              <a href="#">말레이시아</a>
-              <a href="#">라오스</a>
-              <a href="#">인도네시아</a>
-              <a href="#">싱가포르</a>
+              <a href="<c:url value='/product/list?cntn_cd=A&nt_cd=1'/>">필리핀</a>
+              <a href="<c:url value='/product/list?cntn_cd=A&nt_cd=2'/>">태국</a>
+              <a href="<c:url value='/product/list?cntn_cd=A&nt_cd=3'/>">베트남</a>
+              <a href="<c:url value='/product/list?cntn_cd=A&nt_cd=4'/>">말레이시아</a>
+              <a href="<c:url value='/product/list?cntn_cd=A&nt_cd=5'/>">라오스</a>
+              <a href="<c:url value='/product/list?cntn_cd=A&nt_cd=6'/>">인도네시아</a>
             </div>
           </li>
           <li class="nav__dropdown">
             <div class="nav__list--dropdown-menu"><a href="#">동아시아</a></div>
             <div class="nav__list--dropdown-content">
-              <a href="#">일본</a>
-              <a href="#">중국</a>
-              <a href="#">몽골</a>
-              <a href="#">홍콩</a>
-              <a href="#">한국</a>
-              <a href="#">대만</a>
+              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=1'/>">싱가포르</a>
+              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=2'/>">일본</a>
+              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=3'/>">중국</a>
+              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=4'/>">몽골</a>
+              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=5'/>">홍콩</a>
+              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=6'/>">한국</a>
+              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=7'/>">대만</a>
             </div>
           </li>
           <li class="nav__dropdown">
             <div class="nav__list--dropdown-menu"><a href="#">서유럽</a></div>
             <div class="nav__list--dropdown-content">
-              <a href="#">프랑스</a>
-              <a href="#">영국</a>
-              <a href="#">아일랜드</a>
-              <a href="#">스위스</a>
-              <a href="#">이탈리아</a>
-              <a href="#">스페인</a>
-              <a href="#">독일</a>
+              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=1'/>">프랑스</a>
+              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=2'/>">영국</a>
+              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=3'/>">아일랜드</a>
+              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=4'/>">스위스</a>
+              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=5'/>">이탈리아</a>
+              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=6'/>">스페인</a>
+              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=7'/>">독일</a>
             </div>
           </li>
           <li class="nav__dropdown">
             <div class="nav__list--dropdown-menu"><a href="#">동유럽</a></div>
             <div class="nav__list--dropdown-content">
-              <a href="#">체코</a>
-              <a href="#">그리스</a>
-              <a href="#">러시아</a>
-              <a href="#">우크라이나</a>
+              <a href="<c:url value='/product/list?cntn_cd=C&nt_cd=1'/>">체코</a>
+              <a href="<c:url value='/product/list?cntn_cd=C&nt_cd=2'/>">그리스</a>
+              <a href="<c:url value='/product/list?cntn_cd=C&nt_cd=3'/>">러시아</a>
+              <a href="<c:url value='/product/list?cntn_cd=C&nt_cd=4'/>">우크라이나</a>
             </div>
           </li>
           <li class="nav__dropdown">
             <div class="nav__list--dropdown-menu"><a href="#">오세아니아</a></div>
             <div class="nav__list--dropdown-content">
-              <a href="#">호주</a>
-              <a href="#">뉴질랜드</a>
+              <a href="<c:url value='/product/list?cntn_cd=E&nt_cd=1'/>">호주</a>
+              <a href="<c:url value='/product/list?cntn_cd=E&nt_cd=2'/>">뉴질랜드</a>
             </div>
           </li>
           <li class="nav__dropdown">
@@ -85,7 +85,12 @@ pageEncoding="UTF-8"%>
               </c:when>
               <c:when test="${loginId!=''}">
                     <li><a href="/user/logout">로그아웃</a></li>
+                <c:if test="${sessionScope.userDto.rl == 'user'}">
                     <li><a href="/user/mypage">마이페이지</a></li>
+                </c:if>
+                <c:if test="${sessionScope.userDto.rl == 'Admin' || sessionScope.userDto.rl == 'supAdmin'}">
+                    <li><a href="<c:url value='/product/admin'/>">관리자페이지</a></li>
+                </c:if>
               </c:when>
           </c:choose>
           <li><a href="#">에약확인/결제</a></li>

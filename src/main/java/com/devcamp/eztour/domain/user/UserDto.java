@@ -22,6 +22,8 @@ public class UserDto {
     private String email;
     private String phn;
     private String rl;
+    private String naver_id;
+    private String kakao_id;
     private int mlg;
     private Date reg_date;
     private Date lst_acc_date; // 마지막 접속 일자
@@ -41,11 +43,14 @@ public class UserDto {
         this.phn = phn;
     }
 
-    public UserDto(String usr_id, String usr_nm, String email, String rl) {
+    public UserDto(String usr_id, String usr_nm, String email, String rl, String phn, int mlg, String cmn_cd_prf_img) {
             this.usr_id = usr_id;
             this.usr_nm = usr_nm;
             this.email = email;
             this.rl = rl;
+            this.phn = phn;
+            this.mlg = mlg;
+            this.cmn_cd_prf_img = cmn_cd_prf_img;
     }
 
 }
