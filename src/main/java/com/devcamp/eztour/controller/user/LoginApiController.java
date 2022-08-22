@@ -25,8 +25,6 @@ public class LoginApiController {
 
     @PostMapping("/getKakaoApi")
     public String getKakaoApi() throws Exception {
-        System.out.println("getKakaoApi");
-        System.out.println(kakaoApi);
         return kakaoApi;
     }
 

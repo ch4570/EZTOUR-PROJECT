@@ -7,9 +7,13 @@
         SELECT * FROM pay WHERE rsvt_no = #{rsvt_no} ORDER BY pay_no DESC Limit 1;
     </select>
 
+    <select id="selectPayStatus" parameterType="Map" resultType="String">
+        SELECT cmn_cd_pay_stt FROM pay WHERE rsvt_no = #{rsvt_no} AND usr_id = #{usr_id} ORDER BY pay_date DESC LIMIT 1;
+    </select>
+
     <insert id="insertPay" parameterType="com.devcamp.eztour.domain.reserv.PayDto">
-        INSERT INTO pay(rsvt_no, prd_dtl_cd, pay_prc, pay_date, cmn_cd_pay_appr, cmn_cd_pay_stt, pay_mthd, used_mlg)
-        VALUES (#{rsvt_no}, #{prd_dtl_cd}, #{pay_prc},#{pay_date}, #{cmn_cd_pay_appr}, #{cmn_cd_pay_stt}, #{pay_mthd}, #{used_mlg})
+        INSERT INTO pay(pay_no, rsvt_no, prd_dtl_cd, usr_id, imp_uid, pay_prc, pay_date, cmn_cd_pay_appr, cmn_cd_pay_stt, pay_mthd, used_mlg)
+        VALUES (#{pay_no}, #{rsvt_no}, #{prd_dtl_cd}, #{usr_id}, #{imp_uid}, #{pay_prc},#{pay_date}, #{cmn_cd_pay_appr}, #{cmn_cd_pay_stt}, #{pay_mthd}, #{used_mlg})
     </insert>
 
     <delete id="deletePayAdmin">
