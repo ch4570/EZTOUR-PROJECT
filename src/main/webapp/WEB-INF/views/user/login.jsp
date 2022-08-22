@@ -9,53 +9,56 @@
 <body>
 <br/>
 <div class="outer-content">
-    <div class="inner-content">
-<form action="<c:url value="/user/login"/>" method="post" onsubmit="return formCheck(this);">
-    <div class="login__form">
-        <h2 class="login-title" id="loginTitle">로그인</h2>
-        <h2 class="login-title" id="rsvTitle" style="display: none">예약확인</h2>
+    <div class="inner-content" style="display: flex; flex-direction: column; justify-content: center">
+        <form action="<c:url value="/user/login"/>" method="post" onsubmit="return formCheck(this);">
+            <div class="login__form" style="display: flex; flex-direction: column; align-items: center">
+                    <h2 class="login-title" id="loginTitle">로그인</h2>
+                    <h2 class="login-title" id="rsvTitle" style="display: none">예약확인</h2>
+                <nav class="login-nav">
+                    <div style="display: flex;">
+                        <button  type="button" id="usrBt" onclick="usrLogin()" >회원</button>
+                        <button  type="button" id="nonUsrBt" onclick="nonUsrAuth()" >비회원 예약확인</button>
+                    </div>
+                </nav>
 
-        <nav class="login-nav">
-            <button  type="button" id="usrBt" onclick="usrLogin()" >회원</button>
-            <button  type="button" id="nonUsrBt" onclick="nonUsrAuth()" >비회원 예약확인</button>
-        </nav>
+                <div class="form-inp">
+                    <input id="id" type="text" name="usr_id" value="${cookie.id.value}" placeholder="아이디 입력" autofocus>
+                    <input id="pwd" type="password" name="pwd" placeholder="비밀번호">
 
-        <div class="form-inp">
-            <input id="id" type="text" name="usr_id" value="${cookie.id.value}" placeholder="아이디 입력" autofocus>
-            <input id="pwd" type="password" name="pwd" placeholder="비밀번호">
-
-            <div class="panel-box">
-                <span class="remember">
-                    <label><input id="idChk" type="checkbox" name="rememberId" value="on" ${empty cookie.id.value ? "":"checked"}></label> <label>아이디 저장</label>
-                </span>
-                <span>
-                <a href="<c:url value='/user/findIdPwd'/>">아이디 찾기 | 비밀번호 찾기 | </a>
-                    <a href="<c:url value='/user/join'/>" style="font-weight: bolder;">회원가입</a>
-                </span>
+                    <div class="panel-box">
+                        <span class="remember">
+                            <label><input id="idChk" type="checkbox" name="rememberId" value="on" ${empty cookie.id.value ? "":"checked"}></label> <label>아이디 저장</label>
+                        </span>
+                        <span>
+                        <a href="<c:url value='/user/findIdPwd'/>">아이디 찾기 | 비밀번호 찾기 | </a>
+                            <a href="<c:url value='/user/join'/>" style="font-weight: bolder;">회원가입</a>
+                        </span>
+                    </div>
+                    <button id="loginBtn">로그인</button>
+                </div>
             </div>
-            <button id="loginBtn">로그인</button>
-        </div>
+        </form>
+        <form style="display: flex; flex-direction: column; align-items: center">
+            <div class="form-inp-nonUsr" style="display: none; flex-direction: column;">
 
-        <div class="form-inp-nonUsr" style="display:none;">
-            <input id="rsvNo" type="text" name="rsvNo" placeholder="예약번호를 입력하세요" autofocus>
-            <input id="rsvName" type="password" name="rsvNm" placeholder="이름을 입력하세요">
-            <div class="phn">
-                <input id="rsvPhone1" type="text" name="phn1" placeholder="010" style="width: 110px;">
-                <input id="rsvPhone2" type="text" name="phn2" placeholder="0000">
-                <input id="rsvPhone3" type="text" name="phn3" placeholder="0000" style="margin-right: 0px;">
+                <input id="rsvNo" type="text" name="rsvNo" placeholder="예약번호를 입력하세요" autofocus>
+                <input id="rsvName" type="password" name="rsvNm" placeholder="이름을 입력하세요">
+                <div class="phn">
+                    <input id="rsvPhone1" type="text" name="phn1" placeholder="010" style="width: 110px;">
+                    <input id="rsvPhone2" type="text" name="phn2" placeholder="0000">
+                    <input id="rsvPhone3" type="text" name="phn3" placeholder="0000" style="margin-right: 0px;">
+                </div>
+                <button id="rsvBtn">예약확인</button>
             </div>
-            <button id="rsvBtn">예약확인</button>
-        </div>
-        <input type="hidden" name="toURL" value="${param.toURL}">
-        <div>
-            <div style="display: flex; justify-content: center;">
-                <a style="height: 100px; padding: 0px 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between" href="${naverUrl}"><img src="../img/user/btnG_아이콘원형.png" alt="" style="width: 70px;"><em>네이버 로그인</em></a>
-                <a style="height: 100px; padding: 0px 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between" href="javascript:kakaoLogin()"><img src="../img/user/카카오아이콘.png" alt="" style="width: 70px;"><em>카카오 로그인</em></a>
+            <input type="hidden" name="toURL" value="${param.toURL}">
+            <div>
+                <div style="display: flex; justify-content: center;">
+                    <a style="height: 100px; padding: 0px 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between" href="${naverUrl}"><img src="../img/user/btnG_아이콘원형.png" alt="" style="width: 70px;"><em>네이버 로그인</em></a>
+                    <a style="height: 100px; padding: 0px 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between" href="javascript:kakaoLogin()"><img src="../img/user/카카오아이콘.png" alt="" style="width: 70px;"><em>카카오 로그인</em></a>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
-</form>
-</div>
 </div>
     <br/>
 <form name="kakaoForm" id="kakaoForm" method = "post" action="/user/setSubInfo">
@@ -67,9 +70,8 @@
 
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-
 <script>
-    <!--카카오 로그인 init -->
+    <!-- 카카오 로그인 init -->
     $(document).ready(function(){
         $.ajax({
             type:'POST',
@@ -168,6 +170,10 @@
             'border-bottom': '3px solid #E6E6E6',
             'color' : 'gray'
         });
+
+        $(".form-inp-nonUsr").css({
+            'display': 'flex'
+        })
     }
 
     function usrLogin(){
