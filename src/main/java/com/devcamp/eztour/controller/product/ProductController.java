@@ -48,12 +48,12 @@ public class ProductController {
             return "product/product_list.tiles";
 
         }else if(keyword != null && standard != null){
-                map.put("keyword",keyword);
-                map.put("standard",standard);
-                map.put("usr_id",usr_id);
-                List<TrvPrdDtlReadDto> list = productDetailService.getAllProductOrder(map);
-                m.addAttribute("list",list);
-                return "product/product_list.tiles";
+            map.put("keyword",keyword);
+            map.put("standard",standard);
+            map.put("usr_id",usr_id);
+            List<TrvPrdDtlReadDto> list = productDetailService.getAllProductOrder(map);
+            m.addAttribute("list",list);
+            return "product/product_list.tiles";
         }else{
             map.put("cntn_cd",cntn_cd);
             map.put("nt_cd",nt_cd);
