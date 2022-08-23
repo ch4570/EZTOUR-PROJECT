@@ -16,9 +16,9 @@
 <div class="product-list__content">
   <div class="content--list__wrap">
     <div class="content--filter">
-      <a href="<c:url value='/product/list?keyword=vcnt&standard=DESC&usr_id=${sessionScope.userDto.usr_id}'/>">조회많은순</a>
-      <a href="<c:url value='/product/list?keyword=prd_str_prc&standard=ASC&usr_id=${sessionScope.userDto.usr_id}'/>">낮은가격순</a>
-      <a href="<c:url value='/product/list?keyword=prd_str_prc&standard=DESC&usr_id=${sessionScope.userDto.usr_id}'/>">높은가격순</a>
+      <a id="vcnt_top" href="<c:url value='/product/list?keyword=vcnt&standard=DESC&usr_id=${sessionScope.userDto.usr_id}&cntn_cd=${param.cntn_cd}&nt_cd=${param.nt_cd}&nt_cd_nm=${param.nt_cd_nm}'/>">조회많은순</a>
+      <a id="low_price" href="<c:url value='/product/list?keyword=prd_str_prc&standard=ASC&usr_id=${sessionScope.userDto.usr_id}&cntn_cd=${param.cntn_cd}&nt_cd=${param.nt_cd}&nt_cd_nm=${param.nt_cd_nm}'/>">낮은가격순</a>
+      <a id="high_price" href="<c:url value='/product/list?keyword=prd_str_prc&standard=DESC&usr_id=${sessionScope.userDto.usr_id}&cntn_cd=${param.cntn_cd}&nt_cd=${param.nt_cd}&nt_cd_nm=${param.nt_cd_nm}'/>">높은가격순</a>
     </div>
     <c:forEach var="item" items="${list}" varStatus="status">
 
@@ -88,6 +88,32 @@
 
   // 상품 리스트 보기
   $(document).ready(function () {
+
+
+    // 글자색 변경을 위해 Controller 에게 옵션을 받음
+    let option = "${option}";
+
+    if(option==1){
+      $('#vcnt_top').css({'font-weight':'bold','color':'black'});
+      $('#high_price').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+      $('#low_price').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+    }else if(option==2){
+      $('#low_price').css({'font-weight':'bold','color':'black'});
+      $('#high_price').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+      $('#vcnt_top').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+    }else if(option==3){
+      $('#high_price').css({'font-weight':'bold','color':'black'});
+      $('#vcnt_top').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+      $('#low_price').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+    }else{
+      $('#low_price').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+      $('#high_price').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+      $('#vcnt_top').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+    }
+
+
+
+
     // 자세히보기 버튼 클릭 시 클래스 'active' 추가
     $('button[name="btnDetail"]').on('click', function () {
       $(this).toggleClass('active');

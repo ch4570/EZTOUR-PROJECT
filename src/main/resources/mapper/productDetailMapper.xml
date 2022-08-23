@@ -32,13 +32,16 @@
     </select>
 
     <select id="selectAllProductOrder" resultType="TrvPrdDtlReadDto" parameterType="map">
-        SELECT A.prd_cd, A.dstn_cd, A.cmn_cd_thm, A.prd_nm, A.prd_dtl_desc, A.trv_per, A.prd_str_prc, A.dpr_str_date, A.dpr_fin_date,
+        SELECT DISTINCT A.prd_cd, A.dstn_cd, A.cmn_cd_thm, A.prd_nm, A.prd_dtl_desc, A.trv_per, A.prd_str_prc, A.dpr_str_date, A.dpr_fin_date,
                A.evnt_yn, A.fin_yn, A.act_yn, A.dc_yn, A.pc_prc, A.vcnt, D.lk_yn, B.img_pth, B.mn_img_yn, C.prd_dtl_cd, C.arl_nm, C.dpr_yn, C.rsvt_yn,D.usr_id
                 ,A.frs_reg_date
         FROM trv_prd A LEFT OUTER JOIN att_prd D ON A.prd_cd = D.prd_cd
                        JOIN prd_img B ON A.prd_cd = B.prd_cd
                        JOIN trv_prd_dtl C ON A.prd_cd = C.prd_cd
-        WHERE act_yn=1 and ((D.usr_id = #{usr_id} or D.usr_id IS NULL) OR D.usr_id <![CDATA[<>]]> #{usr_id})
+                       JOIN dstn_ctg F ON A.cntn_cd = F.cntn_cd
+                    WHERE act_yn=1 and A.cntn_cd = #{cntn_cd} and A.nt_cd = #{nt_cd} and F.nt_cd_nm = #{nt_cd_nm}
+                      and ((D.usr_id = #{usr_id} or D.usr_id IS NULL)
+            OR D.usr_id <![CDATA[<>]]> #{usr_id})
         ORDER BY ${keyword} ${standard}
     </select>
 
