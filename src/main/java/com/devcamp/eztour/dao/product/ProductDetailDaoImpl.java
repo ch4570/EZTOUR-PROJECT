@@ -1,5 +1,6 @@
 package com.devcamp.eztour.dao.product;
 
+import com.devcamp.eztour.domain.product.PrdDtlPageDto;
 import com.devcamp.eztour.domain.product.TrvPrdDtlDto;
 import com.devcamp.eztour.domain.product.TrvPrdDtlReadDto;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,11 @@ public class ProductDetailDaoImpl implements ProductDetailDao {
     @Override
     public List<TrvPrdDtlReadDto> selectUserLike() throws Exception {
         return session.selectList(namespace+"selectUserLike");
+    }
+
+    @Override
+    public PrdDtlPageDto selectProductDetailPage(String prd_dtl_cd) throws Exception {
+        return session.selectOne(namespace+"selectProductDetailPage",prd_dtl_cd);
     }
 
 }

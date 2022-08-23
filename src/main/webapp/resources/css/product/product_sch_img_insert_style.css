@@ -70,10 +70,16 @@ h1{
 
 
 .wrap .content .board #submit_btn{
+    all: unset;
     width: 505px;
     height: 40px;
     border-radius: 8px;
     margin-top: 20px;
+    background: #1c1c1c;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+
 }
 
 
