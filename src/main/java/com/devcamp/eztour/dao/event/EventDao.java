@@ -30,7 +30,9 @@ public interface EventDao {
 
     int eventInsertImage()throws Exception;
 
- int updateEventImage(EventDto eventDto)throws Exception;
+    int eventInsertImage(EventDto eventDto)throws Exception;
+
+    int updateEventImage(EventDto eventDto)throws Exception;
 
  int deleteEventImage();
 }

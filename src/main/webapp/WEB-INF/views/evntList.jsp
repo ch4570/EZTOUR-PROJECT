@@ -51,7 +51,7 @@
 <c:forEach items="${list}" var="list">
     <div class="list-item" name="eventItem">
         <a>
-            <div class="item-img" ><img src="img" class="rounded mx-auto d-block" style="width: 400px; padding:15px 15px 15px 15px;"></div>
+            <div class="item-img" ><img src="" class="rounded mx-auto d-block" style="width: 400px; padding:15px 15px 15px 15px;"></div>
             <div class="item-info">
                 <a href="<c:url value='/event/eventList/eventListLook?evnt_No=${event.evnt_no}'/>">${list.evnt_ttl}</a>
             </div>

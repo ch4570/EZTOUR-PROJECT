@@ -50,11 +50,7 @@
 
 
 
-
-
-
-
-    <insert id="insertEventImage" parameterType="eventDto">
+    <insert id="eventInsertImage" parameterType="eventDto">
         INSERT INTO evnt(evnt_img_pth)
         VALUES (#{evnt_img_pth});
     </insert>

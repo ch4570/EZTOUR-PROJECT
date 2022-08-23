@@ -57,16 +57,20 @@ public class EventDaoImpl implements EventDao {
         return session.selectOne(namespace+"searchSelectEventImageCnt",pageHandlerEvent);
     }
 
-
-
     @Override
     public int insertEventImage() throws Exception {
-        return  session.insert(namespace + " eventInsertImage");
+        return 0;
     }
 
     @Override
-    public int eventInsertImage()throws Exception{
-        return  session.insert(namespace + " eventInsertImage");
+    public int eventInsertImage() throws Exception {
+        return 0;
+    }
+
+
+    @Override
+    public int eventInsertImage(EventDto eventDto)throws Exception{
+        return  session.insert(namespace + " eventInsertImage",eventDto);
     }
 
     @Override

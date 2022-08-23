@@ -1,10 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <title>이벤트 이미지 등록</title>
-
 </head>
 <body>
 <div class="wrap">
@@ -14,7 +10,7 @@
            <div class="board">
              <div class="prd_img_input_form">
 
-               <form action="<c:url value='/event/image/insert'/>" enctype="multipart/form-data" method="post" id="image_upload">
+               <form action="<c:url value='/event/insert/image'/>" enctype="multipart/form-data" method="post" id="image_upload">
             <input type="hidden" name="frs_rgs_no" value="${sessionScope.usr_id}"/>
             <input type="file" name="img_file" id="img_file" class="input_prd"><br>
                </form>
@@ -44,7 +40,7 @@
             setImageFromFile(this, '#event_img');
         });
 
-        $('#send').on("click",function (){
+        $('#send').on("click",function(){
             const formData = new FormData($("#image_upload")[0]);
             formData.append("img_file",$("#img_file")[0].files[0]);
             let img  = $('#img_file').val();
@@ -53,7 +49,7 @@
             }else{
                 $.ajax({
                     type: "POST",
-                    url : "<c:url value='/event/image/insert'/>",
+                    url : '/event/insert/image',
                     data : formData,
                     contentType: false,
                     processData: false,

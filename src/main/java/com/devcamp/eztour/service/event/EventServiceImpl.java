@@ -56,24 +56,17 @@ public class EventServiceImpl implements EventService {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
       @Override
       public int eventInsertImage(EventDto eventDto)throws Exception{
           return eventDao.eventInsertImage();
       }
 
-      @Override
+    @Override
+    public int insertEventImage(EventDto eventDto) throws Exception {
+        return 0;
+    }
+
+    @Override
       public int deleteEventImage()throws Exception{
           return eventDao.deleteEventImage();
       }

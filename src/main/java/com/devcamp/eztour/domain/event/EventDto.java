@@ -38,6 +38,9 @@ public class EventDto {
 
     }
 
+    public EventDto(String finalPath) {
+    }
+
 
     //    evnt_no,evnt_ttl,evnt_cont,reg_date,mdf_date,fln_date
 }

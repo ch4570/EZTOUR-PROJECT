@@ -28,6 +28,8 @@ public interface EventService {
 
     int eventInsertImage(EventDto eventDto)throws Exception;
 
+    int insertEventImage(EventDto eventDto)throws Exception;
+
     int deleteEventImage()throws Exception;
 
     int updateEventImage(EventDto eventDto)throws Exception;
