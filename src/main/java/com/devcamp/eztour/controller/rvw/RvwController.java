@@ -1,6 +1,7 @@
 package com.devcamp.eztour.controller.rvw;
 
 
+import com.devcamp.eztour.dao.rvw.RvwDao;
 import com.devcamp.eztour.domain.rvw.PageHandler;
 import com.devcamp.eztour.domain.rvw.RvwDto;
 import com.devcamp.eztour.domain.rvw.RvwLkAdmDto;
@@ -50,30 +51,55 @@ public class RvwController {
         }
 
         return "redirect:/review/list"+sc.getQueryString();
-    }
+        }
 
     @GetMapping("/list")
     public String list(SearchCondition sc, Model m) {
 
+        System.out.println("sc.getCntn_cd() = " + sc.getCntn_cd());
+        if (sc.getCntn_cd() == "") {
+            try {
 
-        try {
+                int totalCnt = rvwService.getSearchResultCnt(sc);
+                System.out.println("totalCnt = " + totalCnt);
+                m.addAttribute("totalCnt", totalCnt);
 
-            int totalCnt = rvwService.getSearchResultCnt(sc);
-            System.out.println("totalCnt = " + totalCnt);
-            m.addAttribute("totalCnt", totalCnt);
+                PageHandler pageHandler = new PageHandler(totalCnt, sc);
 
-            PageHandler pageHandler = new PageHandler(totalCnt, sc);
+                List<RvwDto> list = rvwService.getSearchResultPage(sc);
 
-            List<RvwDto> list = rvwService.getSearchResultPage(sc);
+                m.addAttribute("list", list);
+                m.addAttribute("ph", pageHandler);
 
-            m.addAttribute("list", list);
-            m.addAttribute("ph", pageHandler);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "review/rvwList.tiles";
 
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return "review/rvwList";
+        else {
+            try {
+                int totalCnt = rvwService.cntnCdSearchResultCnt(sc);
+
+                m.addAttribute("totalCnt", totalCnt);
+
+                PageHandler pageHandler = new PageHandler(totalCnt, sc);
+
+                System.out.println("sc.getCntn_cd() = " + sc.getCntn_cd());
+
+
+                List<RvwDto> list = rvwService.cntnCdSearch(sc);
+                m.addAttribute("list", list);
+                m.addAttribute("ph", pageHandler);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "review/rvwList.tiles";
+        }
     }
+
+
 
     @GetMapping("/read")
     public String read(Integer rvw_no, SearchCondition sc, RedirectAttributes rattr, Model m, HttpSession session) throws Exception {

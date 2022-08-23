@@ -38,19 +38,19 @@
         </div>
         <div class="foot">
             <div class="foot-menu">
-                <a href="">여행정보</a>
-                <a href="">홍보센터</a>
-                <a href="">여행약관</a>
-                <a href="">개인정보처리방침</a>
-                <a href="">기업/단체문의</a>
-                <a href="">대리점안내</a>
-                <a href="">신용카드 무이자 할부안내</a>
-                <a href="">EZ Tour 전화번호안내</a>
+                <a class="foot-menu-dtl" href="">여행정보</a>
+                <a class="foot-menu-dtl" href="">홍보센터</a>
+                <a class="foot-menu-dtl" href="">여행약관</a>
+                <a class="foot-menu-dtl" href="">개인정보처리방침</a>
+                <a class="foot-menu-dtl" href="">기업/단체문의</a>
+                <a class="foot-menu-dtl" href="">대리점안내</a>
+                <a class="foot-menu-dtl" href="">신용카드 무이자 할부안내</a>
+                <a class="foot-menu-dtl" href="">EZ Tour 전화번호안내</a>
             </div>
             <div class="foot-Address">
                 <dl>
-                    <dt>Address & Contact</dt>
-                    <dd>
+                    <dt class="foot-title">Address & Contact</dt>
+                    <dd class="foot-desc">
                         "대표번호 : 5555-0000"
                         <br>
                         서울특별시 종로구 청계천로 51-1, 교원투어 빌딩
@@ -59,8 +59,8 @@
             </div>
             <div class="foot-Information">
                 <dl>
-                    <dt>EzTour Information</dt>
-                    <dd>
+                    <dt class="foot-title">EzTour Information</dt>
+                    <dd class="foot-desc">
                         (주)EzTour 대표 : xxx
                         <br>
                         서울특별시 종로구 청계천로 51-1, 교원투어 빌딩
@@ -71,8 +71,8 @@
             </div>
             <div class="foot-FollowUs">
                 <dl>
-                    <dt>Follow Us</dt>
-                    <dd>
+                    <dt class="foot-title">Follow Us</dt>
+                    <dd class="foot-desc">
                         여행자 배상책임보험 20억원 가입
                         <br>
                         일반여행업 보증금외 15억원 가입
