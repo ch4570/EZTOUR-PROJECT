@@ -50,39 +50,36 @@ table {
 }
 
 .wrap{
-    width : 100%;
-    height: 100%;
-	background: red;
+	width : 100%;
+	height: 100%;
 }
 
 .wrap .content{
-    width: 1200px;
-    height: 3800px;
-	background: yellow;
+	width: 1200px;
+	height: 3800px;
 	margin: 0 auto;
 	position: relative;
 }
 
-.wrap .content .paging{
-	width: 900px;
-    height: 90px;
-	background: tan;
-	position: absolute;
-	left : 5px;
-	top : 5px;
+.wrap .content .writeBtn{
+	width: 100px;
+	height: 50px;
+	background: #1c1c1c;
+	color: #fff;
+	position: relative;
+	left: 1000px;
+	top: 320px;
 }
 
 .wrap .content .navi{
 	width: 700px;
 	height: 120px;
-	background: blue;
 	margin: 30px auto 0;
 }
 
 .wrap .content .tit{
 	width: 200px;
 	height: 50px;
-	background: white;
 	margin: 0 auto;
 	text-align: center;
 	padding-top: 20px;
@@ -95,7 +92,6 @@ table {
 .wrap .content .searchArea{
 	width: 700px;
 	height: 100px;
-	background: hotpink;
 	margin: 30px auto 0;
 	position: relative;
 }
@@ -104,108 +100,176 @@ table {
 .wrap .content .highArea{
 	width: 1000px;
 	height: 70px;
-	background: darkcyan;
 	margin: 30px auto 0;
+	position: relative;
 }
+
+.wrap .content .highArea .totalCnt{
+	display: block;
+	width: 200px;
+	height: 70px;
+	font-size: 15px;
+	padding-left: 40px;
+	padding-top: 40px;
+	font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
+	text-decoration: none;
+	text-align: left;
+	line-height: 70px;
+}
+
+.wrap .content .highArea .sort{
+	color: #1c1c1c;
+	font-size: 15px;
+	position: absolute;
+	right: 75px;
+	bottom: 26px;
+	top: 70px;
+	font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
+}
+
+
 
 .wrap .content .reviewArea{
 	width: 1000px;
 	height: 3000px;
-	background: firebrick;
 	margin: 0px auto 0;
 	padding: 10px 20px;
 	position: relative;
 	box-sizing: border-box;
 }
 
-.wrap .content .reviewArea .paging{
+.wrap .content .reviewArea .pagingContainer{
 	width: 900px;
 	height: 90px;
-	background: darkgreen;
 	position: absolute;
-	top: 2900px;
-	left: 50px;
+	margin-top: 100px;
+	/*top: 2900px;*/
+	/*left: 50px;*/
+}
+
+.wrap .content .reviewArea .pagingContainer .paging {
+	color: black;
+	width: 100%;
+	text-align: center;
+	font-size: 20px;
+	padding-top: 30px;
+}
+
+.wrap .content .reviewArea .pagingContainer .paging .page {
+	color: black;
+	width: 100%;
+	font-size: 20px;
+	text-decoration: none;
+	padding: 6px;
+	margin-right: 10px;
 }
 
 .wrap .content .reviewArea .reviewDetail{
 	width: 900px;
 	height: 300px;
-	background: darkblue;
-	margin: 15px;
+	margin: 30px;
 	box-sizing: border-box;
 	position: relative;
 	border-radius: 10px;
+	border-width: 1px;
+	border-style: solid;
 }
 
 .wrap .content .reviewArea .reviewDetail .reviewImg{
 	width: 290px;
 	height: 290px;
-	background: gainsboro;
 	position: absolute;
-	left : 5px;
-	top : 5px;
+	left : 3px;
+	top : 3px;
 	border-radius: 10px;
+	border-width: 1px;
+	border-style: solid;
 
 }
 
 .wrap .content .reviewArea .reviewDetail .reviewInfo{
 	width: 590px;
 	height: 290px;
-	background: gainsboro;
 	position: absolute;
-	right : 5px;
-	top : 5px;
+	right : 3px;
+	top : 3px;
 	border-radius: 10px;
+	border-width: 1px;
+	border-style: solid;
 }
 
 .wrap .content .reviewArea .reviewDetail .reviewInfo .reviewTitle{
-	width: 550px;
+	width: 350px;
 	height: 70px;
-	background: gold;
 	position: absolute;
-	left : 5px;
+	left : 10px;
 	top : 10px;
+	color: #1c1c1c;
+	font-size: 20px;
+	font-weight: 600;
 	border-radius: 10px;
+	border-width: 1px;
+	border-style: hidden;
 }
 
 .wrap .content .reviewArea .reviewDetail .reviewInfo .reviewContent{
 	width: 550px;
 	height: 140px;
-	background: gold;
 	position: absolute;
-	left : 5px;
+	left : 10px;
 	top : 90px;
+	color:#999;
+	font-size: 15px;
 	border-radius: 10px;
+	border-width: 1px;
+	border-style: hidden;
 }
 
 .wrap .content .reviewArea .reviewDetail .reviewInfo .reviewWriter{
 	width: 200px;
 	height: 40px;
-	background: gold;
 	position: absolute;
-	left : 5px;
+	left : 10px;
 	bottom: 10px;
+	font-size: 15px;
+	color:#999;
 	border-radius: 10px;
+	border-width: 1px;
+	border-style: hidden;
 }
 
 .wrap .content .reviewArea .reviewDetail .reviewInfo .reviewRegisterDate{
 	width: 300px;
 	height: 40px;
-	background: gold;
 	position: absolute;
-	right : 35px;
+	right : 27px;
 	bottom: 10px;
+	font-size: 15px;
+	color:#999;
 	border-radius: 10px;
+	border-width: 1px;
+	border-style: hidden;
+}
+
+.wrap .content .reviewArea .reviewDetail .reviewInfo .reviewLikeViewCnt{
+	width: 200px;
+	height: 70px;
+	position: absolute;
+	font-size: 15px;
+	right : 27px;
+	top : 10px;
+	border-radius: 10px;
+	border-width: 1px;
+	border-style: hidden;
 }
 
 
 .wrap .content .searchArea .searchBox{
 	width: 600px;
 	height: 80px;
-	background: grey;
 	position: absolute;
 	top: 50%;
-  	left: 50%;
+	left: 50%;
 	transform: translate(-50%, -50%);
 	text-align: center;
 	font-size: 50px;
@@ -218,7 +282,6 @@ table {
 .wrap .content .searchArea .searchBox .searchButton{
 	width: 90px;
 	height: 50px;
-	background: floralwhite;
 	position: absolute;
 	right: 10px;
 	top: 15px;
@@ -227,7 +290,6 @@ table {
 .wrap .content .searchArea .searchBox .searchOption{
 	width: 130px;
 	height: 50px;
-	background: darkgoldenrod;
 	position: absolute;
 	left: 10px;
 	top: 15px;
@@ -236,7 +298,6 @@ table {
 .wrap .content .searchArea .searchBox .searchInput{
 	width: 350px;
 	height: 45px;
-	background: darkcyan;
 	position: absolute;
 	right: 100px;
 	top: 15px;
@@ -247,7 +308,6 @@ table {
 .wrap .content .navi .menu{
 	width: 400px;
 	height: 120px;
-	background: pink;
 	margin: auto auto;
 }
 
@@ -265,22 +325,23 @@ table {
 }
 
 .wrap .content .navi .menu .nation_1{
-	width: 400px;
+	width: 500px;
 	height: 30px;
-	background: green;
 	padding-top: 10px;
 	margin-bottom: 15px;
 	font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
+	font-size: 15px;
 	color: #1c1c1c;
 }
 
 .wrap .content .navi .menu .nation_2{
-	width: 400px;
+	width: 500px;
 	height: 30px;
-	background: gray;
 	padding-top: 10px;
 	font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
+	font-size: 15px;
 	color: #1c1c1c;
 }
+
 
 

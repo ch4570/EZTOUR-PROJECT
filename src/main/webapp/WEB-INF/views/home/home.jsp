@@ -145,6 +145,61 @@
 <%--body--%>
 
 <main class="home__main">
+
+<%--	full slider--%>
+	<div class="main__full-slider">
+		<!-- fade css -->
+		<div class="myslide fade">
+			<div class="txt">
+				<p>이것이<br />여행이지</p>
+			</div>
+			<img class="fullImg" src="/img/home/main_img/main1.jpg" style="width: 100%; height: 100%" />
+		</div>
+
+		<div class="myslide fade">
+			<div class="txt">
+				<p>이것이<br />여행이지</p>
+			</div>
+			<img class="fullImg" src="/img/home/main_img/main2.jpg" style="width: 100%; height: 100%" />
+		</div>
+
+		<div class="myslide fade">
+			<div class="txt">
+				<p>이것이<br />여행이지</p>
+			</div>
+			<img class="fullImg" src="/img/home/main_img/main3.jpg" style="width: 100%; height: 100%" />
+		</div>
+
+		<div class="myslide fade">
+			<div class="txt">
+				<p>이것이<br />여행이지</p>
+			</div>
+			<img class="fullImg" src="/img/home/main_img/main4.jpg" style="width: 100%; height: 100%" />
+		</div>
+
+		<div class="myslide fade">
+			<div class="txt">
+				<p>이것이<br />여행이지</p>
+			</div>
+			<img class="fullImg" src="/img/home/main_img/main5.jpg" style="width: 100%; height: 100%" />
+		</div>
+		<!-- /fade css -->
+
+		<!-- onclick js -->
+		<a class="prevBtn" onclick="plusSlides(-1)">&#10094;</a>
+		<a class="nextBtn" onclick="plusSlides(1)">&#10095;</a>
+
+		<div class="dotsbox" style="text-align: center">
+			<span class="dot" onclick="currentSlide(1)"></span>
+			<span class="dot" onclick="currentSlide(2)"></span>
+			<span class="dot" onclick="currentSlide(3)"></span>
+			<span class="dot" onclick="currentSlide(4)"></span>
+			<span class="dot" onclick="currentSlide(5)"></span>
+		</div>
+		<!-- /onclick js -->
+	</div>
+
+
 	<c:if test="${loginId!=''}">
 		<div>
 			<span style="font-size: xx-large; color: crimson">${loginName}</span>
@@ -155,8 +210,65 @@
 
 
 
+<%-- slider --%>
+	<section class="product">
+		<h2 class="product-category">설레는 곳, 그게 바로 여행EZ</h2>
+		<button class="pre-btn"><i class="fas fa-angle-right"></i></button>
+		<button class="nxt-btn"><i class="fas fa-angle-right"></i></button>
+		<div class="product-container">
 
-<%--	gallery--%>
+			<div class="product-card">
+				<div class="product-image">
+					<span class="item__tit">괌으로 떠나요</span>
+					<img src="/img/home/slider/gaum.jpg" class="product-thumb" alt="">
+					<button class="card-btn">여행지 정보보기</button>
+				</div>
+			</div>
+
+			<div class="product-card">
+				<div class="product-image">
+					<span class="item__tit">환상의 그랜드캐니언</span>
+					<img src="/img/home/slider/grand.jpg" class="product-thumb" alt="">
+					<button class="card-btn">여행지 정보보기</button>
+				</div>
+			</div>
+
+			<div class="product-card">
+				<div class="product-image">
+					<span class="item__tit">알로하 하와이</span>
+					<img src="/img/home/slider/hawaii.jpg" class="product-thumb" alt="">
+					<button class="card-btn">여행지 정보보기</button>
+				</div>
+			</div>
+
+			<div class="product-card">
+				<div class="product-image">
+					<span class="item__tit">최고의 휴양지, 세부</span>
+					<img src="/img/home/slider/sebu.jpg" class="product-thumb" alt="">
+					<button class="card-btn">여행지 정보보기</button>
+				</div>
+			</div>
+
+			<div class="product-card">
+				<div class="product-image">
+					<span class="item__tit">자연을 느껴요, 스위스</span>
+					<img src="/img/home/slider/swiss.jpg" class="product-thumb" alt="">
+					<button class="card-btn">여행지 정보보기</button>
+				</div>
+			</div>
+
+			<div class="product-card">
+				<div class="product-image">
+					<span class="item__tit">도쿄로 떠나요</span>
+					<img src="/img/home/slider/tokyo.jpg" class="product-thumb" alt="">
+					<button class="card-btn">여행지 정보보기</button>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+	<%--	gallery--%>
 	<div class="home__gallery">
 		<img src="/img/greece.jpg" alt="a forest after an apocalypse">
 		<img src="/img/paris.jpg" alt="a waterfall and many rocks">
@@ -164,10 +276,6 @@
 		<img src="/img/spain.jpg" alt="sime pink flowers">
 		<img src="/img/sydney.jpg" alt="big rocks with some trees">
 	</div>
-
-
-
-
 
 
 </main>
@@ -209,6 +317,51 @@
 </footer>
 
 <script>
+
+	const myslide = document.querySelectorAll('.myslide'),
+			dot = document.querySelectorAll('.dot');
+	let counter = 1;
+	slidefun(counter);
+
+	let timer = setInterval(autoSlide, 3500);
+	function autoSlide() {
+		counter += 1;
+		slidefun(counter);
+	}
+	function plusSlides(n) {
+		counter += n;
+		slidefun(counter);
+		resetTimer();
+	}
+	function currentSlide(n) {
+		counter = n;
+		slidefun(counter);
+		resetTimer();
+	}
+	function resetTimer() {
+		clearInterval(timer);
+		timer = setInterval(autoSlide, 3500);
+	}
+
+	function slidefun(n) {
+
+		let i;
+		for(i = 0;i<myslide.length;i++){
+			myslide[i].style.display = "none";
+		}
+		for(i = 0;i<dot.length;i++) {
+			dot[i].className = dot[i].className.replace(' active', '');
+		}
+		if(n > myslide.length){
+			counter = 1;
+		}
+		if(n < 1){
+			counter = myslide.length;
+		}
+		myslide[counter - 1].style.display = "block";
+		dot[counter - 1].className += " active";
+	}
+
 	$(document).ready(function () {
 		// 자세히보기 버튼 클릭 시 클래스 'active' 추가
 		$('button[name="asideBtn"]').on('click', function () {
@@ -217,7 +370,22 @@
 		})
 	});
 
+	const productContainers = [...document.querySelectorAll('.product-container')];
+	const nxtBtn = [...document.querySelectorAll('.nxt-btn')];
+	const preBtn = [...document.querySelectorAll('.pre-btn')];
 
+	productContainers.forEach((item, i) => {
+		let containerDimensions = item.getBoundingClientRect();
+		let containerWidth = containerDimensions.width;
+
+		nxtBtn[i].addEventListener('click', () => {
+			item.scrollLeft += containerWidth;
+		})
+
+		preBtn[i].addEventListener('click', () => {
+			item.scrollLeft -= containerWidth;
+		})
+	})
 
 
 
@@ -226,6 +394,7 @@
 	if(msg=="DEL_OK")   alert("정상적으로 회원 탈퇴 되셨습니다.");
 	if(msg=="GET_ERR")   alert("회원정보를 불러오는데 문제가 생겼습니다.");
 	if(msg=="ACC_ERR")   alert("잘못된 접근입니다.");
+
 </script>
 </body>
 </html>

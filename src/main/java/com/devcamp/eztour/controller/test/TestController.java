@@ -10,7 +10,7 @@ public class TestController {
 
     @GetMapping("/test2")
     public String testMapping(){
-        return "rvwCmt";
+        return "review/rvwCmt";
     }
 
     @DeleteMapping("/delete/test")
