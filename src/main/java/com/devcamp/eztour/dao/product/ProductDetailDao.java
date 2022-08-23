@@ -14,5 +14,6 @@ public interface ProductDetailDao {
     List<TrvPrdDtlReadDto> selectAllProductCategory(Map map) throws Exception;
 
     List<TrvPrdDtlReadDto> selectAllProductOrder(Map map) throws Exception;
+    List<TrvPrdDtlReadDto> selectUserLike() throws Exception;
 
 }

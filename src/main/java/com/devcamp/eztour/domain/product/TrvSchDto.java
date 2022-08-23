@@ -16,6 +16,8 @@ public class TrvSchDto {
     private int sch_no;
     @NotBlank(message = "상품코드는 필수 입력 항목입니다.")
     private String		prd_cd;
+    @NotBlank(message = "상품상세코드는 필수 입력 항목입니다.")
+    private String prd_dtl_cd;
     @Min(value = 1, message = "여행 일차는 1보다 커야 합니다.")
     private int			trv_date;
     @Min(value = 1, message = "일정 순번은 1보다 커야 합니다.")
@@ -33,7 +35,7 @@ public class TrvSchDto {
     private String		fnl_mod_no;
 
     public TrvSchDto(int sch_no, String prd_cd, int trv_date, int sch_ord, String st_nm, String sit_sh_desc,
-                     String sit_lo_desc, String ht_inf, String brk, String luh, String din, String dstnc_tm, String frs_reg_date) {
+                     String sit_lo_desc, String ht_inf, String brk, String luh, String din, String dstnc_tm, String frs_reg_date,String prd_dtl_cd) {
         this.sch_no = sch_no;
         this.prd_cd = prd_cd;
         this.trv_date = trv_date;
@@ -47,6 +49,7 @@ public class TrvSchDto {
         this.din = din;
         this.dstnc_tm = dstnc_tm;
         this.frs_reg_date = frs_reg_date;
+        this.prd_dtl_cd = prd_dtl_cd;
     }
 
     public TrvSchDto(){}

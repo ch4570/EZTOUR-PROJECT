@@ -32,9 +32,9 @@
 
     <insert id="insertProductSchedule" parameterType="TrvSchDto">
         INSERT INTO trv_sch(prd_cd,trv_date,sch_ord,st_nm,sit_sh_desc,
-                            sit_lo_desc,ht_inf,brk,luh,din,dstnc_tm,frs_rgs_no,frs_reg_date)
+                            sit_lo_desc,ht_inf,brk,luh,din,dstnc_tm,frs_rgs_no,frs_reg_date,prd_dtl_cd)
         VALUES(#{prd_cd},#{trv_date},#{sch_ord},#{st_nm},#{sit_sh_desc},
-               #{sit_lo_desc},#{ht_inf},#{brk},#{luh},#{din},#{dstnc_tm},#{frs_rgs_no},now());
+               #{sit_lo_desc},#{ht_inf},#{brk},#{luh},#{din},#{dstnc_tm},#{frs_rgs_no},now(),#{prd_dtl_cd});
     </insert>
 
     <insert id="insertProductImage" parameterType="PrdImgDto">
@@ -216,7 +216,7 @@
 
     <select id="selectProductSchedule" resultType="TrvSchDto" parameterType="PageHandlerProduct">
         SELECT sch_no,prd_cd,trv_date,sch_ord,st_nm,sit_sh_desc,
-               sit_lo_desc,ht_inf,brk,luh,din,dstnc_tm,frs_reg_date
+               sit_lo_desc,ht_inf,brk,luh,din,dstnc_tm,frs_reg_date,prd_dtl_cd
         FROM trv_sch
         ORDER BY frs_reg_date DESC
         LIMIT #{pageSize} OFFSET #{startList}
@@ -229,7 +229,7 @@
 
     <select id="selectOneProductSchedule" parameterType="int" resultType="TrvSchDto">
         SELECT sch_no,prd_cd,trv_date,sch_ord,st_nm,sit_sh_desc,
-               sit_lo_desc,ht_inf,brk,luh,din,dstnc_tm,frs_reg_date
+               sit_lo_desc,ht_inf,brk,luh,din,dstnc_tm,frs_reg_date,prd_dtl_cd
         FROM trv_sch
         WHERE sch_no = #{sch_no}
     </select>
@@ -273,7 +273,7 @@
     <update id="updateSchedule" parameterType="TrvSchDto">
             UPDATE trv_sch
                 set prd_cd=#{prd_cd},trv_date=#{trv_date},sch_ord=#{sch_ord},st_nm=#{st_nm},sit_sh_desc=#{sit_sh_desc},
-                sit_lo_desc=#{sit_lo_desc},ht_inf=#{ht_inf},brk=#{brk},luh=#{luh},din=#{din},dstnc_tm=#{dstnc_tm}
+                sit_lo_desc=#{sit_lo_desc},ht_inf=#{ht_inf},brk=#{brk},luh=#{luh},din=#{din},dstnc_tm=#{dstnc_tm},prd_dtl_cd=#{prd_dtl_cd}
             WHERE sch_no = #{sch_no}
     </update>
 
@@ -430,5 +430,15 @@
         JOIN trv_prd_dtl C ON B.prd_cd = C.prd_cd
         WHERE C.prd_dtl_cd = #{prd_dtl_cd}
     </select>
+
+    <insert id="insertUserLike" parameterType="map">
+        INSERT INTO att_prd(usr_id,prd_cd,prd_nm,lk_yn,prd_str_prc,frs_reg_date)
+        VALUES(#{usr_id},#{prd_cd},#{prd_nm},1,#{prd_str_prc},now())
+    </insert>
+
+    <delete id="deleteUserLike" parameterType="map">
+        DELETE FROM att_prd
+        WHERE usr_id = #{usr_id} and prd_cd = #{prd_cd}
+    </delete>
 
 </mapper>

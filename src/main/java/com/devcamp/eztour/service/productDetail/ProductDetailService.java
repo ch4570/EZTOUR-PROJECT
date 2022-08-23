@@ -14,4 +14,6 @@ public interface ProductDetailService {
     List<TrvPrdDtlReadDto> getAllProductCategory(Map map) throws Exception;
 
     List<TrvPrdDtlReadDto> getAllProductOrder(Map map) throws Exception;
+
+    List<TrvPrdDtlReadDto> getUserLike() throws Exception;
 }
