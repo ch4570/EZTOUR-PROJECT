@@ -117,5 +117,10 @@ public class RvwDaoImpl implements RvwDao {
         return session.update(namespace + "decreaseLikeCnt", rvw_no);
     }
 
+    @Override
+    public List<RvwDto> cntnCdSearch(SearchCondition sc) {
+        return session.selectList(namespace + "cntnCdSearch", sc);
+    }
+
 
 }
