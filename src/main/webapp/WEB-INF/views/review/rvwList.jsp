@@ -20,12 +20,12 @@
         <div class="navi">
             <div class="menu">
                 <div class="nation_1">
-                    <span class="menu_name" onclick="">전체</span>
-                    <span class="menu_name" onclick="">동남아</span>
-                    <span class="menu_name" onclick="">동아시아</span>
-                    <span class="menu_name" onclick="">동유럽</span>
-                    <span class="menu_name" onclick="">서유럽</span>
-                    <span class="menu_name" onclick="">오세아니아</span>
+                    <span class="menu_name" onclick="location.href='<c:url value='/review/list'/>'">전체</span>
+                    <span class="menu_name" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("A")}'/>'">동남아</span>
+                    <span class="menu_name" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("B")}'/>'">동아시아</span>
+                    <span class="menu_name" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("C")}'/>'">동유럽</span>
+                    <span class="menu_name" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("D")}'/>'">서유럽</span>
+                    <span class="menu_name" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("E")}'/>'">오세아니아</span>
                 </div>
                 <!--div class="nation_2">
                     <span class="menu_name" onclick="">남아프리카</span>
@@ -57,10 +57,14 @@
                 총 ${totalCnt}건
             </a>
             <div class="sort">
-                <span class="sort_name" style="margin-right: 30px;" onclick="">최신순</span>
-                <span class="sort_name" style="margin-right: 30px;" onclick="">오래된순</span>
-                <span class="sort_name" style="margin-right: 30px;" onclick="">가장 많은 좋아요</span>
-                <span class="sort_name" onclick="">가장 많은 조회수</span>
+<%--                <span class="sort_name" style="margin-right: 30px;" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("","N")}'/>'">최신순</span>--%>
+                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","N")}'/>">최신순</a>
+<%--                <span class="sort_name" style="margin-right: 30px;" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("","O")}'/>'">오래된순</span>--%>
+                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","O")}'/>">오래된순</a>
+<%--                <span class="sort_name" style="margin-right: 30px;" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("","L")}'/>'">가장 많은 좋아요</span>--%>
+                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","L")}'/>">가장 많은 좋아요</a>
+<%--                <span class="sort_name" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("","V")}'/>'">가장 많은 조회수</span>--%>
+                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","V")}'/>">가장 많은 조회수</a>
             </div>
         </div>
         <div class="reviewArea">

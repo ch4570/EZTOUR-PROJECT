@@ -1,5 +1,6 @@
 package com.devcamp.eztour.controller.product;
 
+import com.devcamp.eztour.domain.product.PrdDtlPageDto;
 import com.devcamp.eztour.domain.product.TrvPrdDtlDto;
 import com.devcamp.eztour.domain.product.TrvPrdDtlReadDto;
 import com.devcamp.eztour.domain.user.UserDto;
@@ -151,9 +152,9 @@ public class ProductController {
     }
 
     @GetMapping("/detail")
-    public String getProductDetail(Model m, String prd_dtl_cd) {
-
-
+    public String getProductDetail(Model m, String prd_dtl_cd) throws Exception{
+        PrdDtlPageDto prdDtlPageDto = productDetailService.getProductDetailPage(prd_dtl_cd);
+        m.addAttribute("prdDto",prdDtlPageDto);
         return "product/product_detail.tiles";
     }
 
