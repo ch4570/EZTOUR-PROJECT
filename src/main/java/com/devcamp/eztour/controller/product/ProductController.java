@@ -49,7 +49,7 @@ public class ProductController {
                 map.put("keyword",keyword);
                 map.put("standard",standard);
                 System.out.println(map);
-                List<TrvPrdDtlReadDto> list = productDetailService.getAllProductCategoryOrder(map);
+                List<TrvPrdDtlReadDto> list = productDetailService.getAllProductOrder(map);
                 for(TrvPrdDtlReadDto t : list){
                     System.out.println(t);
                 }

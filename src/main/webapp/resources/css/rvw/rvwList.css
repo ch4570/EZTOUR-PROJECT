@@ -56,7 +56,7 @@ table {
 
 .wrap .content{
 	width: 1200px;
-	height: 3800px;
+	height: 2400px;
 	margin: 0 auto;
 	position: relative;
 }
@@ -118,20 +118,30 @@ table {
 }
 
 .wrap .content .highArea .sort{
-	color: #1c1c1c;
-	font-size: 15px;
+	/*color: #1c1c1c;*/
+	/*font-size: 20px;*/
 	position: absolute;
 	right: 75px;
 	bottom: 26px;
 	top: 70px;
+	background: red;
+	/*font-family: 'NotoSansCJKkr',Helvetica,sans-serif;*/
+	/*cursor: pointer;*/
+}
+
+.wrap .content .highArea .sort .sort_name{
+	color: #1c1c1c;
+	font-size: 20px;
 	font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
+	cursor: pointer;
+
 }
 
 
 
 .wrap .content .reviewArea{
 	width: 1000px;
-	height: 3000px;
+	height: 2000px;
 	margin: 0px auto 0;
 	padding: 10px 20px;
 	position: relative;
@@ -308,7 +318,8 @@ table {
 .wrap .content .navi .menu{
 	width: 400px;
 	height: 120px;
-	margin: auto auto;
+	margin-left: 120px;
+	margin-right: 180px;
 }
 
 .wrap .content .navi .menu .menu_name{
@@ -332,6 +343,7 @@ table {
 	font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
 	font-size: 15px;
 	color: #1c1c1c;
+	cursor: pointer;
 }
 
 .wrap .content .navi .menu .nation_2{
