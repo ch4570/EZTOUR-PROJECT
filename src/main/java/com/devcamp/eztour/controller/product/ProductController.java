@@ -153,8 +153,10 @@ public class ProductController {
 
     @GetMapping("/detail")
     public String getProductDetail(Model m, String prd_dtl_cd) throws Exception{
+        System.out.println(prd_dtl_cd);
         PrdDtlPageDto prdDtlPageDto = productDetailService.getProductDetailPage(prd_dtl_cd);
         m.addAttribute("prdDto",prdDtlPageDto);
+        System.out.println(prdDtlPageDto);
         return "product/product_detail.tiles";
     }
 

@@ -55,7 +55,7 @@
     <select id="selectProductDetailPage" parameterType="String" resultType="PrdDtlPageDto">
         SELECT A.prd_cd,A.dstn_cd,A.prd_nm,A.trv_per,A.dpr_str_date,A.dpr_fin_date,B.arl_nm,B.pr_rsvt_cnt,
                B.min_stt_cnt,B.max_stt_cnt,B.dpr_date,B.fin_date
-             ,B.prd_dtl_cd,C.adt_prc,C.chd_prc,C.bb_prc,D.img_pth,D.mn_img_yn
+                ,B.prd_dtl_cd,C.adt_prc,C.chd_prc,C.bb_prc,D.img_pth,D.mn_img_yn
         FROM trv_prd A
                  JOIN trv_prd_dtl B ON A.prd_cd = B.prd_cd
                  JOIN prd_prc C ON B.prd_dtl_cd = C.prd_dtl_cd
