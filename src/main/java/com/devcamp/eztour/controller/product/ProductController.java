@@ -103,11 +103,4 @@ public class ProductController {
 
     }
 
-    @GetMapping("/detail")
-    public String getProductDetail(Model m, String prd_dtl_cd) {
-
-
-        return "product/product_detail.tiles";
-    }
-
 }
