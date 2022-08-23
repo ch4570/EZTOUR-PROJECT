@@ -9,7 +9,7 @@
 <%--    <meta http-equiv="X-UA-Compatible" content="IE=edge">--%>
 <%--    <meta name="viewport" content="width=device-width, initial-scale=1.0">--%>
 <%--    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>--%>
-    <title>Document</title>
+    <title>EZTour</title>
 </head>
 <div class="wrap">
     <div class="content">
@@ -63,14 +63,6 @@
                 <option>013</option>
             </select>
 
-            <p>연락처</p>
-            <select>
-                <option>선택</option>
-                <option>010</option>
-                <option>011</option>
-                <option>012</option>
-                <option>013</option>
-            </select>
             <input type="text" name="phn" value="${CustomerInquiryDto.phn}" placeholder="내용을 입력해주세요.">
 
 
@@ -94,7 +86,7 @@
     $(document).ready(function (){
         $('#writeBtn').on("click", function(){
             let form = ${'#form'};
-            form.attr("action", "<c:url value='/customer/inquiryWrite'/>");
+            form.attr("action", "<c:url value='/customer/inquirywrite'/>");
             form.attr("method", "post");
             form.submit();
         });

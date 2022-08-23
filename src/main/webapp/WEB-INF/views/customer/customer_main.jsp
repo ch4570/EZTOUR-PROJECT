@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>EZTour</title>
     <link rel="stylesheet" href="/css/customer/customer_main.css">
 </head>
 <body>
@@ -20,12 +20,11 @@
     </form>
 
     <div class="customer-menu">
-        <a href="#" class="menu__link">
+        <a href="/customer/inquirylist" class="menu__link">
             <span><i class="fa-solid fa-comments"></i></span>
-<%--            1:1 문의로 넘어가는 주소 입력해줘야함.--%>
             <span>1:1문의</span>
         </a>
-        <a href="#" class="menu__link">
+        <a href="/customer/proplist" class="menu__link">
             <span><i class="fa-solid fa-envelope-open-text"></i></span>
             <span>고객 서비스 개선 제안</span>
         </a>

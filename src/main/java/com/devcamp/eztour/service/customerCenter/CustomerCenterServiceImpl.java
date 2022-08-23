@@ -1,7 +1,9 @@
 package com.devcamp.eztour.service.customerCenter;
 
 import com.devcamp.eztour.dao.customercenter.CustomerInquiryDao;
+import com.devcamp.eztour.dao.customercenter.CustomerPropDao;
 import com.devcamp.eztour.domain.customercenter.CustomerInquiryDto;
+import com.devcamp.eztour.domain.customercenter.CustomerPropDto;
 import com.devcamp.eztour.domain.customercenter.CustomerSearchCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,66 +13,30 @@ import java.util.Map;
 
 @Service
 public class CustomerCenterServiceImpl implements CustomerCenterService {
+
     @Autowired
+    CustomerPropDao customerPropDao;
     CustomerInquiryDao customerInquiryDao;
 
+//    inquiry 시작
     @Override
-    public int writeCustomerInquiry(CustomerInquiryDto customerInquiryDto) throws Exception {
-       return customerInquiryDao.insertCustomerInquiry(customerInquiryDto);
-    }
-
-    @Override
-    public int getCountCustomerInquiry() throws Exception{
-        return customerInquiryDao.countCustomerInquiry();
-    }
-
-    @Override
-    public int removeCustomerInquiry(Integer bno, String writer) throws Exception {
-        return 0;
-    }
-
-// 1:1문의 삭제
-//    @Override
-//    public int removeCustomerInquiry(Integer bno, String writer) throws Exception{
-//        return customerInquiryDao.deleteCustomerInquiry(qna_no, usr_id);
-//    }
-
-    @Override
-    public List<CustomerInquiryDto> getListCustomerInquiry() throws Exception{
+    public List<CustomerInquiryDto> getAllCustomerInquiry() throws Exception{
         return customerInquiryDao.selectAllCustomerInquiry();
     }
 
     @Override
-    public CustomerInquiryDto readCustomerInquiry(Integer bno) throws Exception {
-        return null;
+    public int writeCustomerInquiry(CustomerInquiryDto customerInquiryDto) throws Exception {
+        return customerInquiryDao.insertCustomerInquiry(customerInquiryDto);
     }
-
-//    조회수 카운트
-//    @Override
-//    public CustomerInquiryDto readCustomerInquiry(Integer bno) throws Exception{
-//        CustomerInquiryDto customerInquiryDto = customerInquiryDao.selectCustomerInquiry(qna_no);
-//        customerInquiryDao.increaseView(qna_no);
-//        return customerInquiryDto;
-//    }
+//    inquiry끝
 
     @Override
-    public List<CustomerInquiryDto> getPageCustomerInquiry(Map map) throws Exception{
-        return customerInquiryDao.selectCustomerPage(map);
+    public List<CustomerPropDto> getAllCustomerProp() throws Exception{
+        return customerPropDao.selectAllCustomerProp();
     }
 
     @Override
-    public int modifyCustomerInquiry(CustomerInquiryDto customerInquiryDto) throws Exception{
-        return customerInquiryDao.updateCustomerInquiry(customerInquiryDto);
-    }
-
-
-    @Override
-    public List<CustomerInquiryDto> getCustomerSearchResultPage(CustomerSearchCondition csc) throws Exception{
-        return customerInquiryDao.searchSelectCustomerPage(csc);
-    }
-
-    @Override
-    public int getCustomerSearchResultCnt(CustomerSearchCondition csc) throws Exception{
-        return customerInquiryDao.searchResultCustomerCnt(csc);
+    public int writeCustomerProp(CustomerPropDto customerPropDto) throws Exception {
+        return customerPropDao.insertCustomerProp(customerPropDto);
     }
 }
