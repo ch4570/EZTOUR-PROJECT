@@ -53,6 +53,7 @@
         <typeAlias alias="TrvPrdDto" type="com.devcamp.eztour.domain.home.TrvPrdDto"/>
         <typeAlias alias="TrvPrdDtlDto" type="com.devcamp.eztour.domain.product.TrvPrdDtlDto"/>
         <typeAlias alias="DestinationCategoryDto" type="com.devcamp.eztour.domain.category.DestinationCategoryDto"/>
+        <typeAlias alias="PrdDtlPageDto" type="com.devcamp.eztour.domain.product.PrdDtlPageDto"/>
         <!-- 영욱님 끝-->
     </typeAliases>
 </configuration>

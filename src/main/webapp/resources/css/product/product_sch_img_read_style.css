@@ -70,15 +70,21 @@ h1{
 
 
 .wrap .content .board .button_click{
+    all: unset;
     width: 505px;
     height: 40px;
     border-radius: 8px;
     margin-bottom: 20px;
+    background: #1c1c1c;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
 }
 
 .wrap .content .board .preview_img{
     margin-bottom: 20px;
 }
+
 
 
 

@@ -107,5 +107,25 @@ public class RvwDaoImpl implements RvwDao {
         return session.selectOne(namespace + "checkRvwUser", map);
     }
 
+    @Override
+    public int increaseLikeCnt(Integer rvw_no) throws Exception {
+        return session.update(namespace + "increaseLikeCnt", rvw_no);
+    }
+
+    @Override
+    public int decreaseLikeCnt(Integer rvw_no) throws Exception {
+        return session.update(namespace + "decreaseLikeCnt", rvw_no);
+    }
+
+    @Override
+    public List<RvwDto> cntnCdSearch(SearchCondition sc) {
+        return session.selectList(namespace + "cntnCdSearch", sc);
+    }
+
+    @Override
+    public int cntnCdSearchResultCnt(SearchCondition sc) {
+        return session.selectOne(namespace + "cntnCdSearchResultCnt", sc);
+    }
+
 
 }

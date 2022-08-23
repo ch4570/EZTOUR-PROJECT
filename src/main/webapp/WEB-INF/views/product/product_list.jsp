@@ -16,17 +16,28 @@
 <div class="product-list__content">
   <div class="content--list__wrap">
     <div class="content--filter">
-      <a href="#">추천상품순</a>
-      <a href="#">낮은가격순</a>
-      <a href="#">높은가격순</a>
+      <a href="<c:url value='/product/list?keyword=vcnt&standard=DESC&usr_id=${sessionScope.userDto.usr_id}'/>">조회많은순</a>
+      <a href="<c:url value='/product/list?keyword=prd_str_prc&standard=ASC&usr_id=${sessionScope.userDto.usr_id}'/>">낮은가격순</a>
+      <a href="<c:url value='/product/list?keyword=prd_str_prc&standard=DESC&usr_id=${sessionScope.userDto.usr_id}'/>">높은가격순</a>
     </div>
     <c:forEach var="item" items="${list}" varStatus="status">
+
       <section class="content--wrap">
         <div class="content--list">
           <div class="content--list_img">
             <img src="${item.img_pth}">
-            <div><i class="far fa-heart"></i></div>
-            <div><i class="fas fa-heart"></i></div>
+            <c:choose>
+              <c:when test="${item.usr_id == sessionScope.userDto.usr_id && not empty sessionScope.userDto.usr_id}">
+                <div><i class="fas fa-heart" name="fill-heart" cnt="${status.count}" prd_cd="${item.prd_cd}"></i></div>
+              </c:when>
+
+              <c:otherwise>
+                <div><i class="far fa-heart" name="non-fill-heart" cnt="${status.count}" prd_cd="${item.prd_cd}"
+                        prd_nm="${item.prd_nm}" prd_str_prc="${item.prd_str_prc}"></i></div>
+              </c:otherwise>
+            </c:choose>
+
+
           </div>
           <div class="content--list_info">
             <div class="info-tit">
@@ -47,7 +58,7 @@
             <div class="info-price">
               <span class="item-dstn_cd">${item.prd_cd}</span>
               <div class="item-prd_str_prc">
-                <span>${item.prd_str_prc}</span>
+                <span><fmt:formatNumber value="${item.prd_str_prc}" pattern="#,##0"/></span>
                 <span>원~</span>
               </div>
               <div class="item-detailBtn__wrap">
@@ -121,8 +132,64 @@
       } else {
         return;
       }
-    })
+    });
 
+    var usr_id = "${sessionScope.userDto.usr_id}";
+
+    $('i[name=fill-heart]').on("click",function (){
+      let count = $(this).attr('cnt');
+      let prd_cd = $(this).attr('prd_cd');
+      if(usr_id == null || usr_id === ""){
+        alert("로그인을 해야 관심 상품 기능을 이용할 수 있습니다.");
+        var confirmUser = confirm("로그인 하시겠습니까?");
+        if(confirmUser){
+          location.href = "<c:url value='/user/login'/>"
+        }else{
+          return;
+        }
+      }
+
+        $.ajax({
+          type : "POST",
+          url  : "<c:url value='/product/like/delete'/>",
+          data : {"prd_cd":prd_cd,"usr_id":usr_id},
+          success : function (){
+              window.location.reload();
+          },
+          error : function (){
+            alert("오류가 발생했습니다.");
+          }
+        });
+    });
+
+    $('i[name=non-fill-heart]').on("click",function (){
+      let count = $(this).attr('cnt');
+      let prd_cd = $(this).attr('prd_cd');
+      let prd_nm = $(this).attr('prd_nm');
+      let prd_str_prc = $(this).attr('prd_str_prc');
+
+      if(usr_id == null || usr_id === ""){
+        alert("로그인을 해야 관심 상품 기능을 이용할 수 있습니다.");
+        var confirmUser = confirm("로그인 하시겠습니까?");
+        if(confirmUser){
+          location.href = "<c:url value='/user/login'/>"
+        }else{
+            return;
+        }
+      }
+
+      $.ajax({
+        type : "POST",
+        url  : "<c:url value='/product/like/insert'/>",
+        data : {"prd_cd":prd_cd,"usr_id":usr_id,"prd_nm":prd_nm,"prd_str_prc":prd_str_prc},
+        success : function (){
+          window.location.reload();
+        },
+        error : function (){
+          alert("오류가 발생했습니다.");
+        }
+      });
+    });
 
     $(document).on("click",".detail-item__btn--btn",function () {
       const prd_dtl_cd = $(this).attr('prd_dtl_cd');

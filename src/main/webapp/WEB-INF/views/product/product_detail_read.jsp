@@ -46,7 +46,7 @@
                 <h1>상품 상세 관리</h1>
                 <div class="prd_detail_input_form">
                         상품상세코드&nbsp;<br><input type="text" name="prd_dtl_cd" placeholder="상품상세코드" value="${prd_dtl.prd_cd}" class="input_prd" readonly="readonly"/><br>
-                        상품코드&nbsp;<br><input type="text" name="prd_cd" value="${prd_dtl.prd_cd}" placeholder="상품코드" class="input_prd" readonly="readonly"/><br>
+                        상품코드&nbsp;<br><input type="text" name="prd_cd" value="${prd_dtl.prd_dtl_cd}" placeholder="상품코드" class="input_prd" readonly="readonly"/><br>
                         상품이름&nbsp;<br><input type="text" name="prd_nm" placeholder="상품이름" class="input_prd" value="${prd_dtl.prd_nm}" readonly="readonly"/><br>
                         상품시작가격&nbsp;<br><input type="text" name="prd_str_prc"  placeholder="상품시작가격" class="input_prd" value="${prd_dtl.prd_str_prc}" readonly="readonly"/><br>
                         항공사명&nbsp;<br><input type="text" name="arl_nm" placeholder="항공사명" class="input_prd" value="${prd_dtl.arl_nm}" readonly="readonly"/><br>

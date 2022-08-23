@@ -1,5 +1,6 @@
 package com.devcamp.eztour.service.productDetail;
 
+import com.devcamp.eztour.domain.product.PrdDtlPageDto;
 import com.devcamp.eztour.domain.product.TrvPrdDtlDto;
 import com.devcamp.eztour.domain.product.TrvPrdDtlReadDto;
 
@@ -12,4 +13,9 @@ public interface ProductDetailService {
     List<TrvPrdDtlDto> getAllDetailProduct(String prd_cd) throws Exception;
 
     List<TrvPrdDtlReadDto> getAllProductCategory(Map map) throws Exception;
+
+    List<TrvPrdDtlReadDto> getAllProductOrder(Map map) throws Exception;
+
+    List<TrvPrdDtlReadDto> getUserLike() throws Exception;
+    PrdDtlPageDto getProductDetailPage(String prd_dtl_cd) throws Exception;
 }

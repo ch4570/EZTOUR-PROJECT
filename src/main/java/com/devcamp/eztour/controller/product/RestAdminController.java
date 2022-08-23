@@ -78,6 +78,15 @@ public class RestAdminController {
         String uploadPath = root_path + "resources/image/product/sights";
 
         List<MultipartFile> fileList =  meq.getFiles("prd_img");
+
+
+
+        for(MultipartFile m : fileList){
+            if(m.getOriginalFilename() == "" || m.getOriginalFilename() == null){
+                return "fail";
+            }
+        }
+
         for (MultipartFile m : fileList) {
             File checkFile = new File(m.getOriginalFilename());
             try {

@@ -1,5 +1,6 @@
 package com.devcamp.eztour.dao.product;
 
+import com.devcamp.eztour.domain.product.PrdDtlPageDto;
 import com.devcamp.eztour.domain.product.TrvPrdDtlDto;
 import com.devcamp.eztour.domain.product.TrvPrdDtlReadDto;
 
@@ -12,5 +13,9 @@ public interface ProductDetailDao {
     List<TrvPrdDtlDto> selectAllDetailProduct(String prd_cd) throws Exception;
 
     List<TrvPrdDtlReadDto> selectAllProductCategory(Map map) throws Exception;
+
+    List<TrvPrdDtlReadDto> selectAllProductOrder(Map map) throws Exception;
+    List<TrvPrdDtlReadDto> selectUserLike() throws Exception;
+    PrdDtlPageDto selectProductDetailPage(String prd_dtl_cd) throws Exception;
 
 }

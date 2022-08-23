@@ -285,4 +285,14 @@ public class ProductDaoImpl implements ProductDao{
         return session.selectOne(namespace+"selectRecentlyProduct",prd_dtl_cd);
     }
 
+    @Override
+    public int insertUserLike(Map map) throws Exception {
+        return session.insert(namespace+"insertUserLike",map);
+    }
+
+    @Override
+    public int deleteUserLike(Map map) throws Exception {
+        return session.delete(namespace+"deleteUserLike",map);
+    }
+
 }

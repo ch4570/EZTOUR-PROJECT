@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
 <body>
 <div>
@@ -39,7 +40,7 @@
                         <dd>${rcid.rsvt_date}</dd>
                     </dl>
                     <dl>
-                        <dt>예약일</dt>
+                        <dt>예약번호</dt>
                         <dd>${rcid.rsvt_no}</dd>
                     </dl>
                 </div>
@@ -92,8 +93,8 @@
         </div>
     </div>
     <div>
-        <button type="button" class="home">메인으로</button>
-        <button type="button" id="rsvtCheck">예약/결제 조회</button>
+        <button class="home">메인으로</button>
+        <button id="rsvtCheck">예약/결제 조회</button>
     </div>
 </div>
 

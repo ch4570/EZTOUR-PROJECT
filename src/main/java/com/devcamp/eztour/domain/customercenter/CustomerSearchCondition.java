@@ -1,12 +1,12 @@
 package com.devcamp.eztour.domain.customercenter;
 
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class CustomerSearchCondition {
     private Integer page= 1;
     private Integer pageSize = 10;
-    private Integer offset = 0;
     private String keyword = "";
     private String option = "";
-
 
     public CustomerSearchCondition() {
     }
@@ -16,6 +16,19 @@ public class CustomerSearchCondition {
         this.pageSize = pageSize;
         this.keyword = keyword;
         this.option = option;
+    }
+
+    public String customerGetQueryString(Integer page) {
+        return UriComponentsBuilder.newInstance()
+                .queryParam("page", page)
+                .queryParam("pageSize", pageSize)
+                .queryParam("option", option)
+                .queryParam("keyword", keyword)
+                .build().toString();
+    }
+
+    public String customerGetQueryString() {
+        return customerGetQueryString(page);
     }
 
     public Integer getPage() {
@@ -35,11 +48,7 @@ public class CustomerSearchCondition {
     }
 
     public Integer getOffset() {
-        return offset;
-    }
-
-    public void setOffset(Integer offset) {
-        this.offset = offset;
+        return (page-1)*pageSize;
     }
 
     public String getKeyword() {
@@ -63,7 +72,6 @@ public class CustomerSearchCondition {
         return "CustomerSearchCondition{" +
                 "page=" + page +
                 ", pageSize=" + pageSize +
-                ", offset=" + offset +
                 ", keyword='" + keyword + '\'' +
                 ", option='" + option + '\'' +
                 '}';

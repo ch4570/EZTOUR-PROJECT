@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="<c:url value='/css/product/product_sch_img_insert_style.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/product/product_sch_img_read_style.css'/>">
 </head>
 <body>
 <div class="wrap">

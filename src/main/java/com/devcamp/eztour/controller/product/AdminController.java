@@ -127,6 +127,7 @@ public class AdminController {
         int result = productService.insertProductPrice(trv_prdPrcDto);
         if(result==1){
             redirectAttributes.addAttribute("prd_cd", trv_prdPrcDto.getPrd_cd());
+            redirectAttributes.addAttribute("prd_dtl_cd",trv_prdPrcDto.getPrd_dtl_cd());
             return "redirect:/product/insert/schedule";
         }else{
             redirectAttributes.addAttribute("error_msg","가격 추가에 실패하였습니다.");

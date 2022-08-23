@@ -21,13 +21,46 @@
 
     <select id="selectAllProductCategory" resultType="TrvPrdDtlReadDto" parameterType="map">
         SELECT DISTINCT A.prd_cd, A.dstn_cd, A.cmn_cd_thm, A.prd_nm, A.prd_dtl_desc, A.trv_per, A.prd_str_prc, A.dpr_str_date, A.dpr_fin_date,
-                        A.evnt_yn, A.fin_yn, A.act_yn, A.dc_yn, A.pc_prc, A.vcnt, A.lk_yn, B.img_pth, B.mn_img_yn, C.prd_dtl_cd, C.arl_nm, C.dpr_yn, C.rsvt_yn,
-                        D.nt_cd_nm
-                FROM trv_prd A
-                 JOIN prd_img B ON A.prd_cd = B.prd_cd
-                 JOIN trv_prd_dtl C ON A.prd_cd = C.prd_cd
-                 JOIN dstn_ctg D ON A.cntn_cd = D.cntn_cd
-        WHERE act_yn=1 and A.cntn_cd = #{cntn_cd} and A.nt_cd = #{nt_cd} and D.nt_cd_nm = #{nt_cd_nm}
+               A.evnt_yn, A.fin_yn, A.act_yn, A.dc_yn, A.pc_prc, A.vcnt, D.lk_yn, B.img_pth, B.mn_img_yn, C.prd_dtl_cd, C.arl_nm, C.dpr_yn, C.rsvt_yn,D.usr_id
+                ,A.frs_reg_date
+        FROM trv_prd A LEFT OUTER JOIN att_prd D ON A.prd_cd = D.prd_cd
+                       JOIN prd_img B ON A.prd_cd = B.prd_cd
+                       JOIN trv_prd_dtl C ON A.prd_cd = C.prd_cd
+                 JOIN dstn_ctg F ON A.cntn_cd = F.cntn_cd
+        WHERE act_yn=1 and A.cntn_cd = #{cntn_cd} and A.nt_cd = #{nt_cd} and F.nt_cd_nm = #{nt_cd_nm} and ((D.usr_id = #{usr_id} or D.usr_id IS NULL)
+           OR D.usr_id <![CDATA[<>]]> #{usr_id})
+    </select>
+
+    <select id="selectAllProductOrder" resultType="TrvPrdDtlReadDto" parameterType="map">
+        SELECT A.prd_cd, A.dstn_cd, A.cmn_cd_thm, A.prd_nm, A.prd_dtl_desc, A.trv_per, A.prd_str_prc, A.dpr_str_date, A.dpr_fin_date,
+               A.evnt_yn, A.fin_yn, A.act_yn, A.dc_yn, A.pc_prc, A.vcnt, D.lk_yn, B.img_pth, B.mn_img_yn, C.prd_dtl_cd, C.arl_nm, C.dpr_yn, C.rsvt_yn,D.usr_id
+                ,A.frs_reg_date
+        FROM trv_prd A LEFT OUTER JOIN att_prd D ON A.prd_cd = D.prd_cd
+                       JOIN prd_img B ON A.prd_cd = B.prd_cd
+                       JOIN trv_prd_dtl C ON A.prd_cd = C.prd_cd
+        WHERE act_yn=1 and ((D.usr_id = #{usr_id} or D.usr_id IS NULL) OR D.usr_id <![CDATA[<>]]> #{usr_id})
+        ORDER BY ${keyword} ${standard}
+    </select>
+
+    <select id="selectUserLike" resultType="TrvPrdDtlReadDto">
+        SELECT A.prd_cd, A.dstn_cd, A.cmn_cd_thm, A.prd_nm, A.prd_dtl_desc, A.trv_per, A.prd_str_prc, A.dpr_str_date, A.dpr_fin_date,
+               A.evnt_yn, A.fin_yn, A.act_yn, A.dc_yn, A.pc_prc, A.vcnt, D.lk_yn, B.img_pth, B.mn_img_yn, C.prd_dtl_cd, C.arl_nm, C.dpr_yn, C.rsvt_yn,D.usr_id
+               ,A.frs_reg_date
+        FROM trv_prd A LEFT OUTER JOIN att_prd D ON A.prd_cd = D.prd_cd
+                       JOIN prd_img B ON A.prd_cd = B.prd_cd
+                       JOIN trv_prd_dtl C ON A.prd_cd = C.prd_cd
+        WHERE act_yn=1
+    </select>
+
+    <select id="selectProductDetailPage" parameterType="String" resultType="PrdDtlPageDto">
+        SELECT A.prd_cd,A.dstn_cd,A.prd_nm,A.trv_per,A.dpr_str_date,A.dpr_fin_date,B.arl_nm,B.pr_rsvt_cnt,
+               B.min_stt_cnt,B.max_stt_cnt,B.dpr_date,B.fin_date
+                ,B.prd_dtl_cd,C.adt_prc,C.chd_prc,C.bb_prc,D.img_pth,D.mn_img_yn
+        FROM trv_prd A
+                 JOIN trv_prd_dtl B ON A.prd_cd = B.prd_cd
+                 JOIN prd_prc C ON B.prd_dtl_cd = C.prd_dtl_cd
+                 JOIN prd_img D ON A.prd_cd = D.prd_cd
+        WHERE B.prd_dtl_cd = #{prd_dtl_cd}
     </select>
 
 </mapper>

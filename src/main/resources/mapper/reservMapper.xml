@@ -7,7 +7,7 @@
         insert into rsvt
         values (#{rsvt_no}, #{prd_dtl_cd}, #{usr_id},#{prd_cd}, #{mn_rsvt_nm}, #{phn}, #{email}, #{sum_prc}, #{pay_ftr_prc},
                 #{req_cont}, #{cmn_cd_rsvt_stt},#{cmn_cd_pay_stt}, now(), #{cnc_pay_no}, #{adt_cnt}, #{chd_cnt},
-                #{bb_cnt}, now(), current_user, now(), current_user)
+                #{bb_cnt}, now(), #{usr_id}, now(), #{usr_id})
     </insert>
 
     <select id="selectReserv" parameterType="String" resultType="ReservDto">
@@ -18,9 +18,13 @@
         SELECT * FROM rsvt WHERE usr_id = #{usr_id}
     </select>
 
+    <select id="countReserv" parameterType="String" resultType="int">
+        SELECT count(*) FROM rsvt WHERE usr_id = #{usr_id}
+    </select>
+
     <select id="selectReservListPage" parameterType="Map" resultType="ReservDto">
         SELECT r.rsvt_no, r.rsvt_date, r.cmn_cd_rsvt_stt, r.pay_ftr_prc, r.prd_dtl_cd,
-               r.cmn_cd_pay_stt, tp.prd_nm, tp.prd_dtl_desc
+               r.cmn_cd_pay_stt, r.sum_prc, tp.prd_nm, tp.prd_dtl_desc
         FROM rsvt r
             INNER JOIN trv_prd tp
                 ON r.prd_cd = tp.prd_cd
@@ -45,7 +49,7 @@
                                 ON d.prd_cd = t.prd_cd
                            JOIN prd_prc p
                                 ON d.prd_cd = p.prd_cd
-        WHERE d.prd_dtl_cd = #{prd_dtl_cd}
+        WHERE d.prd_dtl_cd = #{prd_dtl_cd} and p.prd_dtl_cd = #{prd_dtl_cd};
     </select>
 
     <select id="selectAirInfo" parameterType="java.util.List" resultType="com.devcamp.eztour.domain.reserv.AirlineReqDto">
@@ -59,4 +63,32 @@
         where r.rsvt_no = #{rsvt_no};
     </select>
 
+    <select id="selectUserMlg" parameterType="String" resultType="int">
+        select mlg from usr where usr_id = #{usr_id};
+    </select>
+
+    <update id="updateUserMlg" parameterType="Map">
+        UPDATE usr
+        <if test='option=="plus"'>
+            SET mlg = mlg + #{mlg}
+        </if>
+        <if test='option=="minus"'>
+            SET mlg = mlg - #{mlg}
+        </if>
+        WHERE usr_id = #{usr_id}
+    </update>
+
+    <update id="updateRsvtStt" parameterType="Map">
+        UPDATE rsvt
+        SET cmn_cd_rsvt_stt = #{cmn_cd_rsvt_stt}, cmn_cd_pay_stt = #{cmn_cd_pay_stt}
+        WHERE rsvt_no = #{rsvt_no}
+    </update>
+
+    <select id="selectPayFtrPrc" parameterType="String" resultType="long">
+        select pay_ftr_prc from rsvt where rsvt_no = #{rsvt_no};
+    </select>
+
+    <delete id="deleteReserv" parameterType="String">
+        delete from rsvt where rsvt_no = #{rsvt_no}
+    </delete>
 </mapper>

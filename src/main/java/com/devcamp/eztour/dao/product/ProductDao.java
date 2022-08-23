@@ -61,4 +61,6 @@ public interface ProductDao {
     public List<TrvPrdReadDto> searchRecognizeProduct(PageHandlerProduct pageHandlerProduct) throws Exception;
     public int searchRecognizeProductCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
     public TrvPrdDtlReadDto selectRecentlyProduct(String prd_dtl_cd) throws Exception;
+    public int insertUserLike(Map map) throws Exception;
+    public int deleteUserLike(Map map) throws Exception;
 }

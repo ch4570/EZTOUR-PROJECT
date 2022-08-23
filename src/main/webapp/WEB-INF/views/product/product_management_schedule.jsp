@@ -76,7 +76,7 @@
                         <a href="<c:url value='/product/management/schedule?page=${i}&search_keyword=${paging.search_keyword}&search_option=${paging.search_option}'/>"><span>${i}</span></a>
                     </c:forEach>
                     <c:if test="${paging.nextView eq 'true'}">
-                        <a href="<c:url value="/product/management/schedule=${paging.endPage+1}&search_keyword=${paging.search_keyword}&search_option=${paging.search_option}"/>"><span>&gt;</span></a>
+                        <a href="<c:url value="/product/management/schedule?page=${paging.endPage+1}&search_keyword=${paging.search_keyword}&search_option=${paging.search_option}"/>"><span>&gt;</span></a>
                     </c:if>
                 </div>
             </div>

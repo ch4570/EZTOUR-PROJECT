@@ -23,17 +23,22 @@ public class RvwLkAdmServiceImpl implements RvwLkAdmService {
     }
 
     @Override
-    public int insert(RvwLkAdmDto rvwLkAdmDto) {
-        return rvwLkAdmDao.insert(rvwLkAdmDto);
+    public int insert(String usr_id, Integer rvw_no) {
+        return rvwLkAdmDao.insert(usr_id, rvw_no);
     }
 
     @Override
-    public int updateLikeUp(RvwLkAdmDto rvwLkAdmDto) {
-        return rvwLkAdmDao.updateLikeUp(rvwLkAdmDto);
+    public int updateLikeUp(String usr_id, Integer rvw_no) {
+        return rvwLkAdmDao.updateLikeUp(usr_id, rvw_no);
     }
 
     @Override
-    public int updateLikeDown(RvwLkAdmDto rvwLkAdmDto) {
-        return rvwLkAdmDao.updateLikeDown(rvwLkAdmDto);
+    public int updateLikeDown(String usr_id, Integer rvw_no) {
+        return rvwLkAdmDao.updateLikeDown(usr_id, rvw_no);
+    }
+
+    @Override
+    public RvwLkAdmDto select(String usr_id, Integer rvw_no) {
+        return rvwLkAdmDao.select(usr_id, rvw_no);
     }
 }
