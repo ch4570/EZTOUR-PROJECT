@@ -283,4 +283,14 @@ public class ProductServiceImpl implements ProductService{
     public TrvPrdDtlReadDto getRecentlyProduct(String prd_dtl_cd) throws Exception {
         return productDao.selectRecentlyProduct(prd_dtl_cd);
     }
+
+    @Override
+    public int addUserLike(Map map) throws Exception {
+        return productDao.insertUserLike(map);
+    }
+
+    @Override
+    public int removeUserLike(Map map) throws Exception {
+        return productDao.deleteUserLike(map);
+    }
 }

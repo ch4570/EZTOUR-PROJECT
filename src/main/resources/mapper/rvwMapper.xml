@@ -162,4 +162,22 @@
         AND rvw_no = #{rvw_no}
     </select>
 
+    <update id="increaseLikeCnt" parameterType="int">
+        UPDATE rvw
+        SET lk_cnt = lk_cnt + 1
+        WHERE rvw_no = #{rvw_no}
+    </update>
+    
+    <update id="decreaseLikeCnt" parameterType="int">
+        UPDATE rvw
+        SET lk_cnt = lk_cnt - 1
+        WHERE rvw_no = #{rvw_no}
+    </update>
+
+    <select id="cntnCdSearch" parameterType="SearchCondition" resultType="RvwDto">
+        SELECT A.*
+        FROM rvw A INNER JOIN trv_prd B ON A.prd_cd = B.prd_cd
+        WHERE B.cntn_cd = #{cntn_cd};
+    </select>
+
 </mapper>

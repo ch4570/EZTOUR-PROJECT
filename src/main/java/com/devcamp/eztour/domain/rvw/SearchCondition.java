@@ -10,6 +10,7 @@ public class SearchCondition {
 //    private Integer offset = 10;
     private String option = "";
     private String keyword = "";
+    private String cntn_cd = "";
 
     public SearchCondition() {}
 
@@ -30,6 +31,17 @@ public class SearchCondition {
                 .queryParam("pageSize", pageSize)
                 .queryParam("option", option)
                 .queryParam("keyword", keyword)
+                .queryParam("cntn_cd", cntn_cd)
+                .build().toString();
+    }
+
+    public String getQueryString(String cntn_cd) {
+        return UriComponentsBuilder.newInstance()
+                .queryParam("page", page)
+                .queryParam("pageSize", pageSize)
+                .queryParam("option", option)
+                .queryParam("keyword", keyword)
+                .queryParam("cntn_cd", cntn_cd)
                 .build().toString();
     }
 
@@ -70,5 +82,13 @@ public class SearchCondition {
 
     public void setOption(String option) {
         this.option = option;
+    }
+
+    public String getCntn_cd() {
+        return cntn_cd;
+    }
+
+    public void setCntn_cd(String cntn_cd) {
+        this.cntn_cd = cntn_cd;
     }
 }

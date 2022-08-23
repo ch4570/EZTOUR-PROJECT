@@ -102,7 +102,7 @@ public class RvwCmtController {
         List<RvwCmtDto> list = null;
         try {
             list = rvwCmtService.getList(rvw_no);
-            return new ResponseEntity<List<RvwCmtDto>>(list, HttpStatus.OK); // 200 error
+            return new ResponseEntity<List<RvwCmtDto>>(list, HttpStatus.OK); // 200 success
 
         } catch (Exception e) {
             e.printStackTrace();

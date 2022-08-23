@@ -22,7 +22,6 @@
             <th class="viewcnt">조회수</th>
         </tr>
 <%--        items ="${list}"를 어디서 가져와?--%>
-
             <tr>
                 <td>${customer.qna_no}</td>
                 <td>${customer.qna_ttl}</td>
@@ -35,13 +34,13 @@
 <%--    네비게이션 바--%>
     <div>
         <c:if test="${ph.showPrev}">
-            <a href="<c:url value='/customer/inquiryList?page=${cph.beginPage-1}&pageSize=${ph.pageSize}'/>">$lt;</a>
+            <a href="<c:url value='/customer/inquiryList?page=${cph.beginPage-1}&pageSize=${cph.pageSize}'/>">$lt;</a>
         </c:if>
         <c:forEach var="i" begin="${cph.beginPage}" end="${ph.endPage}">
-            <a href="<c:url value='/customer/inquiryList?page={i}&pageSize=${ph.Size}'/>">${i}</a>
+            <a href="<c:url value='/customer/inquiryList?page={i}&pageSize=${cph.Size}'/>">${i}</a>
         </c:forEach>
         <c:if test="${ph.showNext}">
-            <a href="<c:url value='/customer/inquiryList?page=${ph.endPage+1}&pageSize=${ph.pageSize}'/>">&gt;</a>
+            <a href="<c:url value='/customer/inquiryList?page=${ph.endPage+1}&pageSize=${cph.pageSize}'/>">&gt;</a>
         </c:if>
     </div>
 <%--    네비게이션 바 끝--%>

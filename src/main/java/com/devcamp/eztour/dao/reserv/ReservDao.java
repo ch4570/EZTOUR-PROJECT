@@ -28,4 +28,14 @@ public interface ReservDao {
     ReservInfoDto selectPrdInfo(String prd_dtl_cd) throws Exception;
 
     List<AirlineReqDto> selectArlReqInfo(String prd_dtl_cd) throws Exception;
+
+    int selectUserMlg(String usr_id) throws Exception;
+
+    int updateUserMlg(Map map) throws Exception;
+
+    int updateRsvtStt(Map map) throws Exception;
+
+    long selectPayFtrPrc(String rsvt_no) throws Exception;
+
+    int deleteReserv(String rsvt_no) throws Exception;
 }

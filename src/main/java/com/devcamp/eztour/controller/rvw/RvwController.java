@@ -3,8 +3,10 @@ package com.devcamp.eztour.controller.rvw;
 
 import com.devcamp.eztour.domain.rvw.PageHandler;
 import com.devcamp.eztour.domain.rvw.RvwDto;
+import com.devcamp.eztour.domain.rvw.RvwLkAdmDto;
 import com.devcamp.eztour.domain.rvw.SearchCondition;
 import com.devcamp.eztour.domain.user.UserDto;
+import com.devcamp.eztour.service.rvw.RvwLkAdmService;
 import com.devcamp.eztour.service.rvw.RvwService;
 import com.devcamp.eztour.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -27,6 +28,9 @@ public class RvwController {
     UserService userService;
     @Autowired
     RvwService rvwService;
+    @Autowired
+    RvwLkAdmService rvwLkAdmService;
+
 
     @PostMapping("/remove")
     public String remove(Integer rvw_no, SearchCondition sc, RedirectAttributes rattr, HttpSession session) {
@@ -68,11 +72,11 @@ public class RvwController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "rvwList";
+        return "review/rvwList";
     }
 
     @GetMapping("/read")
-    public String read(Integer rvw_no, SearchCondition sc, RedirectAttributes rattr, Model m, HttpSession session) {
+    public String read(Integer rvw_no, SearchCondition sc, RedirectAttributes rattr, Model m, HttpSession session) throws Exception {
         String usr_id = null;
         try {
             UserDto userDto = (UserDto) session.getAttribute("userDto");
@@ -82,23 +86,37 @@ public class RvwController {
             usr_id = "";
         }
 
-        try {
 
-            // 내가 작성한 글만 "삭제", "수정" 버튼 보이기 위한 조건
-            int rowCnt = rvwService.checkRvwUser(usr_id, rvw_no);
-            System.out.println("rowCnt = " + rowCnt);
-            if(rowCnt == 1)
-                m.addAttribute("check", "me");
+        // 1. rvw_lk_adm 테이블 데이터가 있는지 아니면 rvw_lk_adm 테이블 데이터가 없는지 조건문
+        RvwLkAdmDto rvwLkAdmDto = rvwLkAdmService.select(usr_id, rvw_no);
+        if(rvwLkAdmDto == null && usr_id != "")
+            rvwLkAdmService.insert(usr_id, rvw_no);
+            rvwLkAdmDto = rvwLkAdmService.select(usr_id,rvw_no);
 
-            RvwDto rvwDto = rvwService.read(rvw_no);
-            m.addAttribute("rvwDto", rvwDto);
-        } catch (Exception e) {
-            e.printStackTrace();
-            rattr.addFlashAttribute("msg","READ_ERR");
-            return "redirect:/rvwList"+sc.getQueryString();
-        }
+        System.out.println("rvwLkAdmDto = " + rvwLkAdmDto);
 
-        return "rvwDetail";
+        if(rvwLkAdmDto == null)
+            rvwLkAdmDto.setRvw_lk_yn(0);
+
+        m.addAttribute("rvwLkAdmDto", rvwLkAdmDto);
+
+        // 내가 작성한 글만 "삭제", "수정" 버튼 보이기 위한 조건
+        int rowCnt = rvwService.checkRvwUser(usr_id, rvw_no);
+        System.out.println("rowCnt = " + rowCnt);
+        if(rowCnt == 1)
+            m.addAttribute("check", "me");
+
+        RvwDto rvwDto = rvwService.read(rvw_no);
+        m.addAttribute("rvwDto", rvwDto);
+
+// 나중에 아래 내용도 같이 예외 같이 처리하기
+//        catch (Exception e) {
+//            e.printStackTrace();
+//            rattr.addFlashAttribute("msg","READ_ERR");
+//            return "redirect:/rvwList"+sc.getQueryString();
+//        }
+
+        return "review/rvwDetail";
     }
 
 
@@ -124,7 +142,7 @@ public class RvwController {
         System.out.println("list = " + list);
         System.out.println("rvwDto = " + rvwDto);
         m.addAttribute("list", list);
-        return "rvwRegister";
+        return "review/rvwRegister";
     }
 
 
@@ -144,7 +162,7 @@ public class RvwController {
 
                 int rowCnt = rvwService.write(rvwDto);
 
-                if (rowCnt == 1)
+                if (rowCnt != 1)
                     throw new Exception("Write failed");
 
                 rattr.addFlashAttribute("msg", "WRT_OK");
@@ -158,7 +176,7 @@ public class RvwController {
                 List<RvwDto> list = rvwService.selectPrdnm(usr_id);
                 m.addAttribute("list", list);
                 rattr.addFlashAttribute("msg", "WRT_ERR");
-                return "rvwRegister";
+                return "review/rvwRegister";
             }
         }
 
@@ -176,7 +194,7 @@ public class RvwController {
             m.addAttribute("list", list);
             m.addAttribute("rvwDto", rvwDto);
 
-            return "rvwRegister";
+            return "review/rvwRegister";
         }
 
         @PostMapping("/modify")
@@ -209,7 +227,7 @@ public class RvwController {
                 List<RvwDto> list = rvwService.selectPrdnm(usr_id);
                 m.addAttribute("list", list);
                 rattr.addFlashAttribute("msg", "WRT_ERR");
-                return "rvwRegister";
+                return "review/rvwRegister";
             }
         }
     }

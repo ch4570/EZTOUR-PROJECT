@@ -90,4 +90,19 @@ public class RvwServiceImpl implements RvwService {
         return rvwDao.checkRvwUser(usr_id, rvw_no);
     }
 
+    @Override
+    public int increaseLikeCnt(Integer rvw_no) throws Exception {
+        return rvwDao.increaseLikeCnt(rvw_no);
+    }
+
+    @Override
+    public int decreaseLikeCnt(Integer rvw_no) throws Exception {
+        return rvwDao.decreaseLikeCnt(rvw_no);
+    }
+
+    @Override
+    public List<RvwDto> cntnCdSearch(SearchCondition sc) throws Exception {
+        return rvwDao.cntnCdSearch(sc);
+    }
+
 }

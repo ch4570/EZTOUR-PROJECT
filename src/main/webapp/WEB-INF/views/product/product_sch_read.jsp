@@ -45,6 +45,7 @@
                 <h1>상품 일정 조회</h1>
                 <div class="prd_sch_input_form">
                         상품코드&nbsp;<br><input type="text" value="${list.prd_cd}" class="input_prd" readonly="readonly"/><br>
+                        상품상세코드&nbsp;<br><input type="text" value="${list.prd_dtl_cd}" class="input_prd" readonly="readonly"/><br>
                         여행일차&nbsp;<br><input type="text"  value="${list.trv_date}"  class="input_prd"readonly="readonly"/><br>
                         일정순번&nbsp;<br><input type="text"  value="${list.sch_ord}" class="input_prd" readonly="readonly"><br>
                         관광지이름&nbsp;<br><input type="text" value="${empty list.st_nm ? '정보 없음' : list.st_nm}" class="input_prd" readonly="readonly"/><br>

@@ -212,7 +212,6 @@ public class UserController {
     }
 
 
-
     @RequestMapping(value="/userNaverLoginPro",  method = {RequestMethod.GET,RequestMethod.POST})
     public String userNaverLoginPro(Model model, @RequestParam Map<String,Object> paramMap, @RequestParam String code, @RequestParam String state, HttpSession session, String toURL) throws SQLException, Exception {
         System.out.println("paramMap:" + paramMap);
@@ -292,7 +291,6 @@ public class UserController {
     @GetMapping("/setSubInfo")
     public String setSubInfo(Model m){
 
-
         return "user/setSubInfo.tiles";
     }
 
@@ -311,5 +309,4 @@ public class UserController {
         }
         return result.toString();
     }
-
 }

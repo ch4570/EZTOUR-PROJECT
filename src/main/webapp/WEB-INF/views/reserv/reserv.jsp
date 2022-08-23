@@ -90,9 +90,9 @@
                         <colgroup><col></colgroup>
                         <tr>
                             <th>대표 예약자명</th>
-                            <input type="radio" name="isUsrIncluded" value="y"><p>본인포함</p>
+                            <input type="radio" name="isUsrIncluded" value="y" checked><p>본인포함</p>
                             <input type="radio" name="isUsrIncluded" value="n"><p>본인 비포함 (여행 동반자 정보는 담당자 통화 시 확인)</p>
-                            <td><input type="text" name="mn_rsvt_nm" value=""></td>
+                            <td><input type="text" name="mn_rsvt_nm" value="${userDto.usr_nm}"></td>
                         </tr>
                         <tr>
                             <th>휴대폰 번호</th>
@@ -100,7 +100,7 @@
                         </tr>
                         <tr>
                             <th>이메일</th>
-                            <td><input type="text" name="emailFirst">@<input type="text" name="emailLast"></td>
+                            <td><input type="text" name="emailFirst" value="${emailFirst}">@<input type="text" name="emailLast" value="${emailLast}"></td>
                         </tr>
                     </table>
             </div>
