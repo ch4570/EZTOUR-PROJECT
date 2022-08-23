@@ -11,6 +11,7 @@ public class SearchCondition {
     private String option = "";
     private String keyword = "";
     private String cntn_cd = "";
+    private String sort = "";
 
     public SearchCondition() {}
 
@@ -23,6 +24,19 @@ public class SearchCondition {
 
 
 
+    public String getQueryString(String option, String sort) {
+        // ?page=1&pageSize=10&option=T&keyword="title"
+        // ?page=1&pageSize=5&option=&keyword=
+        return UriComponentsBuilder.newInstance()
+                .queryParam("page", page)
+                .queryParam("pageSize", pageSize)
+                .queryParam("option", option)
+                .queryParam("keyword", keyword)
+                .queryParam("cntn_cd", cntn_cd)
+                .queryParam("sort", sort)
+                .build().toString();
+    }
+
     public String getQueryString(Integer page) {
         // ?page=1&pageSize=10&option=T&keyword="title"
         // ?page=1&pageSize=5&option=&keyword=
@@ -32,18 +46,24 @@ public class SearchCondition {
                 .queryParam("option", option)
                 .queryParam("keyword", keyword)
                 .queryParam("cntn_cd", cntn_cd)
+                .queryParam("sort", sort)
                 .build().toString();
     }
 
     public String getQueryString(String cntn_cd) {
+        // ?page=1&pageSize=10&option=T&keyword="title"
+        // ?page=1&pageSize=5&option=&keyword=
         return UriComponentsBuilder.newInstance()
                 .queryParam("page", page)
                 .queryParam("pageSize", pageSize)
                 .queryParam("option", option)
                 .queryParam("keyword", keyword)
                 .queryParam("cntn_cd", cntn_cd)
+                .queryParam("sort", sort)
                 .build().toString();
     }
+
+
 
     public String getQueryString() {
         return getQueryString(page);
@@ -90,5 +110,13 @@ public class SearchCondition {
 
     public void setCntn_cd(String cntn_cd) {
         this.cntn_cd = cntn_cd;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
     }
 }

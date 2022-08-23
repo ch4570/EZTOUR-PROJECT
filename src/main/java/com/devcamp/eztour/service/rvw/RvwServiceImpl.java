@@ -105,4 +105,9 @@ public class RvwServiceImpl implements RvwService {
         return rvwDao.cntnCdSearch(sc);
     }
 
+    @Override
+    public int cntnCdSearchResultCnt(SearchCondition sc) throws Exception {
+        return rvwDao.cntnCdSearchResultCnt(sc);
+    }
+
 }

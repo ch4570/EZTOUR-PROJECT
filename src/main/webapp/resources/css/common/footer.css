@@ -109,21 +109,21 @@
     left: 800px;
     bottom: 20px;
 }
-dt{
+.foot-title{
     font-family: 'TourEasyT',sans-serif;
     font-size: 25px;
     padding-bottom: 10px;
     white-space: nowrap;
 }
 
-dd{
+.foot-desc{
     font-size: 12px;
     line-height: 20px;
     font-family: 'TourEasyT',sans-serif;
     color: #666;
 }
 
-a{
+.foot-menu-dtl{
     text-decoration: none;
     margin-left: 30px;
 }

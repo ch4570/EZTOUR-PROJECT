@@ -1,5 +1,6 @@
 package com.devcamp.eztour.controller.product;
 
+import com.devcamp.eztour.domain.product.PrdDtlPageDto;
 import com.devcamp.eztour.domain.product.TrvPrdDtlDto;
 import com.devcamp.eztour.domain.product.TrvPrdDtlReadDto;
 import com.devcamp.eztour.domain.user.UserDto;
@@ -37,6 +38,8 @@ public class ProductController {
 
         Map<String,String> map = new HashMap<>();
 
+        int option = 0;
+
         if((cntn_cd == null || nt_cd == null) && (keyword == null || standard == null)){
             try {
                 List<TrvPrdDtlReadDto> list = productDetailService.getUserLike();
@@ -47,12 +50,25 @@ public class ProductController {
             return "product/product_list.tiles";
 
         }else if(keyword != null && standard != null){
-                map.put("keyword",keyword);
-                map.put("standard",standard);
-                map.put("usr_id",usr_id);
-                List<TrvPrdDtlReadDto> list = productDetailService.getAllProductOrder(map);
-                m.addAttribute("list",list);
-                return "product/product_list.tiles";
+            map.put("keyword",keyword);
+            map.put("standard",standard);
+            map.put("cntn_cd",cntn_cd);
+            map.put("nt_cd",nt_cd);
+            map.put("nt_cd_nm",nt_cd_nm);
+            map.put("usr_id",usr_id);
+
+            if(keyword.equals("vcnt")){
+                option = 1;
+            }else if(keyword.equals("prd_str_prc") && standard.equals("ASC")){
+                option = 2;
+            }else if(keyword.equals("prd_str_prc") && standard.equals("DESC")){
+                option = 3;
+            }
+            System.out.println(option);
+            List<TrvPrdDtlReadDto> list = productDetailService.getAllProductOrder(map);
+            m.addAttribute("list",list);
+            m.addAttribute("option",option);
+            return "product/product_list.tiles";
         }else{
             map.put("cntn_cd",cntn_cd);
             map.put("nt_cd",nt_cd);
@@ -107,6 +123,7 @@ public class ProductController {
         List<TrvPrdDtlDto> productList = null;
         try {
             productList = productDetailService.getAllDetailProduct(prd_cd);
+            System.out.println(productList.get(0).getDpr_date());
             return new ResponseEntity<>(productList, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,9 +168,11 @@ public class ProductController {
     }
 
     @GetMapping("/detail")
-    public String getProductDetail(Model m, String prd_dtl_cd) {
-
-
+    public String getProductDetail(Model m, String prd_dtl_cd) throws Exception{
+        System.out.println(prd_dtl_cd);
+        PrdDtlPageDto prdDtlPageDto = productDetailService.getProductDetailPage(prd_dtl_cd);
+        m.addAttribute("prdDto",prdDtlPageDto);
+        System.out.println(prdDtlPageDto);
         return "product/product_detail.tiles";
     }
 
