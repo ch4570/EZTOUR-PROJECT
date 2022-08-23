@@ -28,7 +28,7 @@
 
 .aside__menu--list,
 .aside__menu--list li,
-.aside__menu--list li a{
+.aside__menu--list li a {
     display: flex;
     flex-direction: column;
     align-items: center;
