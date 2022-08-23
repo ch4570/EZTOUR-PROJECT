@@ -22,50 +22,50 @@ pageEncoding="UTF-8"%>
           <li class="nav__dropdown">
             <div class="nav__list--dropdown-menu"><a href="#">동남아</a></div>
             <div class="nav__list--dropdown-content">
-              <a href="<c:url value='/product/list?cntn_cd=A&nt_cd=1&nt_cd_nm=필리핀'/>">필리핀</a>
-              <a href="<c:url value='/product/list?cntn_cd=A&nt_cd=2&nt_cd_nm=태국'/>">태국</a>
-              <a href="<c:url value='/product/list?cntn_cd=A&nt_cd=3&nt_cd_nm=베트남'/>">베트남</a>
+              <a href="<c:url value='/product/list?cntn_cd=A&nt_cd=1&nt_cd_nm=필리핀&usr_id=${sessionScope.userDto.usr_id}'/>">필리핀</a>
+              <a href="<c:url value='/product/list?cntn_cd=A&nt_cd=2&nt_cd_nm=태국&usr_id=${sessionScope.userDto.usr_id}'/>">태국</a>
+              <a href="<c:url value='/product/list?cntn_cd=A&nt_cd=3&nt_cd_nm=베트남&usr_id=${sessionScope.userDto.usr_id}'/>">베트남</a>
               <a href="<c:url value='/product/list?cntn_cd=A&nt_cd=5&nt_cd_nm=라오스'/>">라오스</a>
             </div>
           </li>
           <li class="nav__dropdown">
             <div class="nav__list--dropdown-menu"><a href="#">동아시아</a></div>
             <div class="nav__list--dropdown-content">
-              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=1&nt_cd_nm=싱가포르'/>">싱가포르</a>
-              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=2&nt_cd_nm=일본'/>">일본</a>
-              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=3&nt_cd_nm=중국'/>">중국</a>
-              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=4&nt_cd_nm=몽골'/>">몽골</a>
-              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=5&nt_cd_nm=홍콩'/>">홍콩</a>
-              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=6&nt_cd_nm=한국'/>">한국</a>
-              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=7&nt_cd_nm=대만'/>">대만</a>
+              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=1&nt_cd_nm=싱가포르&usr_id=${sessionScope.userDto.usr_id}'/>">싱가포르</a>
+              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=2&nt_cd_nm=일본&usr_id=${sessionScope.userDto.usr_id}'/>">일본</a>
+              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=3&nt_cd_nm=중국&usr_id=${sessionScope.userDto.usr_id}'/>">중국</a>
+              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=4&nt_cd_nm=몽골&usr_id=${sessionScope.userDto.usr_id}'/>">몽골</a>
+              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=5&nt_cd_nm=홍콩&usr_id=${sessionScope.userDto.usr_id}'/>">홍콩</a>
+              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=6&nt_cd_nm=한국&usr_id=${sessionScope.userDto.usr_id}'/>">한국</a>
+              <a href="<c:url value='/product/list?cntn_cd=B&nt_cd=7&nt_cd_nm=대만&usr_id=${sessionScope.userDto.usr_id}'/>">대만</a>
             </div>
           </li>
           <li class="nav__dropdown">
             <div class="nav__list--dropdown-menu"><a href="#">서유럽</a></div>
             <div class="nav__list--dropdown-content">
-              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=1&nt_cd_nm=프랑스'/>">프랑스</a>
-              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=2&nt_cd_nm=영국'/>">영국</a>
-              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=3&nt_cd_nm=아일랜드'/>">아일랜드</a>
-              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=4&nt_cd_nm=스위스'/>">스위스</a>
-              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=5&nt_cd_nm=이탈리아'/>">이탈리아</a>
-              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=6&nt_cd_nm=스페인'/>">스페인</a>
-              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=7&nt_cd_nm=독일'/>">독일</a>
+              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=1&nt_cd_nm=프랑스&usr_id=${sessionScope.userDto.usr_id}'/>">프랑스</a>
+              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=2&nt_cd_nm=영국&usr_id=${sessionScope.userDto.usr_id}'/>">영국</a>
+              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=3&nt_cd_nm=아일랜드&usr_id=${sessionScope.userDto.usr_id}'/>">아일랜드</a>
+              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=4&nt_cd_nm=스위스&usr_id=${sessionScope.userDto.usr_id}'/>">스위스</a>
+              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=5&nt_cd_nm=이탈리아&usr_id=${sessionScope.userDto.usr_id}'/>">이탈리아</a>
+              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=6&nt_cd_nm=스페인&usr_id=${sessionScope.userDto.usr_id}'/>">스페인</a>
+              <a href="<c:url value='/product/list?cntn_cd=D&nt_cd=7&nt_cd_nm=독일&usr_id=${sessionScope.userDto.usr_id}'/>">독일</a>
             </div>
           </li>
           <li class="nav__dropdown">
             <div class="nav__list--dropdown-menu"><a href="#">동유럽</a></div>
             <div class="nav__list--dropdown-content">
-              <a href="<c:url value='/product/list?cntn_cd=C&nt_cd=1&nt_cd_nm=체코'/>">체코</a>
-              <a href="<c:url value='/product/list?cntn_cd=C&nt_cd=2&nt_cd_nm=그리스'/>">그리스</a>
-              <a href="<c:url value='/product/list?cntn_cd=C&nt_cd=3&nt_cd_nm=러시아'/>">러시아</a>
-              <a href="<c:url value='/product/list?cntn_cd=C&nt_cd=4&nt_cd_nm=우크라이나'/>">우크라이나</a>
+              <a href="<c:url value='/product/list?cntn_cd=C&nt_cd=1&nt_cd_nm=체코&usr_id=${sessionScope.userDto.usr_id}'/>">체코</a>
+              <a href="<c:url value='/product/list?cntn_cd=C&nt_cd=2&nt_cd_nm=그리스&usr_id=${sessionScope.userDto.usr_id}'/>">그리스</a>
+              <a href="<c:url value='/product/list?cntn_cd=C&nt_cd=3&nt_cd_nm=러시아&usr_id=${sessionScope.userDto.usr_id}'/>">러시아</a>
+              <a href="<c:url value='/product/list?cntn_cd=C&nt_cd=4&nt_cd_nm=우크라이나&usr_id=${sessionScope.userDto.usr_id}'/>">우크라이나</a>
             </div>
           </li>
           <li class="nav__dropdown">
             <div class="nav__list--dropdown-menu"><a href="#">오세아니아</a></div>
             <div class="nav__list--dropdown-content">
-              <a href="<c:url value='/product/list?cntn_cd=E&nt_cd=1&nt_cd_nm=호주'/>">호주</a>
-              <a href="<c:url value='/product/list?cntn_cd=E&nt_cd=2&nt_cd_nm=뉴질랜드'/>">뉴질랜드</a>
+              <a href="<c:url value='/product/list?cntn_cd=E&nt_cd=1&nt_cd_nm=호주&usr_id=${sessionScope.userDto.usr_id}'/>">호주</a>
+              <a href="<c:url value='/product/list?cntn_cd=E&nt_cd=2&nt_cd_nm=뉴질랜드&usr_id=${sessionScope.userDto.usr_id}'/>">뉴질랜드</a>
             </div>
           </li>
           <li class="nav__dropdown">

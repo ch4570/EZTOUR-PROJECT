@@ -34,4 +34,9 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         return productDetailDao.selectAllProductOrder(map);
     }
 
+    @Override
+    public List<TrvPrdDtlReadDto> getUserLike() throws Exception {
+        return productDetailDao.selectUserLike();
+    }
+
 }

@@ -59,5 +59,7 @@ public interface ProductService {
     public List<TrvPrdReadDto> getSearchRecognizeProduct(PageHandlerProduct pageHandlerProduct) throws Exception;
     public int getSearchRecognizeProductCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
     public TrvPrdDtlReadDto getRecentlyProduct(String prd_cd) throws Exception;
+    public int addUserLike(Map map) throws Exception;
+    public int removeUserLike(Map map) throws Exception;
 
 }
