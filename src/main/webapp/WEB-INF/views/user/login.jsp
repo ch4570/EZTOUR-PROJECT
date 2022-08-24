@@ -10,7 +10,7 @@
 <br/>
 <script>
     let msg = "${msg}";
-    if(msg=="ACC_ERR")  alert("회원만 후기 등록이 가능합니다.");
+    if(msg=="ACC_ERR")  alert("잘못된 접근입니다.");
 </script>
 
 <div class="outer-content">
@@ -20,6 +20,11 @@
                     <h2 class="login-title" id="loginTitle">로그인</h2>
                     <h2 class="login-title" id="rsvTitle" style="display: none">예약확인</h2>
                 <nav class="login-nav">
+                    <div id="msg">
+                        <c:if test="${not empty param.msg}">
+                            <i class="fa fa-exclamation-circle"> ${URLDecoder.decode(param.msg)}</i>
+                        </c:if>
+                    </div>
                     <div style="display: flex;">
                         <button  type="button" id="usrBt" onclick="usrLogin()" >회원</button>
                         <button  type="button" id="nonUsrBt" onclick="nonUsrAuth()" >비회원 예약확인</button>
@@ -55,7 +60,6 @@
                 </div>
                 <button id="rsvBtn">예약확인</button>
             </div>
-            <input type="hidden" name="toURL" value="${param.toURL}">
             <div>
                 <div style="display: flex; justify-content: center;">
                     <a style="height: 100px; padding: 0px 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between" href="${naverUrl}"><img src="../img/user/btnG_아이콘원형.png" alt="" style="width: 70px;"><em>네이버 로그인</em></a>
@@ -125,7 +129,11 @@
                 console.log(data)
                 if (data.JavaData == "login") {
                     alert("카카오 계정으로 로그인되었습니다.");
-                    location.href = '/'
+                    if(data.toURL != null) {
+                        location.href = data.toURL;
+                    }else{
+                        location.href = '/';
+                    }
                 } else if (data.JavaData == "register") {
                     $("#kakaoEmail").val(response.kakao_account.email);
                     $("#kakaoId").val(response.id);
@@ -144,7 +152,7 @@
 
     function formCheck(frm) {
         let msg ='';
-        if(frm.id.value.length==0) {
+        if(frm.usr_id.value.length==0) {
             setMessage('id를 입력해주세요.', frm.id);
             return false;
         }

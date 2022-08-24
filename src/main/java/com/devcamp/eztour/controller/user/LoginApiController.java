@@ -45,9 +45,14 @@ public class LoginApiController {
             resultMap.put("JavaData", "connect");
         } else { // 가입과 연동 모두 되어있을시
             UserDto userDto = userService.userKakaoLoginPro((String)paramMap.get("kakao_id"));
+            userService.updateHstForLogin(userDto.getUsr_id()); // 예외처리 예정 (에러 발생시 세션 안넘기고 에러메세지 + 메인 이동)
             System.out.println("userDto = " + userDto);
             session.setAttribute("userDto", userDto);
             resultMap.put("JavaData", "login");
+
+            String toURL = (String)session.getAttribute("toURL");
+            resultMap.put("toURL", toURL);
+
         }
         return resultMap;
     }
