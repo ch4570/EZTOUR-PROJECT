@@ -141,8 +141,8 @@
                         '<span>'+ this.prd_cd +'</span>'+
                         '<span>'+ this.prd_dtl_cd +'</span>'+
                         '<span>'+ this.prd_nm +'</span>'+
-                        '<span>'+ this.dpr_date +'</span>'+
-                        '<span>'+ this.fin_date +'</span>'+
+                        '<span>'+ this.dom_dpr_date +'</span>'+
+                        '<span>'+ this.dom_fin_date +'</span>'+
                         '<span>'+ this.arl_nm +'</span>'+
                         '<span>'+ this.rsvt_yn +'</span>'+
                         '<span>'+ this.prd_str_prc +'</span></div>'+
@@ -226,12 +226,15 @@
         data : {"prd_dtl_cd":prd_dtl_cd},
         success : function (data){
           console.log("성공");
+          location.href = "/product/detail?prd_dtl_cd="+prd_dtl_cd;
         },
         error : function (){
           console.log("실패");
+          location.href = "/product/detail?prd_dtl_cd="+prd_dtl_cd;
         }
       });
     });
+
   });
 
 </script>

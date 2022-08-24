@@ -17,7 +17,7 @@
 }
 
 .detail-item__info {
-    width: 68%;
+    width: 69%;
     float: left;
 }
 
@@ -28,25 +28,43 @@
 
 .detail-item__img {
     margin-bottom: 30px;
+    width: 100%;
+    height: 512px;
+
 }
 
 .detail-item__img img {
-    width: 828px;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .detail-item__view {
+    font-size: 20px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
+}
+
+.detail-item__view--book span:nth-child(2) em,
+.detail-item__view--book span:last-child em:first-child {
+    color: red;
+}
+
+.detail-item__view--book span:last-child em:last-child {
+    color: blue;
+}
+
+.detail-item__view--rvw a {
+    font-weight: 700;
 }
 
 .detail-item__price-info,
 .detail-item__air-info {
     border: 1px solid rgba(0,0,0,.1);
     display: flex;
-    justify-content: space-around;
+    margin-bottom: 10px;
 }
 
 .price-info__tit,
@@ -55,9 +73,16 @@
 .price-info__age3,
 .air-info__air,
 .detail-item__info-box {
-    padding: 20px;
     display: flex;
     flex-direction: column;
+}
+
+.price-info__tit span,
+.price-info__age1 span,
+.price-info__age2 span,
+.price-info__age3 span {
+    text-align: right;
+    padding: 20px 46px 20px;
 }
 
 .detail-item__air-info {

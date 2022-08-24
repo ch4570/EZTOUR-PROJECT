@@ -123,7 +123,6 @@ public class ProductController {
         List<TrvPrdDtlDto> productList = null;
         try {
             productList = productDetailService.getAllDetailProduct(prd_cd);
-            System.out.println(productList.get(0).getDpr_date());
             return new ResponseEntity<>(productList, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

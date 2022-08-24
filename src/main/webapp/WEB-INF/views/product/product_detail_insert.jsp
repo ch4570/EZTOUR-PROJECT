@@ -75,13 +75,21 @@
                         <form:input path="max_stt_cnt" placeholder="최대출발인원" cssClass="input_prd"/><br>
                         <form:errors path="max_stt_cnt" cssClass="error_msg"/><br><br>
 
-                        <form:label path="dpr_date">출발일</form:label><br>
-                        <input type="datetime-local" name="dpr_date" placeholder="출발일" class="input_prd"/><br>
-                        <form:errors path="dpr_date" cssClass="error_msg"/><br><br>
+                        <form:label path="dom_dpr_date">국내 출발일</form:label><br>
+                        <input type="datetime-local" name="dom_dpr_date" placeholder="국내 출발일" class="input_prd"/><br>
+                        <form:errors path="dom_dpr_date" cssClass="error_msg"/><br><br>
 
-                        <form:label path="fin_date">도착일</form:label><br>
-                        <input type="datetime-local" name="fin_date" placeholder="도착일" class="input_prd"/><br>
-                        <form:errors path="fin_date" cssClass="error_msg"/><br><br>
+                        <form:label path="loc_fin_date">현지 도착일</form:label><br>
+                        <input type="datetime-local" name="loc_fin_date" placeholder="현지 도착일" class="input_prd"/><br>
+                        <form:errors path="loc_fin_date" cssClass="error_msg"/><br><br>
+
+                        <form:label path="loc_dpr_date">현지 출발일</form:label><br>
+                        <input type="datetime-local" name="loc_dpr_date" placeholder="현지 출발일" class="input_prd"/><br>
+                        <form:errors path="loc_dpr_date" cssClass="error_msg"/><br><br>
+
+                        <form:label path="dom_fin_date">국내 도착일</form:label><br>
+                        <input type="datetime-local" name="dom_fin_date" placeholder="국내 도착일" class="input_prd"/><br>
+                        <form:errors path="dom_fin_date" cssClass="error_msg"/><br><br>
 
                         <input type="submit" value="전송" id="submit_btn" class="input_prd"/>
                     </form:form>

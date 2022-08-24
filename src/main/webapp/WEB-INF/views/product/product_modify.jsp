@@ -94,6 +94,10 @@
                                 <form:input path="prd_str_prc"  placeholder="상품시작가격" value="${trvPrdDto.prd_str_prc}" cssClass="input_prd"/><br>
                                 <form:errors path="prd_str_prc" cssClass="error_msg"/><br><br>
 
+                                <form:label path="dpr_day">출발 요일</form:label><br>
+                                <form:input cssClass="input_prd" path="dpr_day" placeholder="출발 요일" value="${trvPrdDto.dpr_day}"/><br>
+                                <form:errors path="dpr_day" cssClass="error_msg"/><br><br>
+
                                 <fmt:parseDate value="${trvPrdDto.dpr_str_date}" var="dpr_str_date" pattern="yyyy-MM-dd"/>
                                 <fmt:parseDate value="${trvPrdDto.dpr_fin_date}" var="dpr_fin_date" pattern="yyyy-MM-dd"/>
 
