@@ -44,4 +44,6 @@ public interface ReservDao {
     long selectPayFtrPrc(String rsvt_no) throws Exception;
 
     int deleteReserv(String rsvt_no) throws Exception;
+
+    int selectReservCnt(String usr_id) throws Exception;
 }

@@ -17,6 +17,8 @@ public interface ReservService {
 
     int saveTrvlrInfo(List<TravelerInfoDto> list) throws Exception;
 
+    boolean saveReservInfo(ReservDto reservDto, List<TravelerInfoDto> list) throws Exception;
+
     List getReservInfo(String prd_dtl_cd) throws Exception;
 
     List getReservConfInfo(String rsvt_no, String prd_dtl_cd);
@@ -36,4 +38,6 @@ public interface ReservService {
     long getPayFtrPrc(String rsvt_no) throws Exception;
 
     Map<String, Object>  getTheUnAppredList(Integer page, Integer pageSize);
+
+    int getReservCnt(String usr_id);
 }

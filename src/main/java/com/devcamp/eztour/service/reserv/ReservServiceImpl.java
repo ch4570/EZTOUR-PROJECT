@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import javax.sql.DataSource;
@@ -49,6 +50,18 @@ public class ReservServiceImpl implements ReservService {
     @Override
     public int saveTrvlrInfo(List<TravelerInfoDto> list) throws Exception{
         return travelerInfoDao.insertTrvlrInfo(list);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public boolean saveReservInfo(ReservDto reservDto, List<TravelerInfoDto> list) throws Exception {
+        int rowCntForReserv = reservDao.insertReserv(reservDto); //1
+        int rowCntForTrvlrInfo = travelerInfoDao.insertTrvlrInfo(list); //최소 1
+
+        if(rowCntForReserv+rowCntForTrvlrInfo < 2){
+            throw new Exception("여행예약정보를 저장하는데 실패했습니다.");
+        }
+
+        return true;
     }
 
     @Override
@@ -183,5 +196,16 @@ public class ReservServiceImpl implements ReservService {
             e.printStackTrace();
         }
         return result;
+    }
+
+    @Override
+    public int getReservCnt(String usr_id) {
+        int rowCnt = 0;
+        try {
+            rowCnt = reservDao.selectReservCnt(usr_id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rowCnt;
     }
 }

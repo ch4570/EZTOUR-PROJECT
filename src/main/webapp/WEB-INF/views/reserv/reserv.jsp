@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Title</title>
@@ -30,10 +30,18 @@
     </div>
 
     <div>
-        약관동의
+        <h2>약관동의</h2>
+        <label>
+            <input type="checkbox" name="agree">
+            약관 전체 동의
+        </label>
+        <span>약관 전문을 모두 확인하셔야 예약이 완료됩니다.</span>
+        <div>
+
+        </div>
     </div>
     <div>
-        <form action="<c:url value="/reserv/reserv"/> " method="post">
+        <form id="form">
             <input type="hidden" name="prd_dtl_cd" value="${rid.prd_dtl_cd}">
             <input type="hidden" name="prd_cd" value="${rid.prd_cd}">
             <input type="hidden" name="dstn_cd" value="${rid.dstn_cd}">
@@ -63,7 +71,8 @@
                         <td>
                             <div>
                                 <p>한국 출발</p>
-                                <p>${rid.go_dpr_tm}</p> ->
+<%--                                <p><fmt:formatDate value="${rid.go_dpr_tm}" timeStyle="" />${rid.go_dpr_tm}</p> --%>
+                                <p>${rid.go_dpr_tm}</p>
                                 <p>현지도착</p>
                                 <p>${rid.go_arr_tm}</p>
                             </div>
@@ -77,15 +86,16 @@
                     </tr>
                     <tr>
                         <th>성인요금</th>
-                        <td>${rid.adt_prc}원[만12세 이상](기본상품가:${rid.adt_prc}원, 유류할증료:0원, 제세공과금0원)</td>
+<%--                        <fmt:formatNumber value="${rid.adt_prc}" pattern="#,###"/>--%>
+                        <td><fmt:formatNumber value="${rid.adt_prc}" type="number"/>원[만12세 이상](기본상품가:<fmt:formatNumber value="${rid.adt_prc}" type="number"/>원, 유류할증료:0원, 제세공과금0원)</td>
                     </tr>
                     <tr>
                         <th>아동요금</th>
-                        <td>${rid.chd_prc}원 [만 12세 미만](기본상품가:${rid.chd_prc}원, 유류할증료: 0원,제세공과금 0원)</td>
+                        <td><fmt:formatNumber value="${rid.chd_prc}" type="number"/>원 [만 12세 미만](기본상품가:<fmt:formatNumber value="${rid.chd_prc}" type="number"/>원, 유류할증료: 0원,제세공과금 0원)</td>
                     </tr>
                     <tr>
                         <th>유아요금</th>
-                        <td>${rid.bb_prc}원 [24개월 미만](기본상품가:${rid.bb_prc}원,유류할증료:0원,제세공과금 0원)</td>
+                        <td><fmt:formatNumber value="${rid.bb_prc}" type="number"/>원 [24개월 미만](기본상품가:<fmt:formatNumber value="${rid.bb_prc}" type="number"/>원,유류할증료:0원,제세공과금 0원)</td>
                     </tr>
                 </table>
             </div>
@@ -102,7 +112,18 @@
                             </tr>
                             <tr>
                                 <th>휴대폰 번호</th>
-                                <td><input type="text" name="phn" placeholder="01012341234" value="${userDto.phn}" ></td>
+                                <td>
+<%--                                    <select name="phnFirst">--%>
+<%--                                        <option value="010">010</option>--%>
+<%--                                        <option value="010">010</option>--%>
+<%--                                        <option value="010">011</option>--%>
+<%--                                        <option value="010">016</option>--%>
+<%--                                        <option value="010">017</option>--%>
+<%--                                        <option value="010">018</option>--%>
+<%--                                        <option value="010">019</option>--%>
+<%--                                    </select>--%>
+                                    <input type="text" name="phn" placeholder="01012341234" value="${userDto.phn}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                </td>
                             </tr>
                             <tr>
                                 <th>이메일</th>
@@ -119,7 +140,7 @@
                         <dd>
                             <p>만 12세 이상</p>
                             <button type="button" class="btn_minus">-</button>
-                            <input type="text" name="adt_cnt" value="${param.adt_cnt}">
+                            <input type="text" name="adt_cnt" value="${empty param.adt_cnt ? 0 : param.adt_cnt}" readonly oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                             <button type="button" class="btn_plus">+</button>
                             <p>${rid.adt_prc}원</p>
                         </dd>
@@ -129,7 +150,7 @@
                         <dd>
                             <p>만 12세 미만</p>
                             <button type="button" class="btn_minus">-</button>
-                            <input type="text" name="chd_cnt" value="${param.chd_cnt}">
+                            <input type="text" name="chd_cnt" pattern="[0-9]+" readonly value="${empty param.chd_cnt ? 0 : param.chd_cnt}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                             <button type="button" class="btn_plus">+</button>
                             <p>${rid.chd_prc}원</p>
                         </dd>
@@ -139,14 +160,14 @@
                         <dd>
                             <p>만 2세 이상</p>
                             <button type="button" class="btn_minus">-</button>
-                            <input type="text" name="bb_cnt" value="${param.bb_cnt}" >
+                            <input type="text" name="bb_cnt" pattern="[0-9]+" readonly value="${empty param.bb_cnt ? 0 : param.bb_cnt}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                             <button type="button" class="btn_plus">+</button>
                             <p>${rid.bb_prc}원</p>
                         </dd>
                     </dl>
                     <dl>
                         <p>최종 합계금액</p>
-                        <input type="text" name="sum_prc" class="sum_prc" value="0">원
+                        <input type="text" name="sum_prc" class="sum_prc" readonly value="0">원
                     </dl>
                 </div>
             </div>
@@ -157,7 +178,7 @@
                 </div>
             </div>
             <input type="button" value="취소하기">
-            <input type="submit" value="예약하기">
+            <input type="button" class="submit" value="예약하기">
         </form>
     </div>
     <script>
@@ -169,9 +190,13 @@
             });
 
             let totalFee = function(){
-                let adt_cnt = parseInt($('input[name="adt_cnt"]').val());
-                let chd_cnt = parseInt($('input[name="chd_cnt"]').val());
-                let bb_cnt = parseInt($('input[name="bb_cnt"]').val());
+                let adtCntRef = $('input[name="adt_cnt"]').val();
+                let chdCntRef = $('input[name="chd_cnt"]').val();
+                let bbCntRef = $('input[name="bb_cnt"]').val();
+
+                let adt_cnt = parseInt(adtCntRef === '' ? 0 : adtCntRef);
+                let chd_cnt = parseInt(chdCntRef === '' ? 0 : chdCntRef);
+                let bb_cnt = parseInt(bbCntRef === '' ? 0 : bbCntRef);
 
                 let sum_prc = adt_cnt * ${rid.adt_prc} + chd_cnt * ${rid.chd_prc} + bb_cnt * ${rid.bb_prc};
                 $('.sum_prc').val(sum_prc);
@@ -179,25 +204,85 @@
 
             totalFee();
 
+            $('.submit').on('click', function(){
+                let name = $('input[name="mn_rsvt_nm"]').val();
+                let phn = $('input[name="phn"]').val();
+                let emailFirst = $('input[name="emailFirst"]').val();
+                let emailLast = $('input[name="emailLast"]').val();
+                let agree = $('input[name="agree"]').val();
+
+                if(!$('input[name="agree"]').is(':checked')){
+                    alert('약관을 동의해주세요.');
+                    return;
+                }
+
+                if(name==='') {
+                    alert('성함 입력바랍니다.');
+                    return;
+                }
+                if(phn==='') {
+                    alert('휴대전화번호 입력바랍니다.');
+                    return;
+                }
+                if(phn.length!=11){
+                    alert('휴대전화번호를 확인해주세요');
+                    return;
+                }
+                if(emailFirst===''||emailLast==='') {
+                    alert('이메일 입력바랍니다.');
+                    return;
+                }
+
+                let adt_cnt = parseInt($('input[name="adt_cnt"]').val());
+                if($('input[name="adt_cnt"]').val() === '' || adt_cnt <= 0){
+                    alert("예약은 성인이 필수로 들어가야 합니다.");
+                    return;
+                }
+
+
+                let form = $('#form');
+                form.attr("action", '<c:url value="/reserv/reserv"/>');
+                form.attr("method", "post");
+                form.submit();
+            });
+
+
             $('.btn_plus').on('click', function(){
                 let btn_plus = $(this);
-                if(btn_plus.prev().val()==0){
+                let valueRef = btn_plus.prev().val();
+
+                //0명이면 minus버튼 disable처리
+                if(valueRef==0){
                     btn_plus.siblings('button').prop('disabled', false);
                 }
-                let val = parseInt(btn_plus.prev().val())+1;
+
+                //plus버튼 누르면 값 +1
+                let val = 0;
+                if(valueRef !== ''){
+                    val = parseInt(valueRef)+1;
+                } else {
+                    val = 1;
+                }
+                //값 초기화
                 btn_plus.prev().val(val);
+                //total값 수정
                 totalFee();
             });
 
             $('.btn_minus').on('click', function(){
                 let btn_minus = $(this);
-                let val = parseInt(btn_minus.next().val())-1;
+                let valueRef = btn_minus.next().val()
+
+                let val = parseInt(valueRef)-1;
                 btn_minus.next().val(val);
-                if(btn_minus.next().val()==0) {
+
+                if(valueRef==='1') {
                     btn_minus.prop('disabled', true);
                 }
                 totalFee();
             });
+
+
         })
         //최대인원 체크
     </script>
