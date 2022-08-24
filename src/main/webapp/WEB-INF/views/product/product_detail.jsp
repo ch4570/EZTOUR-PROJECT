@@ -359,11 +359,22 @@
 
         $('.rev-btn__btn').on("click",function (){
             const quantity = parseInt($('.quantity').eq("0").val());
+            const userDto = "${sessionScope.userDto.usr_id}";
             if(quantity==0){
                 alert("성인이 한명 꼭 포함 되어야 합니다. 확인 후 다시 예약을 진행해주세요");
                 return;
             }else{
-                $("form").submit();
+                if(userDto == "" || userDto == null){
+                    alert("로그인 하셔야 예약 서비스 이용이 가능합니다.");
+                    let question = confirm("로그인을 하시겠습니까?");
+                    if(question){
+                        location.href = "<c:url value='/user/login'/>";
+                    }else{
+                        return;
+                    }
+                }else{
+                    $("form").submit();
+                }
             }
         });
 
