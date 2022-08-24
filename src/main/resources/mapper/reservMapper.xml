@@ -31,6 +31,15 @@
         WHERE r.usr_id = #{usr_id} LIMIT #{offset}, #{pageSize}
     </select>
 
+    <select id="selectReservByrsvtNo" parameterType="String" resultType="ReservDto">
+        SELECT r.rsvt_no, r.rsvt_date, r.cmn_cd_rsvt_stt, r.pay_ftr_prc, r.prd_dtl_cd,
+               r.cmn_cd_pay_stt, r.sum_prc, tp.prd_nm, tp.prd_dtl_desc
+        FROM rsvt r
+                 INNER JOIN trv_prd tp
+                            ON r.prd_cd = tp.prd_cd
+        WHERE r.rsvt_no = #{rsvt_no}
+    </select>
+
     <select id="selectAllReserv" resultType="ReservDto">
         select * from rsvt
     </select>
@@ -44,11 +53,13 @@
     </delete>
 
     <select id="selectPrdInfo" parameterType="String" resultType="ReservInfoDto">
-        SELECT d.prd_dtl_cd, d.arl_nm, t.dstn_cd, t.prd_nm, t.trv_per, p.prd_cd,p.adt_prc, p.chd_prc, p.bb_prc
+        SELECT d.prd_dtl_cd, d.arl_nm, t.dstn_cd, t.prd_nm, t.trv_per, p.prd_cd,p.adt_prc, p.chd_prc, p.bb_prc, pi.img_pth
         FROM trv_prd_dtl d JOIN trv_prd t
                                 ON d.prd_cd = t.prd_cd
                            JOIN prd_prc p
                                 ON d.prd_cd = p.prd_cd
+                           JOIN prd_img pi
+                                ON d.prd_cd = pi.prd_cd
         WHERE d.prd_dtl_cd = #{prd_dtl_cd} and p.prd_dtl_cd = #{prd_dtl_cd};
     </select>
 
@@ -65,6 +76,22 @@
 
     <select id="selectUserMlg" parameterType="String" resultType="int">
         select mlg from usr where usr_id = #{usr_id};
+    </select>
+
+    <select id="selectTheUnAppredListPage" parameterType="Map" resultType="ReservDto">
+        select r.rsvt_no, r.usr_id, r.mn_rsvt_nm, r.email, r.rsvt_date, r.phn, r.prd_dtl_cd, tpd.prd_nm
+        FROM rsvt r INNER JOIN trv_prd_dtl tpd
+                               ON r.prd_cd = tpd.prd_cd
+        WHERE cmn_cd_rsvt_stt = '6A'
+        ORDER BY r.rsvt_date ASC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <select id="selectTheUnAppredListCnt" resultType="int">
+        select count(*)
+        FROM rsvt r INNER JOIN trv_prd_dtl tpd
+                               ON r.prd_cd = tpd.prd_cd
+        WHERE cmn_cd_rsvt_stt = '6A'
     </select>
 
     <update id="updateUserMlg" parameterType="Map">
@@ -91,4 +118,8 @@
     <delete id="deleteReserv" parameterType="String">
         delete from rsvt where rsvt_no = #{rsvt_no}
     </delete>
+
+    <select id="selectRsvtCnt" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM rsvt WHERE usr_id = #{usr_id}
+    </select>
 </mapper>

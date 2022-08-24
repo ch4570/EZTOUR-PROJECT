@@ -9,6 +9,8 @@ public interface GuestDao {
 
     GuestDto selectGuest(String gst_id) throws Exception;
 
+    int checkGuestId(String gst_id) throws Exception;
+
     int deleteGuest(String gst_id) throws Exception;
 
     int deleteAllGuest() throws Exception;

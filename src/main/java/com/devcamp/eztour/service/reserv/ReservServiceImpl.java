@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import javax.sql.DataSource;
@@ -49,6 +50,18 @@ public class ReservServiceImpl implements ReservService {
     @Override
     public int saveTrvlrInfo(List<TravelerInfoDto> list) throws Exception{
         return travelerInfoDao.insertTrvlrInfo(list);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public boolean saveReservInfo(ReservDto reservDto, List<TravelerInfoDto> list) throws Exception {
+        int rowCntForReserv = reservDao.insertReserv(reservDto); //1
+        int rowCntForTrvlrInfo = travelerInfoDao.insertTrvlrInfo(list); //최소 1
+
+        if(rowCntForReserv+rowCntForTrvlrInfo < 2){
+            throw new Exception("여행예약정보를 저장하는데 실패했습니다.");
+        }
+
+        return true;
     }
 
     @Override
@@ -143,6 +156,7 @@ public class ReservServiceImpl implements ReservService {
         return rowCnt;
     }
 
+    @Override
     public int updateRsvtStt(String cmn_cd_rsvt_stt, String cmn_cd_pay_stt, String rsvt_no){
         Map map = new HashMap();
         map.put("cmn_cd_rsvt_stt", cmn_cd_rsvt_stt);
@@ -160,5 +174,38 @@ public class ReservServiceImpl implements ReservService {
     @Override
     public long getPayFtrPrc(String rsvt_no) throws Exception {
         return reservDao.selectPayFtrPrc(rsvt_no);
+    }
+
+    @Override
+    public Map<String, Object> getTheUnAppredList(Integer page, Integer pageSize) {
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            int theUnAppredCnt = reservDao.selectTheUnAppredListCnt();
+
+            PageHandler ph = new PageHandler(page, theUnAppredCnt);
+            result.put("pageHandler", ph);
+
+            Map<String, Integer> map = new HashMap<>();
+            map.put("offset", ph.getBeginPage()-1);
+            map.put("pageSize", pageSize);
+
+            List<ReservDto> list = reservDao.selectTheUnAppredListPage(map);
+            result.put("unAppredList", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public int getReservCnt(String usr_id) {
+        int rowCnt = 0;
+        try {
+            rowCnt = reservDao.selectReservCnt(usr_id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rowCnt;
     }
 }

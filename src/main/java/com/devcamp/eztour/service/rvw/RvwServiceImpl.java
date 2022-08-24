@@ -110,4 +110,10 @@ public class RvwServiceImpl implements RvwService {
         return rvwDao.cntnCdSearchResultCnt(sc);
     }
 
+    @Override
+    public RvwDto getRvwttlRvwCont(Integer rvw_no) throws Exception {
+        return rvwDao.getRvwttlRvwCont(rvw_no);
+    }
+
+
 }

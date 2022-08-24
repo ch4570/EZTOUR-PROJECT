@@ -3,6 +3,7 @@ package com.devcamp.eztour.dao.user;
 import com.devcamp.eztour.domain.user.UserDto;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public interface UserDao {
@@ -39,5 +40,8 @@ public interface UserDao {
 
     UserDto userKakaoLoginPro(String kakao_id) throws Exception;
 
+    List<Map> selectPaylogForMypage(String usr_id) throws Exception;
+
+    boolean checkPwdForUsrMod(String usr_id, String pwd)throws Exception;
 
     }

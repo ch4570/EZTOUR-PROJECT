@@ -47,4 +47,6 @@ public interface RvwDao {
     List<RvwDto> cntnCdSearch(SearchCondition sc);
 
     int cntnCdSearchResultCnt(SearchCondition sc);
+
+    RvwDto getRvwttlRvwCont(Integer rvw_no);
 }

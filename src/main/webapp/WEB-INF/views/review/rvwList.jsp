@@ -56,7 +56,7 @@
             <a class="totalCnt">
                 총 ${totalCnt}건
             </a>
-            <div class="sort">
+            <!--div class="sort">
 <%--                <span class="sort_name" style="margin-right: 30px;" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("","N")}'/>'">최신순</span>--%>
                 <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","N")}'/>">최신순</a>
 <%--                <span class="sort_name" style="margin-right: 30px;" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("","O")}'/>'">오래된순</span>--%>
@@ -65,7 +65,7 @@
                 <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","L")}'/>">가장 많은 좋아요</a>
 <%--                <span class="sort_name" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("","V")}'/>'">가장 많은 조회수</span>--%>
                 <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","V")}'/>">가장 많은 조회수</a>
-            </div>
+            </div-->
         </div>
         <div class="reviewArea">
             <c:forEach var="rvwDto" items="${list}">
@@ -76,16 +76,20 @@
                     <div class="reviewInfo">
                         <div class="reviewTitle">
                             <br>
-                            <span class="reviewTitle-rvw_ttl">${rvwDto.rvw_ttl}</span>
+                            <a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>">
+                                <span class="reviewTitle-rvw_ttl">${rvwDto.rvw_ttl}</span>
+                            </a>
                         </div>
                         <div class="reviewContent">
-                            <span class="reviewContent-rvw_cont">${rvwDto.rvw_cont}</span>
+                            <a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>">
+                                <span class="reviewContent-rvw_cont">${rvwDto.rvw_cont}</span>
+                            </a>
                         </div>
                         <div class="reviewWriter">
                             <span class="reviewWriter-wrt_nm">작성자 | ${rvwDto.wrt_nm}</span>
                         </div>
                         <div class="reviewRegisterDate">
-                            <span class="reviewRegisterDate-rvw_reg_date"><fmt:formatDate value="${rvwDto.rvw_reg_date}" pattern="yyyy-MM-dd hh:mm:ss"/></span>
+                            <span class="reviewRegisterDate-rvw_reg_date">등록일 | <fmt:formatDate value="${rvwDto.rvw_reg_date}" pattern="yyyy-MM-dd hh:mm:ss"/></span>
                         </div>
                         <div class="reviewLikeViewCnt">
                             <br>
@@ -120,5 +124,7 @@
         </div>
     </div>
 </div>
+<script>
+</script>
 </body>
 </html>

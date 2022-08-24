@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -93,8 +94,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void setKakaoConnection(Map paramMap) {
-
     }
 
+    @Override
+    public List<Map> selectPaylogForMypage(String usr_id) throws Exception {
+        return userDao.selectPaylogForMypage(usr_id);
+    }
+
+    @Override
+    public boolean checkPwdForUsrMod(String usr_id, String pwd) throws Exception{
+        return userDao.checkPwdForUsrMod(usr_id, pwd);
+    }
 
 }

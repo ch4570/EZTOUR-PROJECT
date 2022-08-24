@@ -24,6 +24,11 @@ public class GuestDaoImpl implements GuestDao {
     }
 
     @Override
+    public int checkGuestId(String gst_id) throws Exception {
+        return session.selectOne(namespace+"checkGstId", gst_id);
+    }
+
+    @Override
     public int deleteGuest(String gst_id) throws Exception {
         return session.delete(namespace+"deleteGuest", gst_id);
     }
