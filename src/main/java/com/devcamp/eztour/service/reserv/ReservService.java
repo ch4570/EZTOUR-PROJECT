@@ -1,9 +1,6 @@
 package com.devcamp.eztour.service.reserv;
 
-import com.devcamp.eztour.domain.reserv.AirlineReqDto;
-import com.devcamp.eztour.domain.reserv.ReservDto;
-import com.devcamp.eztour.domain.reserv.ReservInfoDto;
-import com.devcamp.eztour.domain.reserv.TravelerInfoDto;
+import com.devcamp.eztour.domain.reserv.*;
 
 import java.util.List;
 import java.util.Map;
@@ -40,4 +37,6 @@ public interface ReservService {
     Map<String, Object>  getTheUnAppredList(Integer page, Integer pageSize);
 
     int getReservCnt(String usr_id);
+
+    GuestDto guestReservCheck(String rsvt_no, String mn_rsvt_nm, String phn) throws Exception;
 }

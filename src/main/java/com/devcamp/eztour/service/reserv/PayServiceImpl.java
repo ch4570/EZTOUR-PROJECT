@@ -64,7 +64,6 @@ public class PayServiceImpl implements PayService {
     public UserDto getUserInfo(String usr_id){
         UserDto userDto = null;
         try {
-            userDto = null;
             userDto = userDao.selectUsr(usr_id);
         } catch (Exception e) {
             e.printStackTrace();
