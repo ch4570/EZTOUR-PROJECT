@@ -11,7 +11,7 @@
         <div class="form-selectjoin-content" style="height: 500px">
             <h2 class="login-title" id="loginTitle" style="margin-bottom: 100px;">회원가입</h2>
 
-            <div class="form-selectjoin-general">
+            <div class="form-selectjoin-general" style="margin-bottom: 50px;">
                 <div style="width: 540px;">
                     <h3>본인인증</h3>
                     <div style="font-size: 15px; margin-top: 5px;">휴대폰 인증을 통한 본인인증을 진행해주세요</div>
@@ -26,30 +26,32 @@
 
 
     <!-- 휴대폰 인증 모달창 -->
-    <div class="modal" id="authModal">
+    <div class="modal hidden" id="authModal">
         <div class="modal__overlay" id="authOverlay"></div>
-        <div class="modal__content" style="width: 500px; height: 500px;">
-            <div name="authForm" style="height: 500px; display: flex; flex-direction: column; align-items: center; justify-content: space-evenly">
-                <h2 style="font-weight: bolder; font-size: x-large; padding-right: 250px">핸드폰 인증</h2>
-                <h2 style="padding-top: 20px; padding-left : 20px; padding-right: 70px; color: #333333; font-weight: bold"><i class="fa fa-check" aria-hidden="true"></i> 회원가입을 위해 이름과 핸드폰 번호를 입력해주세요.</h2>
+        <div class="modal__content" style="width: 500px; height: 450px;">
+            <div name="authForm" style="height: 450px; display: flex; flex-direction: column; align-items: center; justify-content: space-evenly">
+                <h2 id="auth-phn" style="">핸드폰 인증</h2>
+                <h2 id="auth-phn-info" style=""><i class="fa fa-check" aria-hidden="true"></i> 회원가입을 위해 이름과 핸드폰 번호를 입력해주세요.</h2>
                 <hr>
-                <form id="form" method="" action="">
-                    <div style="margin-left: 30px; font-size: 18px;">
+                <form id="authform" method="" action="">
+                    <div style="font-size: 18px;">
                         <div class="form-check">
-                            <div>이름</div>
-                            <input class="form-check-input" name="usr_nm" id="usr_nm">
-                            <div>핸드폰 번호</div>
-                            <input class="form-check-input" name="phn" id="phn">
+                            <div class="form-input-usrinfo">
+                                <div style="margin-top: 30px; padding-right: 200px;">이름</div>
+                                <input class="form-check-input-usrinfo" name="usr_nm" id="usr_nm">
+                            </div>
+                            <div class="form-input-usrinfo">
+                                <div style="padding-right: 140px">핸드폰 번호</div>
+                                <input class="form-check-input-usrinfo" name="phn" id="phn">
+                            </div>
                         </div>
                         <br/>
-                        <hr>
                         <!-- rest 호출-->
                         <input type="button" id="authModalBtn" onclick="authPhn()" value="인증번호 보내기">
                         <!-- submit 버튼 -->
                         <input class="hidden" type="button" id="checkAuthBtn" value="인증하기">
                     </div>
                 </form>
-                <button id="closeAuthModalBtn"> 닫기 </button>
             </div>
         </div>
     </div>
@@ -77,7 +79,7 @@
 
     // checkNum 에이잭스
     $("#checkAuthBtn").click(function(){
-        let form = $("#form");
+        let form = $("#authform");
         let checkNum = $("#checkNum").val()
 
         $.ajax({
@@ -96,7 +98,6 @@
     const openAuthModalBtn = document.getElementById("openAuthModalBtn");
     const authModal = document.querySelector("#authModal");
     const authOverlay = authModal.querySelector("#authOverlay");
-    const closeAuthModalBtn = authModal.querySelector("#closeAuthModalBtn")
     const openAuthModal = () => {
         authModal.classList.remove("hidden");
     }
@@ -104,7 +105,6 @@
         authModal.classList.add("hidden")
     }
     openAuthModalBtn.addEventListener("click", openAuthModal);
-    closeAuthModalBtn.addEventListener("click", closeAuthModal);
     authOverlay.addEventListener("click", closeAuthModal);
 
 </script>

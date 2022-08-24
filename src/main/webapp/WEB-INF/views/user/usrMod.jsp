@@ -114,10 +114,11 @@
 
 <div class="modal hidden" id="delModal">
     <div class="modal__overlay" id="delOverlay"></div>
-    <div class="modal__content">
-        <h5>탈퇴 사유 선택 (필수)</h5>
-
-            <div style="margin-left: 30px; font-size: 18px;">
+    <div class="modal__content" style="width: 400px; height: 400px; padding: 30px;">
+        <h2 style="font-weight: bolder; font-size: x-large; padding-right: 150px;">탈퇴 사유 선택 (필수)</h2>
+        <hr>
+            <div style="height: 300px; font-size: 18px; display: flex; flex-direction: column;
+            justify-content: space-evenly; align-items: flex-start; margin-top: 20px">
                 <div class="form-check">
                     <input class="form-check-input" id="4a" type="radio" name="cmn_cd_drp"
                            value="4a" > <label class="form-check-label"> 여행 상품에 대한 불만 </label>
@@ -143,33 +144,29 @@
                            value="4e"> <label class="form-check-label"> 불친절 및 지연 </label>
                 </div>
                 <br/>
-                <hr>
                 <button id="openPwCheck">탈퇴하기</button>
             </div>
-        <button id="closedelBtn"> 닫기 </button>
     </div>
 </div>
 
 <div class="modal hidden" id="pwCheckModal">
     <div class="modal__overlay" id="pwCheckOverlay"></div>
-    <div class="modal__content">
-        <h5>비밀번호 입력</h5>
-
-        <form name="detailForm" method="post">
-            <input id="drpCd" type="hidden" name="cmn_cd_drp" value="">
-            <div style="margin-left: 30px; font-size: 18px;">
-                <div class="form-check">
-                    <input class="form-check-input"  name="pwd">
-
+    <div class="modal__content" style="width: 420px; height: 200px; padding: 30px 20px;">
+        <div>
+            <h2 style="font-weight: bolder; font-size: x-large; padding-right: 220px;">비밀번호 입력</h2>
+            <h2 id="auth-phn-info" style="padding-top: 10px; padding-right: 20px; font-size: 15px;"><i class="fa fa-check" aria-hidden="true"></i> &nbsp;회원 탈퇴 진행을 위한 비밀번호를 입력해주세요</h2>
+            <hr style="width: 400px;">
+            <form name="detailForm" method="post">
+                <input id="drpCd" type="hidden" name="cmn_cd_drp" value="">
+                <div style="font-size: 18px;">
+                    <div class="form-check">
+                        <span style="font-size: 15px;">비밀번호</span>
+                        <input class="pwd-check-input" name="pwd" placeholder="비밀번호를 입력해주세요">
+                    </div>
+                    <button id="delBtn">탈퇴하기</button>
                 </div>
-                <br/>
-
-                <br/>
-                <hr>
-                <button id="delBtn">탈퇴하기</button>
-            </div>
-        </form>
-        <button id="closePwCheckBtn"> 닫기 </button>
+            </form>
+        </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
@@ -189,6 +186,23 @@
     };
 
     $(":radio[name='gndr']").radioSelect('${userDto.gndr}');
+
+    <!-- 탈퇴 실행 -->
+    $(function() {
+        $( "#delBtn:contains('탈퇴하기')" ).on("click" , function() {
+            if(confirm('정말 탈퇴하시겠습니까?')){
+                fncUsrDel();
+            }
+            else{
+                return false;
+            }
+        });
+    });
+
+    function fncUsrDel(){
+        document.detailForm.action='/user/usrPwdCheck';
+        document.detailForm.submit();
+    }
 </script>
 </body>
 </html>

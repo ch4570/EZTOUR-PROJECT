@@ -93,3 +93,43 @@
     display: flex;
     flex-direction: column;
 }
+
+hr{
+    background-color: #cccccc;
+    width: 400px;
+    margin-top: 15px;
+}
+
+#openPwCheck{
+    all: unset;
+    background: #1c1c1c;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    width: 300px;
+    height: 35px;
+    font-size: 12px;
+    position: relative;
+    left: 50px;
+    top: 30px;
+}
+
+.pwd-check-input{
+    width: 200px;
+    font-size: 15px;
+    line-height: 30px;
+    outline: none;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    padding: 0px 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#delBtn{
+    width: 100px;
+    height : 35px;
+    background-color: #333333;
+    color: white;
+    margin-top: 10px;
+}

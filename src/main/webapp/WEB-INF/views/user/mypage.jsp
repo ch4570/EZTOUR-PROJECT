@@ -282,15 +282,15 @@
   <div class="modal__content" style="width: 500px; height: 300px;">
       <br/>
       <div name="pwChkForm" style="display: flex; flex-direction: column; align-items: center">
-          <h2 style="font-weight: bolder; font-size: xx-large; padding-right: 250px">비밀번호 확인</h2>
-          <h2 style="padding-top: 20px; padding-left : 20px; padding-right: 70px; color: #333333; font-weight: bold"><i class="fa fa-check" aria-hidden="true"></i> 회원님의 정보 보호를 위해 비밀번호를 입력해주세요.</h2>
+          <h2 style="font-weight: bolder; font-size: x-large; padding-right: 250px">비밀번호 확인</h2>
+          <h2 style="padding-top: 20px; padding-left : 40px; padding-right: 50px; color: #333333; font-weight: bold"><i class="fa fa-check" aria-hidden="true"></i> 회원님의 정보 보호를 위해 비밀번호를 입력해주세요.</h2>
           <hr>
 
           <div style="font-size: 18px;height: 80px; margin-top: 10px;">
               <div class="form-check" id="pwChk">
                   <div id="pwdChkFail" style="padding-top: 10px; font-size: 12px; color: crimson; text-align: left">
                   </div>
-                   <input class="form-check-input" type="passwords" style="margin-top: 10px;" name="pwd" id="pwd" value="" placeholder="비밀번호를 입력해주세요">
+                   <input class="form-check-input" type="password" style="margin-top: 10px;" name="pwd" id="pwd" value="" placeholder="비밀번호를 입력해주세요">
 
               </div>
               <br/>
