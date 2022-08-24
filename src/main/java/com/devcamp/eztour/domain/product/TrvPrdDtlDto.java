@@ -21,3 +21,4 @@ public class TrvPrdDtlDto {
     private final String prd_str_prc;
 
 }
+
