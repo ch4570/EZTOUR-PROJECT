@@ -34,11 +34,17 @@ public class TrvPrdDtlWriteDto {
     @Min(value = 1, message = "최대 출발인원은 1명 이상이어야 합니다.")
     private int		max_stt_cnt;
 
-    @NotBlank(message = "출발일은 필수 입력 항목입니다.")
-    private String	dpr_date;
+    @NotBlank(message = "현지 출발일은 필수 입력 항목입니다.")
+    private String	loc_dpr_date;
 
-    @NotBlank(message = "마감일은 필수 입력 항목입니다.")
-    private String  fin_date;
+    @NotBlank(message = "현지 도착일은 필수 입력 항목입니다.")
+    private String  loc_fin_date;
+
+    @NotBlank(message = "국내 출발일은 필수 입력 항목입니다.")
+    private String dom_dpr_date;
+
+    @NotBlank(message = "국내 도착일은 필수 입력 항목입니다.")
+    private String dom_fin_date;
 
     @NotBlank(message = "상품 이름은 필수 입력 항목입니다.")
     private String prd_nm;

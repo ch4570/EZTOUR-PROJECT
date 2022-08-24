@@ -12,6 +12,7 @@ import java.util.Date;
 public class TrvPrdDtlReadDto {
 
     private String prd_cd;
+    private String dpr_day;
     private String dstn_cd;
     private String cmn_cd_thm;
     private Integer evnt_yn;
@@ -29,8 +30,8 @@ public class TrvPrdDtlReadDto {
     private int		pr_rsvt_cnt;
     private int		min_stt_cnt;
     private int		max_stt_cnt;
-    private String	dpr_date;
-    private String  fin_date;
+    private String	loc_dpr_date;
+    private String  loc_fin_date;
     private String	frs_reg_date;
     private String	frs_rgs_no;
     private String  fnl_mod_date;
@@ -44,30 +45,32 @@ public class TrvPrdDtlReadDto {
     private Date dpr_fin_date;
     private String nt_cd_nm;
     private String usr_id;
+    private String dom_dpr_date;
+    private String dom_fin_date;
 
 
-    public TrvPrdDtlReadDto(String prd_dtl_cd, String prd_cd, String arl_nm, int prd_str_prc, String dpr_date, String prd_nm) {
+    public TrvPrdDtlReadDto(String prd_dtl_cd, String prd_cd, String arl_nm, int prd_str_prc, String dom_dpr_date, String prd_nm) {
         this.prd_dtl_cd = prd_dtl_cd;
         this.prd_cd = prd_cd;
         this.prd_str_prc = prd_str_prc;
         this.arl_nm = arl_nm;
-        this.dpr_date = dpr_date;
+        this.dom_dpr_date = dom_dpr_date;
         this.prd_nm = prd_nm;
     }
 
     public TrvPrdDtlReadDto(String prd_dtl_cd, String prd_cd, int prd_str_prc, String arl_nm, int min_stt_cnt, int max_stt_cnt,
-                            String dpr_date, String prd_nm, String fin_date) {
+                            String dom_dpr_date, String prd_nm, String dom_fin_date,String loc_dpr_date, String loc_fin_date) {
         this.prd_dtl_cd = prd_dtl_cd;
         this.prd_cd = prd_cd;
         this.prd_str_prc = prd_str_prc;
         this.arl_nm = arl_nm;
         this.min_stt_cnt = min_stt_cnt;
         this.max_stt_cnt = max_stt_cnt;
-        this.dpr_date = dpr_date;
+        this.dom_dpr_date = dom_dpr_date;
         this.prd_nm = prd_nm;
-        this.fin_date = fin_date;
-
-
+        this.dom_fin_date = dom_fin_date;
+        this.loc_dpr_date = loc_dpr_date;
+        this.loc_fin_date = loc_fin_date;
         }
 
     public TrvPrdDtlReadDto(String img_pth,Integer mn_img_yn, String prd_cd, String prd_nm,Integer prd_str_prc) {
@@ -116,7 +119,7 @@ public class TrvPrdDtlReadDto {
                             Integer prd_str_prc, Date dpr_str_date, Date dpr_fin_date,
                             Integer evnt_yn, Integer fin_yn, Integer act_yn, Integer dc_yn,
                             Integer pc_prc, Integer vcnt, Integer lk_yn, String img_pth,
-                            Integer mn_img_yn, String prd_dtl_cd, String arl_nm, Integer dpr_yn, Integer rsvt_yn) {
+                            Integer mn_img_yn) {
         this.prd_cd = prd_cd;
         this.dstn_cd = dstn_cd;
         this.cmn_cd_thm = cmn_cd_thm;
@@ -127,11 +130,7 @@ public class TrvPrdDtlReadDto {
         this.vcnt = vcnt;
         this.lk_yn = lk_yn;
         this.mn_img_yn = mn_img_yn;
-        this.prd_dtl_cd = prd_dtl_cd;
         this.prd_str_prc = prd_str_prc;
-        this.arl_nm = arl_nm;
-        this.dpr_yn = dpr_yn;
-        this.rsvt_yn = rsvt_yn;
         this.prd_nm = prd_nm;
         this.prd_dtl_desc = prd_dtl_desc;
         this.trv_per = trv_per;
@@ -174,8 +173,8 @@ public class TrvPrdDtlReadDto {
     public TrvPrdDtlReadDto(String prd_cd, String dstn_cd, String cmn_cd_thm, String prd_nm, String prd_dtl_desc, String trv_per,
                             Integer prd_str_prc, Date dpr_str_date, Date dpr_fin_date,
                             Integer evnt_yn, Integer fin_yn, Integer act_yn, Integer dc_yn, Integer pc_prc,
-                            int vcnt, Integer lk_yn, String img_pth, Integer mn_img_yn, String prd_dtl_cd, String arl_nm,
-                            Integer dpr_yn, Integer rsvt_yn, String usr_id, String frs_reg_date) {
+                            int vcnt, Integer lk_yn, String img_pth, Integer mn_img_yn,
+                            String usr_id,String dpr_day) {
         this.prd_cd = prd_cd;
         this.dstn_cd = dstn_cd;
         this.cmn_cd_thm = cmn_cd_thm;
@@ -194,12 +193,8 @@ public class TrvPrdDtlReadDto {
         this.lk_yn = lk_yn;
         this.img_pth = img_pth;
         this.mn_img_yn = mn_img_yn;
-        this.prd_dtl_cd = prd_dtl_cd;
-        this.arl_nm = arl_nm;
-        this.dpr_yn = dpr_yn;
-        this.rsvt_yn = rsvt_yn;
         this.usr_id = usr_id;
-        this.frs_reg_date = frs_reg_date;
+        this.dpr_day = dpr_day;
     }
 
 }
