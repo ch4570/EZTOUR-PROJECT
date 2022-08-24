@@ -127,5 +127,10 @@ public class RvwDaoImpl implements RvwDao {
         return session.selectOne(namespace + "cntnCdSearchResultCnt", sc);
     }
 
+    @Override
+    public RvwDto getRvwttlRvwCont(Integer rvw_no) {
+        return session.selectOne(namespace + "getRvwttlRvwCont", rvw_no);
+    }
+
 
 }

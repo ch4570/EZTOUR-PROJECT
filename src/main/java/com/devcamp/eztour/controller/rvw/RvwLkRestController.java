@@ -28,15 +28,15 @@ public class RvwLkRestController {
 
 
     @PostMapping("/heart") // 재확인 필요
-    public String heart(@RequestBody Integer rvw_no, Model m, RedirectAttributes rattr, HttpSession session) throws Exception {
+    public String heart(Integer rvw_no, Model m, RedirectAttributes rattr, HttpSession session) throws Exception {
 
         String result;
 
         // 1. 비회원이면 로그인 화면으로 redirect 로 이동
-        if (session.getAttribute("userDto") == null) {
-            rattr.addFlashAttribute("msg", "ACC_ERR");
-            return "redirect:/user/login";
-        }
+//        if (session.getAttribute("userDto") == null) {
+//            rattr.addFlashAttribute("msg", "ACC_ERR");
+//            return "redirect:/user/login";
+//        }
 
         UserDto userDto = (UserDto) session.getAttribute("userDto");
         String usr_id = userDto.getUsr_id();

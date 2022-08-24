@@ -1,15 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <html>
 <head>
   <title>Title</title>
-  <link rel="stylesheet" href="<c:url value='/css/rvw/rvwDetail.css'/>">
   <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
 <body>
 <h2>rvwCmtTest</h2>
-comment: <input type="text" name="cmt_cont"><br>
-<button id="sendBtn" type="button">등록</button>
 <button id="modBtn" type="button">수정</button>
 
 
@@ -18,6 +14,8 @@ comment: <input type="text" name="cmt_cont"><br>
   <input type="text" name="replyCmt">
   <button id="wrtRepBtn" type="button">등록</button>
 </div>
+comment: <input type="text" name="cmt_cont"><br>
+<button id="sendBtn" type="button">등록</button>
 <script>
 
   let rvw_no = 2; // rvwDto.prd_nm
@@ -163,60 +161,20 @@ comment: <input type="text" name="cmt_cont"><br>
     }); // Ajax end
 
     let toHtml = function (comments) { // comment == result
-      let tmp = "<ul class='Comment_list'>";
+      let tmp = "<ul>";
 
       comments.forEach(function (comment) {
-      if(comment.cmt_no!=comment.pcmt_no){
-        tmp += '<li class="CommentItem CommentItem--reply" data-cmt_no=' + comment.cmt_no
+        tmp += '<li data-cmt_no=' + comment.cmt_no
         tmp += ' data-pcmt_no=' + comment.pcmt_no
         tmp += ' data-rvw_no=' + comment.rvw_no + '>'
-        tmp += '<div class="comment_area">'
-        tmp += '<div class="comment_box">'
-        tmp += '<div class="comment_nick_box">'
-        tmp += '<div class="comment_nick_info">'
-        tmp += '<span class="usr_nm">' + comment.usr_nm + '</span>'
-        tmp += '<span class="cmt_no">' + comment.cmt_no + '</span>'
-        tmp += '</div>'
-        tmp += '</div>'
-        tmp += '<div class="comment_text_box">'
-        tmp += '<p class="comment_text_view">'
-        tmp += '<span class="text_comment">' + comment.cmt_cont + '</span>'
-        tmp += '</p>'
-        tmp += '</div>'
-        tmp += '<div class="comment_info_box">'
-        tmp += '<span class="comment_info_date">' + comment.mdf_date + '</span>'
-        tmp += '<button class="replyBtn">답글</button>'
+      if(comment.cmt_no!=comment.pcmt_no)
+        tmp += 'ㄴ'
+        tmp += ' usr_nm=<span class="usr_nm">' + comment.usr_nm + '</span>'
+        tmp += ' cmt_cont=<span class="cmt_cont">' + comment.cmt_cont + '</span>'
+        tmp += ' mdf_date=' + comment.mdf_date
         tmp += '<button class="delBtn">삭제</button>'
         tmp += '<button class="modBtn">수정</button>'
-        tmp += '</div>'
-        tmp += '</div>'
-        tmp += '</div>'
-        tmp += '</li>'
-      }
-        tmp += '<li class="CommentItem" data-cmt_no=' + comment.cmt_no
-        tmp += ' data-pcmt_no=' + comment.pcmt_no
-        tmp += ' data-rvw_no=' + comment.rvw_no + '>'
-        tmp += '<div class="comment_area">'
-        tmp += '<div class="comment_box">'
-        tmp += '<div class="comment_nick_box">'
-        tmp += '<div class="comment_nick_info">'
-        tmp += '<span class="usr_nm">' + comment.usr_nm + '</span>'
-        tmp += '<span class="cmt_no">' + comment.cmt_no + '</span>'
-        tmp += '</div>'
-        tmp += '</div>'
-        tmp += '<div class="comment_text_box">'
-        tmp += '<p class="comment_text_view">'
-        tmp += '<span class="text_comment">' + comment.cmt_cont + '</span>'
-        tmp += '</p>'
-        tmp += '</div>'
-        tmp += '<div class="comment_info_box">'
-        tmp += '<span class="comment_info_date">' + comment.mdf_date + '</span>'
         tmp += '<button class="replyBtn">답글</button>'
-        tmp += '<button class="delBtn">삭제</button>'
-        tmp += '<button class="modBtn">수정</button>'
-        tmp += '</div>'
-        tmp += '</div>'
-        tmp += '</div>'
         tmp += '</li>'
       })
       return tmp + "</ul>";
