@@ -1,5 +1,6 @@
 package com.devcamp.eztour.service.reserv;
 
+import com.devcamp.eztour.dao.reserv.GuestDao;
 import com.devcamp.eztour.dao.reserv.PayDao;
 import com.devcamp.eztour.dao.reserv.ReservDao;
 import com.devcamp.eztour.dao.reserv.TravelerInfoDao;
@@ -28,6 +29,8 @@ public class ReservServiceImpl implements ReservService {
     TravelerInfoDao travelerInfoDao;
     @Autowired
     PayDao payDao;
+    @Autowired
+    GuestDao guestDao;
     @Autowired
     DataSource ds;
 
@@ -187,7 +190,7 @@ public class ReservServiceImpl implements ReservService {
             result.put("pageHandler", ph);
 
             Map<String, Integer> map = new HashMap<>();
-            map.put("offset", ph.getBeginPage()-1);
+            map.put("offset", (page-1) * pageSize + 1);
             map.put("pageSize", pageSize);
 
             List<ReservDto> list = reservDao.selectTheUnAppredListPage(map);
@@ -207,5 +210,17 @@ public class ReservServiceImpl implements ReservService {
             e.printStackTrace();
         }
         return rowCnt;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public GuestDto guestReservCheck(String rsvt_no, String mn_rsvt_nm, String phn) throws Exception{
+        Map<String, String> map = new HashMap<>();
+        map.put("rsvt_no", rsvt_no);
+        map.put("mn_rsvt_nm", mn_rsvt_nm);
+        map.put("phn", phn);
+
+        String gst_id = reservDao.selectGuestReserv(map);
+        GuestDto guestDto = guestDao.selectGuest(gst_id);
+        return guestDto;
     }
 }

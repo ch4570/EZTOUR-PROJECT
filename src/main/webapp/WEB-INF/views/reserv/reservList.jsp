@@ -25,21 +25,26 @@
         <div class="reserv_box">
             <a href="<c:url value='/reserv/reservView?rsvt_no=${reserv.rsvt_no}&prd_dtl_cd=${reserv.prd_dtl_cd}'/> ">
                 <div>
-                    <span>예약번호</span>
-                    <span>${reserv.rsvt_no}</span> |
-                    <span>예약일</span>
-                    <span>${reserv.rsvt_date}</span>
+                    <img src="${reserv.img_pth}"/>
                 </div>
                 <div>
-                    <span>${reserv.cmn_cd_rsvt_stt} </span>
-                    <span>${reserv.cmn_cd_pay_stt}</span>
-                </div>
-                <div>
-                    <h3>${reserv.prd_nm}</h3>
-                    <span>${reserv.prd_dtl_desc}</span>
-                </div>
+                    <div>
+                        <span>예약번호</span>
+                        <span>${reserv.rsvt_no}</span> |
+                        <span>예약일</span>
+                        <span>${reserv.rsvt_date}</span>
+                    </div>
+                    <div>
+                        <span>${reserv.cmn_cd_rsvt_stt} </span>
+                        <span>${reserv.cmn_cd_pay_stt}</span>
+                    </div>
+                    <div>
+                        <h3>${reserv.prd_nm}</h3>
+                        <span>${reserv.prd_dtl_desc}</span>
+                    </div>
 
-                <div>${reserv.sum_prc}</div>
+                    <div>${reserv.sum_prc}</div>
+                </div>
             </a>
         </div>
     </c:forEach>
