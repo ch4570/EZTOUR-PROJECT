@@ -96,24 +96,27 @@ public class ReservController {
         , HttpSession session, HttpServletRequest req, Model m){
         //validator 필요!!!!
         UserDto userDto = (UserDto) session.getAttribute("userDto");
-        if(userDto==null){
+        UserDto guest = (UserDto) session.getAttribute("guest");
+        //로그인 안했으면
+        if(userDto==null && guest == null){
+            //게스트를 등록하고 session에 guest로 등록하고
             String gst_id = "guest" + makeRanNum();
-            GuestDto guestDto = new GuestDto(gst_id, reservDto.getMn_rsvt_nm(), reservDto.getPhn());
 
-            guestService.registerGuest(guestDto);
+            guestService.registerGuest(new GuestDto(gst_id, reservDto.getMn_rsvt_nm(), reservDto.getPhn()));
             //유효성 검사 validator 추가
             reservDto.setUsr_id(gst_id);
 
             //guest session 추가
-            UserDto guest = new UserDto(gst_id, reservDto.getMn_rsvt_nm(),
+            UserDto guestDto = new UserDto(gst_id, reservDto.getMn_rsvt_nm(),
                     emailFirst+"@"+emailLast, null, reservDto.getPhn(), 0, null);
-            session.setAttribute("userDto", guest);
+            session.setAttribute("guest", guestDto);
         } else {
-            String usr_id = userDto.getUsr_id();
-            //session을 사용중인 게스트가 하나 이상의 예약을 못하게 막음
-            if(usr_id.toLowerCase().contains("guest")){
-                if(reservService.getReservCnt(usr_id)>=1) return "redirect:/";
+            if(guest!=null){
+                //게스트 로그인이 되어있으면
+                //session을 사용중인 게스트가 하나 이상의 예약을 못하게 막음
+                if(reservService.getReservCnt(guest.getUsr_id())>=1) return "redirect:/";
             }
+            //회원로그인시
             reservDto.setUsr_id(userDto.getUsr_id());
         }
 
@@ -225,7 +228,18 @@ public class ReservController {
 
         if(page == null) page = 1;
         if(pageSize == null) pageSize = 10;
-        String usr_id = ((UserDto)session.getAttribute("userDto")).getUsr_id();
+
+        UserDto userDto = (UserDto) session.getAttribute("userDto");
+        UserDto guest = (UserDto) session.getAttribute("guest");
+
+        String usr_id = "";
+        if(userDto!=null){
+            //회원
+            usr_id = userDto.getUsr_id();
+        } else {
+            usr_id = guest.getUsr_id();
+            System.out.println(usr_id);
+        }
 
 
         int totalReservCnt = reservService.getReservCnt(usr_id);
@@ -247,12 +261,10 @@ public class ReservController {
         return "reserv/reservList";
     }
 
-    private boolean loginCheck(HttpSession session){
-        return session.getAttribute("userDto") == null;
-    }
+
 
     @GetMapping("/reservView")
-    public String getRreserv(String rsvt_no, String prd_dtl_cd, HttpServletRequest req, Model m){
+    public String getRreserv(String rsvt_no, String prd_dtl_cd, HttpServletRequest req, HttpSession session, Model m){
         //rsvt_no=it1660418896171&prd_dtl_cd=a001001
         //prd_dtl_cd=a001001
         /////중복 처리할 것///////
@@ -264,6 +276,10 @@ public class ReservController {
 //            return "redirect:/user/login?toURL="+toURL; //로그인 화면으로
 //        }
         /////중복 처리할 것///////
+        if(loginCheck(session)){
+            return "redirect:/user/login?toURL="+req.getRequestURI(); //로그인 화면으로
+        }
+
 
         List list = reservService.getReservView(rsvt_no, prd_dtl_cd);
 
@@ -432,6 +448,10 @@ public class ReservController {
     private String makeRanNum() {
         int ranNum = (int)(Math.random() * 9000 + 1000);
         return ranNum+System.currentTimeMillis()+"";
+    }
+
+    private boolean loginCheck(HttpSession session){
+        return !(session.getAttribute("userDto") == null || session.getAttribute("guest")==null);
     }
 
 }

@@ -88,10 +88,19 @@ public class PayController {
 //        }
 
         UserDto userDto = (UserDto) session.getAttribute("userDto");
+        UserDto guestDto = (UserDto) session.getAttribute("guest");
 
         UserDto userInfo = new UserDto();
-        String usr_id = userDto.getUsr_id();
-        userInfo.setUsr_id(usr_id);
+        String usr_id = "";
+        if(userDto!=null){
+            //회원일 떄
+            usr_id = userDto.getUsr_id();
+            userInfo.setUsr_id(usr_id);
+        } else {
+            //비회원일 때
+            usr_id = guestDto.getUsr_id();
+            userInfo.setUsr_id(usr_id);
+        }
 
         ////해당 예약에 대한 결제가 이미 진행되었나?////
         String payStatus = payService.getPayStatus(rsvt_no, usr_id);
@@ -105,25 +114,30 @@ public class PayController {
         long pay_ftr_prc = 0;
 
         try {
-            //비회원
-            //mlg = 0, 이름만 가져옴, 휴대폰 번호
-            if(usr_id.toLowerCase().contains("guest")){
-                GuestDto guestDto = payService.getGuestInfo(usr_id);
-                userInfo.setUsr_nm(guestDto.getGst_nm());
-                userInfo.setPhn(guestDto.getPhn());
-                userInfo.setMlg(0);
-            } else {
+            if(userDto!=null){
                 //회원
                 //이름, 이메일, 마일리지, 휴대폰 번호
                 userInfo.setUsr_nm(userDto.getUsr_nm());
                 userInfo.setEmail(userDto.getEmail());
                 userInfo.setPhn(userDto.getPhn());
                 userInfo.setMlg(reservService.getUserMlg(usr_id));
+            } else {
+                //비회원
+                //mlg = 0, 이름만 가져옴, 휴대폰 번호
+                GuestDto guest = payService.getGuestInfo(usr_id);
+                userInfo.setUsr_nm(guest.getGst_nm());
+                userInfo.setPhn(guest.getPhn());
+                userInfo.setMlg(0);
             }
 
             pay_ftr_prc = reservService.getPayFtrPrc(rsvt_no);
             m.addAttribute("pay_ftr_prc", pay_ftr_prc);
-            m.addAttribute("userDto", userDto);
+
+            if(userDto!=null){
+                m.addAttribute("userDto", userDto);
+            } else {
+                m.addAttribute("userDto", guestDto);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             try {
@@ -243,7 +257,14 @@ public class PayController {
     @PostMapping("/saveResult")
     public String savePayResult(@RequestBody PayDto payDto, HttpSession session, HttpServletResponse response){
         UserDto userDto = (UserDto) session.getAttribute("userDto");
-        String usr_id = userDto.getUsr_id();
+        UserDto guestDto = (UserDto) session.getAttribute("guest");
+
+        String usr_id = "";
+        if(userDto!=null){
+            usr_id = userDto.getUsr_id();
+        } else {
+            usr_id = guestDto.getUsr_id();
+        }
 
         String imp_uid = payDto.getImp_uid();
         String merchant_uid = payDto.getPay_no();
@@ -256,7 +277,7 @@ public class PayController {
         int realUserMlg = 0;
 
         try {
-            if(!usr_id.toLowerCase().contains("guest")){
+            if(userDto!=null){
                 //비회원이 아닐 때
                 realUserMlg = reservService.getUserMlg(usr_id);
             }
@@ -288,7 +309,7 @@ public class PayController {
 //                res.send({ status: "success", message: "일반 결제 성공" });
 
                 //마일리지 차감 회원인경우에만
-                if(!usr_id.toLowerCase().contains("guest")){
+                if(userDto!=null){
                     //비회원이 아닐 때
                     //예외발생하면???
                     reservService.updateUserMlg("minus", used_mlg, usr_id);
