@@ -177,7 +177,6 @@
 <script>
     let msg = "${msg}";
     if(msg=="MOD_ERR")   alert("회원정보 수정 도중 문제가 발생했습니다. 다시 시도해주세요.");
-    if(msg=="MOD_OK")   alert("회원정보가 정상적으로 수정되었습니다.");
     if(msg=="DEL_ERR")    alert("회원 탈퇴 과정에 문제가 발생했습니다. 다시 시도해주세요.");
 
     $.fn.radioSelect = function(val) {

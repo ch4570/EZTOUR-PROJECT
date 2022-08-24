@@ -2,6 +2,7 @@ package com.devcamp.eztour.controller.user;
 
 import com.devcamp.eztour.domain.user.NaverLoginBO;
 import com.devcamp.eztour.domain.user.UserDto;
+import com.devcamp.eztour.service.reserv.ReservService;
 import com.devcamp.eztour.service.user.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.OAuth2AccessToken;
@@ -18,6 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -26,9 +28,22 @@ public class UserController {
 
     @Autowired
     UserService userService;
-
     @Autowired
     NaverLoginBO naverloginbo;
+    @Autowired
+    ReservService reservService;
+
+    @GetMapping("/selectJoin")
+    public String selectJoin(HttpSession session, Model m, RedirectAttributes rattr) {
+        if(session.getAttribute("userDto")==null) {
+            String naverAuthUrl = naverloginbo.getAuthorizationUrl(session);
+            m.addAttribute("naverUrl", naverAuthUrl);
+            return "user/selectJoin.tiles";
+        }else {
+            rattr.addFlashAttribute("msg", "ACC_ERR");
+            return "redirect:/";
+        }
+    }
 
     @GetMapping("/auth")
     public String auth() {
@@ -44,10 +59,7 @@ public class UserController {
 
     @GetMapping("/join")
     public String join(HttpSession session, RedirectAttributes rattr, String usr_nm, String phn, Model m, HttpServletResponse response) {
-        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-        response.setHeader("Expires", "0"); // Proxies.
-
-        if(session.getAttribute("userDto")==null) {
+        if(session.getAttribute("userDto")==null && usr_nm != null && phn != null) {
             m.addAttribute("usr_nm", usr_nm);
             m.addAttribute("phn", phn);
             return "user/join.tiles";
@@ -55,8 +67,10 @@ public class UserController {
         rattr.addFlashAttribute("msg", "ACC_ERR");
         return "redirect:/";
     }
+
     @PostMapping("/join")
     public String join(UserDto user, RedirectAttributes rattr, HttpSession session) {
+
         String gndr = user.getGndr();
         if(user.getGndr()!=null && user.getGndr().equals("F")||user.getGndr().equals("female")){
             gndr = "여성";
@@ -94,7 +108,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(String usr_id, String pwd, boolean rememberId,
-                        HttpSession session, HttpServletResponse response, String toURL) throws Exception {
+                        HttpSession session, HttpServletResponse response) throws Exception {
 
         UserDto userDto = userService.selectUsr(usr_id);
         System.out.println(usr_id);
@@ -106,7 +120,6 @@ public class UserController {
         }
 
         userService.updateHstForLogin(usr_id); // 예외처리 예정 (에러 발생시 세션 안넘기고 에러메세지 + 메인 이동)
-
         UserDto loginUser = new UserDto(userDto.getUsr_id(), userDto.getUsr_nm(),
                                                  userDto.getEmail(), userDto.getRl(), userDto.getPhn(), userDto.getMlg(), userDto.getCmn_cd_prf_img());
         session.setAttribute("userDto", loginUser);
@@ -120,7 +133,7 @@ public class UserController {
             response.addCookie(cookie);
         }
 
-        // 3. 이전에 눌렀던 url 이동 (마이페이지, 고객센터에 적용?)
+        String toURL = (String) session.getAttribute("toURL");
         toURL = toURL==null || toURL.equals("") ? "/" : toURL;
         return "redirect:"+toURL;
 
@@ -136,12 +149,41 @@ public class UserController {
     }
 
     @GetMapping("/mypage")
-    public String mypage(HttpSession session, RedirectAttributes rattr) {
-        if(session.getAttribute("userDto")==null){
+    public String mypage(HttpSession session, RedirectAttributes rattr, Model m) {
+//        UserDto userDto = new UserDto();
+//        if(session.getAttribute("userDto")!= null) {
+//            userDto = (UserDto) session.getAttribute("userDto");
+//        }else{
+//            rattr.addFlashAttribute("msg", "ACC_ERR");
+//            return "redirect:/";
+//        }
+
+        UserDto userDto = new UserDto();
+        userDto = (UserDto) session.getAttribute("userDto");
+
+        Map map = new HashMap<>();
+        map.put("usr_id",userDto.getUsr_id());
+        map.put("offset",0);
+        map.put("pageSize",2);
+
+        try {
+            List rsrvlist =  reservService.getReservListPage(map);
+            System.out.println(rsrvlist);
+            m.addAttribute("rsrvlist", rsrvlist);
+
+            userDto = userService.selectUsr(userDto.getUsr_id());
+            m.addAttribute("prfImg",userDto.getCmn_cd_prf_img());
+            m.addAttribute("mlg",userDto.getMlg());
+
+            List<Map> paylist = userService.selectPaylogForMypage(userDto.getUsr_id());
+            m.addAttribute("paylist", paylist);
+
+            return "user/mypage.tiles";
+        } catch (Exception e) {
+            e.printStackTrace();
             rattr.addFlashAttribute("msg", "ACC_ERR");
             return "redirect:/user/login";
         }
-        return "user/mypage.tiles";
     }
 
     @GetMapping("/usrMod")
@@ -155,19 +197,19 @@ public class UserController {
             rattr.addFlashAttribute("msg","GET_ERR");
             return "redirect:/";
         }
-
         return "user/usrMod.tiles";
     }
 
     @PostMapping ("/usrMod")
-    public String usrMod(UserDto userDto, RedirectAttributes rattr){
+    public String usrMod(UserDto userDto, HttpSession session, RedirectAttributes rattr){
+
         try {
             int rowCnt = userService.updateUsr(userDto);
             if(rowCnt != 1)
                 throw new Exception("user update error");
 
             rattr.addFlashAttribute("msg","MOD_OK");
-            return "redirect:/user/usrMod";
+            return "redirect:/user/mypage";
         } catch (Exception e) {
             e.printStackTrace();
             rattr.addFlashAttribute("msg","MOD_ERR");
@@ -213,7 +255,7 @@ public class UserController {
 
 
     @RequestMapping(value="/userNaverLoginPro",  method = {RequestMethod.GET,RequestMethod.POST})
-    public String userNaverLoginPro(Model model, @RequestParam Map<String,Object> paramMap, @RequestParam String code, @RequestParam String state, HttpSession session, String toURL) throws SQLException, Exception {
+    public String userNaverLoginPro(Model model, @RequestParam Map<String,Object> paramMap, @RequestParam String code, @RequestParam String state, HttpSession session) throws SQLException, Exception {
         System.out.println("paramMap:" + paramMap);
         Map <String, Object> resultMap = new HashMap<String, Object>();
 
@@ -234,6 +276,10 @@ public class UserController {
         birthDay = birthYear+birthDay;
         System.out.println(birthDay);
 
+        // 핸드폰 특수문자 버리기
+        String phn = (String)apiJson.get("mobile");
+        phn = phn.replaceAll("-", "");
+
         // 이름 한글 변환
         String name = (String)apiJson.get("name");
         name = uniToKor(name);
@@ -241,14 +287,14 @@ public class UserController {
 
         apiJson.put("usr_nm", name);
         apiJson.put("brth", birthDay);
-        apiJson.put("phn", apiJson.get("mobile"));
+        apiJson.put("phn", phn);
         apiJson.put("naver_id", apiJson.get("id"));
 
         String naver_id = (String)apiJson.get("naver_id");
 
         // 네이버로그인 정보와 일치하는 사용자정보 불러오기
         Map<String, Object> naverConnectionCheck = userService.naverConnectionCheck(apiJson);
-
+        System.out.println(naverConnectionCheck);
         if(naverConnectionCheck == null) { // 일치하는 정보가 아예 없으면 가입
             model.addAttribute("email",apiJson.get("email"));
             model.addAttribute("brth",apiJson.get("brth"));
@@ -268,7 +314,10 @@ public class UserController {
         }else { // 모두 연동 되어있을시, 바로 세션으로 정보 저장
             UserDto userDto = userService.userNaverLoginPro(naver_id); // 해당 네이버 아이디를 가진 사용자를 부른다. (아이디, 이름, 이메일, 핸드폰, 역할)
             session.setAttribute("userDto", userDto);
+            userService.updateHstForLogin(userDto.getUsr_id()); // 예외처리 예정 (에러 발생시 세션 안넘기고 에러메세지 + 메인 이동)
         }
+        String toURL = (String)session.getAttribute("toURL");
+
         // 이전에 눌렀던 url 이동 (마이페이지, 고객센터에 적용?)
         toURL = toURL==null || toURL.equals("") ? "/" : toURL;
         return "redirect:"+toURL;
@@ -292,6 +341,28 @@ public class UserController {
     public String setSubInfo(Model m){
 
         return "user/setSubInfo.tiles";
+    }
+
+    @PostMapping("checkPwdForUsrMod")
+    public String checkPwdForUsrMod(HttpSession session, String pwd, RedirectAttributes rattr){
+        UserDto userDto = (UserDto) session.getAttribute("userDto");
+        String usr_id = userDto.getUsr_id();
+
+        try {
+            boolean pwdCheck = userService.checkPwdForUsrMod(usr_id, pwd);
+            if(pwdCheck==true)
+                return "redirect:/user/usrMod";
+
+            rattr.addFlashAttribute("msg","GET_ERR");
+            return "redirect:/user/mypage";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            rattr.addFlashAttribute("msg","DB_ERR");
+            return "redirect:/user/mypage";
+        }
+
+
     }
 
     // 유니코드로된 이름 한글 변환

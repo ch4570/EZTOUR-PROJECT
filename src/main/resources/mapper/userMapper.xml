@@ -215,4 +215,38 @@
             kakao_id = #{kakao_id}
     </select>
 
+    <select id="selectPaylogForMypage" parameterType="String" resultType="map">
+        SELECT
+            p.rsvt_no,
+            p.prd_dtl_cd,
+            p.pay_prc,
+            p.cmn_cd_pay_stt,
+            p.pay_date,
+            t.prd_nm,
+            p.usr_id
+        FROM
+            pay p, trv_prd_dtl t
+        WHERE
+            p.prd_dtl_cd = t.prd_dtl_cd
+            AND
+            p.usr_id = 'asdf'
+        ORDER BY
+            p.pay_date desc
+        LIMIT 4
+    </select>
+
+    <select id="checkPwdForUsrMod" parameterType="Map" resultType="boolean">
+        SELECT
+            EXISTS
+            (
+            SELECT
+                usr_id
+            FROM
+                usr
+            WHERE
+                usr_id = #{usr_id}
+                AND
+                pwd = #{pwd}
+            )AS pwd_check
+    </select>
 </mapper>
