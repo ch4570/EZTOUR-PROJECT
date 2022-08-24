@@ -91,7 +91,7 @@
                         </dl>
                         <dl>
                             <dt>할부개월수</dt>
-                            <dd>${payDto.dvd_mnt==0 ? "일시불" : payDto.dvd_mnt }</dd>
+                            <dd>${payDto.dvd_mnt==0 ? "일시불" : payDto.dvd_mnt + "개월" }</dd>
                         </dl>
                     </div>
                 </div>

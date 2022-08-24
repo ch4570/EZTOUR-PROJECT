@@ -3,9 +3,7 @@ package com.devcamp.eztour.service.reserv;
 import com.devcamp.eztour.dao.reserv.GuestDao;
 import com.devcamp.eztour.dao.reserv.PayDao;
 import com.devcamp.eztour.dao.user.UserDao;
-import com.devcamp.eztour.domain.reserv.GuestDto;
-import com.devcamp.eztour.domain.reserv.PayDto;
-import com.devcamp.eztour.domain.reserv.Payment;
+import com.devcamp.eztour.domain.reserv.*;
 import com.devcamp.eztour.domain.user.UserDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -29,6 +27,7 @@ import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -169,5 +168,70 @@ public class PayServiceImpl implements PayService {
         }
 
         return map;
+    }
+
+    @Override
+    public CancelViewDto getCancelInfo(String rsvt_no) {
+        CancelViewDto cancelViewDto = null;
+        try {
+            cancelViewDto = payDao.selectCancelInfo(rsvt_no);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cancelViewDto;
+    }
+
+    @Override
+    public PayDto getPayInfo(String rsvt_no, String usr_id) throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("rsvt_no", rsvt_no);
+        map.put("usr_id", usr_id);
+        return payDao.selectPayById(map);
+    }
+
+    @Override
+    public Map<String, Object> cancelPay(PayDto payDto, String access_token) throws Exception {
+        Map<String, Object> responseMap = null;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("reason", payDto.getCnc_rsn());
+        map.put("imp_uid", payDto.getImp_uid());
+        map.put("amount", payDto.getPay_prc()+"");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestBody = objectMapper
+                .writerWithDefaultPrettyPrinter()
+                .writeValueAsString(map);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .setHeader("Content-Type", "application/json")
+                .setHeader("Authorization", access_token)
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .uri(URI.create("https://api.iamport.kr/payments/cancel"))
+                .timeout(Duration.ofMinutes(2))
+                .build();
+
+        CompletableFuture<HttpResponse<String>> response = HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        String result = response.thenApply(HttpResponse::body).get(5, TimeUnit.SECONDS);
+
+        Gson gson = new Gson();
+        //여기서 값을 못가져옴
+//            String stringResponse = gson.fromJson(result, Map.class).get("response").toString();
+        responseMap = (Map<String, Object>) gson.fromJson(result, Map.class).get("response");
+        String code = gson.fromJson(result, Map.class).get("code").toString();
+//        int code = Integer.parseInt(responseMap.get("code"));
+
+        if(!"0.0".equals(code)){
+            throw new CancelException("환불 처리과정에서 문제가 발생하여 환불처리에 실패했습니다.");
+        }
+
+        return responseMap;
+    }
+}
+
+class CancelException extends RuntimeException {
+    CancelException(){}
+    CancelException(String msg){
+        super(msg);
     }
 }

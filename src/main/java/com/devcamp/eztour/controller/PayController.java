@@ -6,6 +6,7 @@ import com.devcamp.eztour.service.reserv.PayService;
 import com.devcamp.eztour.service.reserv.ReservService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import kotlinx.serialization.json.Json;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -46,11 +47,11 @@ public class PayController {
 //    static final String PAY_APPV_REFUND_SUCCESS= "8E";     //환불 완료
 
     //결제상태
-    static final String PAY_STT_READY= "7A";             //결제 대기
-    static final String PAY_STT_CANCELLED= "7B";         //결제 취소
+    static final String PAY_STT_READY= "7A";             //결제 대기 //환불안됨
+    static final String PAY_STT_CANCELLED= "7B";         //결제 취소 //환불안됨
     static final String PAY_STT_COMPLETE= "7C";          //결제 완료
-    static final String PAY_STT_FAILED= "7D";            //결제 실패
-    static final String PAY_STT_PREPARE = "7E";          //결제 준비중
+    static final String PAY_STT_FAILED= "7D";            //결제 실패 //환불안됨 //안씀
+    static final String PAY_STT_PREPARE = "7E";          //결제 준비중 //환불안됨
     static final String PAY_STT_FORGERY_PRC = "7F";      //결제 위조 시도 - 금액
     static final String PAY_STT_FORGERY_MLG = "7G";      //결제 위조 시도 - 마일리지
     //예약 상태
@@ -382,8 +383,104 @@ public class PayController {
         return "pay/payConfirm";
     }
 
+    @GetMapping("/cnc")
+    public String cancel1(String rsvt_no, HttpSession session, Model m){
+        try {
+            UserDto userDto = (UserDto) session.getAttribute("userDto");
+            String usr_id = userDto.getUsr_id();
 
+            String status = payService.getPayStatus(rsvt_no, usr_id);
+            if(status == null){
+                reservService.updateRsvtStt(RESERV_CANCEL, PAY_STT_CANCELLED, rsvt_no);
+                return "redirect:/reserv/list";
+            }
+
+            CancelViewDto cancelViewDto = payService.getCancelInfo(rsvt_no);
+            m.addAttribute("cncViewDto", cancelViewDto);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "pay/cancel";
+    }
+
+    @ResponseBody
+    @PostMapping("/cnc")
+    public String processCancel(@RequestBody CancelViewDto cancelViewDto, HttpSession session){
+        UserDto userDto = (UserDto) session.getAttribute("userDto");
+        String usr_id = userDto.getUsr_id();
+        JsonObject jsonResult = new JsonObject();
+
+        String access_token = payService.getToken(IMP_KEY, IMP_SECRET);
+
+        PayDto payDto = null;
+        try {
+            //유저가 다른 고객의 예약번호로 들어옴
+            payDto = payService.getPayInfo(cancelViewDto.getRsvt_no(), usr_id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            jsonResult.addProperty("status", "ACCESS_DENIED");
+            return jsonResult.toString();
+        }
+
+        String status = payDto.getCmn_cd_pay_stt();
+
+        if(PAY_STT_READY.equals(status) || PAY_STT_CANCELLED.equals(status)
+            ||PAY_STT_FAILED.equals(status)||PAY_STT_PREPARE.equals(status)){
+            //환불이 안되는 상태코드 취소금액 컬럼 추가해서 금액으로 비교?
+            jsonResult.addProperty("status", "ACCESS_DENIED");
+            return jsonResult.toString();
+        }
+
+//        if(cancel_request_amount != payDto.getPay_prc()){
+        if(100 != payDto.getPay_prc()){
+            //환불금액과 결제금액이 다르면?
+            jsonResult.addProperty("status", "ACCESS_DENIED");
+            return jsonResult.toString();
+        }
+
+        payDto.setCnc_rsn(cancelViewDto.getCnc_rsn());
+
+        Map<String, Object> response = null;
+        try {
+            response = payService.cancelPay(payDto, access_token);
+        } catch (Exception e) {
+            e.printStackTrace();
+            jsonResult.addProperty("status", "CANCEL_FAILED");
+            //reserv/reservView로 돌아감
+            return jsonResult.toString();
+        }
+
+        //마일리지 다시 돌려줌
+        reservService.updateUserMlg("plus", payDto.getUsed_mlg(), usr_id);
+
+        payDto.setPay_no(cancelViewDto.getNew_pay_no());
+//        payDto.setPay_prc((Double.valueOf(response.get("amount"))).longValue());
+        Double amount = (Double) response.get("amount");
+        payDto.setPay_prc(amount.longValue());
+        payDto.setPay_date(new Date());
+        payDto.setCmn_cd_pay_appr(PAY_APPV_SUCCESS); //의미 없음
+        payDto.setCmn_cd_pay_stt(PAY_STT_CANCELLED); //결제취소 성공
+        payDto.setDvd_mnt(0);
+        payDto.setUsed_mlg(0);
+
+        //취소내역 pay에 저장
+        payService.savePayInfo(payDto);
+        //예약테이블에 상태 업데이트
+        reservService.updateRsvtStt(RESERV_CANCEL, PAY_STT_CANCELLED, cancelViewDto.getRsvt_no());
+
+        String result = jsonResult.toString();
+        return result;
+    }
+
+
+    @GetMapping("/cncConfirm")
+    public String cancelConfirm(){
+        return "pay/cancelConfirm";
+    }
 }
+
+
 
 
 class PayForgeryException extends RuntimeException {

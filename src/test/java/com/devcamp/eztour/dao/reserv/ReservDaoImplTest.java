@@ -279,4 +279,27 @@ public class ReservDaoImplTest {
         assertTrue(reservDao.insertReserv(reservDto)==1);
     }
 
+    @Test
+    public void selectReservByRsvtNoTest() throws Exception {
+        String rsvt_no = "A010011661104869005";
+        ReservDto reservDto = reservDao.selectReservByRsvtNo(rsvt_no);
+        assertTrue(rsvt_no.equals(reservDto.getRsvt_no()));
+    }
+
+    @Test
+    public void selectTheUnAppredListCntTest() throws Exception{
+        int cnt = reservDao.selectTheUnAppredListCnt();
+        assertTrue(cnt == 1);
+    }
+
+    @Test
+    public void selectTheUnAppredListPageTest() throws Exception {
+        PageHandler ph = new PageHandler(1,1);
+        Map<String, Integer> map = new HashMap<>();
+        map.put("pageSize", ph.getPageSize());
+        map.put("offset", ph.getBeginPage()-1);
+
+        List<ReservDto> list = reservDao.selectTheUnAppredListPage(map);
+        assertTrue(list.size()==1);
+    }
 }
