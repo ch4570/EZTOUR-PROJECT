@@ -137,16 +137,13 @@
               $(result).each(function() {
                 $('.detail__item--list'+count).
                 append('<li class="detail-item__list">'+
-                        '<div class="detail-item__list--item">'+
-                        '<span>'+ this.prd_cd +'</span>'+
-                        '<span>'+ this.prd_dtl_cd +'</span>'+
-                        '<span>'+ this.prd_nm +'</span>'+
-                        '<span>'+ this.dom_dpr_date +'</span>'+
-                        '<span>'+ this.dom_fin_date +'</span>'+
-                        '<span>'+ this.arl_nm +'</span>'+
-                        '<span>'+ this.rsvt_yn +'</span>'+
-                        '<span>'+ this.prd_str_prc +'</span></div>'+
-                        '<div class="detail-item__btn"><button class="detail-item__btn--btn" prd_dtl_cd="' + this.prd_dtl_cd + '" name="detailItemBtn">'+
+                        '<div class="detail-item__list--info">'+
+                        '<span class="list__prd_nm">'+ this.prd_nm +'</span>'+
+                        '<div><i class="far fa-calendar"></i><span class="list__dpr_date">'+ this.dom_dpr_date +'</span>'+
+                        '~<span class="list__fin_date">'+ this.dom_fin_date +'</span></div>'+
+                        '<span>'+ this.arl_nm +'</span></div>'+
+                        '<div class="detail-item__list--price"><span>'+ this.prd_str_prc +'<span>원</span></span>'+
+                        '<button class="detail-item__btn--btn" prd_dtl_cd="' + this.prd_dtl_cd + '" name="detailItemBtn">'+
                         '자세히보기</button></div></li>');
               });
             },

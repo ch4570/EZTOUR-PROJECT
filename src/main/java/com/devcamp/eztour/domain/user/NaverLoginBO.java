@@ -43,7 +43,7 @@ public class NaverLoginBO {
         CLIENT_ID = value;
     }
 
-    private final static String REDIRECT_URI = "http://172.31.41.154:8080/user/userNaverLoginPro";
+    private final static String REDIRECT_URI = "http://3.39.177.243/user/userNaverLoginPro";
     private final static String SESSION_STATE = "oauth_state";
 
     /* 프로필 조회 API URL */
