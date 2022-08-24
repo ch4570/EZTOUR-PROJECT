@@ -39,6 +39,11 @@ public class ReservDaoImpl implements ReservDao {
     }
 
     @Override
+    public ReservDto selectReservByRsvtNo(String rsvt_no) throws Exception {
+        return session.selectOne(namespace + "selectReservByrsvtNo", rsvt_no);
+    }
+
+    @Override
     public List<ReservDto> selectAllReserv() throws Exception {
         return session.selectList(namespace+"selectAllReserv");
     }
@@ -48,6 +53,15 @@ public class ReservDaoImpl implements ReservDao {
         return session.selectOne(namespace+"selectReservConfInfo", rsvt_no);
     }
 
+    @Override
+    public List<ReservDto> selectTheUnAppredListPage(Map<String, Integer> map) throws Exception{
+        return session.selectList(namespace+"selectTheUnAppredListPage", map);
+    }
+
+    @Override
+    public int selectTheUnAppredListCnt() throws Exception{
+        return session.selectOne(namespace + "selectTheUnAppredListCnt");
+    }
     @Override
     public int updateReservStatus(Map<String, String> map) throws Exception {
         //예약변호와 변경할 코드를 map으로 줌
@@ -93,5 +107,4 @@ public class ReservDaoImpl implements ReservDao {
     public int deleteReserv(String rsvt_no) throws Exception {
         return session.delete(namespace+"deleteReserv", rsvt_no);
     }
-
 }

@@ -1,0 +1,106 @@
+.wrap .content .board {
+    position: relative;
+    top: -75px;
+    display: inline-block;
+    width: 80%;
+    margin-left: 60px;
+}
+
+.board_headbox {
+    display: block;
+    height: 45px;
+    line-height: 45px;
+}
+
+.board_body {
+    height: 45px;
+    line-height: 45px;
+}
+
+.board_body div,
+.board_headbox div {
+    display: inline-block;
+}
+
+.col1 {
+    width: 26%;
+    text-align: center;
+}
+
+.col2 {
+    width: 15%;
+    text-align: center;
+}
+
+.col3 {
+    text-align: center;
+    width: 20%;
+}
+
+.col4 {
+    width: 20%;
+    text-align: center;
+}
+
+.col5 {
+    width: 15%;
+    text-align: center;
+}
+
+
+/*dd*/
+
+
+
+h1{
+    font-size: 30px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.wrap{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.wrap .content{
+    width: 1200px;
+    height: 1000px;
+    margin: 0 auto;
+}
+.wrap .content .nav{
+    /*width: 200px;*/
+    height: 800px;
+    display: block;
+}
+
+.wrap .content .nav .menu {
+    width: 170px;
+    height: 700px;
+    position: relative;
+    display: inline-block;
+}
+
+.wrap .content .nav .menu ul{
+    padding-top: 20px;
+}
+
+.wrap .content .nav .menu ul .prd_tlt{
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 20px;
+}
+
+.wrap .content .nav .menu ul .menu_list{
+    font-size: 15px;
+    padding-top: 10px;
+}
+
+.pagingbox {
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    margin-top: 30px;
+}

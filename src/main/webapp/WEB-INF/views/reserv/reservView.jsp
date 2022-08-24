@@ -127,7 +127,7 @@
                     <button class="reservList" type="button">예약 목록보기</button>
                 </c:when>
                 <c:when test="${status == '6A' || status == '6E'}">
-                    <button type="button">${status == '6A' ? "예약접수" : "결제"} 취소</button>
+                    <button type="button" class="cncBtn">${status == '6A' ? "예약접수" : "결제"} 취소</button>
                     <button class="reservList" type="button">예약 목록보기</button>
                 </c:when>
                 <c:otherwise>
@@ -144,6 +144,10 @@
 
         $('.payBtn').on("click", function(){
             location.href = '<c:url value="/pay/pay?rsvt_no=${rcid.rsvt_no}&prd_dtl_cd=${rcid.prd_dtl_cd}"/> '
+        });
+
+        $('.cncBtn').on("click", function(){
+            location.href = '<c:url value="/pay/cnc?rsvt_no=${rcid.rsvt_no}"/> '
         });
     });
 </script>

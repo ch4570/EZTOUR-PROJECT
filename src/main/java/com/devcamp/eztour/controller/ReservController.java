@@ -1,14 +1,14 @@
 package com.devcamp.eztour.controller;
 
+import com.devcamp.eztour.domain.product.TrvPrdReadDto;
 import com.devcamp.eztour.domain.reserv.*;
 import com.devcamp.eztour.domain.user.UserDto;
 import com.devcamp.eztour.service.reserv.ReservService;
+import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,6 +20,23 @@ public class ReservController {
     @Autowired
     ReservService reservService;
 
+    //결제상태
+    static final String PAY_STT_READY= "7A";             //결제 대기 //환불안됨
+    static final String PAY_STT_CANCELLED= "7B";         //결제 취소 //환불안됨
+    static final String PAY_STT_COMPLETE= "7C";          //결제 완료
+    static final String PAY_STT_FAILED= "7D";            //결제 실패 //환불안됨 //안씀
+    static final String PAY_STT_PREPARE = "7E";          //결제 준비중 //환불안됨
+    static final String PAY_STT_FORGERY_PRC = "7F";      //결제 위조 시도 - 금액
+    static final String PAY_STT_FORGERY_MLG = "7G";      //결제 위조 시도 - 마일리지
+    //예약 상태
+    static final String RESERV_ACCEPT= "6A";              //예약접수
+    static final String RESERV_APPV= "6B";                //예약승인
+    static final String RESERV_RETURNED= "6C";            //예약반려
+    static final String RESERV_CANCEL= "6D";              //예약취소
+    static final String RESERV_COMPELET= "6E";            //예약완료
+    static final String RESERV_UNACCEPT= "6F";            //예약불가
+    static final String RESERV_ETC= "6G";                 //예약기타상태
+
     static final String CMN_CD_ADT = "11A";
     static final String CMN_CD_CHD = "11B";
     static final String CMN_CD_BB = "11C";
@@ -30,22 +47,15 @@ public class ReservController {
 
     @GetMapping("/reserv")
     public String getReservPage(String prd_dtl_cd, Model m, HttpSession session){
-        if(!checkId(session) || prd_dtl_cd == null){
-            //로그인하시겠습니까?
-            //y --> 로그인페이지 --> 예약페이지
-            //n --> 여행상품상세페이지로
-            return "/"; //여행상품상세페이지로
-        }
-
         try {
-            List list = reservService.getReservInfo(prd_dtl_cd);
+            ReservInfoDto reservInfoDto = null;
 
-            ReservInfoDto rid = null;
+            List reservInfo = reservService.getReservInfo(prd_dtl_cd);
             List<AirlineReqDto> arlReqList = new ArrayList<>();
 
-            for(Object obj : list){
+            for(Object obj : reservInfo){
                 if(obj instanceof ReservInfoDto){
-                    rid = (ReservInfoDto) obj;
+                    reservInfoDto = (ReservInfoDto) obj;
                     continue;
                 }
                 if(obj instanceof AirlineReqDto){
@@ -54,22 +64,24 @@ public class ReservController {
                 }
             }
 
-            sortArlReq(arlReqList, rid);
+            sortArlReq(arlReqList, reservInfoDto);
 
             UserDto userDto = (UserDto) session.getAttribute("userDto");
-            m.addAttribute("userDto", userDto);
+            if(userDto!=null){
+                m.addAttribute("userDto", userDto);
 
-            String emailStr[] = userDto.getEmail().split("@");
-            m.addAttribute("emailFirst", emailStr[0]);
-            m.addAttribute("emailLast",  emailStr[1]);
+                String emailStr[] = userDto.getEmail().split("@");
+                m.addAttribute("emailFirst", emailStr[0]);
+                m.addAttribute("emailLast",  emailStr[1]);
+            }
 
-            m.addAttribute("rid", rid);
+            m.addAttribute("rid", reservInfoDto);
         } catch (Exception e) {
             e.printStackTrace();
             return "/";
         }
 
-        return "reserv/reserv";
+        return "reserv/reserv.tiles";
     }
 
 
@@ -270,11 +282,69 @@ public class ReservController {
         return "reserv/reservView";
     }
 
+    @GetMapping("/admin")
+    public String adminReservAppr(Integer page, Integer pageSize, HttpSession session,  Model m){
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
+            return "redirect:/";
+        }
+
+        if(page == null) page = 1;
+        if(pageSize == null) pageSize = 10;
+
+
+        Map<String, Object> map = reservService.getTheUnAppredList(page, pageSize);
+        List<ReservDto> list = (List<ReservDto>) map.get("unAppredList");
+        m.addAttribute("list", list);
+        m.addAttribute("ph", map.get("pageHandler"));
+
+        return "product/reservApprList.tiles";
+    }
+
+    @PostMapping("/updateStt")
+    @ResponseBody
+    public String updateReservStt(@RequestBody ReservDto reservDto, HttpSession session){
+        //관리자 확인
+        //상태 업데이트
+        //업데이트가 안되는건? 예약번호가 잘못되었기 때문인데
+        boolean isAdmin = isAdmin(session);
+        if(!isAdmin){
+            return "redirect:/";
+        }
+
+        String rsvt_no = reservDto.getRsvt_no();
+        JsonObject jsonObject = new JsonObject();
+        int rowCnt = 0;
+
+        if(RESERV_APPV.equals(reservDto.getCmn_cd_rsvt_stt())){
+            rowCnt = reservService.updateRsvtStt(RESERV_APPV, PAY_STT_PRPR, rsvt_no);
+        } else if(RESERV_RETURNED.equals(reservDto.getCmn_cd_rsvt_stt())) {
+            rowCnt = reservService.updateRsvtStt(RESERV_RETURNED, PAY_STT_PRPR, rsvt_no);
+        }
+
+        if(rowCnt!=1){
+            jsonObject.addProperty("status", "FAILED");
+        } else {
+            jsonObject.addProperty("status", "SUCCESS");
+        }
+
+        return jsonObject.toString();
+    }
+
 
 
     private boolean checkId(HttpSession session) {
         return session.getAttribute("userDto") != null;
 //        return true;
+    }
+
+    private boolean isAdmin(HttpSession session){
+        UserDto userDto = (UserDto)session.getAttribute("userDto");
+        if(userDto.getRl().equals("Admin") || userDto.getRl().equals("supAdmin")){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     private void sortArlReq(List<AirlineReqDto> arlReqList, ReservInfoDto rid) {

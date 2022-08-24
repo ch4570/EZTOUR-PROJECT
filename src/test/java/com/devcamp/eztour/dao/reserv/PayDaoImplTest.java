@@ -1,5 +1,6 @@
 package com.devcamp.eztour.dao.reserv;
 
+import com.devcamp.eztour.domain.reserv.CancelViewDto;
 import com.devcamp.eztour.domain.reserv.PayDto;
 import com.devcamp.eztour.domain.reserv.ReservDto;
 import org.junit.Test;
@@ -72,4 +73,23 @@ public class PayDaoImplTest {
         System.out.println("payDao.selectPayStatus(map) = " + payDao.selectPayStatus(map));
         assertTrue(payDao.selectPayStatus(map).equals(payDto.getCmn_cd_pay_stt()));
     }
+
+    @Test
+    public void selectCncInfo() throws Exception{
+        String rsvt_no = "A010011661104869005";
+        CancelViewDto cancelViewDto = payDao.selectCancelInfo(rsvt_no);
+
+//        assertTrue(rsvt_no.equals(cancelViewDto.getRsvt_no()));
+    }
+
+    @Test
+    public void selectPayByIdTest() throws Exception{
+        String rsvt_no = "A010011661104869005";
+        Map<String, String> map = new HashMap<>();
+        map.put("rsvt_no", rsvt_no);
+        map.put("usr_id", "asdf");
+        PayDto payDto = payDao.selectPayById(map);
+        assertTrue(rsvt_no.equals(payDto.getRsvt_no()));
+    }
+
 }

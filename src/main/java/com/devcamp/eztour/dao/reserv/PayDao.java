@@ -1,5 +1,6 @@
 package com.devcamp.eztour.dao.reserv;
 
+import com.devcamp.eztour.domain.reserv.CancelViewDto;
 import com.devcamp.eztour.domain.reserv.PayDto;
 
 import java.util.Map;
@@ -12,4 +13,8 @@ public interface PayDao {
     int insertPay(PayDto payDto) throws Exception;
 
     int deletePayAdmin() throws Exception;
+
+    CancelViewDto selectCancelInfo(String rsvt_no) throws Exception;
+
+    PayDto selectPayById(Map<String, String> map) throws Exception;
 }

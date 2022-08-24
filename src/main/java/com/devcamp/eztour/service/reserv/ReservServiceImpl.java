@@ -143,6 +143,7 @@ public class ReservServiceImpl implements ReservService {
         return rowCnt;
     }
 
+    @Override
     public int updateRsvtStt(String cmn_cd_rsvt_stt, String cmn_cd_pay_stt, String rsvt_no){
         Map map = new HashMap();
         map.put("cmn_cd_rsvt_stt", cmn_cd_rsvt_stt);
@@ -160,5 +161,27 @@ public class ReservServiceImpl implements ReservService {
     @Override
     public long getPayFtrPrc(String rsvt_no) throws Exception {
         return reservDao.selectPayFtrPrc(rsvt_no);
+    }
+
+    @Override
+    public Map<String, Object> getTheUnAppredList(Integer page, Integer pageSize) {
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            int theUnAppredCnt = reservDao.selectTheUnAppredListCnt();
+
+            PageHandler ph = new PageHandler(page, theUnAppredCnt);
+            result.put("pageHandler", ph);
+
+            Map<String, Integer> map = new HashMap<>();
+            map.put("offset", ph.getBeginPage()-1);
+            map.put("pageSize", pageSize);
+
+            List<ReservDto> list = reservDao.selectTheUnAppredListPage(map);
+            result.put("unAppredList", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
