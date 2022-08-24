@@ -79,7 +79,7 @@ pageEncoding="UTF-8"%>
           <c:choose>
               <c:when test="${loginId==''}">
                     <li><a href="/user/login">로그인</a></li>
-                    <li><a href="/user/auth">회원가입</a></li>
+                    <li><a href="/user/selectJoin">회원가입</a></li>
               </c:when>
               <c:when test="${loginId!=''}">
                     <li><a href="/user/logout">로그아웃</a></li>

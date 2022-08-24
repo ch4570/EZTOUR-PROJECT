@@ -33,6 +33,18 @@ public class UserController {
     @Autowired
     ReservService reservService;
 
+    @GetMapping("/selectJoin")
+    public String selectJoin(HttpSession session, Model m, RedirectAttributes rattr) {
+        if(session.getAttribute("userDto")==null) {
+            String naverAuthUrl = naverloginbo.getAuthorizationUrl(session);
+            m.addAttribute("naverUrl", naverAuthUrl);
+            return "user/selectJoin.tiles";
+        }else {
+            rattr.addFlashAttribute("msg", "ACC_ERR");
+            return "redirect:/";
+        }
+    }
+
     @GetMapping("/auth")
     public String auth() {
         return "user/auth.tiles";
@@ -55,6 +67,7 @@ public class UserController {
         rattr.addFlashAttribute("msg", "ACC_ERR");
         return "redirect:/";
     }
+
     @PostMapping("/join")
     public String join(UserDto user, RedirectAttributes rattr, HttpSession session) {
 
@@ -328,6 +341,28 @@ public class UserController {
     public String setSubInfo(Model m){
 
         return "user/setSubInfo.tiles";
+    }
+
+    @PostMapping("checkPwdForUsrMod")
+    public String checkPwdForUsrMod(HttpSession session, String pwd, RedirectAttributes rattr){
+        UserDto userDto = (UserDto) session.getAttribute("userDto");
+        String usr_id = userDto.getUsr_id();
+
+        try {
+            boolean pwdCheck = userService.checkPwdForUsrMod(usr_id, pwd);
+            if(pwdCheck==true)
+                return "redirect:/user/usrMod";
+
+            rattr.addFlashAttribute("msg","GET_ERR");
+            return "redirect:/user/mypage";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            rattr.addFlashAttribute("msg","DB_ERR");
+            return "redirect:/user/mypage";
+        }
+
+
     }
 
     // 유니코드로된 이름 한글 변환

@@ -58,7 +58,7 @@
             <img class="no-cache" src="../image/user/Meditating.png" alt="">
         </c:if>
         <div style="width: 70px; position: relative; left: 300px; bottom: 50px;" >
-            <a href="/user/usrMod"><i class="fa fa-cog fa-5x" aria-hidden="true"></i></a>
+            <a class="openPwChkBtn" ><i class="fa fa-cog fa-5x" aria-hidden="true"></i></a>
         </div>
     </div>
     </div>
@@ -279,49 +279,79 @@
 <!-- 정보수정화면 접근을 위한 비밀번호 입력 모달창 -->
 <div class="modal hidden" id="pwCheckModal">
   <div class="modal__overlay" id="pwCheckOverlay"></div>
-  <div class="modal__content">
+  <div class="modal__content" style="width: 500px; height: 300px;">
       <br/>
-      <form>
-          <h2>회원님의 정보 보호를 위해 비밀번호를 입력해주세요.</h2>
+      <div name="pwChkForm" style="display: flex; flex-direction: column; align-items: center">
+          <h2 style="font-weight: bolder; font-size: xx-large; padding-right: 250px">비밀번호 확인</h2>
+          <h2 style="padding-top: 20px; padding-left : 20px; padding-right: 70px; color: #333333; font-weight: bold"><i class="fa fa-check" aria-hidden="true"></i> 회원님의 정보 보호를 위해 비밀번호를 입력해주세요.</h2>
           <hr>
-          <div style="margin-left: 30px; font-size: 18px;">
+
+          <div style="font-size: 18px;height: 80px; margin-top: 10px;">
               <div class="form-check" id="pwChk">
-                   <input class="form-check-input" name="pwd" value="">
+                  <div id="pwdChkFail" style="padding-top: 10px; font-size: 12px; color: crimson; text-align: left">
+                  </div>
+                   <input class="form-check-input" type="passwords" style="margin-top: 10px;" name="pwd" id="pwd" value="" placeholder="비밀번호를 입력해주세요">
+
               </div>
               <br/>
-              <hr>
+
           </div>
-          <button onclick=""> 확인 </button>
-          <input id="closePwChkBtn" type="button" value="닫기">
-      </form>
+          <input type="button" id="pwChkBtn" style="margin-top: 30px;" value="확인">
+      </div>
   </div>
 </div>
-
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-    let msg = "${msg}";
-    if(msg=="MOD_OK")   alert("회원정보가 정상적으로 수정되었습니다.");
+  let msg = "${msg}";
+  if(msg=="MOD_OK")   alert("회원정보가 정상적으로 수정되었습니다.");
+  if(msg=="GET_ERR")   alert("올바른 비밀번호가 아닙니다. 다시 입력해주세요.");
+  if(msg=="DB_ERR")   alert("회원정보를 가져오는데 문제가 생겼습니다. 다시 시도해주세요.");
+
+  $(document).ready(function ()
+  {
+      $('.no-cache').attr('src',function () { return $(this).attr('src') + "?a=" + Math.random() });
+  });
 
 
-    $(document).ready(function ()
-    {
-        $('.no-cache').attr('src',function () { return $(this).attr('src') + "?a=" + Math.random() });
-    });
-
-
-    const pwCheckModal = document.querySelector("#pwCheckModal");
-    const pwCheckOverlay = pwCheckModal.querySelector("#pwCheckOverlay");
-    const closePwChkBtn = pwCheckModal.querySelector("#closePwChkBtn");
-    const openPwChkBtn = pwCheckModal.querySelector("#openPwChkBtn");
-    const openPwChkModal = () => {
-        pwCheckModal.classList.remove("hidden");
+    function setMessage(msg){
+      document.getElementById("pwdChkFail").innerHTML = msg;
     }
-    const closePwChkModal = () => {
-        pwCheckModal.classList.add("hidden")
-    }
-    openPwChkBtn.addEventListener("click", openPwChkModal);
-    closePwChkBtn.addEventListener("click", closePwChkModal);
-    pwCheckOverlay.addEventListener("click", closePwChkModal);
+
+
+  $("#pwChkBtn").click(function(){
+      let pwd = $("#pwd").val()
+      if(pwd.length==0) {
+          setMessage('비밀번호를 입력해주세요.');
+          return false;
+      }
+          $.ajax({
+              type:'GET',
+              url: '/checkPwdForUsrMod/' + pwd,
+              success : function(pwdCheck){
+                  if(pwdCheck===true) {
+                      location.href='/user/usrMod'
+                  }else{
+                      setMessage("일치하지 않는 비밀번호입니다. 다시 입력햐주세요.")
+                  }
+              },
+              error   : function(){ setMessage("일지하지 않습니다.") }
+          });
+  });
+
+
+  const pwCheckModal = document.querySelector("#pwCheckModal");
+  const pwCheckOverlay = pwCheckModal.querySelector("#pwCheckOverlay");
+  const openPwChkBtn = document.querySelector(".openPwChkBtn");
+  const openPwChkBtn2 = document.querySelector("#openPwChkBtn");
+  const openPwChkModal = () => {
+      pwCheckModal.classList.remove("hidden");
+  }
+  const closePwChkModal = () => {
+      pwCheckModal.classList.add("hidden")
+  }
+  openPwChkBtn.addEventListener("click", openPwChkModal);
+  openPwChkBtn2.addEventListener("click", openPwChkModal);
+  pwCheckOverlay.addEventListener("click", closePwChkModal);
 
 </script>
 

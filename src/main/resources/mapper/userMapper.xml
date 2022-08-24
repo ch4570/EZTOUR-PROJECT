@@ -235,4 +235,18 @@
         LIMIT 4
     </select>
 
+    <select id="checkPwdForUsrMod" parameterType="Map" resultType="boolean">
+        SELECT
+            EXISTS
+            (
+            SELECT
+                usr_id
+            FROM
+                usr
+            WHERE
+                usr_id = #{usr_id}
+                AND
+                pwd = #{pwd}
+            )AS pwd_check
+    </select>
 </mapper>

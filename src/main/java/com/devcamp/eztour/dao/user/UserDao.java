@@ -42,4 +42,6 @@ public interface UserDao {
 
     List<Map> selectPaylogForMypage(String usr_id) throws Exception;
 
+    boolean checkPwdForUsrMod(String usr_id, String pwd)throws Exception;
+
     }

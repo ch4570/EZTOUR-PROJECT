@@ -8,7 +8,7 @@
 <body>
     <button id="openAuthModalBtn">휴대폰 인증 하기</button>
 
-    <!-- 1. 인증하기 버튼 누르면 Modal창 뜸. checkNum 입력 -->
+    <!-- 휴대폰 인증 모달창 -->
     <div class="modal hidden" id="authModal">
         <div class="modal__overlay" id="authOverlay"></div>
         <div class="modal__content">
@@ -21,7 +21,6 @@
                         <input class="form-check-input" name="usr_nm" id="usr_nm"></label>
                         <label>핸드폰 번호
                         <input class="form-check-input" name="phn" id="phn"></label>
-
                     </div>
                     <br/>
                     <hr>
@@ -35,9 +34,6 @@
         </div>
     </div>
 
-    <!-- 2. 입력하고 인증하기 누르면 에이잭스로 일치여부 판별 -->
-    <!-- 3. 틀리면 에이잭스로 틀리다고 알려주고 alert() -->
-    <!-- 4. 맞으면 /user/join 으로 넘기기 -->
 <script>
     function authPhn() {
         let phn = $("#phn").val()

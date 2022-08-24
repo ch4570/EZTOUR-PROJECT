@@ -42,4 +42,7 @@ public interface UserService {
     void setKakaoConnection(Map<String, Object> paramMap);
 
     List<Map> selectPaylogForMypage(String usr_id) throws Exception;
+
+    boolean checkPwdForUsrMod(String usr_id, String pwd)throws Exception;
+
 }

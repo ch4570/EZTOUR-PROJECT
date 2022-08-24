@@ -41,7 +41,7 @@
                         </span>
                         <span>
                         <a href="<c:url value='/user/findIdPwd'/>">아이디 찾기 | 비밀번호 찾기 | </a>
-                            <a href="<c:url value='/user/join'/>" style="font-weight: bolder;">회원가입</a>
+                            <a href="<c:url value='/user/selectJoin'/>" style="font-weight: bolder;">회원가입</a>
                         </span>
                     </div>
                     <button id="loginBtn">로그인</button>
@@ -148,7 +148,6 @@
             }
         });
     }
-
 
     function formCheck(frm) {
         let msg ='';

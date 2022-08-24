@@ -127,5 +127,13 @@ public class UserDaoImpl implements UserDao {
         return session.selectList(namespace+"selectPaylogForMypage", usr_id);
     }
 
+    @Override
+    public boolean checkPwdForUsrMod(String usr_id, String pwd) {
+        Map map = new HashMap<>();
+        map.put("usr_id", usr_id);
+        map.put("pwd", pwd);
+        return session.selectOne(namespace+"checkPwdForUsrMod", map);
+    }
+
 
 }

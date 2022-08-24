@@ -62,6 +62,7 @@
 			<exclude-mapping path="/user/userNaverLoginPro"/>
 			<exclude-mapping path="/user/setSubInfo"/>
 			<exclude-mapping path="/user/findIdPwd"/>
+			<exclude-mapping path="/user/selectJoin"/>
 			<beans:ref bean="LoginInterceptor"/>
 		</interceptor>
 	</interceptors>

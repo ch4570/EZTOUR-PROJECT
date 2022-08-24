@@ -101,5 +101,9 @@ public class UserServiceImpl implements UserService {
         return userDao.selectPaylogForMypage(usr_id);
     }
 
+    @Override
+    public boolean checkPwdForUsrMod(String usr_id, String pwd) throws Exception{
+        return userDao.checkPwdForUsrMod(usr_id, pwd);
+    }
 
 }
