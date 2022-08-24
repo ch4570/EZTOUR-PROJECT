@@ -72,7 +72,7 @@
                         <form:errors path="min_stt_cnt" cssClass="error_msg"/><br><br>
 
                         <form:label path="max_stt_cnt">최대출발인원</form:label><br>
-                        <form:input path="max_stt_cnt" placeholder="최대출발인원" cssClass="input_prd"/><br>
+                        <form:input path="max_stt_cnt" placeholder="최대출발인원" class="input_prd"/><br>
                         <form:errors path="max_stt_cnt" cssClass="error_msg"/><br><br>
 
                         <form:label path="dom_dpr_date">국내 출발일</form:label><br>
@@ -98,6 +98,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

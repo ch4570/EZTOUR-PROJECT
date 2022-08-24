@@ -370,6 +370,8 @@
                     if(question){
                         location.href = "<c:url value='/user/login'/>";
                     }else{
+                        location.href = "<c:url value='/reserv/reserv'/>";
+                        $("form").submit();
                         return;
                     }
                 }else{
