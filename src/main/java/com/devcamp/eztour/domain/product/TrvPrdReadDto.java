@@ -9,6 +9,7 @@ import java.util.Date;
 @Setter
 public class TrvPrdReadDto {
 
+    private String dpr_day;
     private String prd_cd;
     private String dstn_cd;
     private String cmn_cd_thm;
@@ -95,7 +96,7 @@ public class TrvPrdReadDto {
 
     public TrvPrdReadDto(String prd_cd,String dstn_cd, String cmn_cd_thm, String prd_nm, String prd_dtl_desc,
                          String trv_per,Integer prd_str_prc, String dpr_str_date, String dpr_fin_date,
-                         String cntn_cd, String nt_cd){
+                         String cntn_cd, String nt_cd, String dpr_day){
         this.prd_cd = prd_cd;
         this.dstn_cd = dstn_cd;
         this.cmn_cd_thm = cmn_cd_thm;
@@ -107,6 +108,7 @@ public class TrvPrdReadDto {
         this.dpr_fin_date = dpr_fin_date;
         this.cntn_cd = cntn_cd;
         this.nt_cd = nt_cd;
+        this.dpr_day = dpr_day;
     }
 
 }

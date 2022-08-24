@@ -91,17 +91,21 @@ a:hover, a:active {
 }
 
 .modal__cancel {
+    position: relative;
     width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 20px;
+    /*display: flex;*/
+    /*justify-content: flex-end;*/
 }
 
 .modal__cancel button {
+    position: absolute;
+    top: 30px;
+    right: 30px;
     border: none;
     cursor: pointer;
     background-color: transparent;
-    font-size: 25px;
+    font-size: 30px;
+    font-weight: 800;
 }
 
 .modal__cancel button i {
@@ -128,12 +132,12 @@ a:hover, a:active {
 }
 
 .modal__content {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     text-align: center;
     position: relative;
     border-radius: 10px;
-    width: 70%;
-    height: 50%;
+    width: 40%;
+    height: 30%;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
@@ -141,6 +145,7 @@ a:hover, a:active {
     margin: 50px auto;
     font-size: 40px;
     font-weight: 700;
+    color: black;
 }
 
 .hidden {

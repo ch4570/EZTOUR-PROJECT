@@ -48,8 +48,12 @@
                     <form:form action="/product/insert/schedule" method="post" modelAttribute="trvSchDto">
                         <input type="hidden" name="frs_rgs_no" value="${sessionScope.usr_id}"/>
                         <form:label path="prd_cd">상품코드</form:label><br>
-                        <form:input path="prd_cd" placeholder="상품코드" readonly="true" value="${param.prd_cd}" cssClass="input_prd"/><br>
+                        <form:input path="prd_cd" placeholder="상품코드" value="${param.prd_cd}" cssClass="input_prd"/><br>
                         <form:errors path="prd_cd" cssClass="error_msg"/><br><br>
+
+                        <form:label path="prd_dtl_cd">상품상세코드</form:label><br>
+                        <form:input path="prd_dtl_cd" placeholder="상품상세코드" value="${param.prd_dtl_cd}" cssClass="input_prd"/><br>
+                        <form:errors path="prd_dtl_cd" cssClass="error_msg"/><br><br>
 
                         <form:label path="trv_date">여행일차</form:label><br>
                         <form:input path="trv_date" placeholder="여행일차" cssClass="input_prd"/><br>

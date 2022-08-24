@@ -100,4 +100,14 @@ public class RvwServiceImpl implements RvwService {
         return rvwDao.decreaseLikeCnt(rvw_no);
     }
 
+    @Override
+    public List<RvwDto> cntnCdSearch(SearchCondition sc) throws Exception {
+        return rvwDao.cntnCdSearch(sc);
+    }
+
+    @Override
+    public int cntnCdSearchResultCnt(SearchCondition sc) throws Exception {
+        return rvwDao.cntnCdSearchResultCnt(sc);
+    }
+
 }

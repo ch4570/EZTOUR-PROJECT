@@ -43,4 +43,8 @@ public interface RvwDao {
     int increaseLikeCnt(Integer rvw_no) throws Exception;
 
     int decreaseLikeCnt(Integer rvw_no) throws Exception;
+
+    List<RvwDto> cntnCdSearch(SearchCondition sc);
+
+    int cntnCdSearchResultCnt(SearchCondition sc);
 }

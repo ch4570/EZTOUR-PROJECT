@@ -20,7 +20,7 @@
         <include refid="selectFromProduct"/>
         WHERE TRUE
         <include refid="searchCondition" />
-        ORDER BY prd_str_prc DESC
+        ORDER BY prd_nm DESC
     </select>
 
     <select id="searchResultCnt" parameterType="String" resultType="int">

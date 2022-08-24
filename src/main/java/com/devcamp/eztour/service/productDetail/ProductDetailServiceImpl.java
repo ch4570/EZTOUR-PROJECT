@@ -1,6 +1,7 @@
 package com.devcamp.eztour.service.productDetail;
 
 import com.devcamp.eztour.dao.product.ProductDetailDao;
+import com.devcamp.eztour.domain.product.PrdDtlPageDto;
 import com.devcamp.eztour.domain.product.TrvPrdDtlDto;
 import com.devcamp.eztour.domain.product.TrvPrdDtlReadDto;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,21 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     @Override
     public List<TrvPrdDtlReadDto> getAllProductCategory(Map map) throws Exception {
         return productDetailDao.selectAllProductCategory(map);
+    }
+
+    @Override
+    public List<TrvPrdDtlReadDto> getAllProductOrder(Map map) throws Exception {
+        return productDetailDao.selectAllProductOrder(map);
+    }
+
+    @Override
+    public List<TrvPrdDtlReadDto> getUserLike() throws Exception {
+        return productDetailDao.selectUserLike();
+    }
+
+    @Override
+    public PrdDtlPageDto getProductDetailPage(String prd_dtl_cd) throws Exception {
+        return productDetailDao.selectProductDetailPage(prd_dtl_cd);
     }
 
 }

@@ -16,17 +16,28 @@
 <div class="product-list__content">
   <div class="content--list__wrap">
     <div class="content--filter">
-      <a href="#">추천상품순</a>
-      <a href="#">낮은가격순</a>
-      <a href="#">높은가격순</a>
+      <a id="vcnt_top" href="<c:url value='/product/list?keyword=vcnt&standard=DESC&usr_id=${sessionScope.userDto.usr_id}&cntn_cd=${param.cntn_cd}&nt_cd=${param.nt_cd}&nt_cd_nm=${param.nt_cd_nm}'/>">조회많은순</a>
+      <a id="low_price" href="<c:url value='/product/list?keyword=prd_str_prc&standard=ASC&usr_id=${sessionScope.userDto.usr_id}&cntn_cd=${param.cntn_cd}&nt_cd=${param.nt_cd}&nt_cd_nm=${param.nt_cd_nm}'/>">낮은가격순</a>
+      <a id="high_price" href="<c:url value='/product/list?keyword=prd_str_prc&standard=DESC&usr_id=${sessionScope.userDto.usr_id}&cntn_cd=${param.cntn_cd}&nt_cd=${param.nt_cd}&nt_cd_nm=${param.nt_cd_nm}'/>">높은가격순</a>
     </div>
     <c:forEach var="item" items="${list}" varStatus="status">
+
       <section class="content--wrap">
         <div class="content--list">
           <div class="content--list_img">
             <img src="${item.img_pth}">
-            <div><i class="far fa-heart"></i></div>
-            <div><i class="fas fa-heart"></i></div>
+            <c:choose>
+              <c:when test="${item.usr_id == sessionScope.userDto.usr_id && not empty sessionScope.userDto.usr_id}">
+                <div><i class="fas fa-heart" name="fill-heart" cnt="${status.count}" prd_cd="${item.prd_cd}"></i></div>
+              </c:when>
+
+              <c:otherwise>
+                <div><i class="far fa-heart" name="non-fill-heart" cnt="${status.count}" prd_cd="${item.prd_cd}"
+                        prd_nm="${item.prd_nm}" prd_str_prc="${item.prd_str_prc}"></i></div>
+              </c:otherwise>
+            </c:choose>
+
+
           </div>
           <div class="content--list_info">
             <div class="info-tit">
@@ -47,7 +58,7 @@
             <div class="info-price">
               <span class="item-dstn_cd">${item.prd_cd}</span>
               <div class="item-prd_str_prc">
-                <span>${item.prd_str_prc}</span>
+                <span><fmt:formatNumber value="${item.prd_str_prc}" pattern="#,##0"/></span>
                 <span>원~</span>
               </div>
               <div class="item-detailBtn__wrap">
@@ -77,6 +88,32 @@
 
   // 상품 리스트 보기
   $(document).ready(function () {
+
+
+    // 글자색 변경을 위해 Controller 에게 옵션을 받음
+    let option = "${option}";
+
+    if(option==1){
+      $('#vcnt_top').css({'font-weight':'bold','color':'black'});
+      $('#high_price').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+      $('#low_price').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+    }else if(option==2){
+      $('#low_price').css({'font-weight':'bold','color':'black'});
+      $('#high_price').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+      $('#vcnt_top').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+    }else if(option==3){
+      $('#high_price').css({'font-weight':'bold','color':'black'});
+      $('#vcnt_top').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+      $('#low_price').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+    }else{
+      $('#low_price').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+      $('#high_price').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+      $('#vcnt_top').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
+    }
+
+
+
+
     // 자세히보기 버튼 클릭 시 클래스 'active' 추가
     $('button[name="btnDetail"]').on('click', function () {
       $(this).toggleClass('active');
@@ -104,8 +141,8 @@
                         '<span>'+ this.prd_cd +'</span>'+
                         '<span>'+ this.prd_dtl_cd +'</span>'+
                         '<span>'+ this.prd_nm +'</span>'+
-                        '<span>'+ this.dpr_date +'</span>'+
-                        '<span>'+ this.fin_date +'</span>'+
+                        '<span>'+ this.dom_dpr_date +'</span>'+
+                        '<span>'+ this.dom_fin_date +'</span>'+
                         '<span>'+ this.arl_nm +'</span>'+
                         '<span>'+ this.rsvt_yn +'</span>'+
                         '<span>'+ this.prd_str_prc +'</span></div>'+
@@ -121,8 +158,64 @@
       } else {
         return;
       }
-    })
+    });
 
+    var usr_id = "${sessionScope.userDto.usr_id}";
+
+    $('i[name=fill-heart]').on("click",function (){
+      let count = $(this).attr('cnt');
+      let prd_cd = $(this).attr('prd_cd');
+      if(usr_id == null || usr_id === ""){
+        alert("로그인을 해야 관심 상품 기능을 이용할 수 있습니다.");
+        var confirmUser = confirm("로그인 하시겠습니까?");
+        if(confirmUser){
+          location.href = "<c:url value='/user/login'/>"
+        }else{
+          return;
+        }
+      }
+
+        $.ajax({
+          type : "POST",
+          url  : "<c:url value='/product/like/delete'/>",
+          data : {"prd_cd":prd_cd,"usr_id":usr_id},
+          success : function (){
+              window.location.reload();
+          },
+          error : function (){
+            alert("오류가 발생했습니다.");
+          }
+        });
+    });
+
+    $('i[name=non-fill-heart]').on("click",function (){
+      let count = $(this).attr('cnt');
+      let prd_cd = $(this).attr('prd_cd');
+      let prd_nm = $(this).attr('prd_nm');
+      let prd_str_prc = $(this).attr('prd_str_prc');
+
+      if(usr_id == null || usr_id === ""){
+        alert("로그인을 해야 관심 상품 기능을 이용할 수 있습니다.");
+        var confirmUser = confirm("로그인 하시겠습니까?");
+        if(confirmUser){
+          location.href = "<c:url value='/user/login'/>"
+        }else{
+            return;
+        }
+      }
+
+      $.ajax({
+        type : "POST",
+        url  : "<c:url value='/product/like/insert'/>",
+        data : {"prd_cd":prd_cd,"usr_id":usr_id,"prd_nm":prd_nm,"prd_str_prc":prd_str_prc},
+        success : function (){
+          window.location.reload();
+        },
+        error : function (){
+          alert("오류가 발생했습니다.");
+        }
+      });
+    });
 
     $(document).on("click",".detail-item__btn--btn",function () {
       const prd_dtl_cd = $(this).attr('prd_dtl_cd');
@@ -133,12 +226,15 @@
         data : {"prd_dtl_cd":prd_dtl_cd},
         success : function (data){
           console.log("성공");
+          location.href = "/product/detail?prd_dtl_cd="+prd_dtl_cd;
         },
         error : function (){
           console.log("실패");
+          location.href = "/product/detail?prd_dtl_cd="+prd_dtl_cd;
         }
       });
     });
+
   });
 
 </script>

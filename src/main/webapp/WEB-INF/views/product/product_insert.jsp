@@ -95,6 +95,10 @@
                                 <form:input cssClass="input_prd" path="prd_str_prc" placeholder="상품시작가격"/><br>
                                 <form:errors path="prd_str_prc" cssClass="error_msg"/><br><br>
 
+                                <form:label path="dpr_day">출발 요일</form:label><br>
+                                <form:input cssClass="input_prd" path="dpr_day" placeholder="출발 요일"/><br>
+                                <form:errors path="dpr_day" cssClass="error_msg"/><br><br>
+
                                 <form:label path="dpr_str_date">출발 시작일</form:label><br>
                                 <input type="date" class="input_prd" name="dpr_str_date" placeholder="출발 시작일"><br>
                                 <form:errors path="dpr_str_date" cssClass="error_msg"/><br><br>

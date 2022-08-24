@@ -1,6 +1,7 @@
 package com.devcamp.eztour.controller.rvw;
 
 
+import com.devcamp.eztour.dao.rvw.RvwDao;
 import com.devcamp.eztour.domain.rvw.PageHandler;
 import com.devcamp.eztour.domain.rvw.RvwDto;
 import com.devcamp.eztour.domain.rvw.RvwLkAdmDto;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -51,30 +51,55 @@ public class RvwController {
         }
 
         return "redirect:/review/list"+sc.getQueryString();
-    }
+        }
 
     @GetMapping("/list")
     public String list(SearchCondition sc, Model m) {
 
+        System.out.println("sc.getCntn_cd() = " + sc.getCntn_cd());
+        if (sc.getCntn_cd() == "") {
+            try {
 
-        try {
+                int totalCnt = rvwService.getSearchResultCnt(sc);
+                System.out.println("totalCnt = " + totalCnt);
+                m.addAttribute("totalCnt", totalCnt);
 
-            int totalCnt = rvwService.getSearchResultCnt(sc);
-            System.out.println("totalCnt = " + totalCnt);
-            m.addAttribute("totalCnt", totalCnt);
+                PageHandler pageHandler = new PageHandler(totalCnt, sc);
 
-            PageHandler pageHandler = new PageHandler(totalCnt, sc);
+                List<RvwDto> list = rvwService.getSearchResultPage(sc);
 
-            List<RvwDto> list = rvwService.getSearchResultPage(sc);
+                m.addAttribute("list", list);
+                m.addAttribute("ph", pageHandler);
 
-            m.addAttribute("list", list);
-            m.addAttribute("ph", pageHandler);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "review/rvwList.tiles";
 
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return "rvwList.tiles";
+        else {
+            try {
+                int totalCnt = rvwService.cntnCdSearchResultCnt(sc);
+
+                m.addAttribute("totalCnt", totalCnt);
+
+                PageHandler pageHandler = new PageHandler(totalCnt, sc);
+
+                System.out.println("sc.getCntn_cd() = " + sc.getCntn_cd());
+
+
+                List<RvwDto> list = rvwService.cntnCdSearch(sc);
+                m.addAttribute("list", list);
+                m.addAttribute("ph", pageHandler);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "review/rvwList.tiles";
+        }
     }
+
+
 
     @GetMapping("/read")
     public String read(Integer rvw_no, SearchCondition sc, RedirectAttributes rattr, Model m, HttpSession session) throws Exception {
@@ -96,6 +121,9 @@ public class RvwController {
 
         System.out.println("rvwLkAdmDto = " + rvwLkAdmDto);
 
+        if(rvwLkAdmDto == null)
+            rvwLkAdmDto.setRvw_lk_yn(0);
+
         m.addAttribute("rvwLkAdmDto", rvwLkAdmDto);
 
         // 내가 작성한 글만 "삭제", "수정" 버튼 보이기 위한 조건
@@ -114,7 +142,7 @@ public class RvwController {
 //            return "redirect:/rvwList"+sc.getQueryString();
 //        }
 
-        return "rvwDetail";
+        return "review/rvwDetail";
     }
 
 
@@ -140,7 +168,7 @@ public class RvwController {
         System.out.println("list = " + list);
         System.out.println("rvwDto = " + rvwDto);
         m.addAttribute("list", list);
-        return "rvwRegister";
+        return "review/rvwRegister";
     }
 
 
@@ -160,7 +188,7 @@ public class RvwController {
 
                 int rowCnt = rvwService.write(rvwDto);
 
-                if (rowCnt == 1)
+                if (rowCnt != 1)
                     throw new Exception("Write failed");
 
                 rattr.addFlashAttribute("msg", "WRT_OK");
@@ -174,7 +202,7 @@ public class RvwController {
                 List<RvwDto> list = rvwService.selectPrdnm(usr_id);
                 m.addAttribute("list", list);
                 rattr.addFlashAttribute("msg", "WRT_ERR");
-                return "rvwRegister";
+                return "review/rvwRegister";
             }
         }
 
@@ -192,7 +220,7 @@ public class RvwController {
             m.addAttribute("list", list);
             m.addAttribute("rvwDto", rvwDto);
 
-            return "rvwRegister";
+            return "review/rvwRegister";
         }
 
         @PostMapping("/modify")
@@ -225,7 +253,7 @@ public class RvwController {
                 List<RvwDto> list = rvwService.selectPrdnm(usr_id);
                 m.addAttribute("list", list);
                 rattr.addFlashAttribute("msg", "WRT_ERR");
-                return "rvwRegister";
+                return "review/rvwRegister";
             }
         }
     }

@@ -8,13 +8,28 @@
         <choose>
             <when test='option=="T"'>
                 AND A.rvw_ttl LIKE concat('%', #{keyword}, '%')
+                ORDER BY A.rvw_no DESC
             </when>
             <when test='option=="W"'>
                 AND A.wrt_nm LIKE concat('%', #{keyword}, '%')
+                ORDER BY A.rvw_no DESC
+            </when>
+            <when test='sort=="N"'>
+                ORDER BY A.rvw_no DESC
+            </when>
+            <when test='sort=="O"'>
+                ORDER BY A.rvw_no ASC
+            </when>
+            <when test='sort=="L"'>
+                ORDER BY A.lk_cnt DESC
+            </when>
+            <when test='sort=="V"'>
+                ORDER BY A.rvw_vcnt DESC
             </when>
             <otherwise>
                 AND (A.rvw_ttl LIKE concat('%', #{keyword}, '%')
                 OR A.wrt_nm LIKE concat('%', #{keyword}, '%'))
+                ORDER BY A.rvw_no DESC
             </otherwise>
         </choose>
     </sql>
@@ -131,8 +146,7 @@
                    INNER JOIN usr C ON A.usr_id = C.usr_id
         WHERE true
           <include refid="searchCondition"/>
-        ORDER BY A.rvw_no DESC
-            LIMIT #{offset}, #{pageSize}
+        LIMIT #{offset}, #{pageSize}
     </select>
 
     <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
@@ -173,5 +187,19 @@
         SET lk_cnt = lk_cnt - 1
         WHERE rvw_no = #{rvw_no}
     </update>
+
+    <select id="cntnCdSearch" parameterType="SearchCondition" resultType="RvwDto">
+        SELECT A.*
+        FROM rvw A INNER JOIN trv_prd B ON A.prd_cd = B.prd_cd
+        WHERE B.cntn_cd = #{cntn_cd}
+        ORDER BY A.rvw_no DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="cntnCdSearchResultCnt" parameterType="SearchCondition" resultType="int">
+        SELECT count(*)
+        FROM rvw A INNER JOIN trv_prd B ON A.prd_cd = B.prd_cd
+        WHERE B.cntn_cd = #{cntn_cd}
+    </select>
 
 </mapper>
