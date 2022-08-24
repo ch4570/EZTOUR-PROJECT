@@ -187,7 +187,11 @@ public class UserController {
     }
 
     @GetMapping("/usrMod")
-    public String usrModView(HttpSession session, RedirectAttributes rattr, Model model){
+    public String usrModView(HttpSession session, RedirectAttributes rattr, Model model, String pwCheckErr){
+        if(pwCheckErr!=null) {
+            model.addAttribute("msg", "DEL_ERR");
+            return "user/usrMod.tiles";
+        }
         UserDto userDto = (UserDto) session.getAttribute("userDto");
         try {
             userDto = userService.selectUsr(userDto.getUsr_id());
@@ -201,7 +205,7 @@ public class UserController {
     }
 
     @PostMapping ("/usrMod")
-    public String usrMod(UserDto userDto, HttpSession session, RedirectAttributes rattr){
+    public String usrMod(UserDto userDto, RedirectAttributes rattr){
 
         try {
             int rowCnt = userService.updateUsr(userDto);
