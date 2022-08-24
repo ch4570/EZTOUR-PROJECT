@@ -7,6 +7,10 @@
         INSERT INTO gst VALUES (#{gst_id}, #{gst_nm}, #{phn}, now(), #{gst_id}, now(), #{gst_id});
     </insert>
 
+    <select id="checkGstId" parameterType="int">
+        SELECT EXISTS (SELECT gst_id FROM gst WHERE gst_id = #{gst_id});
+    </select>
+
     <select id="selectGuest" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.GuestDto">
         SELECT * FROM gst WHERE gst_id = #{gst_id}
     </select>

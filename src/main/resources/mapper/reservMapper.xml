@@ -118,4 +118,8 @@
     <delete id="deleteReserv" parameterType="String">
         delete from rsvt where rsvt_no = #{rsvt_no}
     </delete>
+
+    <select id="selectRsvtCnt" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM rsvt WHERE usr_id = #{usr_id}
+    </select>
 </mapper>

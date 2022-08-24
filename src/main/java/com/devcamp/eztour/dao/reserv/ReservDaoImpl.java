@@ -107,4 +107,9 @@ public class ReservDaoImpl implements ReservDao {
     public int deleteReserv(String rsvt_no) throws Exception {
         return session.delete(namespace+"deleteReserv", rsvt_no);
     }
+
+    @Override
+    public int selectReservCnt(String usr_id) throws Exception {
+        return session.selectOne(namespace+"selectRsvtCnt", usr_id);
+    }
 }
