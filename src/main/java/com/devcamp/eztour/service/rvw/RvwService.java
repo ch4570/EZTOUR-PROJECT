@@ -44,4 +44,6 @@ public interface RvwService {
     List<RvwDto> cntnCdSearch(SearchCondition sc) throws Exception;
 
     int cntnCdSearchResultCnt(SearchCondition sc) throws Exception;
+
+    RvwDto getRvwttlRvwCont(Integer rvw_no) throws Exception;
 }
