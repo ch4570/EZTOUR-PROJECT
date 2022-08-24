@@ -14,7 +14,7 @@
 </script>
 
 <div class="outer-content">
-    <div class="inner-content" style="display: flex; flex-direction: column; justify-content: center">
+    <div class="inner-content" style="display: flex; flex-direction: column; justify-content: flex-start">
         <form action="<c:url value="/user/login"/>" method="post" onsubmit="return formCheck(this);">
             <div class="login__form" style="display: flex; flex-direction: column; align-items: center">
                     <h2 class="login-title" id="loginTitle">로그인</h2>
