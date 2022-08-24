@@ -52,8 +52,8 @@
                             <div><span>${list.prd_dtl_cd}</span></div> <div><span>${list.prd_cd}</span></div>
                             <div><a href="<c:url value='/product/detail/read?prd_dtl_cd=${list.prd_dtl_cd}'/>"><span>${list.prd_nm}</span></a></div>
                             <div><span><fmt:formatNumber value="${list.prd_str_prc}" pattern="#,##0"/></span></div>
-                            <fmt:parseDate value="${list.dpr_date}" var="dpr_date" pattern="yyyy-MM-dd"/>
-                            <div><span><fmt:formatDate value="${dpr_date}" pattern="yyyy-MM-dd"/></span></div>
+                            <fmt:parseDate value="${list.dom_dpr_date}" var="dom_dpr_date" pattern="yyyy-MM-dd"/>
+                            <div><span><fmt:formatDate value="${dom_dpr_date}" pattern="yyyy-MM-dd"/></span></div>
                         </div>
                     </div>
                 </c:forEach>

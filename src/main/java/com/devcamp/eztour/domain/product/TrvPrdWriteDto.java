@@ -49,6 +49,9 @@ public class TrvPrdWriteDto {
     @NotBlank(message = "출발 마감 날짜는 필수 입력 항목입니다.")
     private String dpr_fin_date;
 
+    @NotBlank(message = "출발 요일은 필수 입력 항목입니다.")
+    private String dpr_day;
+
 
     private int star;
     private boolean evnt_yn;

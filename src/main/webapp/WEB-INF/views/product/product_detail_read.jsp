@@ -52,10 +52,14 @@
                         항공사명&nbsp;<br><input type="text" name="arl_nm" placeholder="항공사명" class="input_prd" value="${prd_dtl.arl_nm}" readonly="readonly"/><br>
                         최소출발인원&nbsp;<br><input type="text" name="min_stt_cnt" placeholder="최소출발인원" class="input_prd" value="${prd_dtl.min_stt_cnt}" readonly="readonly"/><br>
                         최대출발인원&nbsp;<br><input type="text" name="max_stt_cnt" placeholder="최대출발인원" class="input_prd" value="${prd_dtl.max_stt_cnt}" readonly="readonly"/><br>
-                        <fmt:parseDate var="dpr_date" value="${prd_dtl.dpr_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
-                        <fmt:parseDate var="fin_date" value="${prd_dtl.fin_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
-                        출발일&nbsp;<br><input type="datetime-local" name="dpr_date" placeholder="출발일" class="input_prd" value="<fmt:formatDate value="${dpr_date}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/><br>
-                        도착일&nbsp;<br><input type="datetime-local" name="fin_date" placeholder="도착일" class="input_prd" value="<fmt:formatDate value="${fin_date}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/><br>
+                        <fmt:parseDate var="loc_dpr_date" value="${prd_dtl.loc_dpr_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                        <fmt:parseDate var="loc_fin_date" value="${prd_dtl.loc_fin_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                        <fmt:parseDate var="dom_dpr_date" value="${prd_dtl.dom_dpr_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                        <fmt:parseDate var="dom_fin_date" value="${prd_dtl.dom_fin_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                        국내 출발일&nbsp;<br><input type="datetime-local" name="dom_dpr_date" placeholder="국내 출발일" class="input_prd" value="<fmt:formatDate value="${dom_dpr_date}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/><br>
+                        현지 도착일&nbsp;<br><input type="datetime-local" name="loc_fin_date" placeholder="현지 도착일" class="input_prd" value="<fmt:formatDate value="${loc_fin_date}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/><br>
+                        현지 출발일&nbsp;<br><input type="datetime-local" name="loc_dpr_date" placeholder="현지 출발일" class="input_prd" value="<fmt:formatDate value="${loc_dpr_date}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/><br>
+                        국내 도착일&nbsp;<br><input type="datetime-local" name="dom_fin_date" placeholder="국내 도착일" class="input_prd" value="<fmt:formatDate value="${dom_fin_date}" pattern="yyyy-MM-dd HH:mm:ss"/>" readonly="readonly"/><br>
                                 <button type="button" id="modify_btn" class="btn">수정</button><br>
                                 <button type="button" id="delete_btn" class="btn">삭제</button>
                 </div>

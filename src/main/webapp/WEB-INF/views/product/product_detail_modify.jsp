@@ -75,16 +75,26 @@
                             <form:input path="max_stt_cnt" placeholder="최대출발인원" value="${prd_dtl.max_stt_cnt}" cssClass="input_prd"/><br>
                             <form:errors path="max_stt_cnt" cssClass="error_msg"/><br><br>
 
-                            <fmt:parseDate var="dpr_date" value="${prd_dtl.dpr_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
-                            <fmt:parseDate var="fin_date" value="${prd_dtl.fin_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                            <fmt:parseDate var="loc_dpr_date" value="${prd_dtl.loc_dpr_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                            <fmt:parseDate var="loc_fin_date" value="${prd_dtl.loc_fin_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                            <fmt:parseDate var="dom_dpr_date" value="${prd_dtl.dom_dpr_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                            <fmt:parseDate var="dom_fin_date" value="${prd_dtl.dom_fin_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
 
-                            <form:label path="dpr_date">출발일</form:label><br>
-                            <input type="datetime-local" name="dpr_date" placeholder="출발일" class="input_prd" value="<fmt:formatDate value="${dpr_date}" pattern="yyyy-MM-dd HH:mm:ss"/>"/><br>
-                            <form:errors path="dpr_date" cssClass="error_msg"/><br><br>
+                            <form:label path="dom_dpr_date">국내 출발일</form:label><br>
+                            <input type="datetime-local" name="dom_dpr_date" placeholder="국내 출발일" class="input_prd" value="<fmt:formatDate value="${dom_dpr_date}" pattern="yyyy-MM-dd HH:mm:ss"/>"/><br>
+                            <form:errors path="dom_dpr_date" cssClass="error_msg"/><br><br>
 
-                            <form:label path="fin_date">도착일</form:label><br>
-                            <input type="datetime-local" name="fin_date" placeholder="도착일" class="input_prd" value="<fmt:formatDate value="${fin_date}" pattern="yyyy-MM-dd HH:mm:ss"/>"/><br>
-                            <form:errors path="fin_date" cssClass="error_msg"/><br><br>
+                            <form:label path="loc_fin_date">현지 도착일</form:label><br>
+                            <input type="datetime-local" name="loc_fin_date" placeholder="현지 도착일" class="input_prd" value="<fmt:formatDate value="${loc_fin_date}" pattern="yyyy-MM-dd HH:mm:ss"/>"/><br>
+                            <form:errors path="loc_fin_date" cssClass="error_msg"/><br><br>
+
+                            <form:label path="loc_dpr_date">현지 출발일</form:label><br>
+                            <input type="datetime-local" name="loc_dpr_date" placeholder="현지 출발일" class="input_prd" value="<fmt:formatDate value="${loc_dpr_date}" pattern="yyyy-MM-dd HH:mm:ss"/>"/><br>
+                            <form:errors path="loc_dpr_date" cssClass="error_msg"/><br><br>
+
+                            <form:label path="dom_fin_date">국내 도착일</form:label><br>
+                            <input type="datetime-local" name="dom_fin_date" placeholder="국내 도착일" class="input_prd" value="<fmt:formatDate value="${dom_fin_date}" pattern="yyyy-MM-dd HH:mm:ss"/>"/><br>
+                            <form:errors path="dom_fin_date" cssClass="error_msg"/><br><br>
 
                             <input type="submit" value="수정" id="submit_btn"/>
                         </form:form>

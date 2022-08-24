@@ -20,13 +20,15 @@ public class PrdDtlPageDto {
     private Integer pr_rsvt_cnt;
     private Integer min_stt_cnt;
     private Integer max_stt_cnt;
-    private String dpr_date;
-    private String fin_date;
+    private String loc_dpr_date;
+    private String loc_fin_date;
     private String prd_dtl_cd;
     private Integer adt_prc;
     private Integer chd_prc;
     private Integer bb_prc;
     private String img_pth;
     private Integer mn_img_yn;
+    private String dom_dpr_date;
+    private String dom_fin_date;
 
 }
