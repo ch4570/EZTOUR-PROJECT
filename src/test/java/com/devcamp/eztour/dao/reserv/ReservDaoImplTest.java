@@ -302,4 +302,15 @@ public class ReservDaoImplTest {
         List<ReservDto> list = reservDao.selectTheUnAppredListPage(map);
         assertTrue(list.size()==1);
     }
+
+    @Test
+    public void guestReservCheckTest() throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("rsvt_no", "A010011661341179345");
+        map.put("mn_rsvt_nm", "asdf");
+        map.put("phn", "01011111111");
+
+        assertTrue("guest1661341179754".equals(reservDao.selectGuestReserv(map)));
+
+    }
 }

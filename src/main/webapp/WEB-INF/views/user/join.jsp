@@ -91,7 +91,7 @@
         <div>
             <input class="input-field mail-check-input" placeholder="인증번호 6자리를 입력해주세요." style="width:270px;" disabled="disabled" maxlength="6">
             <input type="button" id="mail-Check-Btn" value="이메일 인증">
-            <span id="mail-check-warn"></span>
+            <div id="mail-check-warn"></div>
         </div>
     </div>
 

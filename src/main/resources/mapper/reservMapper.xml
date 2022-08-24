@@ -24,10 +24,12 @@
 
     <select id="selectReservListPage" parameterType="Map" resultType="ReservDto">
         SELECT r.rsvt_no, r.rsvt_date, r.cmn_cd_rsvt_stt, r.pay_ftr_prc, r.prd_dtl_cd,
-               r.cmn_cd_pay_stt, r.sum_prc, tp.prd_nm, tp.prd_dtl_desc
+               r.cmn_cd_pay_stt, r.sum_prc, tp.prd_nm, tp.prd_dtl_desc, pi.img_pth
         FROM rsvt r
-            INNER JOIN trv_prd tp
+            JOIN trv_prd tp
                 ON r.prd_cd = tp.prd_cd
+            JOIN prd_img pi
+                 ON r.prd_cd = pi.prd_cd
         WHERE r.usr_id = #{usr_id} LIMIT #{offset}, #{pageSize}
     </select>
 
@@ -121,5 +123,9 @@
 
     <select id="selectRsvtCnt" parameterType="String" resultType="int">
         SELECT COUNT(*) FROM rsvt WHERE usr_id = #{usr_id}
+    </select>
+
+    <select id="checkReservGuest" parameterType="Map" resultType="String">
+        SELECT usr_id FROM rsvt WHERE rsvt_no = #{rsvt_no} and mn_rsvt_nm = #{mn_rsvt_nm} and phn = #{phn}
     </select>
 </mapper>

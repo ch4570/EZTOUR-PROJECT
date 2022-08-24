@@ -39,11 +39,11 @@ public class MessageController {
         smsSecretKey = value;
     }
 
-    //    @PostConstruct
+    @PostConstruct
     public void MessageController() {
         messageService = NurigoApp.INSTANCE.initialize(smsKey, smsSecretKey, "https://api.coolsms.co.kr");
-        System.out.println("===================================="+smsKey);
     }
+
 
     @GetMapping("/authPhn/{phn}")
     public ResponseEntity<String> sendOne(@PathVariable(value="phn", required=false) String phn) {

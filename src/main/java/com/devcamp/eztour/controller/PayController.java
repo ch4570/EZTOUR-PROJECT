@@ -145,10 +145,10 @@ public class PayController {
             } catch (UnsupportedEncodingException ex) {
                 ex.printStackTrace();
             }
-            return "/reserv/reservView";
+            return "/reserv/reservView.tiles";
         }
 
-        return "pay/payView";
+        return "pay/payView.tiles";
     }
 
 //    @PostMapping("/pay")
@@ -401,14 +401,22 @@ public class PayController {
         m.addAttribute("rcid", rcid);
         m.addAttribute("tid", trvlrInfoDtos);
 
-        return "pay/payConfirm";
+        return "pay/payConfirm.tiles";
     }
 
     @GetMapping("/cnc")
     public String cancel1(String rsvt_no, HttpSession session, Model m){
         try {
             UserDto userDto = (UserDto) session.getAttribute("userDto");
-            String usr_id = userDto.getUsr_id();
+            UserDto guest = (UserDto) session.getAttribute("guest");
+
+            String usr_id = "";
+            if(userDto!=null){
+                //회원
+                usr_id = userDto.getUsr_id();
+            } else {
+                usr_id = guest.getUsr_id();
+            }
 
             String status = payService.getPayStatus(rsvt_no, usr_id);
             if(status == null){
@@ -422,14 +430,23 @@ public class PayController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "pay/cancel";
+        return "pay/cancel.tiles";
     }
 
     @ResponseBody
     @PostMapping("/cnc")
     public String processCancel(@RequestBody CancelViewDto cancelViewDto, HttpSession session){
         UserDto userDto = (UserDto) session.getAttribute("userDto");
-        String usr_id = userDto.getUsr_id();
+        UserDto guest = (UserDto) session.getAttribute("guest");
+
+        String usr_id = "";
+        if(userDto!=null){
+            //회원
+            usr_id = userDto.getUsr_id();
+        } else {
+            usr_id = guest.getUsr_id();
+        }
+
         JsonObject jsonResult = new JsonObject();
 
         String access_token = payService.getToken(IMP_KEY, IMP_SECRET);
@@ -472,8 +489,11 @@ public class PayController {
             return jsonResult.toString();
         }
 
-        //마일리지 다시 돌려줌
-        reservService.updateUserMlg("plus", payDto.getUsed_mlg(), usr_id);
+        if(userDto!=null){
+            //마일리지 다시 돌려줌
+            //회원인 경우에만
+            reservService.updateUserMlg("plus", payDto.getUsed_mlg(), usr_id);
+        }
 
         payDto.setPay_no(cancelViewDto.getNew_pay_no());
 //        payDto.setPay_prc((Double.valueOf(response.get("amount"))).longValue());
@@ -497,7 +517,7 @@ public class PayController {
 
     @GetMapping("/cncConfirm")
     public String cancelConfirm(){
-        return "pay/cancelConfirm";
+        return "pay/cancelConfirm.tiles";
     }
 }
 

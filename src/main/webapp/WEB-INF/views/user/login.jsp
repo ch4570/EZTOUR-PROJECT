@@ -14,7 +14,7 @@
 </script>
 
 <div class="outer-content">
-    <div class="inner-content" style="display: flex; flex-direction: column; justify-content: center">
+    <div class="inner-content" style="display: flex; flex-direction: column; justify-content: flex-start">
         <form action="<c:url value="/user/login"/>" method="post" onsubmit="return formCheck(this);">
             <div class="login__form" style="display: flex; flex-direction: column; align-items: center">
                     <h2 class="login-title" id="loginTitle">로그인</h2>
@@ -51,8 +51,8 @@
         <form style="display: flex; flex-direction: column; align-items: center">
             <div class="form-inp-nonUsr" style="display: none; flex-direction: column;">
 
-                <input id="rsvNo" type="text" name="rsvNo" placeholder="예약번호를 입력하세요" autofocus>
-                <input id="rsvName" type="password" name="rsvNm" placeholder="이름을 입력하세요">
+                <input id="rsvNo" type="text" name="rsvt_no" placeholder="예약번호를 입력하세요" autofocus>
+                <input id="rsvName" type="password" name="mn_rsvt_nm" placeholder="이름을 입력하세요">
                 <div class="phn">
                     <input id="rsvPhone1" type="text" name="phn1" placeholder="010" style="width: 110px;">
                     <input id="rsvPhone2" type="text" name="phn2" placeholder="0000">

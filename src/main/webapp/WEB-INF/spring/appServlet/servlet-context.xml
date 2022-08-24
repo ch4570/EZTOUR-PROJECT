@@ -59,6 +59,7 @@
 			<exclude-mapping path="/user/login"/>
 			<exclude-mapping path="/user/auth"/>
 			<exclude-mapping path="/user/join"/>
+			<exclude-mapping path="/user/authOk"/>
 			<exclude-mapping path="/user/userNaverLoginPro"/>
 			<exclude-mapping path="/user/setSubInfo"/>
 			<exclude-mapping path="/user/findIdPwd"/>

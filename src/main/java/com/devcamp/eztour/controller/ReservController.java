@@ -11,8 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.*;
 
 @Controller
@@ -110,6 +113,7 @@ public class ReservController {
             UserDto guestDto = new UserDto(gst_id, reservDto.getMn_rsvt_nm(),
                     emailFirst+"@"+emailLast, null, reservDto.getPhn(), 0, null);
             session.setAttribute("guest", guestDto);
+            session.setMaxInactiveInterval(60*30);
         } else {
             if(guest!=null){
                 //게스트 로그인이 되어있으면
@@ -217,13 +221,14 @@ public class ReservController {
 //            return "reserv/reserv";
             return "redirect:/";
         }
-        return "reserv/reservConfirm";
+        return "reserv/reservConfirm.tiles";
     }
 
     @GetMapping("/list")
     public String getReservList(HttpServletRequest req, Integer page, Integer pageSize, Model m, HttpSession session){
-        if(loginCheck(session)){
-            return "redirect:/user/login?toURL="+req.getRequestURI(); //로그인 화면으로
+        if(!loginCheck(session)){
+//            String toURL = String.valueOf(req.getRequestURL());
+            return "redirect:/user/login?toURL=" + req.getRequestURL(); //로그인 화면으로
         }
 
         if(page == null) page = 1;
@@ -238,7 +243,6 @@ public class ReservController {
             usr_id = userDto.getUsr_id();
         } else {
             usr_id = guest.getUsr_id();
-            System.out.println(usr_id);
         }
 
 
@@ -258,7 +262,7 @@ public class ReservController {
             e.printStackTrace();
         }
 
-        return "reserv/reservList";
+        return "reserv/reservList.tiles";
     }
 
 
@@ -276,7 +280,7 @@ public class ReservController {
 //            return "redirect:/user/login?toURL="+toURL; //로그인 화면으로
 //        }
         /////중복 처리할 것///////
-        if(loginCheck(session)){
+        if(!loginCheck(session)){
             return "redirect:/user/login?toURL="+req.getRequestURI(); //로그인 화면으로
         }
 
@@ -326,7 +330,7 @@ public class ReservController {
         m.addAttribute("rcid", rcid);
         m.addAttribute("tid", trvlrInfoDtos);
 
-        return "reserv/reservView";
+        return "reserv/reservView.tiles";
     }
 
     @GetMapping("/admin")
@@ -378,20 +382,41 @@ public class ReservController {
         return jsonObject.toString();
     }
 
+    @PostMapping("/gstLogin")
+    public String guestLogin(String rsvt_no, String mn_rsvt_nm, String phn, HttpServletRequest req, Model m, HttpSession session){
+        if(rsvt_no == null || mn_rsvt_nm == null || phn == null){
+            return "redirect:"+ req.getRequestURL();
+        }
 
+        try {
+            GuestDto guestDto = reservService.guestReservCheck(rsvt_no, mn_rsvt_nm, phn);
+            session.setAttribute("guest", guestDto);
+            session.setMaxInactiveInterval(60*30);
+        } catch (Exception e) {
+            e.printStackTrace();
 
-    private boolean checkId(HttpSession session) {
-        return session.getAttribute("userDto") != null;
-//        return true;
+            String msg = null;
+            try {
+                msg = URLEncoder.encode("입력하신 정보가 일치하지 않습니다.", "utf-8");
+                String toURL = "toURL" + req.getRequestURL();
+                m.addAttribute("msg", msg);
+                m.addAttribute("toURL", toURL);
+            } catch (UnsupportedEncodingException ex) {
+                ex.printStackTrace();
+            }
+            return "redirect:/login/login?toURL=" + req.getRequestURL();
+        }
+        return "/reserv/list";
     }
 
     private boolean isAdmin(HttpSession session){
         UserDto userDto = (UserDto)session.getAttribute("userDto");
-        if(userDto.getRl().equals("Admin") || userDto.getRl().equals("supAdmin")){
-            return true;
-        }else{
-            return false;
+        if(userDto!=null) {
+            if ("Admin".equals(userDto.getRl()) || "supAdmin".equals(userDto.getRl())) {
+                return true;
+            }
         }
+        return false;
     }
 
     private void sortArlReq(List<AirlineReqDto> arlReqList, ReservInfoDto rid) {
@@ -451,7 +476,10 @@ public class ReservController {
     }
 
     private boolean loginCheck(HttpSession session){
-        return !(session.getAttribute("userDto") == null || session.getAttribute("guest")==null);
+        UserDto userDto =(UserDto) session.getAttribute("userDto");
+        UserDto guestDto =(UserDto) session.getAttribute("guest");
+        boolean result = (userDto != null || guestDto != null);
+        return result;
     }
 
 }
