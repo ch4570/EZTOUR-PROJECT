@@ -3,6 +3,7 @@ package com.devcamp.eztour.service.user;
 import com.devcamp.eztour.domain.user.UserDto;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 
 public interface UserService {
@@ -39,4 +40,6 @@ public interface UserService {
     UserDto userKakaoLoginPro(String kakao_id) throws Exception;
 
     void setKakaoConnection(Map<String, Object> paramMap);
+
+    List<Map> selectPaylogForMypage(String usr_id) throws Exception;
 }

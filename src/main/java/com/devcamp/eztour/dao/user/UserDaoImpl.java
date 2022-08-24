@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -44,17 +45,17 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public int updateUsrHst(UserDto user) throws Exception {
+    public int updateUsrHst(UserDto user) {
         return session.update(namespace+"updateUsrHst", user);
     }
 
     @Override
-    public int deleteUsr(String usr_id) throws Exception {
+    public int deleteUsr(String usr_id) {
         return session.update(namespace+"deleteUsr", usr_id);
     }
 
     @Override
-    public int deleteUsrHst(String usr_id, String cmn_cd_drp) throws Exception {
+    public int deleteUsrHst(String usr_id, String cmn_cd_drp) {
         Map map = new HashMap<>();
         map.put("usr_id",usr_id);
         map.put("cmn_cd_drp",cmn_cd_drp);
@@ -73,7 +74,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public String findId(String usr_nm, String phn) throws Exception {
+    public String findId(String usr_nm, String phn) {
         Map map = new HashMap<>();
         map.put("usr_nm",usr_nm);
         map.put("phn",phn);
@@ -81,7 +82,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public String findPwd(String usr_id, String usr_nm, String email) throws Exception {
+    public String findPwd(String usr_id, String usr_nm, String email) {
         Map map = new HashMap<>();
         map.put("usr_id",usr_id);
         map.put("usr_nm",usr_nm);
@@ -96,28 +97,35 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Map naverConnectionCheck(Map map) throws Exception {
+    public Map naverConnectionCheck(Map map) {
+        System.out.println("네이버 로그인 에러 확인을 위한 로그 :::: map = " + map);
         return session.selectOne(namespace+"naverConnectionCheck", map);
     }
 
     @Override
-    public UserDto userNaverLoginPro(String naver_id) throws Exception {
+    public UserDto userNaverLoginPro(String naver_id) {
         return session.selectOne(namespace+"userNaverLoginPro",naver_id);
     }
 
     @Override
-    public int setNaverConnection(Map<String, Object> apiJson) throws Exception {
+    public int setNaverConnection(Map<String, Object> apiJson) {
         return session.update(namespace+"setNaverConnection",apiJson);
     }
 
     @Override
-    public Map kakaoConnectionCheck(Map paramMap) throws Exception {
+    public Map kakaoConnectionCheck(Map paramMap) {
         return session.selectOne(namespace+"kakaoConnectionCheck", paramMap);
     }
 
     @Override
-    public UserDto userKakaoLoginPro(String kakao_id) throws Exception {
+    public UserDto userKakaoLoginPro(String kakao_id) {
         return session.selectOne(namespace+"userKakaoLoginPro",kakao_id);
     }
+
+    @Override
+    public List<Map> selectPaylogForMypage(String usr_id) {
+        return session.selectList(namespace+"selectPaylogForMypage", usr_id);
+    }
+
 
 }
