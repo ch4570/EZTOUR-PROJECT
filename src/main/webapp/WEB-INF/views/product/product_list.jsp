@@ -28,12 +28,12 @@
             <img src="${item.img_pth}">
             <c:choose>
               <c:when test="${item.usr_id == sessionScope.userDto.usr_id && not empty sessionScope.userDto.usr_id}">
-                <div><i class="fas fa-heart" name="fill-heart" cnt="${status.count}" prd_cd="${item.prd_cd}"></i></div>
+                <i class="fas fa-heart" name="fill-heart" cnt="${status.count}" prd_cd="${item.prd_cd}"></i>
               </c:when>
 
               <c:otherwise>
-                <div><i class="far fa-heart" name="non-fill-heart" cnt="${status.count}" prd_cd="${item.prd_cd}"
-                        prd_nm="${item.prd_nm}" prd_str_prc="${item.prd_str_prc}"></i></div>
+                <i class="far fa-heart" name="non-fill-heart" cnt="${status.count}" prd_cd="${item.prd_cd}"
+                        prd_nm="${item.prd_nm}" prd_str_prc="${item.prd_str_prc}"></i>
               </c:otherwise>
             </c:choose>
 
@@ -107,20 +107,20 @@
             url: "<c:url value='/product/detailList'/>",
             data: {prd_cd:prd_cd},
             success: function (result) {
-
               $(result).each(function() {
                 $('.detail__item--list'+count).
                 append('<li class="detail-item__list">'+
-                        '<div class="detail-item__list--item">'+
-                        '<span>'+ this.prd_cd +'</span>'+
-                        '<span>'+ this.prd_dtl_cd +'</span>'+
-                        '<span>'+ this.prd_nm +'</span>'+
-                        '<span>'+ this.dpr_date +'</span>'+
-                        '<span>'+ this.fin_date +'</span>'+
-                        '<span>'+ this.arl_nm +'</span>'+
-                        '<span>'+ this.rsvt_yn +'</span>'+
-                        '<span>'+ this.prd_str_prc +'</span></div>'+
-                        '<div class="detail-item__btn"><button class="detail-item__btn--btn" prd_dtl_cd="' + this.prd_dtl_cd + '" name="detailItemBtn">'+
+                        '<div class="detail-item__list--info">'+
+                        // '<span>'+ this.rsvt_yn +'</span>'+
+                        // '<span>'+ this.prd_cd +'</span>'+
+                        // '<span>'+ this.prd_dtl_cd +'</span>'+
+                        '<span class="list__prd_nm">'+ this.prd_nm +'</span>'+
+                        '<div><i class="far fa-calendar"></i><span class="list__dpr_date">'+ this.dpr_date +'</span>'+
+                        '~<span class="list__fin_date">'+ this.fin_date +'</span></div>'+
+                        '<span class="list__arl_nm">'+ this.arl_nm +'</span></div>'+
+                        '<div class="detail-item__list--price">'+
+                        '<span>'+ this.prd_str_prc +'<span>원~</span></span>'+
+                        '<button class="detail-item__btn" prd_dtl_cd="' + this.prd_dtl_cd + '" name="detailItemBtn">'+
                         '자세히보기</button></div></li>');
               });
             },
@@ -191,7 +191,7 @@
       });
     });
 
-    $(document).on("click",".detail-item__btn--btn",function () {
+    $(document).on("click",".detail-item__btn—btn",function () {
       const prd_dtl_cd = $(this).attr('prd_dtl_cd');
 
       $.ajax({
@@ -200,9 +200,11 @@
         data : {"prd_dtl_cd":prd_dtl_cd},
         success : function (data){
           console.log("성공");
+          location.href = "/product/detail?prd_dtl_cd="+prd_dtl_cd;
         },
         error : function (){
           console.log("실패");
+          location.href = "/product/detail?prd_dtl_cd="+prd_dtl_cd;
         }
       });
     });
