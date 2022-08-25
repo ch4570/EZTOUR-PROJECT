@@ -45,7 +45,6 @@ public class AdminController {
             model.addAttribute("trvPrdWriteDto",new TrvPrdWriteDto());
             return "product/product_insert.tiles";
         }
-
     }
 
     // 관리자 상품 등록(실제 정보 전송)
