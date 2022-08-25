@@ -222,6 +222,7 @@ public class RvwController {
 //            rvwDto.setRvw_no(rvw_no);
 //            rvwDto.setWrt_nm(rvwDto.getUsr_nm());
 //            rvwDto.setWrt_email(rvwDto.getEmail());
+            System.out.println("rvw_no = " + rvw_no);
             rvwDto = rvwService.getRvwttlRvwCont(rvw_no);
 
             List<RvwDto> list = rvwService.selectPrdnm(usr_id);
@@ -232,12 +233,12 @@ public class RvwController {
 
         @PostMapping("/modify")
         public String modify (RvwDto rvwDto, SearchCondition sc, HttpSession session, Model m, RedirectAttributes rattr) throws Exception {
-
-
+            int rvw_no = rvwDto.getRvw_no();
             try {
                 if(rvwDto.getRvw_ttl() == "" || rvwDto.getRvw_cont() == "" || rvwDto.getPrd_dtl_cd() == ""){
+                    System.out.println("rvw_no = " + rvw_no);
                     rattr.addFlashAttribute("msg", "RVW_REGISTER_ERR");
-                    return "redirect:/review/modify.tiles";
+                    return "redirect:/review/modify.tiles?rvw_no=" + rvw_no;
                 }
 
                 String prd_cd = rvwService.getprdCd(rvwDto.getPrd_dtl_cd());
