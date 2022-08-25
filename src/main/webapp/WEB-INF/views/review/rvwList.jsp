@@ -2,6 +2,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ page session="true"%>
+<c:set var="loginId" value="${sessionScope.userDto.usr_id==null ? '' : sessionScope.userDto.usr_id}"/>
+<c:set var="loginName" value="${loginId=='' ? '' : sessionScope.userDto.usr_nm}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +51,14 @@
                     <input class="searchInput" type="text" name="keyword" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
                     <input class="searchButton sz-inp st-lblue btn_summit" type="submit" value="검색">
                 </form>
-                <button type="button" class="button-27" role="button" id="writeBtn" onclick="location.href='<c:url value="/review/write"/>'" style="margin-left: 610px; width: 66px; height: 49px; margin-top: 15px">작성하기</button>
+                <c:choose>
+                    <c:when test="${loginId==''}">
+                        <button type="button" class="button-27" role="button" id="loginWriteBtn" style="margin-left: 610px; width: 66px; height: 49px; margin-top: 15px">작성하기</button>
+                    </c:when>
+                    <c:when test="${loginId!=''}">
+                        <button type="button" class="button-27" role="button" id="writeBtn" style="margin-left: 610px; width: 66px; height: 49px; margin-top: 15px">작성하기</button>
+                    </c:when>
+                </c:choose>
                 <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","N")}'/>">최신순</a>
                 <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","O")}'/>">오래된순</a>
                 <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","L")}'/>">가장 많은 좋아요</a>
@@ -72,12 +81,12 @@
                         <div class="reviewTitle">
                             <br>
                             <a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>">
-                                <span class="reviewTitle-rvw_ttl">${rvwDto.rvw_ttl}</span>
+                                <span class="reviewTitle-rvw_ttl"><c:out value="${rvwDto.rvw_ttl}"/></span>
                             </a>
                         </div>
                         <div class="reviewContent">
                             <a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>">
-                                <span class="reviewContent-rvw_cont">${rvwDto.rvw_cont}</span>
+                                <span class="reviewContent-rvw_cont"><c:out value="${rvwDto.rvw_cont}"/></span>
                             </a>
                         </div>
                         <div class="reviewWriter">
@@ -120,6 +129,19 @@
     </div>
 </div>
 <script>
+    $(document).ready(function (){
+
+        $('#writeBtn').on("click", function(){
+            location.href = "<c:url value='/review/write'/>";
+        });
+
+        $('#loginWriteBtn').on("click", function(){
+            if(!confirm("후기 작성하기는 로그인이 필요합니다. 회원가입 하시겠어요?")) return;
+            location.href = "<c:url value='/user/login'/>";
+        });
+
+
+    });
 </script>
 </body>
 </html>

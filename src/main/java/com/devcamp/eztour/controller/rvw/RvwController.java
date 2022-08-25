@@ -151,9 +151,8 @@ public class RvwController {
 
 
     @GetMapping("/write")
-    public String write(Model m,RedirectAttributes rattr, HttpSession session) throws Exception {
+    public String write(Model m, RedirectAttributes rattr, HttpSession session) throws Exception {
         if(session.getAttribute("userDto")==null){
-            rattr.addFlashAttribute("msg", "ACC_ERR");
             return "redirect:/user/login.tiles";
         }
         UserDto userDto = (UserDto) session.getAttribute("userDto");
