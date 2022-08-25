@@ -70,6 +70,7 @@ pageEncoding="UTF-8"%>
           </li>
           <li class="nav__dropdown">
             <a href="#">이벤트</a>
+            <a href="<c:url value='/review/list/'/>">   |   후기글</a></li>
           </li>
         </ul>
       </nav>
