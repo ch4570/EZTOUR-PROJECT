@@ -83,9 +83,9 @@ public class PayController {
     public String getPayView(String rsvt_no, String prd_dtl_cd, HttpServletRequest req, Model m, HttpSession session){
 //        /pay/pay?rsvt_no=12312333312&ord_dtl_cd=a001001
 //        로그인 체크
-//        if(!checkId(session)){
-//            return "redirect:/user/login?toURL="+req.getRequestURL();
-//        }
+        if(!loginCheck(session)){
+            return "redirect:/user/login?toURL="+req.getRequestURI();
+        }
 
         UserDto userDto = (UserDto) session.getAttribute("userDto");
         UserDto guestDto = (UserDto) session.getAttribute("guest");
@@ -355,7 +355,11 @@ public class PayController {
     }
 
     @GetMapping("/confirm")
-    public String getPayConfirmInfo(String rsvt_no, String prd_dtl_cd, Model m){
+    public String getPayConfirmInfo(String rsvt_no, String prd_dtl_cd, Model m, HttpSession session, HttpServletRequest req){
+        if(!loginCheck(session)){
+            return "redirect:/user/login?toURL="+req.getRequestURI();
+        }
+
         List list = reservService.getReservView(rsvt_no, prd_dtl_cd);
 
         ReservConfInfoDto rcid = null; //ReservCo
@@ -518,6 +522,13 @@ public class PayController {
     @GetMapping("/cncConfirm")
     public String cancelConfirm(){
         return "pay/cancelConfirm.tiles";
+    }
+
+    private boolean loginCheck(HttpSession session){
+        UserDto userDto =(UserDto) session.getAttribute("userDto");
+        UserDto guestDto =(UserDto) session.getAttribute("guest");
+        boolean result = (userDto != null || guestDto != null);
+        return result;
     }
 }
 

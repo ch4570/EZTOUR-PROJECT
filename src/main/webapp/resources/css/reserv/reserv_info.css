@@ -1,0 +1,264 @@
+.ri_biggest_box {
+    padding: 65px 0 0 0;
+    display: grid;
+}
+
+.ri_header_box {
+    display: block;
+    text-align: center;
+}
+
+.ri_header{
+    font-size: 25px;
+    font-weight: bolder;
+    margin: 0px 0 10px 0;
+}
+
+.ri_header_sub {
+    margin: 30px 0 30px 0;
+    font-size: 13px;
+}
+
+.ri_rsvt_info_box {
+    border: 1px solid #cccccc;
+    border-radius: 7px;
+    display: flex;
+    margin: 0 0 90px 0;
+}
+
+.ri_rsvt_info_img {
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+}
+
+.ri_rsvt_info_subbox {
+    display: inline-block;
+    margin: 20px 36px;
+}
+
+.ri_rsvt_info_subbox dl {
+    margin: 31px 0;
+}
+
+.ri_rsvt_info_subbox dl dt {
+    font-size: 13px;
+    margin: 0 0 7px 0;
+}
+
+.ri_rsvt_info_subbox dl dd {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.ri_rsvt_info_subbox div {
+    font-size: 21px;
+    font-weight: 500;
+}
+
+.ri_agree_box {
+    margin: 0 0 90px 0;
+}
+
+.ri_sub_header {
+    font-size: 25px;
+    font-weight: 700;
+    margin: 0 0 25px 0;
+}
+
+.ri_agree_checkbox span {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.ri_agree_check{
+
+}
+
+.ri_agree_info {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.ri_agree_checklist_box{
+
+}
+
+.ri_reserv_info_box {
+    /*border-top: 1.5px solid black;*/
+
+}
+
+.ri_reserv_info_header {
+
+}
+
+.ri_reserv_info_body{
+    border-top: 1.5px solid #666;
+    margin: 0 0 90px 0;
+}
+
+.ri_reserv_info_table{
+    display: block;
+}
+
+.ri_reserv_info_table tbody {
+    display: block;
+}
+
+
+.ri_table_row {
+    height: 62px;
+    display: block;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.ri_table_row th{
+    width: 150px;
+    text-align: start;
+    line-height: 65px;
+    padding: 0 0 0 20px;
+    font-size: 15px;
+    font-weight: 600;
+    border-right: 1px solid gainsboro;
+}
+.ri_table_row td {
+    width: 80%;
+    padding: 0 0 0 20px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.ri_arl_line{
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-size: 14px;
+    letter-spacing: -0.42px;
+    box-sizing: border-box;
+}
+.ri_arl_line dt{
+    display: inline-block;
+}
+.ri_arl_line dd{
+    display: inline-block;
+}
+.ri_trvlr_box{
+    margin: 0 0 90px 0;
+}
+.ri_trvlr_table{
+    display: block;
+}
+.ri_trvlr_table tbody{
+    display: block;
+}
+.ri_trvlr_box div{
+    border-top: 1.5px solid black;
+}
+
+.ri_trvlr_row {
+    display: block;
+    height: 85px;
+    line-height: 85px;
+    border-bottom: 1px solid #d4d4d4;
+}
+.ri_trvlr_col1 {
+    width: 150px;
+    padding: 0 0 0 20px;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 600;
+}
+.ri_trvlr_col2{
+
+}
+.ri_trvlr_inputbox{
+    height: 33px;
+    border: 1px solid #c2c0c0;
+    width: 155px;
+    padding: 7px;
+    font-size: 16px;
+}
+.ri_trvlrinfo_subbox{
+    border-top: 1.5px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ri_at {
+    margin: 0 10px;
+    font-size: 20px;
+}
+.ri_trvlr_inputbox span{
+
+}
+.ri_trvlrinfo_box{
+    margin: 0 0 90px 0;
+}
+.ri_trvlrinfo_row{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 37px 37px;
+}
+.ri_trvlrinfo_col1{
+    margin: 0px 0 12px 0;
+    font-size: 20px;
+    font-weight: 700;
+}
+.ri_trvlrinfo_col2{
+    display: flex;
+    flex-direction: column;
+}
+.ri_trvlrinfo_col2 span{
+    margin: 0 0 10px 0;
+    font-size: 13px;
+}
+.ri_trvlrinfo_col2 div{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.ri_trvlrinfo_col2 button {
+    width: 35px;
+    height: 35px;
+}
+.ri_trvlrinfo_col2 div input{
+    height: 30px;
+    width: 41px;
+}
+.ri_trvlrinfo-totalbox{
+
+}
+.ri_trvlrinto_total{
+    width: 92px;
+    border: 1px;
+    text-align: center;
+    margin: 10px 0;
+}
+.ri_etc{
+    margin: 0 0 70px 0;
+}
+.ri_etc div{
+    display: block;
+}
+.ri_etc div textarea{
+    width: 100%;
+    height: 140px;
+    /* padding: 16px 19px; */
+    font-size: 16px;
+}
+.req_cont{
+
+}
+.ri_btn_box{
+    text-align: center;
+    margin: 0 0 90px 0;
+}
+
+.ri_btn_box input {
+    width: 150px;
+    height: 44px;
+}
