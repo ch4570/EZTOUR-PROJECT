@@ -87,10 +87,9 @@ public class UserController {
             rattr.addFlashAttribute("msg", "REG_OK");
             return "redirect:/";
         } catch (Exception e) {
-
             e.printStackTrace();
             rattr.addFlashAttribute("msg", "REG_ERR");
-            return "redirect:/user/join";
+            return "redirect:/user/auth";
         }
     }
 
@@ -108,15 +107,14 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(String usr_id, String pwd, boolean rememberId,
-                        HttpSession session, HttpServletResponse response) throws Exception {
+                        HttpSession session, HttpServletResponse response, RedirectAttributes rattr) throws Exception {
 
         UserDto userDto = userService.selectUsr(usr_id);
         System.out.println(usr_id);
 
         if(!(userDto!=null && userDto.getPwd().equals(pwd))) {
-            String msg = URLEncoder.encode("id 또는 pwd가 일치하지 않습니다.", "utf-8");
-
-            return "redirect:/user/login?msg="+msg;
+            rattr.addFlashAttribute("msg", "LOGIN_FAIL");
+            return "redirect:/user/login";
         }
 
         userService.updateHstForLogin(usr_id); // 예외처리 예정 (에러 발생시 세션 안넘기고 에러메세지 + 메인 이동)
@@ -365,8 +363,6 @@ public class UserController {
             rattr.addFlashAttribute("msg","DB_ERR");
             return "redirect:/user/mypage";
         }
-
-
     }
 
     // 유니코드로된 이름 한글 변환

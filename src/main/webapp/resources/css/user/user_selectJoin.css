@@ -133,11 +133,19 @@ hr{
     border-radius: 2px;
     padding: 0px 20px;
     margin-top: 5px;
-    margin-bottom: 20px;
+
 
 }
 
 .form-input-usrinfo{
     display: flex;
     flex-direction: column;
+}
+
+#checkAuthBtn{
+    width: 300px;
+    height : 35px;
+    background-color: #333333;
+    color: white;
+    margin-top: 20px;
 }
