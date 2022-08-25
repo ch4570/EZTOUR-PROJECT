@@ -47,31 +47,26 @@
                     </select>
 
                     <input class="searchInput" type="text" name="keyword" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
-                    <input class="searchButton" type="submit" value="검색">
+                    <input class="searchButton sz-inp st-lblue btn_summit" type="submit" value="검색">
                 </form>
+                <button type="button" class="button-27" role="button" id="writeBtn" onclick="location.href='<c:url value="/review/write"/>'" style="margin-left: 610px; width: 66px; height: 49px; margin-top: 15px">작성하기</button>
+                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","N")}'/>">최신순</a>
+                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","O")}'/>">오래된순</a>
+                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","L")}'/>">가장 많은 좋아요</a>
+                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","V")}'/>">가장 많은 조회수</a>
             </div>
         </div>
-        <button type="button" id="writeBtn" onclick="location.href='<c:url value="/review/write"/>'">작성하기</button>
         <div class="highArea">
             <a class="totalCnt">
                 총 ${totalCnt}건
             </a>
-            <!--div class="sort">
-<%--                <span class="sort_name" style="margin-right: 30px;" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("","N")}'/>'">최신순</span>--%>
-                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","N")}'/>">최신순</a>
-<%--                <span class="sort_name" style="margin-right: 30px;" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("","O")}'/>'">오래된순</span>--%>
-                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","O")}'/>">오래된순</a>
-<%--                <span class="sort_name" style="margin-right: 30px;" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("","L")}'/>'">가장 많은 좋아요</span>--%>
-                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","L")}'/>">가장 많은 좋아요</a>
-<%--                <span class="sort_name" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("","V")}'/>'">가장 많은 조회수</span>--%>
-                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","V")}'/>">가장 많은 조회수</a>
-            </div-->
         </div>
         <div class="reviewArea">
             <c:forEach var="rvwDto" items="${list}">
-                <section class="reviewDetail"><a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>">${rvwDto.rvw_ttl}</a>
+                <section class="reviewDetail"><a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>"></a>
                     <div class="reviewImg">
-                        <img src="${rvwDto.img_pth}">
+                        <img class="reviewImg-thumbnail" src="/image/review/IMG_0966.JPG"  width="290" height="290">
+                        <!--img class="reviewImg-thumbnail" src="${rvwDto.img_pth}"-->
                     </div>
                     <div class="reviewInfo">
                         <div class="reviewTitle">

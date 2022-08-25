@@ -124,17 +124,15 @@ table {
 	right: 75px;
 	bottom: 26px;
 	top: 70px;
-	background: red;
 	/*font-family: 'NotoSansCJKkr',Helvetica,sans-serif;*/
 	/*cursor: pointer;*/
 }
 
-.wrap .content .highArea .sort .sort_name{
+.sort_name{
 	color: #1c1c1c;
 	font-size: 20px;
 	font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
 	cursor: pointer;
-
 }
 
 
@@ -189,12 +187,15 @@ table {
 	width: 290px;
 	height: 290px;
 	position: absolute;
+	overflow:hidden;
 	left : 3px;
 	top : 3px;
 	border-radius: 10px;
 	border-width: 1px;
 	border-style: solid;
+}
 
+.wrap .content .reviewArea .reviewDetail .reviewImg-thumbnail {
 }
 
 .wrap .content .reviewArea .reviewDetail .reviewInfo{
@@ -220,6 +221,7 @@ table {
 	border-radius: 10px;
 	border-width: 1px;
 	border-style: hidden;
+	display:block;
 }
 
 .wrap .content .reviewArea .reviewDetail .reviewInfo .reviewContent{
@@ -233,6 +235,7 @@ table {
 	border-radius: 10px;
 	border-width: 1px;
 	border-style: hidden;
+	display:block;
 }
 
 .wrap .content .reviewArea .reviewDetail .reviewInfo .reviewWriter{
@@ -295,6 +298,7 @@ table {
 	position: absolute;
 	right: 10px;
 	top: 15px;
+	font-weight: bold;
 }
 
 .wrap .content .searchArea .searchBox .searchOption{
@@ -354,6 +358,8 @@ table {
 	font-size: 15px;
 	color: #1c1c1c;
 }
+
+
 
 
 

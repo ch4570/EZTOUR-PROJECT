@@ -71,7 +71,6 @@
     $(document).ready(function (){
         // 신규 등록
         $('#newRegisterBtn').on("click", function(){
-            alert("새로 등록 클릭!")
             let form = $('#form-reviewRegister');
             form.attr("action", "<c:url value='/review/write'/>");
             form.attr("method", "post");
