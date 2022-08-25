@@ -28,7 +28,7 @@
                 <span>(남은 좌석 <em>${prdDto.max_stt_cnt-prdDto.pr_rsvt_cnt}</em>석 / 최소 출발인원 <em>${prdDto.min_stt_cnt}</em>명)</span>
             </div>
             <div class="detail-item__view--rvw">
-                <a href="#">여행후기</a>
+                <a href="<c:url value="/review/list">">여행후기</a>
             </div>
         </div>
 
@@ -44,12 +44,10 @@
             <div class="price-info__age2">
                 <span>아동(만 12세 미만)</span>
                 <span><fmt:formatNumber value="${prdDto.chd_prc}" pattern="#,##0"/><em>원</em></span>
-
             </div>
             <div class="price-info__age3">
                 <span>유아(24개월 미만)</span>
                 <span><fmt:formatNumber value="${prdDto.bb_prc}" pattern="#,##0"/><em>원</em></span>
-
             </div>
         </div>
         <span class="price-info__not">- 유류할증료, 제세공과금은 유가와 환율에 따라 변동될 수 있습니다.</span>
@@ -227,7 +225,7 @@
 
         <form class="detail-item__form" action="/reserv/reserv" method="get">
         <div class="detail-item__pay">
-            <div pay_adult>
+            <div class="pay_adult">
                 <div class="pay__info">
                     <span>성인</span>
                     <span><fmt:formatNumber value="${prdDto.adt_prc}" pattern="#,##0"/><em>원</em></span>
@@ -254,7 +252,7 @@
                 </div>
             </div>
 
-            <div pay_child>
+            <div class="pay_child">
                 <div class="pay__info">
                     <span>아동</span>
                     <span><fmt:formatNumber value="${prdDto.chd_prc}" pattern="#,##0"/><em>원</em></span>
@@ -282,7 +280,7 @@
                 </div>
             </div>
 
-            <div pay_baby>
+            <div class="pay_baby">
                 <div class="pay__info">
                     <span>유아</span>
                     <span><fmt:formatNumber value="${prdDto.bb_prc}" pattern="#,##0"/><em>원</em></span>
