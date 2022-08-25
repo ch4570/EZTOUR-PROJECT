@@ -70,6 +70,7 @@ header{
     min-width: 160px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2);
     display: none;
+    background-color: rgba(0, 0, 0, .5);
 }
 
 .nav__list--dropdown-content a {
