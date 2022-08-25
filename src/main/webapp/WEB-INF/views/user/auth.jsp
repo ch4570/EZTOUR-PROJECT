@@ -23,8 +23,6 @@
     </div>
 </div>
 
-
-
     <!-- 휴대폰 인증 모달창 -->
     <div class="modal hidden" id="authModal">
         <div class="modal__overlay" id="authOverlay"></div>
@@ -39,10 +37,12 @@
                             <div class="form-input-usrinfo">
                                 <div style="margin-top: 30px; padding-right: 200px;">이름</div>
                                 <input class="form-check-input-usrinfo" name="usr_nm" id="usr_nm">
+                                <div id="msg-nm" style="color: crimson; font-size: 12px; margin: 10px 0px; padding-right: 130px"></div>
                             </div>
-                            <div class="form-input-usrinfo">
-                                <div style="padding-right: 140px">핸드폰 번호</div>
+                            <div class="form-input-usrinfo" style="width: 240px">
+                                <div style="padding-right: 140px;">핸드폰 번호</div>
                                 <input class="form-check-input-usrinfo" name="phn" id="phn">
+                                <div id="msg-phn" style="color: crimson; font-size: 12px; margin: 10px 0px; padding-right: 80px"></div>
                             </div>
                         </div>
                         <br/>
@@ -57,15 +57,42 @@
     </div>
 
 <script>
+    function setMessage(msg, element) {
+        if (msg == 'no-nm') {
+            document.getElementById("msg-nm").innerHTML = "이름을 입력해주세요";
+            document.getElementById("msg-phn").innerHTML = "";
+            $('#usr_nm').css('border-color', 'crimson');
+            $('#phn').css('border-color', '#ccc');
+
+        } else if (msg == 'no-phn') {
+            document.getElementById("msg-phn").innerHTML = "핸드폰 번호를 입력해주세요.";
+            document.getElementById("msg-nm").innerHTML = "";
+            $('#usr_nm').css('border-color', '#ccc');
+            $('#phn').css('border-color', 'crimson');
+        }
+        element.select()
+    }
+
     function authPhn() {
         let phn = $("#phn").val()
         const authModalBtn = document.querySelector("#authModalBtn");
         const checkAuthBtn = document.querySelector("#checkAuthBtn");
+
+        // 에이잭스 실행전 유효성 검사
+        if($("#usr_nm").val().length==0) {
+            setMessage('no-nm', $("#usr_nm"));
+            return false;
+        }
+        if($("#phn").val().length==0) {
+            setMessage('no-phn', $("phn"));
+            return false;
+        }
+
             $.ajax({
             type:'GET',       // 요청 메서드
             url: '/authPhn/' + phn,  // 요청 URI
             success : function(msg){
-                alert(msg);   // 서버로부터 응답이 도착하면 호출될 함수
+                alert("인증번호를 보냈습니다.");   // 서버로부터 응답이 도착하면 호출될 함수
                 // 밑에 input버튼 생성,
                 $(".form-check").append("<input name='checkNum' id='checkNum' placeholder='인증번호를 입력하세요.'>");
                 // #phn 사라지고
@@ -86,7 +113,7 @@
             type:'GET',
             url: '/checkAuthNum/' + checkNum,
             success : function(msg){
-                alert(msg);   // 서버로부터 응답이 도착하면 호출될 함수
+                alert("인증되었습니다.");   // 서버로부터 응답이 도착하면 호출될 함수
                 form.attr("action", "<c:url value='/user/authOk'/>");
                 form.attr("method", "post");
                 form.submit();

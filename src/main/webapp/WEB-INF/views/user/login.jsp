@@ -11,6 +11,7 @@
 <script>
     let msg = "${msg}";
     if(msg=="ACC_ERR")  alert("잘못된 접근입니다.");
+    if(msg=="LOGIN_FAIL")  alert("아이디와 비밀번호를 다시 확인해주세요.");
 </script>
 
 <div class="outer-content">
@@ -33,8 +34,9 @@
 
                 <div class="form-inp">
                     <input id="id" type="text" name="usr_id" value="${cookie.id.value}" placeholder="아이디 입력" autofocus>
+                    <div id="msg-id" style="color: crimson; font-size: 12px; margin-bottom: 5px"></div>
                     <input id="pwd" type="password" name="pwd" placeholder="비밀번호">
-
+                    <div id="msg-pwd" style="color: crimson; font-size: 12px; margin-bottom: 5px"></div>
                     <div class="panel-box">
                         <span class="remember">
                             <label><input id="idChk" type="checkbox" name="rememberId" value="on" ${empty cookie.id.value ? "":"checked"}></label> <label>아이디 저장</label>
@@ -152,20 +154,32 @@
     function formCheck(frm) {
         let msg ='';
         if(frm.usr_id.value.length==0) {
-            setMessage('id를 입력해주세요.', frm.id);
+            setMessage('no-id', frm.id);
             return false;
         }
         if(frm.pwd.value.length==0) {
-            setMessage('password를 입력해주세요.', frm.pwd);
+            setMessage('no-pwd', frm.pwd);
             return false;
         }
         return true;
     }
+
     function setMessage(msg, element){
-        document.getElementById("msg").innerHTML = ` ${'${msg}'}`;
-        if(element) {
-            element.select();
+        if(msg=='no-id') {
+            document.getElementById("msg-id").innerHTML = "아이디를 입력해주세요.";
+            document.getElementById("msg-pwd").innerHTML = "";
+            $('#id').css('border-color', 'crimson');
+            $('#pwd').css('border-color', '#ccc');
+
+        } else if(msg=='no-pwd') {
+            document.getElementById("msg-pwd").innerHTML = "비밀번호를 입력해주세요.";
+            document.getElementById("msg-id").innerHTML = "";
+            $('#id').css('border-color', '#ccc');
+            $('#pwd').css('border-color', 'crimson');
+
+
         }
+        element.select();
     }
 
     function nonUsrAuth(){

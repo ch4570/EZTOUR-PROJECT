@@ -366,3 +366,7 @@ ul.detail-item__tab li.selected{
     display: flex;
     justify-content: space-between;
 }
+
+.pay__combo-box {
+    float: bottom;
+}
