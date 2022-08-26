@@ -20,7 +20,7 @@
 <br><br>
 <div class="form__join" style="display: flex; justify-content: center;">
 
-  <form action="<c:url value="/user/join"/>" method="POST" onsubmit="" accept-charset="utf-8">
+  <form action="<c:url value="/user/join"/>" method="POST" onsubmit="return checkForm();" accept-charset="utf-8">
     <div style="display: flex; flex-direction: column;">
       <div class="login-subtitle" style="margin-bottom: 20px; width: 540px;">
         <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 10px;">정보입력</h2>
@@ -98,7 +98,7 @@
 
     <div style="text-align: center">
         <input type="button" id="goback" onclick="history.back()" value="취소">
-        <button id="submit" onsubmit="checkForm();">확인</button>
+        <button id="submit" >확인</button>
     </div>
     </div>
   </form>
@@ -237,11 +237,10 @@
     });
 
     function checkForm(){
-        alert("들어왔나?");
-        if(!((moreThanSixId()) && ($("#usr_id").css("border-color") == "forestgreen"))){
+        if(!($("#usr_id").css("border-color") == "rgb(34, 139, 34)")){
             alert("아이디를 다시 확인해주세요.");
             return false;
-        }else if(!(checkPwd() && moreThanSixPwd())){
+        }else if(!($("#pwd1").css("border-color") == "rgb(34, 139, 34)")){
             alert("비밀번호를 다시 확인해주세요.");
             return false;
         }else if($("#usr_nm").val().length==0){
@@ -251,16 +250,14 @@
             alert("올바르지 않은 접근입니다.");
             return false;
         }else if($("#brth").val().length==0){
-            alert("생일을 다시 입력해주세요");
+            alert("생년월일을 다시 입력해주세요");
             return false;
-        }else if(!($("#mail-check-warn").css("color") == "green")){
+        }else if(!($("#mail-check-warn").css("color") == "rgb(0, 128, 0)")){
             alert("이메일 인증번호를 다시 확인해주세요.");
             return false;
         }
         return true;
     }
-
-
 </script>
 </body>
 </html>

@@ -16,7 +16,9 @@
 
 <div class="outer-content">
     <div class="inner-content" style="display: flex; flex-direction: column; justify-content: flex-start">
-        <form action="<c:url value="/user/login"/>" method="post" onsubmit="return formCheck(this);">
+
+        <!-- 일반회원 로그인 폼 시작 -->
+        <form id="loginForm" action="<c:url value="/user/login"/>" method="post" onsubmit="return formCheck(this);">
             <div class="login__form" style="display: flex; flex-direction: column; align-items: center">
                     <h2 class="login-title" id="loginTitle">로그인</h2>
                     <h2 class="login-title" id="rsvTitle" style="display: none">예약확인</h2>
@@ -34,9 +36,9 @@
 
                 <div class="form-inp">
                     <input id="id" type="text" name="usr_id" value="${cookie.id.value}" placeholder="아이디 입력" autofocus>
-                    <div id="msg-id" style="color: crimson; font-size: 12px; margin-bottom: 5px"></div>
+                    <div class="msg" id="msg-id"></div>
                     <input id="pwd" type="password" name="pwd" placeholder="비밀번호">
-                    <div id="msg-pwd" style="color: crimson; font-size: 12px; margin-bottom: 5px"></div>
+                    <div class="msg" id="msg-pwd"></div>
                     <div class="panel-box">
                         <span class="remember">
                             <label><input id="idChk" type="checkbox" name="rememberId" value="on" ${empty cookie.id.value ? "":"checked"}></label> <label>아이디 저장</label>
@@ -50,28 +52,38 @@
                 </div>
             </div>
         </form>
-        <form style="display: flex; flex-direction: column; align-items: center">
-            <div class="form-inp-nonUsr" style="display: none; flex-direction: column;">
+        <!-- 일반회원 로그인 폼 끝 -->
 
-                <input id="rsvNo" type="text" name="rsvt_no" placeholder="예약번호를 입력하세요" autofocus>
-                <input id="rsvName" type="password" name="mn_rsvt_nm" placeholder="이름을 입력하세요">
+        <!-- 비회원 예약확인 폼 시작 -->
+        <form id="guestLoginForm" action="<c:url value='/reserv/gstLogin'/>" method="post" onsubmit="return makePhn(this);" style="">
+            <div class="form-inp-nonUsr" style="display: none; flex-direction: column;">
+                <input id="rsvt_no" type="text" name="rsvt_no" placeholder="예약번호를 입력하세요" autofocus>
+                <div class="msg" id="msg-rsvt_no"></div>
+                <input id="rsvt_nm" type="text" name="mn_rsvt_nm" placeholder="이름을 입력하세요">
+                <div class="msg" id="msg-rsvt_nm"></div>
                 <div class="phn">
-                    <input id="rsvPhone1" type="text" name="phn1" placeholder="010" style="width: 110px;">
-                    <input id="rsvPhone2" type="text" name="phn2" placeholder="0000">
-                    <input id="rsvPhone3" type="text" name="phn3" placeholder="0000" style="margin-right: 0px;">
+                    <input type="hidden" name="phn" id="phn">
+                    <input class="rsvt_phn" id="rsvt_phn1" type="text" name="phn1" placeholder="010" style="width: 110px;">
+                    <input class="rsvt_phn" id="rsvt_phn2" type="text" name="phn2" placeholder="0000">
+                    <input class="rsvt_phn" id="rsvt_phn3" type="text" name="phn3" placeholder="0000" style="margin-right: 0px;">
                 </div>
+                <div class="msg" id="msg-rxvt-phn"></div>
                 <button id="rsvBtn">예약확인</button>
             </div>
-            <div>
-                <div style="display: flex; justify-content: center;">
-                    <a style="height: 100px; padding: 0px 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between" href="${naverUrl}"><img src="../img/user/btnG_아이콘원형.png" alt="" style="width: 70px;"><em>네이버 로그인</em></a>
-                    <a style="height: 100px; padding: 0px 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between" href="javascript:kakaoLogin()"><img src="../img/user/카카오아이콘.png" alt="" style="width: 70px;"><em>카카오 로그인</em></a>
-                </div>
-            </div>
         </form>
+        <!-- 비회원 예약확인 폼 끝 -->
+
+        <div>
+            <div style="display: flex; justify-content: center;">
+                <a class="snsIcon" href="${naverUrl}"><img src="../img/user/btnG_아이콘원형.png" alt="" style="width: 70px;"><em>네이버 로그인</em></a>
+                <a class="snsIcon"  href="javascript:kakaoLogin()"><img src="../img/user/카카오아이콘.png" alt="" style="width: 70px;"><em>카카오 로그인</em></a>
+            </div>
+        </div>
+
     </div>
 </div>
     <br/>
+
 <form name="kakaoForm" id="kakaoForm" method = "post" action="/user/setSubInfo">
     <input type="hidden" name="email" id="kakaoEmail" />
     <input type="hidden" name="kakao_id" id="kakaoId" />
@@ -176,9 +188,8 @@
             document.getElementById("msg-id").innerHTML = "";
             $('#id').css('border-color', '#ccc');
             $('#pwd').css('border-color', 'crimson');
-
-
         }
+
         element.select();
     }
 
@@ -200,6 +211,8 @@
         $(".form-inp-nonUsr").css({
             'display': 'flex'
         })
+
+        document.getElementById('loginForm').reset();
     }
 
     function usrLogin(){
@@ -216,8 +229,63 @@
             'border-bottom': '3px solid #E6E6E6',
             'color' : 'gray'
         });
+
+        document.getElementById('guestLoginForm').reset();
     }
 
+    function makePhn(frm){
+        let phn = $('#rsvt_phn1').val() + $('#rsvt_phn2').val() + $('#rsvt_phn3').val();
+        $('input[name=phn]').attr('value',phn);
+        alert("내가 만든 핸드폰 번호 :: "+phn);
+
+        if(frm.rsvt_no.value.length==0) {
+            setMessageForGst('no-rsvt_no', frm.rsvt_no);
+            return false;
+        }
+        if(frm.mn_rsvt_nm.value.length==0) {
+            setMessageForGst('no-rsvt_nm', frm.mn_rsvt_nm);
+            return false;
+        }
+        if(frm.phn1.value.length==0) {
+            setMessageForGst('no-phn1', frm.phn1);
+            return false;
+        }
+        if(frm.phn2.value.length==0) {
+            setMessageForGst('no-phn2', frm.phn2);
+            return false;
+        }
+        if(frm.phn3.value.length==0) {
+            setMessageForGst('no-phn3', frm.phn3);
+            return false;
+        }
+        return true;
+    }
+
+    function setMessageForGst(msg, element){
+        if(msg=='no-rsvt_no') {
+            document.getElementById("msg-rsvt-no").innerHTML = "예약번호를 입력해주세요.";
+            document.getElementById("msg-rsvt-nm").innerHTML = "";
+            document.getElementById("msg-rsvt-phn").innerHTML = "";
+            $('#rsvt_no').css('border-color', 'crimson');
+            $('#rsvt_nm').css('border-color', '#ccc');
+            $('.rsvt_phn').css('border-color', '#ccc');
+        } else if(msg=='no-rsvt_nm') {
+            document.getElementById("msg-rsvt-no").innerHTML = "";
+            document.getElementById("msg-rsvt-nm").innerHTML = "예약자 성함을 입력해주세요.";
+            document.getElementById("msg-rsvt-phn").innerHTML = "";
+            $('#rsvt_nm').css('border-color', 'crimson');
+            $('#rsvt_no').css('border-color', '#ccc');
+            $('.rsvt_phn').css('border-color', '#ccc');
+        } else if(msg=='no-phn1' || msg=='no-phn2' || msg=='no-phn3') {
+            document.getElementById("msg-rsvt-no").innerHTML = "";
+            document.getElementById("msg-rsvt-nm").innerHTML = "";
+            document.getElementById("msg-rsvt-phn").innerHTML = "핸드폰 번호를 입력해주세요.";
+            $('.rsvt_phn').css('border-color', 'crimson');
+            $('#rsvt_nm').css('border-color', '#ccc');
+            $('#rsvt_no').css('border-color', '#ccc');
+        }
+        element.select();
+    }
 
 
     </script>
