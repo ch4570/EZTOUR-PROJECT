@@ -28,7 +28,7 @@
                 <span>(남은 좌석 <em>${prdDto.max_stt_cnt-prdDto.pr_rsvt_cnt}</em>석 / 최소 출발인원 <em>${prdDto.min_stt_cnt}</em>명)</span>
             </div>
             <div class="detail-item__view--rvw">
-                <a href="<c:url value="/review/list"/>">여행후기</a>
+                <a href="<c:url value="/review/list" />" >여행후기</a>
             </div>
         </div>
 
@@ -124,10 +124,10 @@
                         </div>
                         <div class="pre-notice__con">
                             <p>① 호텔은 동급의 다른 호텔로 변경 될 수 있습니다. <br>
-                                    ② 현지 사정 및 휴관일로 인해 입장을 하지 못할 경우 다른 관광지로 대체 됩니다.<br>
-                                    ③ 현지의 예고없는 기차스케줄 변동으로 일정의 순서 및 관광지에 대한 변동이 있을 수 있습니다.<br>
-                                    이점 양지하여 주시기 바랍니다.<br>
-                                    ④ 국적기인 경우, 대한항공 편과 아시아나 항공 편은 출발 7일 전 서로 대체될 수 있습니다.</p>
+                                ② 현지 사정 및 휴관일로 인해 입장을 하지 못할 경우 다른 관광지로 대체 됩니다.<br>
+                                ③ 현지의 예고없는 기차스케줄 변동으로 일정의 순서 및 관광지에 대한 변동이 있을 수 있습니다.<br>
+                                이점 양지하여 주시기 바랍니다.<br>
+                                ④ 국적기인 경우, 대한항공 편과 아시아나 항공 편은 출발 7일 전 서로 대체될 수 있습니다.</p>
                         </div>
                     </div>
                     <div class="rev-notice__deposit item-cell">
@@ -144,7 +144,7 @@
                         </div>
                         <div class="etc__con">
                             <p>★여행 약관 12조★<br>
-                                    국외여행을 실시함에 있어서 이용운송 숙박 기관에 지급하여야 할 요금이 계약 체결시 보다 5%이상 증감 하거나 여행 요금에 적용된 외화 환율이 계약 체결시보다 2%이상 증감한 경우 여행업자 또는 여행자는 증감된 금액범위 내에서여행요금의 증감을 상대방에게 청구 할 수 있습니다.</p>
+                                국외여행을 실시함에 있어서 이용운송 숙박 기관에 지급하여야 할 요금이 계약 체결시 보다 5%이상 증감 하거나 여행 요금에 적용된 외화 환율이 계약 체결시보다 2%이상 증감한 경우 여행업자 또는 여행자는 증감된 금액범위 내에서여행요금의 증감을 상대방에게 청구 할 수 있습니다.</p>
                         </div>
                     </div>
                 </div>
@@ -190,7 +190,8 @@
                             출발일 19 ~ 10일 전 취소: 예약금 환불 불가+여행경비의 15% 배상<br>
                             출발일 09 ~ 08일 전 취소: 예약금 환불 불가여행경비의 20% 배상<br>
                             출발일 07 ~ 01일 전 취소: 여행경비의 30% 배상+발권이후 항공료 100%<br>
-                            출발일 당일 취소 : 여행경비의 50% 배상+발권이후 항공료 100%</p>
+                            출발일 당일 취소 : 여행경비의 50% 배상+발권이후 항공료 100%
+                        </p>
                     </div>
                 </div>
             </div>
@@ -213,110 +214,112 @@
         </div>
     </div>
 
-    <div class="detail-item__rev">
-        <div class="rev__code">
-            <span>코드</span>
-            <span>${prdDto.prd_dtl_cd}</span>
-        </div>
-        <div class="rev__date">
-            <span>일정</span>
-            <span>${prdDto.trv_per}</span>
-        </div>
-
-        <form class="detail-item__form" action="/reserv/reserv" method="get">
-            <input hidden value="${prdDto.prd_dtl_cd}" name="prd_dtl_cd"/>
-        <div class="detail-item__pay">
-            <div class="pay_adult">
-                <div class="pay__info">
-                    <span>성인</span>
-                    <span><fmt:formatNumber value="${prdDto.adt_prc}" pattern="#,##0"/><em>원</em></span>
-                </div>
-                <div class="pay__combo-box" price="${prdDto.adt_prc}">
-                    <button
-                            type="button"
-                            class="minus-button"
-                            aria-label="Decrease"
-                    ><i class="fas fa-minus"></i></button>
-                    <input readonly
-                           type="number"
-                           name="adt_cnt"
-                           class="quantity"
-                           min="0"
-                           max="10"
-                           value="1"
-                    />
-                    <button
-                            type="button"
-                            class="plus-button"
-                            aria-label="Increase"
-                    ><i class="fas fa-plus"></i></button>
-                </div>
+    <div class="detail-item__rev-wrap">
+        <div class="detail-item__rev">
+            <div class="rev__code">
+                <span>코드</span>
+                <span>${prdDto.prd_dtl_cd}</span>
+            </div>
+            <div class="rev__date">
+                <span>일정</span>
+                <span>${prdDto.trv_per}</span>
             </div>
 
-            <div class="pay_child">
-                <div class="pay__info">
-                    <span>아동</span>
-                    <span><fmt:formatNumber value="${prdDto.chd_prc}" pattern="#,##0"/><em>원</em></span>
+            <form class="detail-item__form" action="/reserv/reserv" method="get">
+                <input type="hidden" value="${prdDto.adt_prc}" name="prd_dtl_cd"/>
+                <div class="detail-item__pay">
+                    <div class="pay_adult pay-margin">
+                        <div class="pay__info">
+                            <span>성인</span>
+                            <span><fmt:formatNumber value="${prdDto.adt_prc}" pattern="#,##0"/><em>원</em></span>
+                        </div>
+                        <div class="pay__combo-box" price="${prdDto.adt_prc}">
+                            <button
+                                    type="button"
+                                    class="minus-button"
+                                    aria-label="Decrease"
+                            ><i class="fas fa-minus"></i></button>
+                            <input readonly
+                                   type="number"
+                                   name="adt_cnt"
+                                   class="quantity"
+                                   min="0"
+                                   max="10"
+                                   value="1"
+                            />
+                            <button
+                                    type="button"
+                                    class="plus-button"
+                                    aria-label="Increase"
+                            ><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="pay_child pay-margin">
+                        <div class="pay__info">
+                            <span>아동</span>
+                            <span><fmt:formatNumber value="${prdDto.chd_prc}" pattern="#,##0"/><em>원</em></span>
+                        </div>
+
+                        <div class="pay__combo-box" price="${prdDto.chd_prc}">
+                            <button
+                                    type="button"
+                                    class="minus-button"
+                                    aria-label="Decrease"
+                            ><i class="fas fa-minus"></i></button>
+                            <input readonly
+                                   type="number"
+                                   name="chd_cnt"
+                                   class="quantity"
+                                   min="0"
+                                   max="10"
+                                   value="0"
+                            />
+                            <button
+                                    type="button"
+                                    class="plus-button"
+                                    aria-label="Increase"
+                            ><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="pay_baby pay-margin">
+                        <div class="pay__info">
+                            <span>유아</span>
+                            <span><fmt:formatNumber value="${prdDto.bb_prc}" pattern="#,##0"/><em>원</em></span>
+                        </div>
+
+                        <div class="pay__combo-box" price="${prdDto.bb_prc}">
+                            <button
+                                    type="button"
+                                    class="minus-button"
+                                    aria-label="Decrease"
+                            ><i class="fas fa-minus"></i></button>
+                            <input readonly
+                                   type="number"
+                                   name="bb_cnt"
+                                   class="quantity"
+                                   min="0"
+                                   max="10"
+                                   value="0"
+                            />
+                            <button
+                                    type="button"
+                                    class="plus-button"
+                                    aria-label="Increase"
+                            ><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="pay__combo-box" price="${prdDto.chd_prc}">
-                    <button
-                            type="button"
-                            class="minus-button"
-                            aria-label="Decrease"
-                    ><i class="fas fa-minus"></i></button>
-                    <input readonly
-                           type="number"
-                           name="chd_cnt"
-                           class="quantity"
-                           min="0"
-                           max="10"
-                           value="0"
-                    />
-                    <button
-                            type="button"
-                            class="plus-button"
-                            aria-label="Increase"
-                    ><i class="fas fa-plus"></i></button>
+                <div class="detail-item__total-pay">
+                    <span>최종 합계금액</span>
+                    <div><input readonly type="number" name="total_price" value="${prdDto.adt_prc}"/>원</div>
                 </div>
+            </form>
+            <div class="detail-item__rev-btn">
+                <button class="rev-btn__btn" name="revBtn">예약하기</button>
             </div>
-
-            <div class="pay_baby">
-                <div class="pay__info">
-                    <span>유아</span>
-                    <span><fmt:formatNumber value="${prdDto.bb_prc}" pattern="#,##0"/><em>원</em></span>
-                </div>
-
-                <div class="pay__combo-box" price="${prdDto.bb_prc}">
-                    <button
-                            type="button"
-                            class="minus-button"
-                            aria-label="Decrease"
-                    ><i class="fas fa-minus"></i></button>
-                    <input readonly
-                           type="number"
-                           name="bb_cnt"
-                           class="quantity"
-                           min="0"
-                           max="10"
-                           value="0"
-                    />
-                    <button
-                            type="button"
-                            class="plus-button"
-                            aria-label="Increase"
-                    ><i class="fas fa-plus"></i></button>
-                </div>
-            </div>
-        </div>
-
-        <div class="detail-item__total-pay">
-            <span>최종 합계금액</span>
-            <div><input readonly type="number" name="total_price" value="${prdDto.adt_prc}"/>원</div>
-        </div>
-        </form>
-        <div class="detail-item__rev-btn">
-            <button class="rev-btn__btn" name="revBtn">예약하기</button>
         </div>
     </div>
 

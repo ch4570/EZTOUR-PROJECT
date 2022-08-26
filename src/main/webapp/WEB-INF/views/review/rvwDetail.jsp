@@ -23,7 +23,7 @@
         </div>
         <div class="boarder-wrap">
             <h2>
-                <p class="tit" name="rvw_ttl">${rvwDto.rvw_ttl}</p>
+                <p class="tit" name="rvw_ttl"><c:out value="${rvwDto.rvw_ttl}"/></p>
                 <span class="reviewLikeViewCnt-lk_cnt-rvw_cont" name="lk_cnt">좋아요 ${rvwDto.lk_cnt} | 조회수 ${rvwDto.rvw_vcnt}</span>
                 <p class="right">
                     <span class="date" name="rvw_reg_date">등록일 | <fmt:formatDate value="${rvwDto.rvw_reg_date}" pattern="yyyy-MM-dd hh:mm:ss"/></span>
@@ -32,18 +32,19 @@
             </h2>
             <!-- 관련 상품-->
             <div class="prdInfo">
-                <a class="prdImg" href="상품보기 페이지 url 이동 get 방식">
-                    <img src="${rvwDto.img_pth}" alt="상품사진">
+                <a class="prdImg" href="#">
+                    <img src="/image/review/IMG_0966.JPG"  width="300" height="180">
+                    <!--img src="${rvwDto.img_pth}" alt="상품사진"-->
                 </a>
                 <div class="prdInfo-content">
-                    <a class="prdInfo-content-title" href="상품보기 페이지 url 이동 get 방식">${rvwDto.prd_nm}</a>
-                    <a class="btn sz-l st-blue view" href="상품보기 페이지 url 이동 get 방식">상품보기</a>
+                    <a class="prdInfo-content-title" href="#">${rvwDto.prd_nm}</a>
+                    <a class="btn sz-l st-blue view" href="#">상품보기</a>
                 </div>
             </div>
             <!-- 글 내용-->
             <div class="detailInfo">
                 <div class="detailInfo-content" name="rvw_cont">
-                    <p>${rvwDto.rvw_cont}</p>
+                    <p><c:out value="${rvwDto.rvw_cont}"/></p>
                 </div>
             </div>
             <!-- 삭제, 수정, 목록 버튼-->
@@ -75,14 +76,14 @@
             </div-->
             <c:choose>
                 <c:when test="${rvwLkAdmDto.rvw_lk_yn == 1}">
-                    <div class="view_btn_set">
+                    <!--div class="view_btn_set">
                         <i class="fas fa-heart" name="fill-heart" id="heart-fill"></i>
                     </div>
                 </c:when>
                 <c:otherwise>
                     <div class="view_btn_set">
                         <i class="far fa-heart" name="non-fill-heart" id="heart-empty"></i>
-                    </div>
+                    </div-->
                 </c:otherwise>
             </c:choose>
             <!-- 댓글 -->
@@ -125,9 +126,9 @@
     $(document).ready(function () {
 
         $('#listBtn').on("click", function(){
-            alert("listBtn clicked")
             location.href = "<c:url value='/review/list${searchCondition.queryString}'/>";
         });
+
         $('#removeBtn').on("click", function(){
             if(!confirm("정말로 삭제하시겠습니까?")) return;
             let form = $('#form');
@@ -136,7 +137,6 @@
             form.submit();
         });
         $('#modifyBtn').on("click", function(){
-            alert("modifyBtn clicked")
             location.href = "<c:url value='/review/modify${searchCondition.queryString}&rvw_no=${rvwDto.rvw_no}'/>";
         });
 

@@ -78,6 +78,7 @@
 				</li>
 				<li class="nav__dropdown">
 					<a href="#">이벤트</a>
+					<a href="<c:url value='/review/list/'/>" style="margin-left: 15px"> 후기글</a></li>
 				</li>
 			</ul>
 		</nav>
