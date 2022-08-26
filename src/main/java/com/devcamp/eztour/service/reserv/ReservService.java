@@ -38,5 +38,5 @@ public interface ReservService {
 
     int getReservCnt(String usr_id);
 
-    GuestDto guestReservCheck(String rsvt_no, String mn_rsvt_nm, String phn) throws Exception;
+    String guestReservCheck(String rsvt_no, String mn_rsvt_nm, String phn) throws Exception;
 }
