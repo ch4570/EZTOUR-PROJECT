@@ -28,7 +28,7 @@
                 <span>(남은 좌석 <em>${prdDto.max_stt_cnt-prdDto.pr_rsvt_cnt}</em>석 / 최소 출발인원 <em>${prdDto.min_stt_cnt}</em>명)</span>
             </div>
             <div class="detail-item__view--rvw">
-                <a href="<c:url value="/review/list">">여행후기</a>
+                <a href="<c:url value="/review/list"/>">여행후기</a>
             </div>
         </div>
 
@@ -224,6 +224,7 @@
         </div>
 
         <form class="detail-item__form" action="/reserv/reserv" method="get">
+            <input hidden value="${prdDto.prd_dtl_cd}" name="prd_dtl_cd"/>
         <div class="detail-item__pay">
             <div class="pay_adult">
                 <div class="pay__info">
@@ -238,7 +239,7 @@
                     ><i class="fas fa-minus"></i></button>
                     <input readonly
                            type="number"
-                           name="adt_quantity"
+                           name="adt_cnt"
                            class="quantity"
                            min="0"
                            max="10"
@@ -266,7 +267,7 @@
                     ><i class="fas fa-minus"></i></button>
                     <input readonly
                            type="number"
-                           name="chd_quantity"
+                           name="chd_cnt"
                            class="quantity"
                            min="0"
                            max="10"
@@ -294,7 +295,7 @@
                     ><i class="fas fa-minus"></i></button>
                     <input readonly
                            type="number"
-                           name="bb_quantity"
+                           name="bb_cnt"
                            class="quantity"
                            min="0"
                            max="10"

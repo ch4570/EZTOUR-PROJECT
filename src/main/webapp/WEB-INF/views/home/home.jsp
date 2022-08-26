@@ -53,7 +53,7 @@
 					<div class="nav__list--dropdown-content">
 						<a href="<c:url value='/product/list?cntn_cd=D&nt_cd=1&nt_cd_nm=프랑스&usr_id=${sessionScope.userDto.usr_id}'/>">프랑스</a>
 						<a href="<c:url value='/product/list?cntn_cd=D&nt_cd=2&nt_cd_nm=영국&usr_id=${sessionScope.userDto.usr_id}'/>">영국</a>
-						<a href="<c:url value='/product/list?cntn_cd=D&nt_cd=3&nt_cd_nm=아일랜드&usr_id=${sessionScope.userDto.usr_id}'/>">아일랜드</a>
+						<a href="#">아일랜드</a>
 						<a href="<c:url value='/product/list?cntn_cd=D&nt_cd=4&nt_cd_nm=스위스&usr_id=${sessionScope.userDto.usr_id}'/>">스위스</a>
 						<a href="<c:url value='/product/list?cntn_cd=D&nt_cd=5&nt_cd_nm=이탈리아&usr_id=${sessionScope.userDto.usr_id}'/>">이탈리아</a>
 						<a href="<c:url value='/product/list?cntn_cd=D&nt_cd=6&nt_cd_nm=스페인&usr_id=${sessionScope.userDto.usr_id}'/>">스페인</a>
@@ -65,8 +65,8 @@
 					<div class="nav__list--dropdown-content">
 						<a href="<c:url value='/product/list?cntn_cd=C&nt_cd=1&nt_cd_nm=체코&usr_id=${sessionScope.userDto.usr_id}'/>">체코</a>
 						<a href="<c:url value='/product/list?cntn_cd=C&nt_cd=2&nt_cd_nm=그리스&usr_id=${sessionScope.userDto.usr_id}'/>">그리스</a>
-						<a href="<c:url value='/product/list?cntn_cd=C&nt_cd=3&nt_cd_nm=러시아&usr_id=${sessionScope.userDto.usr_id}'/>">러시아</a>
-						<a href="<c:url value='/product/list?cntn_cd=C&nt_cd=4&nt_cd_nm=우크라이나&usr_id=${sessionScope.userDto.usr_id}'/>">우크라이나</a>
+						<a href="#">러시아</a>
+						<a href="#">우크라이나</a>
 					</div>
 				</li>
 				<li class="nav__dropdown">
@@ -125,11 +125,25 @@
 		</div>
 	</div>
 
+	<div class="modal_recently hidden">
+		<i class="fa-solid fa-x" name="modal_close_btn"></i>
+		<div class="modal_tlt">
+			<strong>최근 본 상품 (4)</strong>
+			<hr>
+		</div>
+		<div class="modal_recently_content">
+			<div class="product-list__modal">
+				<img src="<c:url value='/image/product/image.jpg'/>">
+			</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 	<script>
 		const openButton = document.getElementById("open");
 		const modal = document.querySelector(".modal");
 		const overlay = modal.querySelector(".modal__overlay");
-		const closeBtn = modal.querySelector("button")
+		const closeBtn = modal.querySelector("button");
+		const modal_recently = document.querySelector(".modal_recently");
 		const openModal = () => {
 			modal.classList.remove("hidden");
 		}
@@ -138,6 +152,21 @@
 		}
 		closeBtn.addEventListener("click", closeModal);
 		openButton.addEventListener("click", openModal);
+
+		$(document).ready(function (){
+
+			$('i[name=modal_close_btn]').click(function (){
+				modal_recently.classList.add("hidden");
+			});
+
+			$('i[name=prd_history]').click(function (){
+				modal_recently.classList.remove("hidden");
+			});
+
+
+		});
+
+
 	</script>
 
 </header>
@@ -292,7 +321,7 @@
 			<ul class="aside__menu--list">
 				<li>
 					<a class="aside__link" href="#">
-						<span><i class="fas fa-history"></i></span>
+						<span><i class="fas fa-history" name="prd_history"></i></span>
 						<span>최근 본 상품</span>
 					</a>
 				</li>
