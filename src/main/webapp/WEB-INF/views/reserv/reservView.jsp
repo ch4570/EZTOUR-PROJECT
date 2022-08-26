@@ -7,16 +7,16 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>예약내역</title>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-    <link rel="stylesheet" href="<c:url value='/css/reserv/reserv_confirm.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/reserv/reserv.css'/>">
 </head>
 <body>
-<%--    ${payDto.pay_prc}--%>
-    <div>
-        <h1 class="dv_main_header">예약내역</h1>
+    <div class="dv_big_box">
+        <h1 class="reserv_main_header">예약내역</h1>
         <div>
             <h2 class="rc_header">예약 상세 내역</h2>
             <div class="dv_dtl_box">
@@ -39,7 +39,7 @@
                             </dl>
                             <dl class="dv_col2">
                                 <dt>- 예약일</dt>
-                                <dd>${rcid.rsvt_date}</dd>
+                                <dd><fmt:formatDate value="${rcid.rsvt_date}" pattern="yyyy/MM/dd(E)"/></dd>
                             </dl>
                         </div>
                         <div class="dv_low">
@@ -66,11 +66,34 @@
                         <div class="dv_low">
                             <dl class="dv_col1">
                                 <dt>- 처리상태</dt>
-                                <dd>${rcid.cmn_cd_rsvt_stt}</dd>
+                                <c:choose>
+                                    <c:when test="${rcid.cmn_cd_rsvt_stt eq '6A'}">
+                                        <dd>예약접수</dd>
+                                    </c:when>
+                                    <c:when test="${rcid.cmn_cd_rsvt_stt eq '6B'}">
+                                        <dd>예약승인</dd>
+                                    </c:when>
+                                    <c:when test="${rcid.cmn_cd_rsvt_stt eq '6C'}">
+                                        <dd>예약반려</dd>
+                                    </c:when>
+                                    <c:when test="${rcid.cmn_cd_rsvt_stt eq '6D'}">
+                                        <dd>예약취소</dd>
+                                    </c:when>
+                                    <c:when test="${rcid.cmn_cd_rsvt_stt eq '6E'}">
+                                        <dd>예약완료</dd>
+                                    </c:when>
+                                    <c:when test="${rcid.cmn_cd_rsvt_stt eq '6F'}">
+                                        <dd>예약불가</dd>
+                                    </c:when>
+                                    <c:when test="${rcid.cmn_cd_rsvt_stt eq '6G'}">
+                                        <dd>예약기타상태</dd>
+                                    </c:when>
+                                </c:choose>
                             </dl>
                             <dl class="dv_col2">
                                 <dt>- 결제예정금액</dt>
-                                <dd>${rcid.pay_ftr_prc}원</dd>
+                                <dd>
+                                    <fmt:formatNumber value="${rcid.pay_ftr_prc}" type="number"/>원</dd>
                             </dl>
                         </div>
                     </div>
@@ -82,13 +105,15 @@
             <div class="dv_dtl_box">
                 <div class="rc_reserv_dtl_subbox">
                     <c:forEach var="trvlrInfo" items="${tid}" begin="0" end="${tid.size()}">
-                        <div class="rc_trvlr_nm">${trvlrInfo.trvlr_nm}</div>
-                        <div class="rc_trvlr_info_box">
-                            <c:set var="trvlr_en_nm" value="${trvlrInfo.trvlr_en_nm}"/>
-                            <div class="rc_trvlr_en_nm">- ${empty trvlr_en_nmm ? "영문명" : trvlr_en_nm}</div>
-                            <div class="rc_trvlr_sub_box">
-                                <span class="rc_trvlr_prc_title">- 상품가 </span>
-                                <span class="rc_trvlr_prc">${trvlrInfo.pay_ftr_prc}</span>
+                        <div class="rc_trvlr_box">
+                            <div class="rc_trvlr_nm">${trvlrInfo.trvlr_nm}</div>
+                            <div class="rc_trvlr_info_box">
+                                <c:set var="trvlr_en_nm" value="${trvlrInfo.trvlr_en_nm}"/>
+                                <div class="rc_trvlr_en_nm">- ${empty trvlr_en_nmm ? "영문명" : trvlr_en_nm}</div>
+                                <div class="rc_trvlr_sub_box">
+                                    <span class="rc_trvlr_prc_title">- 상품가 </span>
+                                    <span class="rc_trvlr_prc"><fmt:formatNumber value="${trvlrInfo.pay_ftr_prc}" type="number"/>원</span>
+                                </div>
                             </div>
                         </div>
                     </c:forEach>
@@ -132,19 +157,19 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div class="rc_btn_box">
             <c:set var="status" value="${rcid.cmn_cd_rsvt_stt}"/>
             <c:choose>
                 <c:when test="${status == '6B'}">
-                    <button type="button" class="payBtn">결제 하기</button>
-                    <button class="reservList" type="button">예약 목록보기</button>
+                    <button type="button" class="payBtn rc_btn rc_btn_margine">결제 하기</button>
+                    <button class="reservList rc_btn" type="button">예약 목록보기</button>
                 </c:when>
                 <c:when test="${status == '6A' || status == '6E'}">
-                    <button type="button" class="cncBtn">${status == '6A' ? "예약접수" : "결제"} 취소</button>
-                    <button class="reservList" type="button">예약 목록보기</button>
+                    <button type="button" class="cncBtn rc_btn rc_btn_margine">${status == '6A' ? "예약접수" : "결제"} 취소</button>
+                    <button class="reservList rc_btn" type="button">예약 목록보기</button>
                 </c:when>
                 <c:otherwise>
-                    <button class="reservList" type="button">예약 목록보기</button>
+                    <button class="reservList rc_btn" type="button">예약 목록보기</button>
                 </c:otherwise>
             </c:choose>
         </div>

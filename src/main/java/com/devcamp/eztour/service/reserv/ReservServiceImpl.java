@@ -190,7 +190,7 @@ public class ReservServiceImpl implements ReservService {
             result.put("pageHandler", ph);
 
             Map<String, Integer> map = new HashMap<>();
-            map.put("offset", (page-1) * pageSize + 1);
+            map.put("offset", (page-1) * pageSize);
             map.put("pageSize", pageSize);
 
             List<ReservDto> list = reservDao.selectTheUnAppredListPage(map);
@@ -213,14 +213,12 @@ public class ReservServiceImpl implements ReservService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public GuestDto guestReservCheck(String rsvt_no, String mn_rsvt_nm, String phn) throws Exception{
+    public String guestReservCheck(String rsvt_no, String mn_rsvt_nm, String phn) throws Exception{
         Map<String, String> map = new HashMap<>();
         map.put("rsvt_no", rsvt_no);
         map.put("mn_rsvt_nm", mn_rsvt_nm);
         map.put("phn", phn);
 
-        String gst_id = reservDao.selectGuestReserv(map);
-        GuestDto guestDto = guestDao.selectGuest(gst_id);
-        return guestDto;
+        return reservDao.selectGuestReserv(map);
     }
 }

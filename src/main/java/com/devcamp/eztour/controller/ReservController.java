@@ -49,7 +49,7 @@ public class ReservController {
     static final String ARL_STT_GO = "go";
     static final String RSVT_STT_PRPR = "6A"; //예약접수상태코드
     static final String PAY_STT_PRPR = "7E"; //결제 중비 중 코드
-    int num = 1;
+    int travlr_cnt_num = 1;
 
     @GetMapping("/reserv")
     public String getReservPage(String prd_dtl_cd, Model m, HttpSession session){
@@ -84,7 +84,14 @@ public class ReservController {
             m.addAttribute("rid", reservInfoDto);
         } catch (Exception e) {
             e.printStackTrace();
-            return "redirect:/";
+            String msg = null;
+            try {
+                msg = URLEncoder.encode("상품 점검중입니다. 다른 상품을 선택해주세요.", "UTF-8");
+            } catch (UnsupportedEncodingException ex) {
+                ex.printStackTrace();
+            }
+            m.addAttribute("msg",msg);
+            return "redirect:/product/list";
         }
 
         return "reserv/reserv.tiles";
@@ -99,63 +106,44 @@ public class ReservController {
         , HttpSession session, HttpServletRequest req, Model m){
         //validator 필요!!!!
         UserDto userDto = (UserDto) session.getAttribute("userDto");
-        UserDto guest = (UserDto) session.getAttribute("guest");
+        String gst_id = (String) session.getAttribute("guest");
         //로그인 안했으면
-        if(userDto==null && guest == null){
-            //게스트를 등록하고 session에 guest로 등록하고
-            String gst_id = "guest" + makeRanNum();
+
+
+        if(userDto != null){
+            reservDto.setUsr_id(userDto.getUsr_id());
+        } else if(gst_id != null){
+            m.addAttribute("msg", "GST_ONLY1PRD");
+            m.addAttribute("prd_dtl_cd", reservDto.getPrd_dtl_cd());
+            if(reservService.getReservCnt(gst_id) >= 1) return "redirect:/reserv/reserv";
+        } else {
+            gst_id = "guest" + makeRanNum();
 
             guestService.registerGuest(new GuestDto(gst_id, reservDto.getMn_rsvt_nm(), reservDto.getPhn()));
-            //유효성 검사 validator 추가
-            reservDto.setUsr_id(gst_id);
 
-            //guest session 추가
-            UserDto guestDto = new UserDto(gst_id, reservDto.getMn_rsvt_nm(),
-                    emailFirst+"@"+emailLast, null, reservDto.getPhn(), 0, null);
-            session.setAttribute("guest", guestDto);
+            session.setAttribute("guest", gst_id);
             session.setMaxInactiveInterval(60*30);
-        } else {
-            if(guest!=null){
-                //게스트 로그인이 되어있으면
-                //session을 사용중인 게스트가 하나 이상의 예약을 못하게 막음
-                if(reservService.getReservCnt(guest.getUsr_id())>=1) return "redirect:/";
-            }
-            //회원로그인시
-            reservDto.setUsr_id(userDto.getUsr_id());
         }
 
-        String email = emailFirst+"@"+emailLast;
-        reservDto.setEmail(email);
+        reservDto.setEmail(emailFirst+"@"+emailLast);
         reservDto.setPay_ftr_prc(reservDto.getSum_prc());
         reservDto.setCmn_cd_rsvt_stt(RSVT_STT_PRPR);
         reservDto.setCmn_cd_pay_stt(PAY_STT_PRPR);
 
-        //예약코드생성
         String rsvt_no = dstn_cd + makeRanNum();
         reservDto.setRsvt_no(rsvt_no);
 
-        //여행자정보 넣기
         List<TravelerInfoDto> list = new ArrayList<>();
         List<TravelerInfoDto> infoList = new ArrayList<>();
 
-        //adult
         list.addAll(setTrvlrInfo(CMN_CD_ADT, adt_prc, reservDto.getAdt_cnt(),reservDto,isUsrIncluded));
-        //child
         list.addAll(setTrvlrInfo(CMN_CD_CHD, chd_prc, reservDto.getChd_cnt(), reservDto));
-        //baby
         list.addAll(setTrvlrInfo(CMN_CD_BB, bb_prc, reservDto.getBb_cnt(), reservDto));
 
-        num = 1;
+        travlr_cnt_num = 1;
 
         try {
-//            int rowCnt = reservService.reserv(reservDto);
-//            int rowCnt2 = reservService.saveTrvlrInfo(list);
             reservService.saveReservInfo(reservDto, list);
-
-//            if(rowCnt != 1) {
-//                throw new Exception("reserv Exception");
-//            }
-//            return "reservConfirm";
         } catch (Exception e) {
             e.printStackTrace();
             //예약에 실패
@@ -226,36 +214,30 @@ public class ReservController {
 
     @GetMapping("/list")
     public String getReservList(HttpServletRequest req, Integer page, Integer pageSize, Model m, HttpSession session){
-        if(!loginCheck(session)){
-//            String toURL = String.valueOf(req.getRequestURL());
-            return "redirect:/user/login?toURL=" + req.getRequestURL(); //로그인 화면으로
-        }
-
         if(page == null) page = 1;
         if(pageSize == null) pageSize = 10;
 
         UserDto userDto = (UserDto) session.getAttribute("userDto");
-        UserDto guest = (UserDto) session.getAttribute("guest");
+        String gst_id = (String) session.getAttribute("guest");
 
         String usr_id = "";
         if(userDto!=null){
-            //회원
             usr_id = userDto.getUsr_id();
         } else {
-            usr_id = guest.getUsr_id();
+            usr_id = gst_id;
         }
-
 
         int totalReservCnt = reservService.getReservCnt(usr_id);
         PageHandler pageHandler = new PageHandler(page, totalReservCnt);
 
         Map<String, Object> map = new HashMap<>();
         map.put("usr_id", usr_id);
-        map.put("offset", pageHandler.getBeginPage()-1);
+        map.put("offset", (page - 1) * pageSize);
         map.put("pageSize", pageSize);
 
         try {
             List list = reservService.getReservListPage(map);
+            m.addAttribute("totalCnt", totalReservCnt);
             m.addAttribute("ph", pageHandler);
             m.addAttribute("reservList", list);
         } catch (Exception e) {
@@ -269,22 +251,11 @@ public class ReservController {
 
     @GetMapping("/reservView")
     public String getRreserv(String rsvt_no, String prd_dtl_cd, HttpServletRequest req, HttpSession session, Model m){
-        //rsvt_no=it1660418896171&prd_dtl_cd=a001001
-        //prd_dtl_cd=a001001
-        /////중복 처리할 것///////
-//        HttpSession session = req.getSession();
-//        Object id = session.getAttribute("id");
-//
-//        if(id == null){
-//            String toURL = req.getRequestURI();
-//            return "redirect:/user/login?toURL="+toURL; //로그인 화면으로
-//        }
-        /////중복 처리할 것///////
         if(!loginCheck(session)){
             return "redirect:/user/login?toURL="+req.getRequestURI(); //로그인 화면으로
         }
 
-
+         //아래 서비스를 rsvt, prd_dtl_cd, usr_id로 찾는 방식으로 바꿀 것
         List list = reservService.getReservView(rsvt_no, prd_dtl_cd);
 
         ReservConfInfoDto rcid = null; //ReservCo
@@ -389,8 +360,8 @@ public class ReservController {
         }
 
         try {
-            GuestDto guestDto = reservService.guestReservCheck(rsvt_no, mn_rsvt_nm, phn);
-            session.setAttribute("guest", guestDto);
+            String gst_id= reservService.guestReservCheck(rsvt_no, mn_rsvt_nm, phn);
+            session.setAttribute("guest", gst_id);
             session.setMaxInactiveInterval(60*30);
         } catch (Exception e) {
             e.printStackTrace();
@@ -406,7 +377,7 @@ public class ReservController {
             }
             return "redirect:/login/login?toURL=" + req.getRequestURL();
         }
-        return "/reserv/list";
+        return "redirect:/reserv/list";
     }
 
     private boolean isAdmin(HttpSession session){
@@ -458,11 +429,11 @@ public class ReservController {
                 tid.setCmn_cd_age(ageStatus);
                 tid.setPay_ftr_prc(price);
                 list.add(tid);
-                num++;
+                travlr_cnt_num++;
                 continue;
             }
 
-            tid.setTrvlr_nm("여행자" + num++);
+            tid.setTrvlr_nm("여행자" + travlr_cnt_num++);
             tid.setCmn_cd_age(ageStatus);
             tid.setPay_ftr_prc(price);
             list.add(tid);
@@ -477,8 +448,8 @@ public class ReservController {
 
     private boolean loginCheck(HttpSession session){
         UserDto userDto =(UserDto) session.getAttribute("userDto");
-        UserDto guestDto =(UserDto) session.getAttribute("guest");
-        boolean result = (userDto != null || guestDto != null);
+        String gst_id =(String) session.getAttribute("guest");
+        boolean result = (userDto != null || gst_id != null);
         return result;
     }
 

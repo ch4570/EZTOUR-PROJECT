@@ -14,7 +14,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
     <!-- iamport.payment.js -->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-    <link rel="stylesheet" href="<c:url value='/css/reserv/reserv_confirm.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/reserv/reserv.css'/>">
 </head>
 <body>
 <div class="pv_big_box">
@@ -55,8 +55,8 @@
                 <p>- 무통장 입금의 입금자명과 금액을 반드시 확인하여 주시기 바랍니다.</p>
             </div>
             <div class="pv_dtl_box rc_btn_box">
+                <button type="button" class="payBtn rc_btn rc_btn_margine">결제하기</button>
                 <button type="button" class="cancelBtn rc_btn">취소</button>
-                <button type="button" class="payBtn rc_btn">결제하기</button>
             </div>
         </div>
     </form>
