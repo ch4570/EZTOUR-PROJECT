@@ -45,4 +45,9 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         return productDetailDao.selectProductDetailPage(prd_dtl_cd);
     }
 
+    @Override
+    public TrvPrdDtlReadDto getOneProductDetail(String prd_cd) throws Exception {
+        return productDetailDao.selectOneProduct(prd_cd);
+    }
+
 }

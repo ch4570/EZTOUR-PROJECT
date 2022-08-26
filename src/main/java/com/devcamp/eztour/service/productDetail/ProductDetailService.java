@@ -18,4 +18,6 @@ public interface ProductDetailService {
 
     List<TrvPrdDtlReadDto> getUserLike() throws Exception;
     PrdDtlPageDto getProductDetailPage(String prd_dtl_cd) throws Exception;
+
+    TrvPrdDtlReadDto getOneProductDetail(String prd_cd) throws Exception;
 }

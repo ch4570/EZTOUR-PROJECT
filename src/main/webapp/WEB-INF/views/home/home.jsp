@@ -131,12 +131,19 @@
 			<div class="modal_recently">
 				<i class="fa-solid fa-x" name="modal_close_btn"></i>
 				<div class="modal_tlt">
-					<strong>최근 본 상품 (4)</strong>
+					<strong>최근 본 상품 (${sessionScope.trvList.size()})</strong>
 					<hr>
 				</div>
 				<div class="modal_recently_content">
-					<div class="product-list__modal">
-						<img src="<c:url value='/image/product/image.jpg'/>">
+					<div class="product--list__modal">
+						<c:forEach items="${sessionScope.trvList}" var="trvList">
+							<div class="product__recent--list">
+								<a><i class="fa-solid fa-x" name="product__recent--cancel" prd_cd="${trvList.prd_cd}"></i></a>
+								<img src="<c:url value='${trvList.img_pth}'/>" width="300px" height="400px">
+								<a href="/product/recent/list?prd_cd=${trvList.prd_cd}"><p>${trvList.prd_nm}</p></a>
+								<div class="product__cost--list"><strong>${trvList.prd_str_prc}</strong><h6>원</h6></div>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -167,6 +174,79 @@
 			$('i[name=prd_history]').click(function (){
 				modal_main.classList.remove("hidden");
 			});
+
+			$(document).on("click","i[name=product__recent--cancel]",function (){
+				let prd_cd = $(this).attr('prd_cd');
+
+				$.ajax({
+					type : "GET",
+					url : "<c:url value='/product/show/delete'/>",
+					data : {'prd_cd':prd_cd},
+					success : function (data){
+						$('.product__recent--list').remove();
+						$('.modal_tlt > strong').remove();
+
+						if(data.length == "0"){
+							$('.modal_tlt').append('<strong>최근 본 상품 (0)</strong>');
+						}else{
+							$('.modal_tlt').append('<strong>최근 본 상품 ('+data.length+')</strong>');
+						}
+
+						$(data).each(function (){
+							$('.product--list__modal').append('<div class="product__recent--list">'+
+									'<a><i class="fa-solid fa-x" name="product__recent--cancel" prd_cd='+this.prd_cd+'></i></a>'
+									+ '<img src='+ this.img_pth +' width="300px" height="400px">' +
+									'<a href="/product/recent/list?prd_nm="'+this.prd_nm+'><p>'+ this.prd_nm +'</p></a>'
+									+ '<div class="product__cost--list"><strong>' + this.prd_str_prc + '</strong><h6>원</h6></div>'
+									+ '</div>'
+							);
+
+						});
+					},
+					error : function (data){
+
+					}
+				});
+			});
+
+			$('i[name=product__recent--cancel]').on("click",function (){
+				let prd_cd = $(this).attr('prd_cd');
+
+				$.ajax({
+					type : "GET",
+					url : "<c:url value='/product/show/delete'/>",
+					data : {'prd_cd':prd_cd},
+					success : function (data){
+						$('.product__recent--list').remove();
+						$('.modal_tlt > strong').remove();
+
+						if(data.length == "0"){
+							$('.modal_tlt').append('<strong>최근 본 상품 (0)</strong>');
+						}else{
+							$('.modal_tlt').append('<strong>최근 본 상품 ('+data.length+')</strong>');
+						}
+
+
+
+						$(data).each(function (){
+							$('.product--list__modal').append('<div class="product__recent--list">'+
+									'<a><i class="fa-solid fa-x" name="product__recent--cancel" prd_cd='+this.prd_cd+'></i></a>'
+									+ '<img src='+ this.img_pth +' width="300px" height="400px">' +
+									'<a href="/product/recent/list?prd_nm="'+this.prd_nm+'><p>'+ this.prd_nm +'</p></a>'
+									+ '<div class="product__cost--list"><strong>' + this.prd_str_prc + '</strong><h6>원</h6></div>'
+									+ '</div>'
+							);
+
+
+						});
+					},
+					error : function (data){
+
+					}
+				});
+
+			});
+
 		});
 
 
@@ -323,7 +403,7 @@
 		<div class="aside__menu">
 			<ul class="aside__menu--list">
 				<li>
-					<a class="aside__link" href="#">
+					<a class="aside__link">
 						<span><i class="fas fa-history" name="prd_history"></i></span>
 						<span>최근 본 상품</span>
 					</a>

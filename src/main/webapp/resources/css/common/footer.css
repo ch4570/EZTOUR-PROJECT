@@ -187,4 +187,5 @@
     width: 95%;
     height: 80%;
     margin: 0 auto;
+    overflow: scroll;
 }
