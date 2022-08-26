@@ -85,7 +85,6 @@
 
 <script>
 
-
   // 상품 리스트 보기
   $(document).ready(function () {
 
@@ -110,9 +109,6 @@
       $('#high_price').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
       $('#vcnt_top').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
     }
-
-
-
 
     // 자세히보기 버튼 클릭 시 클래스 'active' 추가
     $('button[name="btnDetail"]').on('click', function () {

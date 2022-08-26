@@ -1,7 +1,9 @@
 .detail-item__main {
     margin: 100px auto;
     width: 1200px;
-    height: 1000vh;
+    /*height: 1000vh;*/
+    overflow:hidden;
+    height:auto;
 }
 
 .detail-item__title {
@@ -19,11 +21,6 @@
 .detail-item__info {
     width: 73%;
     float: left;
-}
-
-.detail-item__rev {
-    width: 25%;
-    float: right;
 }
 
 .detail-item__img {
@@ -158,6 +155,12 @@ ul.detail-item__tab li{
 
 ul.detail-item__tab li.selected{
     border: 1px solid black;
+}
+
+.detail-item__rev-wrap {
+    height: auto;
+    width: 25%;
+    float: right;
 }
 
 .detail-item__rev {
@@ -327,7 +330,7 @@ ul.detail-item__tab li.selected{
 .rev__code span:first-child,
 .rev__date span,
 .pay__info span:first-child {
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 600;
 }
 
@@ -344,11 +347,6 @@ ul.detail-item__tab li.selected{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-}
-
-.pay__combo-box {
-    display: flex;
-    margin-bottom: 30px;
 }
 
 .pay__info span:last-child {
@@ -368,5 +366,73 @@ ul.detail-item__tab li.selected{
 }
 
 .pay__combo-box {
-    float: bottom;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pay-margin {
+    margin-bottom: 25px;
+}
+
+.pay__combo-box button {
+    all: unset;
+    height: 40px;
+    width: 40px;
+    border: 1px solid rgba(0,0,0,.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pay__combo-box input {
+    all: unset;
+    height: 40px;
+    width: 60px;
+    border: 1px solid rgba(0,0,0,.1);
+}
+
+.pay__combo-box input[type="number"] {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 40px;
+}
+
+.detail-item__total-pay {
+    margin-top: 50px;
+}
+
+.detail-item__total-pay span {
+    font-weight: 600;
+    font-size: 25px;
+}
+
+.detail-item__total-pay div {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.detail-item__total-pay div input[type="number"] {
+    all: unset;
+    text-align: right;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.detail-item__rev-btn {
+    margin-top: 20px;
+}
+
+.detail-item__rev-btn button {
+    all: unset;
+    background: #1c1c1c;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
 }
