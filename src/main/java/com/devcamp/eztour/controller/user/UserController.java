@@ -7,6 +7,7 @@ import com.devcamp.eztour.service.user.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,9 @@ public class UserController {
     NaverLoginBO naverloginbo;
     @Autowired
     ReservService reservService;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/selectJoin")
     public String selectJoin(HttpSession session, Model m, RedirectAttributes rattr) {
@@ -80,6 +84,11 @@ public class UserController {
         user.setGndr(gndr);
         System.out.println("user = " + user);
 
+        // 비밀번호 암호화
+        String encodedPwd = bCryptPasswordEncoder.encode(user.getPwd());
+        System.out.println("encodedPwd = " + encodedPwd);
+        user.setPwd(encodedPwd);
+
         try {
             int rowCnt = userService.insertUsr(user);
             if (rowCnt != 1)
@@ -112,7 +121,7 @@ public class UserController {
         UserDto userDto = userService.selectUsr(usr_id);
         System.out.println(usr_id);
 
-        if(!(userDto!=null && userDto.getPwd().equals(pwd))) {
+        if(!(userDto!=null && bCryptPasswordEncoder.matches(pwd,userDto.getPwd()))) {
             rattr.addFlashAttribute("msg", "LOGIN_FAIL");
             return "redirect:/user/login";
         }
@@ -123,10 +132,10 @@ public class UserController {
         session.setAttribute("userDto", loginUser);
 
         if(rememberId) {
-            Cookie cookie = new Cookie("id", usr_id);
+            Cookie cookie = new Cookie("id", bCryptPasswordEncoder.encode(usr_id));
             response.addCookie(cookie);
         } else {
-            Cookie cookie = new Cookie("id", usr_id);
+            Cookie cookie = new Cookie("id", bCryptPasswordEncoder.encode(usr_id));
             cookie.setMaxAge(0);
             response.addCookie(cookie);
         }
@@ -134,7 +143,6 @@ public class UserController {
         String toURL = (String) session.getAttribute("toURL");
         toURL = toURL==null || toURL.equals("") ? "/" : toURL;
         return "redirect:"+toURL;
-
     }
 
     @GetMapping("/logout")
