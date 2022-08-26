@@ -70,7 +70,7 @@ pageEncoding="UTF-8"%>
           </li>
           <li class="nav__dropdown">
             <a href="#">이벤트</a>
-            <a href="<c:url value='/review/list/'/>">   |   후기글</a></li>
+            <a href="<c:url value='/review/list/'/>" style="margin-left: 15px"> 후기글</a></li>
           </li>
         </ul>
       </nav>
@@ -94,7 +94,6 @@ pageEncoding="UTF-8"%>
           </c:choose>
           <li><a href="#">예약확인/결제</a></li>
           <li><a href="/customer/main">고객센터</a></li>
-          <li><a href="<c:url value='/review/list/'/>">후기글</a></li>
           <li><button id="open" class="prd-search"><i class="fa-solid fa-magnifying-glass"></i></button></li>
         </ul>
       </div>

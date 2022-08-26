@@ -23,7 +23,7 @@
         </div>
         <div class="boarder-wrap">
             <h2>
-                <p class="tit" name="rvw_ttl">${rvwDto.rvw_ttl}</p>
+                <p class="tit" name="rvw_ttl"><c:out value="${rvwDto.rvw_ttl}"/></p>
                 <span class="reviewLikeViewCnt-lk_cnt-rvw_cont" name="lk_cnt">좋아요 ${rvwDto.lk_cnt} | 조회수 ${rvwDto.rvw_vcnt}</span>
                 <p class="right">
                     <span class="date" name="rvw_reg_date">등록일 | <fmt:formatDate value="${rvwDto.rvw_reg_date}" pattern="yyyy-MM-dd hh:mm:ss"/></span>
@@ -44,7 +44,7 @@
             <!-- 글 내용-->
             <div class="detailInfo">
                 <div class="detailInfo-content" name="rvw_cont">
-                    <p>${rvwDto.rvw_cont}</p>
+                    <p><c:out value="${rvwDto.rvw_cont}"/></p>
                 </div>
             </div>
             <!-- 삭제, 수정, 목록 버튼-->
@@ -128,6 +128,7 @@
         $('#listBtn').on("click", function(){
             location.href = "<c:url value='/review/list${searchCondition.queryString}'/>";
         });
+
         $('#removeBtn').on("click", function(){
             if(!confirm("정말로 삭제하시겠습니까?")) return;
             let form = $('#form');
