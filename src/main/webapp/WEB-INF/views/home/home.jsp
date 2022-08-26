@@ -312,13 +312,12 @@
 	</div>
 
 
-	<c:if test="${loginId!=''}">
-		<div>
-			<span style="font-size: xx-large; color: crimson">${loginName}</span>
-			<span>님 환영합니다.</span>
-		</div>
-	</c:if>
 
+<%--	<section class="tripTaste">--%>
+<%--		<div class="tripTaste-tit">--%>
+<%--						--%>
+<%--		</div>--%>
+<%--	</section>--%>
 
 
 
@@ -381,13 +380,13 @@
 	</section>
 
 	<%--	gallery--%>
-	<div class="home__gallery">
+	<section class="home__gallery">
 		<img src="/img/greece.jpg" alt="a forest after an apocalypse">
 		<img src="/img/paris.jpg" alt="a waterfall and many rocks">
 		<img src="/img/roma.jpg" alt="a house on a mountain">
 		<img src="/img/spain.jpg" alt="sime pink flowers">
 		<img src="/img/sydney.jpg" alt="big rocks with some trees">
-	</div>
+	</section>
 
 
 </main>

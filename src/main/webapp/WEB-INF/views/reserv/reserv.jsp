@@ -15,6 +15,12 @@
     <link rel="stylesheet" href="<c:url value='/css/reserv/reserv.css'/>">
 </head>
 <body>
+<script>
+    let msg = '${param.msg}';
+    if(msg=='GST_ONLY1PRD') { alert('비회원 예약은 최대 한 개까지 가능합니다.'); }
+    if(msg=='RSVT_FAILED') { alert('유효하지 않은 상품입니다. 5555-0000으로 예약 및 결제 문의바랍니다.'); }
+    if(msg=='RSVT_WRONG') { alert('예약처리 중 문제가 발생했습니다. 다시 예약해주시기 바랍니다.'); }
+</script>
     <div class="ri_biggest_box">
         <div class="ri_header_box">
             <h1 class="ri_header">상품 예약하기</h1>
@@ -75,15 +81,15 @@
                                 <dl class="ri_arl_line">
                                     <dt>한국 출발</dt>
     <%--                                <p><fmt:formatDate value="${rid.go_dpr_tm}" timeStyle="" />${rid.go_dpr_tm}</p> --%>
-                                    <dd>${rid.go_dpr_tm}</dd>
+                                    <dd>${rid.dom_dpr_date}</dd>
                                     <dt>현지도착</dt>
-                                    <dd>${rid.go_arr_tm}</dd>
+                                    <dd>${rid.loc_fin_date}</dd>
                                 </dl>
                                 <dl class="ri_arl_line">
                                     <dt>한국 출발</dt>
-                                    <dd>${rid.cb_dpr_tm}</dd> ->
+                                    <dd>${rid.loc_dpr_date}</dd> ->
                                     <dt>현지도착</dt>
-                                    <dd>${rid.cb_arr_tm}</dd>
+                                    <dd>${rid.dom_fin_date}</dd>
                                 </dl>
                             </td>
                         </tr>

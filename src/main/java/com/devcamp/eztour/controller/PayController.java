@@ -66,25 +66,8 @@ public class PayController {
     private static final String IMP_KEY = "0896863910828990";
     private static final String IMP_SECRET = "cDWs1IcH29C6H5fLdVcTwbfPrcrWHKKN3BEFTn3r55bR97ULVeBZxAPiuLWPG3RUKxcGAkV1p1wDRyqd";
 
-    static final String ARL_STT_GO = "go";
-//    @ExceptionHandler(Exception.class)
-//    public String catcher(Exception e, RedirectAttributes rattr, HttpServletRequest req){
-//        rattr.addFlashAttribute("msg", "PAY_FAIL");
-//        System.out.println("exception handled");
-//        return "redirect:"+req.getHeader("Referer");
-//    }
-//hibernate
-//    @InitBinder
-//    public void validate(WebDataBinder binder){
-//        binder.setValidator(new PayValidator());
-//    }
-
     @GetMapping("/pay")
-    public String getPayView(String rsvt_no, String prd_dtl_cd, HttpServletRequest req, Model m, HttpSession session){
-//        /pay/pay?rsvt_no=12312333312&ord_dtl_cd=a001001
-        if(!loginCheck(session)){
-            return "redirect:/user/login?toURL="+req.getRequestURI();
-        }
+        public String getPayView(String rsvt_no, String prd_dtl_cd, String prd_nm, HttpServletRequest req, Model m, HttpSession session){
 
         UserDto userDto = (UserDto) session.getAttribute("userDto");
         String gst_id = (String) session.getAttribute("guest");
@@ -123,6 +106,7 @@ public class PayController {
 
             pay_ftr_prc = reservService.getPayFtrPrc(rsvt_no);
             m.addAttribute("pay_ftr_prc", pay_ftr_prc);
+            m.addAttribute("prd_nm", prd_nm);
 
             if(userDto!=null){
                 m.addAttribute("userDto", userDto);
@@ -237,6 +221,7 @@ public class PayController {
 
         payService.savePayInfo(payDto);
         //예외 어떻게 처리행.. 앞에 validation처리를 하자
+        reservService.changeReservCount(payDto.getPrd_dtl_cd(), payDto.getRsvt_no(), "plus");
 
         String result = jsonResult.toString();
 
@@ -245,25 +230,16 @@ public class PayController {
 
     @GetMapping("/confirm")
     public String getPayConfirmInfo(String rsvt_no, String prd_dtl_cd, Model m, HttpSession session, HttpServletRequest req){
-        if(!loginCheck(session)){
-            return "redirect:/user/login?toURL="+req.getRequestURI();
-        }
 
-        List list = reservService.getReservView(rsvt_no, prd_dtl_cd);
+        List list = reservService.getReservView(rsvt_no);
 
         ReservConfInfoDto rcid = null; //ReservCo
         PayDto payDto = null;
         List<TravelerInfoDto> trvlrInfoDtos = new ArrayList<>();
-        List<AirlineReqDto> airlineReqDtos = new ArrayList<>();
-
 
         for(Object obj: list){
             if(obj instanceof ReservConfInfoDto){
                 rcid = (ReservConfInfoDto) obj;
-                continue;
-            }
-            if(obj instanceof AirlineReqDto){
-                airlineReqDtos.add((AirlineReqDto) obj);
                 continue;
             }
             if(obj instanceof PayDto || obj == null){
@@ -272,23 +248,6 @@ public class PayController {
             }
             trvlrInfoDtos.add((TravelerInfoDto) obj);
         }
-
-        ////////비행기 시간 넣기//////////
-        AirlineReqDto goAirInfo = null;
-        AirlineReqDto backAirInfo = null;
-
-        if(airlineReqDtos.get(0).getArl_stt()==ARL_STT_GO){
-            goAirInfo = airlineReqDtos.get(0);
-            backAirInfo = airlineReqDtos.get(1);
-        } else {
-            goAirInfo = airlineReqDtos.get(1);
-            backAirInfo = airlineReqDtos.get(0);
-        }
-
-        rcid.setGo_dpr_arl_id(goAirInfo.getDpr_arl_id());
-        rcid.setGo_dpr_tm(goAirInfo.getDpr_tm());
-        rcid.setCb_arr_arl_id(backAirInfo.getArr_arl_id());
-        rcid.setCb_arr_tm(backAirInfo.getArr_tm());
 
         m.addAttribute("payDto", payDto);
         m.addAttribute("rcid", rcid);
@@ -313,7 +272,9 @@ public class PayController {
 
             String status = payService.getPayStatus(rsvt_no, usr_id);
             if(status == null){
-                reservService.updateRsvtStt(RESERV_CANCEL, PAY_STT_CANCELLED, rsvt_no);
+                ReservDto reservDto = new ReservDto(rsvt_no, RESERV_CANCEL, PAY_STT_CANCELLED);
+                reservService.changeReservSttNCnt(reservDto);
+                payService.deleteTrvlrList(rsvt_no);
                 return "redirect:"+req.getHeader("referer");
             }
 
@@ -322,6 +283,7 @@ public class PayController {
 
         } catch (Exception e) {
             e.printStackTrace();
+            return "redirect:"+req.getHeader("referer");
         }
         return "pay/cancel.tiles";
     }
@@ -402,6 +364,8 @@ public class PayController {
         payService.savePayInfo(payDto);
         //예약테이블에 상태 업데이트
         reservService.updateRsvtStt(RESERV_CANCEL, PAY_STT_CANCELLED, cancelViewDto.getRsvt_no());
+        //상품상세 예약 인원 빼기
+        reservService.changeReservCount(payDto.getPrd_dtl_cd(), payDto.getRsvt_no(), "minus");
 
         String result = jsonResult.toString();
         return result;
