@@ -285,16 +285,13 @@
           <h2 style="font-weight: bolder; font-size: x-large; padding-right: 250px">비밀번호 확인</h2>
           <h2 style="padding-top: 20px; padding-left : 40px; padding-right: 50px; color: #333333; font-weight: bold"><i class="fa fa-check" aria-hidden="true"></i> 회원님의 정보 보호를 위해 비밀번호를 입력해주세요.</h2>
           <hr>
-
           <div style="font-size: 18px;height: 80px; margin-top: 10px;">
               <div class="form-check" id="pwChk">
                   <div id="pwdChkFail" style="padding-top: 10px; font-size: 12px; color: crimson; text-align: left">
                   </div>
                    <input class="form-check-input" type="password" style="margin-top: 10px;" name="pwd" id="pwd" value="" placeholder="비밀번호를 입력해주세요">
-
               </div>
               <br/>
-
           </div>
           <input type="button" id="pwChkBtn" style="margin-top: 30px;" value="확인">
       </div>
@@ -331,7 +328,7 @@
                   if(pwdCheck===true) {
                       location.href='/user/usrMod'
                   }else{
-                      setMessage("일치하지 않는 비밀번호입니다. 다시 입력햐주세요.")
+                      setMessage("일치하지 않는 비밀번호입니다. 다시 입력해주세요.")
                   }
               },
               error   : function(){ setMessage("일지하지 않습니다.") }

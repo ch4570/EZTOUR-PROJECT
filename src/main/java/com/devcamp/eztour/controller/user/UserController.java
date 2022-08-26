@@ -7,6 +7,7 @@ import com.devcamp.eztour.service.user.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +34,6 @@ public class UserController {
     NaverLoginBO naverloginbo;
     @Autowired
     ReservService reservService;
-
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -50,7 +50,8 @@ public class UserController {
     }
 
     @GetMapping("/auth")
-    public String auth() {
+    public String auth(HttpSession session) {
+
         return "user/auth.tiles";
     }
 
@@ -63,6 +64,7 @@ public class UserController {
 
     @GetMapping("/join")
     public String join(HttpSession session, RedirectAttributes rattr, String usr_nm, String phn, Model m, HttpServletResponse response) {
+
         if(session.getAttribute("userDto")==null && usr_nm != null && phn != null) {
             m.addAttribute("usr_nm", usr_nm);
             m.addAttribute("phn", phn);
@@ -335,7 +337,6 @@ public class UserController {
 
     @PostMapping ("/setNaverConnection")
     public String setNaverConnection(String naver_id, HttpSession session, RedirectAttributes rattr){
-
         return "redirect:/";
     }
 
@@ -353,14 +354,13 @@ public class UserController {
         return "user/setSubInfo.tiles";
     }
 
-    @PostMapping("checkPwdForUsrMod")
+    @PostMapping("/checkPwdForUsrMod")
     public String checkPwdForUsrMod(HttpSession session, String pwd, RedirectAttributes rattr){
         UserDto userDto = (UserDto) session.getAttribute("userDto");
         String usr_id = userDto.getUsr_id();
         try {
             // 세션에 있는 아이디를 가져와서 유저정보를 다 가져오고, 거기서 비밀번호랑 해시암호랑 같은지 확인
             userDto = userService.selectUsr(usr_id);
-            System.out.println("userDto.getPwd() = " + userDto.getPwd());
             boolean pwdCheck = bCryptPasswordEncoder.matches(pwd, userDto.getPwd());
             if(pwdCheck)
                 return "redirect:/user/usrMod";
@@ -373,6 +373,35 @@ public class UserController {
             rattr.addFlashAttribute("msg","DB_ERR");
             return "redirect:/user/mypage";
         }
+    }
+
+    @PostMapping("/changePwd")
+    public String changePwd(HttpSession session, String pwd, String new_pwd, RedirectAttributes rattr) {
+        UserDto userDto = (UserDto) session.getAttribute("userDto");
+        String usr_id = userDto.getUsr_id();
+
+        try {
+            userDto = userService.selectUsr(usr_id);
+            boolean pwdCheck = bCryptPasswordEncoder.matches(pwd, userDto.getPwd());
+            System.out.println("pwd = " + pwd);
+            System.out.println("userDto.getPwd() = " + userDto.getPwd());
+            if(!pwdCheck){
+                rattr.addFlashAttribute("msg","PWD_ERR");
+                return "redirect:/user/usrMod";
+            }
+
+            String encodedPwd = bCryptPasswordEncoder.encode(new_pwd);
+            int rowCnt = userService.changePwd(usr_id, encodedPwd);
+            if(rowCnt != 1){
+                throw new Exception("user update error");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            rattr.addFlashAttribute("msg","MOD_ERR");
+            return "redirect:/user/usrMod";
+        }
+        rattr.addFlashAttribute("msg","MOD_OK");
+        return "redirect:/user/mypage";
     }
 
     // 유니코드로된 이름 한글 변환

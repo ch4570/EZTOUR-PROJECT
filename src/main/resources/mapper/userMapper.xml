@@ -73,7 +73,6 @@
         UPDATE
             usr
         SET
-            pwd = #{pwd},
             email = #{email},
             phn = #{phn},
             cmn_cd_prf_img = #{cmn_cd_prf_img}
@@ -249,4 +248,13 @@
                 pwd = #{pwd}
             )AS pwd_check
     </select>
+
+    <update id="changePwd" parameterType="Map">
+        UPDATE
+            usr
+        SET
+            pwd = #{new_pwd}
+        WHERE
+            usr_id = #{usr_id}
+    </update>
 </mapper>

@@ -45,4 +45,5 @@ public interface UserService {
 
     boolean checkPwdForUsrMod(String usr_id, String pwd)throws Exception;
 
+    int changePwd(String usr_id, String new_pwd)throws Exception;
 }

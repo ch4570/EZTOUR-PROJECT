@@ -106,4 +106,9 @@ public class UserServiceImpl implements UserService {
         return userDao.checkPwdForUsrMod(usr_id, pwd);
     }
 
+    @Override
+    public int changePwd(String usr_id, String new_pwd) throws Exception{
+        return userDao.changePwd(usr_id, new_pwd);
+    }
+
 }

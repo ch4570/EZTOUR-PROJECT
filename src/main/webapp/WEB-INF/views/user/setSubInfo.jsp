@@ -93,10 +93,10 @@
             <div class="input-basic">
                 <label for="">성별</label><br>
                 <div class="select"  style="display: flex; justify-content: space-between;">
-                    <input type="radio" id="select" name="gndr" value="${m}" onclick="return(false);"><label for="select" id="man">남성</label>
-                    <input type="radio" id="select2" name="gndr" value="${f}" onclick="return(false);"><label for="select2" id="woman">여성</label>
+                    <input type="radio" id="select" name="gndr" value="${m}" ${not empty kakao_id? '' : "onclick='return(false);'"}><label for="select" id="man">남성</label>
+                    <input type="radio" id="select2" name="gndr" value="${f}" ${not empty kakao_id? '' : "onclick='return(false);'"}><label for="select2" id="woman">여성</label>
                 </div>
-            </div>
+            </div
             <div class="input-basic">
                 <label for="">이메일</label><br>
                 <input type="text" class="input-field" name="email" id="email" value="${email}" >

@@ -16,7 +16,6 @@ pwCheckOverlay.addEventListener("click", closePwCheckModal);
 const openDelButton = document.getElementById("openDelUsr");
 const delModal = document.querySelector("#delModal");
 const delOverlay = delModal.querySelector("#delOverlay");
-const delBtn = delModal.querySelector("#closedelBtn")
 const openDelUsrModal = () => {
     delModal.classList.remove("hidden");
 
@@ -25,7 +24,6 @@ const closeDelUsrModal = () => {
     delModal.classList.add("hidden")
 }
 openDelButton.addEventListener("click", openDelUsrModal);
-delBtn.addEventListener("click", closeDelUsrModal);
 delOverlay.addEventListener("click", closeDelUsrModal);
 
 <!-- 탈퇴사유코드 다음 모달에 전달 -->
@@ -38,5 +36,18 @@ $(function() {
     });
 });
 
+<!-- 비밀번호 변경 모달 -->
+const OpenPwdChangeModal = document.getElementById("OpenPwdChangeModal");
+const pwdChangeModal = document.querySelector("#pwdChangeModal");
+const pwdChangeOverlay = pwdChangeModal.querySelector("#pwdChangeOverlay");
+const delBtn = delModal.querySelector("#closedelBtn")
+const openPwChangeModal = () => {
+    pwdChangeModal.classList.remove("hidden");
+}
+const closePwChangeModal = () => {
+    pwdChangeModal.classList.add("hidden")
+}
+OpenPwdChangeModal.addEventListener("click", openPwChangeModal);
+pwdChangeOverlay.addEventListener("click", closePwChangeModal);
 
 

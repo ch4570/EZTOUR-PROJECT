@@ -135,5 +135,13 @@ public class UserDaoImpl implements UserDao {
         return session.selectOne(namespace+"checkPwdForUsrMod", map);
     }
 
+    @Override
+    public int changePwd(String usr_id, String new_pwd){
+        Map map = new HashMap<>();
+        map.put("usr_id", usr_id);
+        map.put("new_pwd", new_pwd);
+        return session.update(namespace+"changePwd", map);
+    }
+
 
 }
