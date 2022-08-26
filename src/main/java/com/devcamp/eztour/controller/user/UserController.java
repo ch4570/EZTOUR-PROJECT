@@ -108,18 +108,19 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String loginView(HttpSession session, Model m, RedirectAttributes rattr, String lst_acc_date, String rst_chg_Date, String usr_id) {
+    public String loginView(HttpSession session, Model m, RedirectAttributes rattr, String lst_acc_date, String rst_chg_date, String usr_id) {
         if(session.getAttribute("userDto")==null) {
             String naverAuthUrl = naverloginbo.getAuthorizationUrl(session);
             m.addAttribute("naverUrl", naverAuthUrl);
-
+            System.out.println(lst_acc_date);
             Date lst_acc_date2 = null;
-            Date rst_chg_Date2= null;
+            Date rst_chg_date2= null;
             try {
                 SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                if(lst_acc_date!=null && rst_chg_Date!=null) {
+                if(lst_acc_date!=null && rst_chg_date!=null) {
                     lst_acc_date2 = transFormat.parse(lst_acc_date);
-                    rst_chg_Date2 = transFormat.parse(rst_chg_Date);
+                    rst_chg_date2 = transFormat.parse(rst_chg_date);
+                    System.out.println("date타입 포맷되어 모델에 들어가나요?");
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -128,7 +129,7 @@ public class UserController {
             }
 
             m.addAttribute("lst_acc_date", lst_acc_date2);
-            m.addAttribute("rst_chg_Date", rst_chg_Date2);
+            m.addAttribute("rst_chg_date", rst_chg_date2);
             m.addAttribute("usr_id", usr_id);
             return "user/login.tiles";
         }else {
@@ -146,7 +147,6 @@ public class UserController {
         if(userDto.getCmn_cd_usr_stt().equals("2C")) {
             userDto = userService.selectUsrHst(usr_id);
 
-            Date from = new Date();
             SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String lst_acc_date = transFormat.format(userDto.getLst_acc_date());
             String rst_chg_date = transFormat.format(userDto.getRst_chg_date());

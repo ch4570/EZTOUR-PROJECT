@@ -280,7 +280,7 @@
         UPDATE
             usr_hst
         SET
-            rst_chg_date = now()
+            rst_rls_date = now()
         WHERE
             usr_id = #{usr_id}
     </update>
