@@ -16,4 +16,8 @@
         select trvlr_inf_no, trvlr_nm, trvlr_en_nm, cmn_cd_age, pay_ftr_prc
         from trvlr_inf where rsvt_no = #{rsvt_no};
     </select>
+
+    <delete id="deleteTrvlrInfoList" parameterType="String">
+        DELETE FROM trvlr_inf WHERE rsvt_no = #{rsvt_no}
+    </delete>
 </mapper>
