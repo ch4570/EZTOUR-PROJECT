@@ -3,6 +3,7 @@ package com.devcamp.eztour.dao.reserv;
 import com.devcamp.eztour.dao.product.ProductDao;
 import com.devcamp.eztour.dao.product.ProductDetailDao;
 import com.devcamp.eztour.dao.user.UserDao;
+import com.devcamp.eztour.domain.product.TrvPrdDtlReadDto;
 import com.devcamp.eztour.domain.reserv.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -312,5 +313,24 @@ public class ReservDaoImplTest {
 
         assertTrue("guest1661341179754".equals(reservDao.selectGuestReserv(map)));
 
+    }
+
+    @Test
+    public void updateReservCancelTest() throws Exception{
+        ReservDto reservDto = new ReservDto("1" , "6D", "7D");
+        reservDao.updateReservCancel(reservDto);
+        ReservDto newReservDto = reservDao.selectReserv("1");
+        assertTrue(reservDto.getRsvt_no().equals(newReservDto.getRsvt_no()));
+    }
+
+    @Test
+    public void updateReservCntTest() throws Exception{
+        Map<String, Object> map = new HashMap<>();
+        map.put("option", "plus");
+        map.put("pr_rsvt_cnt", 2);
+        map.put("rsvt_no", "A010011661233766093");
+        map.put("prd_dtl_cd", "EMP43220220822");
+
+        reservDao.updateReservCnt(map);
     }
 }

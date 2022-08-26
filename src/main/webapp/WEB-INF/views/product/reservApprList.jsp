@@ -87,7 +87,9 @@
            let reservDto = {
                rsvt_no: $(this).parent().siblings('.apprv_no').text(),
                cmn_cd_rsvt_stt: RESERV_APPV,
-               cmn_cd_pay_stt: ''
+               cmn_cd_pay_stt: '',
+               page: '${ph.page}',
+               pageSize: '${ph.pageSize}'
            }
 
            jQuery.ajax({
@@ -102,8 +104,10 @@
                        alert("승인 및 반려가 불가합니다. 예약번호와 상태값을 확인해주세요");
                        break;
                    case 'SUCCESS':
+                       let page = parseInt(result.page);
+                       let pageSize = parseInt(result.pageSize);
                        alert("상태가 '승인'으로 업데이트 되었습니다");
-                       location.href = '<c:url value="/reserv/admin"/>';
+                       location.href = '<c:url value="/reserv/admin"/>'+'?page='+page+'&pageSize='+pageSize;
                }
            })
        });
