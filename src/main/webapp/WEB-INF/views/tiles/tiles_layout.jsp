@@ -12,6 +12,7 @@
 	<script src="https://kit.fontawesome.com/46b11191c3.js" crossorigin="anonymous"></script>
 	<title>document</title>
     <link rel="stylesheet" href="<c:url value='/css/common/tiles_layout.css'/>" />
+	<link rel="shortcut icon" href="<c:url value=''/> "/>
 </head>
 <body>
 

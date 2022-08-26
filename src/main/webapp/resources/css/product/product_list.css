@@ -57,12 +57,11 @@
 .content--list_img {
     position: relative;
     width: 300px;
-    height: fit-content;
 }
 
 .content--list_img img {
     width: 100%;
-    height: auto;
+    height: 100%;
     border-top-left-radius: 9px;
     border-bottom-left-radius: 9px;
     background-size: cover;
@@ -81,7 +80,7 @@
 .content--list_info {
     width: 80%;
     float: right;
-    padding: 60px;
+    padding: 30px 60px;
 }
 
 .info-tit {
