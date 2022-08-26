@@ -33,10 +33,17 @@ public class ReservDto {
     private String prd_nm;
     private String prd_dtl_desc;
     private String img_pth;
+    private String page;
+    private String pageSize;
 
     public ReservDto(){}
     public ReservDto(String rsvt_no, String prd_dtl_cd, String usr_id, String prd_cd, String mn_rsvt_nm, String phn, String email, long sum_prc, long pay_ftr_prc, String req_cont, String cmn_cd_rsvt_stt, String cmn_cd_pay_stt, Date rsvt_date, Integer cnc_pay_no, Integer adt_cnt, Integer chd_cnt, Integer bb_cnt) {
         this(rsvt_no, prd_dtl_cd, usr_id, prd_cd, mn_rsvt_nm, phn, email, sum_prc, pay_ftr_prc, req_cont, cmn_cd_rsvt_stt, cmn_cd_pay_stt, rsvt_date, cnc_pay_no, adt_cnt, chd_cnt, bb_cnt, null, null, null);
+    }
+    public ReservDto(String rsvt_no, String cmn_cd_rsvt_stt, String cmn_cd_pay_stt){
+        this.rsvt_no = rsvt_no;
+        this.cmn_cd_rsvt_stt = cmn_cd_rsvt_stt;
+        this.cmn_cd_pay_stt = cmn_cd_pay_stt;
     }
 
     public ReservDto(String rsvt_no, String prd_dtl_cd, String usr_id, String prd_cd, String mn_rsvt_nm, String phn, String email, long sum_prc, long pay_ftr_prc, String req_cont, String cmn_cd_rsvt_stt, String cmn_cd_pay_stt, Date rsvt_date, Integer cnc_pay_no, Integer adt_cnt, Integer chd_cnt, Integer bb_cnt, String prd_nm, String prd_dtl_desc, String img_pth) {

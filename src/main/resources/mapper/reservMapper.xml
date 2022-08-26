@@ -30,7 +30,9 @@
                 ON r.prd_cd = tp.prd_cd
             JOIN prd_img pi
                  ON r.prd_cd = pi.prd_cd
-        WHERE r.usr_id = #{usr_id} LIMIT #{offset}, #{pageSize}
+        WHERE r.usr_id = #{usr_id}
+        ORDER BY r.rsvt_date
+        DESC LIMIT #{offset}, #{pageSize}
     </select>
 
     <select id="selectReservByrsvtNo" parameterType="String" resultType="ReservDto">
@@ -50,12 +52,16 @@
         update rsvt set cmn_cd_rsvt_stt = #{cmn_cd_rsvt_stt} where rsvt_no = #{rsvt_no}
     </update>
 
+    <update id="updateReservCnc" parameterType="ReservDto">
+        UPDATE rsvt SET cmn_cd_rsvt_stt = #{cmn_cd_rsvt_stt}, cmn_cd_pay_stt = #{cmn_cd_pay_stt}, adt_cnt = 0, chd_cnt = 0, bb_cnt = 0 where rsvt_no = #{rsvt_no}
+    </update>
+
     <delete id="deleteAllReserv">
         delete from rsvt
     </delete>
 
     <select id="selectPrdInfo" parameterType="String" resultType="ReservInfoDto">
-        SELECT d.prd_dtl_cd, d.arl_nm, t.dstn_cd, t.prd_nm, t.trv_per, p.prd_cd,p.adt_prc, p.chd_prc, p.bb_prc, pi.img_pth
+        SELECT d.prd_dtl_cd, d.arl_nm, d.dom_dpr_date, d.dom_fin_date, d.loc_dpr_date, d.loc_fin_date, t.dstn_cd, t.prd_nm, t.trv_per, p.prd_cd,p.adt_prc, p.chd_prc, p.bb_prc, pi.img_pth
         FROM trv_prd_dtl d JOIN trv_prd t
                                 ON d.prd_cd = t.prd_cd
                            JOIN prd_prc p
@@ -71,9 +77,12 @@
 
     <select id="selectReservConfInfo" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.ReservConfInfoDto">
         select r.rsvt_date, r.rsvt_no, r.prd_dtl_cd, r.adt_cnt, r.chd_cnt, r.bb_cnt, r.sum_prc, r.cmn_cd_rsvt_stt,
-               r.pay_ftr_prc, tp.prd_nm, tp.prd_cd, tp.trv_per
-        from rsvt r INNER JOIN trv_prd tp on r.prd_cd = tp.prd_cd
-        where r.rsvt_no = #{rsvt_no};
+               r.pay_ftr_prc, tp.prd_nm, tp.prd_cd, tp.trv_per, tpd.arl_nm, tpd.dom_dpr_date, tpd.dom_fin_date, tpd.loc_dpr_date, tpd.loc_fin_date
+        from rsvt r JOIN trv_prd tp
+                         on r.prd_cd = tp.prd_cd
+                    JOIN trv_prd_dtl tpd
+                         ON r.prd_dtl_cd = tpd.prd_dtl_cd
+        where r.rsvt_no = #{rsvt_no}
     </select>
 
     <select id="selectUserMlg" parameterType="String" resultType="int">
@@ -105,6 +114,17 @@
             SET mlg = mlg - #{mlg}
         </if>
         WHERE usr_id = #{usr_id}
+    </update>
+
+    <update id="updateRsvtCnt" parameterType="Map">
+        UPDATE trv_prd_dtl
+        <if test='option=="plus"'>
+        SET pr_rsvt_cnt = pr_rsvt_cnt + (SELECT (adt_cnt+chd_cnt+bb_cnt) FROM rsvt WHERE rsvt_no = #{rsvt_no})
+        </if>
+        <if test='option=="minus"'>
+            SET pr_rsvt_cnt = pr_rsvt_cnt - (SELECT (adt_cnt+chd_cnt+bb_cnt) FROM rsvt WHERE rsvt_no = #{rsvt_no})
+        </if>
+        WHERE prd_dtl_cd = #{prd_dtl_cd};
     </update>
 
     <update id="updateRsvtStt" parameterType="Map">

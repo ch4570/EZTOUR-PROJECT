@@ -23,6 +23,7 @@
         <div>
             <div class="pv_mth_box">
                 <input type="radio" name="pay_mthd" value="card" checked><p class="pay_mth_credit">신용카드</p>
+                <input type="hidden" name="prd_nm" value="${prd_nm}">
             </div>
             <div class="pv_dtl_box">
                 <div class="pv_low">
@@ -107,7 +108,7 @@
                         switch(result.status) {
                             case 'failed':
                                 alert('위조된 결제시도가 있습니다. 담당자 확인 후 결제가 처리됩니다.');
-
+                                location.href = '<c:url value="/reserv/list"/>';
                                 break;
                             case 'success':
                                 alert('결제가 정상적으로 처리되었습니다');
@@ -115,7 +116,6 @@
                                 break;
                         }
                     })
-                    alert(rsp.merchant_uid);
                 } else {
                     alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
                 }

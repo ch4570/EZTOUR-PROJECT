@@ -87,6 +87,9 @@
 
   // 상품 리스트 보기
   $(document).ready(function () {
+    let msg = '${msg}';
+
+    if(msg=='RSVT_FAILED') { alert('유효하지 않은 상품입니다. 5555-0000으로 예약 및 결제 문의바랍니다.'); }
 
 
     // 글자색 변경을 위해 Controller 에게 옵션을 받음

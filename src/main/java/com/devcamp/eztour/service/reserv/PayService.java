@@ -26,4 +26,6 @@ public interface PayService {
     PayDto getPayInfo(String rsvt_no,String usr_id) throws Exception;
 
     Map<String, Object> cancelPay(PayDto payDto, String access_token) throws Exception;
+
+    int deleteTrvlrList(String rsvt_no);
 }

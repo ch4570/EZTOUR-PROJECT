@@ -30,10 +30,10 @@
         <div class="rc_content_box">
             <p class="rc_content_box_header">${rcid.prd_nm}</p>
             <div>
-                <span class="arp_code">${rcid.go_dpr_arl_id}</span>
-                <span>${rcid.go_dpr_tm}</span> ~
-                <span class="arp_code">${rcid.cb_arr_arl_id}</span>
-                <span>${rcid.cb_arr_tm}</span>
+                <span class="arp_code">${rcid.arl_nm}</span>
+                <span>${rcid.dom_dpr_date}</span> ~
+                <span class="arp_code">${rcid.arl_nm}</span>
+                <span>${rcid.dom_fin_date}</span>
             </div>
             <div class="rc_dtl_content_box">
                 <div class="rc_low">
@@ -130,6 +130,10 @@
 
 <script>
     $(document).ready(function(){
+        // history.pushState(null, "", location.href);
+        // window.addEventListener("popstate", () => history.pushState(null, "", location.href));
+
+
         $('.home').on("click", function(){
             location.href = '<c:url value="/"/>'
         });
@@ -137,7 +141,12 @@
         $('#rsvtCheck').on("click", function(){
             location.href = '<c:url value="/reserv/list"/>';
         });
-    })
+    });
+
+    <%--window.onpopstate = function(event){--%>
+    <%--    alert("뒤로가기를 사용 못함 :" + ${document.location});--%>
+
+    <%--}--%>
 </script>
 </body>
 </html>

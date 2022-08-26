@@ -117,4 +117,14 @@ public class ReservDaoImpl implements ReservDao {
     public String selectGuestReserv(Map<String, String> map) throws Exception {
         return session.selectOne(namespace + "checkReservGuest", map);
     }
+
+    @Override
+    public int updateReservCancel(ReservDto reservDto) throws Exception {
+        return session.update(namespace + "updateReservCnc", reservDto);
+    }
+
+    @Override
+    public int updateReservCnt(Map<String, Object> map) throws Exception{
+        return session.update(namespace + "updateRsvtCnt", map);
+    }
 }
