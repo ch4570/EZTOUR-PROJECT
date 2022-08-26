@@ -35,8 +35,9 @@
         <div style="display: flex; flex-direction: column; align-items: center;">
             <label class="label-header" for="">아이디</label>
             <input class="input-field" type="text" name="usr_id" value="<c:out value='${userDto.usr_id}'/>" readonly><br>
-            <label class="label-header" for="">비밀번호</label>
-            <input class="input-field" type="text" name="pwd" value="<c:out value='${userDto.pwd}'/>" ><br>
+<%--            <label class="label-header" for="">비밀번호</label>--%>
+<%--            <input class="input-field" type="text" name="pwd" value="<c:out value='${userDto.pwd}'/>" ><br>--%>
+            <input type="button" value="비밀번호 바꾸기"><br/>
             <label class="label-header" for="">이름</label>
             <input class="input-field" type="text" name="usr_nm" value="<c:out value='${userDto.usr_nm}'/>" readonly><br>
             <label class="label-header" for="">생년월일</label>

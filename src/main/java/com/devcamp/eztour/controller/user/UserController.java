@@ -251,7 +251,7 @@ public class UserController {
 
         userDto = userService.selectUsr(userDto.getUsr_id()); // 예외처리 예정
 
-        if(!(userDto!=null && userDto.getPwd().equals(pwd))) {
+        if(!(userDto!=null && bCryptPasswordEncoder.matches(pwd,userDto.getPwd()))) {
             String pwCheckErr = URLEncoder.encode("pwd가 일치하지 않습니다.", "utf-8");
             return "redirect:/user/usrMod?pwCheckErr="+pwCheckErr;
         }
@@ -357,10 +357,12 @@ public class UserController {
     public String checkPwdForUsrMod(HttpSession session, String pwd, RedirectAttributes rattr){
         UserDto userDto = (UserDto) session.getAttribute("userDto");
         String usr_id = userDto.getUsr_id();
-
         try {
-            boolean pwdCheck = userService.checkPwdForUsrMod(usr_id, pwd);
-            if(pwdCheck==true)
+            // 세션에 있는 아이디를 가져와서 유저정보를 다 가져오고, 거기서 비밀번호랑 해시암호랑 같은지 확인
+            userDto = userService.selectUsr(usr_id);
+            System.out.println("userDto.getPwd() = " + userDto.getPwd());
+            boolean pwdCheck = bCryptPasswordEncoder.matches(pwd, userDto.getPwd());
+            if(pwdCheck)
                 return "redirect:/user/usrMod";
 
             rattr.addFlashAttribute("msg","GET_ERR");

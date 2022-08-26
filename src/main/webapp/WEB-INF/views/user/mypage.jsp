@@ -352,6 +352,8 @@
   openPwChkBtn.addEventListener("click", openPwChkModal);
   openPwChkBtn2.addEventListener("click", openPwChkModal);
   pwCheckOverlay.addEventListener("click", closePwChkModal);
+  pwCheckOverlay.addEventListener("click", function(){document.getElementById('pwd').value=null});
+
 
 </script>
 

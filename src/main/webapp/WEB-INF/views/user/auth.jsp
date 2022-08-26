@@ -87,7 +87,6 @@
             setMessage('no-phn', $("phn"));
             return false;
         }
-
             $.ajax({
             type:'GET',       // 요청 메서드
             url: '/authPhn/' + phn,  // 요청 URI
@@ -133,6 +132,7 @@
     }
     openAuthModalBtn.addEventListener("click", openAuthModal);
     authOverlay.addEventListener("click", closeAuthModal);
+    authOverlay.addEventListener("click", function(){document.getElementById('authform').reset();});
 
 </script>
 </body>
