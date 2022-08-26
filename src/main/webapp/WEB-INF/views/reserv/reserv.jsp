@@ -12,7 +12,7 @@
 <head>
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-    <link rel="stylesheet" href="<c:url value='/css/reserv/reserv_info.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/reserv/reserv.css'/>">
 </head>
 <body>
     <div class="ri_biggest_box">
