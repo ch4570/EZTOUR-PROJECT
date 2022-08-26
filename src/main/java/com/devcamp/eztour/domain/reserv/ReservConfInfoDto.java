@@ -32,4 +32,10 @@ public class ReservConfInfoDto {
     private String go_dpr_arl_id;//한국-해외 출발하는 비행기 id
     private String cb_arr_tm; //오는 비행기 한국 도착 시간
     private String cb_arr_arl_id; //해외-한국 도착하는 비행기 id(경유가능성)
+
+    private String arl_nm;
+    private Date dom_dpr_date;
+    private Date dom_fin_date;
+    private Date loc_dpr_date;
+    private Date loc_fin_date;
 }
