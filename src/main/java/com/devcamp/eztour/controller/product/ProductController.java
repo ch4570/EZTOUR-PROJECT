@@ -7,7 +7,6 @@ import com.devcamp.eztour.domain.user.UserDto;
 import com.devcamp.eztour.service.product.ProductService;
 import com.devcamp.eztour.service.productDetail.ProductDetailService;
 import lombok.RequiredArgsConstructor;
-import org.apache.velocity.app.event.implement.EscapeXmlReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
