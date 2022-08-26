@@ -126,15 +126,19 @@
 		</div>
 	</div>
 
-	<div class="modal_recently hidden">
-		<i class="fa-solid fa-x" name="modal_close_btn"></i>
-		<div class="modal_tlt">
-			<strong>최근 본 상품 (4)</strong>
-			<hr>
-		</div>
-		<div class="modal_recently_content">
-			<div class="product-list__modal">
-				<img src="<c:url value='/image/product/image.jpg'/>">
+	<div class="modal_main hidden">
+		<div class="modal_wrap">
+			<div class="modal_recently">
+				<i class="fa-solid fa-x" name="modal_close_btn"></i>
+				<div class="modal_tlt">
+					<strong>최근 본 상품 (4)</strong>
+					<hr>
+				</div>
+				<div class="modal_recently_content">
+					<div class="product-list__modal">
+						<img src="<c:url value='/image/product/image.jpg'/>">
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -144,7 +148,7 @@
 		const modal = document.querySelector(".modal");
 		const overlay = modal.querySelector(".modal__overlay");
 		const closeBtn = modal.querySelector("button");
-		const modal_recently = document.querySelector(".modal_recently");
+		const modal_main = document.querySelector(".modal_main");
 		const openModal = () => {
 			modal.classList.remove("hidden");
 		}
@@ -157,14 +161,12 @@
 		$(document).ready(function (){
 
 			$('i[name=modal_close_btn]').click(function (){
-				modal_recently.classList.add("hidden");
+				modal_main.classList.add("hidden");
 			});
 
 			$('i[name=prd_history]').click(function (){
-				modal_recently.classList.remove("hidden");
+				modal_main.classList.remove("hidden");
 			});
-
-
 		});
 
 

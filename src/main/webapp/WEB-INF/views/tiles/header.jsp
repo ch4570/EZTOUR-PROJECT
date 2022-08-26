@@ -122,7 +122,7 @@ pageEncoding="UTF-8"%>
       const openButton = document.getElementById("open");
       const modal = document.querySelector(".modal");
       const overlay = modal.querySelector(".modal__overlay");
-      const closeBtn = modal.querySelector("button")
+      const closeBtn = modal.querySelector("button");
       const openModal = () => {
         modal.classList.remove("hidden");
       }
@@ -131,6 +131,7 @@ pageEncoding="UTF-8"%>
       }
       closeBtn.addEventListener("click", closeModal);
       openButton.addEventListener("click", openModal);
+
     </script>
 
   </body>

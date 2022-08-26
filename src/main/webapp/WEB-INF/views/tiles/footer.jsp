@@ -16,8 +16,8 @@
             <div class="aside__menu">
                 <ul class="aside__menu--list">
                     <li>
-                        <a class="aside__link" href="#">
-                            <span><i class="fas fa-history"></i></span>
+                        <a class="aside__link">
+                            <span><i class="fas fa-history" name="prd_history"></i></span>
                             <span>최근 본 상품</span>
                         </a>
                     </li>
@@ -82,14 +82,44 @@
                 </dl>
             </div>
         </div>
+
+        <div class="modal_main hidden">
+            <div class="modal_wrap">
+                <div class="modal_recently">
+                    <i class="fa-solid fa-x" name="modal_close_btn"></i>
+                    <div class="modal_tlt">
+                        <strong>최근 본 상품 (4)</strong>
+                        <hr>
+                    </div>
+                    <div class="modal_recently_content">
+                        <div class="product-list__modal">
+                            <img src="<c:url value='/image/product/image.jpg'/>">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     <script>
+
+        const modal_main = document.querySelector(".modal_main");
+
         $(document).ready(function () {
+
+
+
             // 자세히보기 버튼 클릭 시 클래스 'active' 추가
             $('button[name="asideBtn"]').on('click', function () {
                 $(".aside").toggleClass('open');
                 $(".aside__btn").toggleClass('open');
+            });
 
-            })
+                $('i[name=modal_close_btn]').click(function (){
+                    modal_main.classList.add("hidden");
+                });
+
+                $('i[name=prd_history]').click(function (){
+                    modal_main.classList.remove("hidden");
+                });
         });
     </script>
     </body>
