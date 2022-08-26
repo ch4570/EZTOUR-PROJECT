@@ -33,4 +33,5 @@ public class PayDto {
     @NonNull
     private int used_mlg; //0
     private String cnc_rsn;
+    private String prd_nm;
 }

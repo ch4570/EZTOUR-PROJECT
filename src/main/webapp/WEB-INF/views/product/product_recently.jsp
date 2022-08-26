@@ -16,24 +16,22 @@
 <div class="product-list__content">
   <div class="content--list__wrap">
     <div class="content--filter">
-      <a id="vcnt_top" href="<c:url value='/product/list?keyword=vcnt&standard=DESC&usr_id=${sessionScope.userDto.usr_id}&cntn_cd=${param.cntn_cd}&nt_cd=${param.nt_cd}&nt_cd_nm=${param.nt_cd_nm}'/>">조회많은순</a>
-      <a id="low_price" href="<c:url value='/product/list?keyword=prd_str_prc&standard=ASC&usr_id=${sessionScope.userDto.usr_id}&cntn_cd=${param.cntn_cd}&nt_cd=${param.nt_cd}&nt_cd_nm=${param.nt_cd_nm}'/>">낮은가격순</a>
-      <a id="high_price" href="<c:url value='/product/list?keyword=prd_str_prc&standard=DESC&usr_id=${sessionScope.userDto.usr_id}&cntn_cd=${param.cntn_cd}&nt_cd=${param.nt_cd}&nt_cd_nm=${param.nt_cd_nm}'/>">높은가격순</a>
+      <a id="vcnt_top" href="#">조회많은순</a>
+      <a id="low_price" href="#">낮은가격순</a>
+      <a id="high_price" href="#">높은가격순</a>
     </div>
-    <c:forEach var="item" items="${list}" varStatus="status">
-
       <section class="content--wrap">
         <div class="content--list">
           <div class="content--list_img">
-            <img src="${item.img_pth}">
+            <img src="${list.img_pth}">
             <c:choose>
-              <c:when test="${item.usr_id == sessionScope.userDto.usr_id && not empty sessionScope.userDto.usr_id}">
-                <div><i class="fas fa-heart" name="fill-heart" cnt="${status.count}" prd_cd="${item.prd_cd}"></i></div>
+              <c:when test="${list.usr_id == sessionScope.userDto.usr_id && not empty sessionScope.userDto.usr_id}">
+                <div><i class="fas fa-heart" name="fill-heart" prd_cd="${list.prd_cd}"></i></div>
               </c:when>
 
               <c:otherwise>
-                <div><i class="far fa-heart" name="non-fill-heart" cnt="${status.count}" prd_cd="${item.prd_cd}"
-                        prd_nm="${item.prd_nm}" prd_str_prc="${item.prd_str_prc}"></i></div>
+                <div><i class="far fa-heart" name="non-fill-heart" prd_cd="${list.prd_cd}"
+                        prd_nm="${list.prd_nm}" prd_str_prc="${list.prd_str_prc}"></i></div>
               </c:otherwise>
             </c:choose>
 
@@ -41,28 +39,28 @@
           </div>
           <div class="content--list_info">
             <div class="info-tit">
-              <span class="item-tit">${item.prd_nm}</span>
-              <span class="item-desc">${item.prd_dtl_desc}</span>
+              <span class="item-tit">${list.prd_nm}</span>
+              <span class="item-desc">${list.prd_dtl_desc}</span>
               <div class="item-period">
                 <i class="far fa-calendar"></i>
                 <span>여행기간</span>
-                <span>${item.trv_per}</span>
+                <span>${list.trv_per}</span>
               </div>
               <div class="item-strdate">
                 <i class="far fa-calendar"></i>
                 <span>출발기간</span>
-                <span><fmt:formatDate value="${item.dpr_str_date}" pattern="yyyy-MM-dd"/>  ~  <fmt:formatDate value="${item.dpr_fin_date}" pattern="yyyy-MM-dd" /> </span>
+                <span><fmt:formatDate value="${list.dpr_str_date}" pattern="yyyy-MM-dd"/>  ~  <fmt:formatDate value="${item.dpr_fin_date}" pattern="yyyy-MM-dd" /> </span>
               </div>
-              <span class="item-arl">${item.arl_nm}</span>
+              <span class="item-arl">${list.arl_nm}</span>
             </div>
             <div class="info-price">
-              <span class="item-dstn_cd">${item.prd_cd}</span>
+              <span class="item-dstn_cd">${list.prd_cd}</span>
               <div class="item-prd_str_prc">
-                <span><fmt:formatNumber value="${item.prd_str_prc}" pattern="#,##0"/></span>
+                <span>${list.prd_str_prc}</span>
                 <span>원~</span>
               </div>
               <div class="item-detailBtn__wrap">
-                <button class="item-detailBtn" id="detailBtn" name="btnDetail" prd_cd="${item.prd_cd}" cnt="${status.count}" able="false">
+                <button class="item-detailBtn" id="detailBtn" name="btnDetail" prd_cd="${list.prd_cd}" able="false">
                   <em>자세히보기<i class="fas fa-chevron-down"></i></em>
                   <em>닫기<i class="fas fa-chevron-up"></i></em>
                 </button>
@@ -71,25 +69,22 @@
           </div>
         </div>
 
-        <div class="content--detail-items" prd_cd="${item.prd_cd}">
+        <div class="content--detail-items" prd_cd="${list.prd_cd}">
           <input type="hidden"/>
           <div class="content--detail__item">
-            <ul class="detail__item--list${status.count}"></ul>
+            <ul class="detail__item--list"></ul>
           </div>
         </div>
 
       </section>
-    </c:forEach>
   </div>
 </div>
 
 <script>
 
+
   // 상품 리스트 보기
   $(document).ready(function () {
-    let msg = '${msg}';
-
-    if(msg=='RSVT_FAILED') { alert('유효하지 않은 상품입니다. 5555-0000으로 예약 및 결제 문의바랍니다.'); }
 
 
     // 글자색 변경을 위해 Controller 에게 옵션을 받음
@@ -113,6 +108,9 @@
       $('#vcnt_top').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
     }
 
+
+
+
     // 자세히보기 버튼 클릭 시 클래스 'active' 추가
     $('button[name="btnDetail"]').on('click', function () {
       $(this).toggleClass('active');
@@ -134,7 +132,7 @@
             success: function (result) {
 
               $(result).each(function() {
-                $('.detail__item--list'+count).
+                $('.detail__item--list').
                 append('<li class="detail-item__list">'+
                         '<div class="detail-item__list--info">'+
                         '<span class="list__prd_nm">'+ this.prd_nm +'</span>'+
@@ -159,7 +157,6 @@
     var usr_id = "${sessionScope.userDto.usr_id}";
 
     $('i[name=fill-heart]').on("click",function (){
-      let count = $(this).attr('cnt');
       let prd_cd = $(this).attr('prd_cd');
       if(usr_id == null || usr_id === ""){
         alert("로그인을 해야 관심 상품 기능을 이용할 수 있습니다.");
@@ -171,21 +168,20 @@
         }
       }
 
-        $.ajax({
-          type : "POST",
-          url  : "<c:url value='/product/like/delete'/>",
-          data : {"prd_cd":prd_cd,"usr_id":usr_id},
-          success : function (){
-              window.location.reload();
-          },
-          error : function (){
-            alert("오류가 발생했습니다.");
-          }
-        });
+      $.ajax({
+        type : "POST",
+        url  : "<c:url value='/product/like/delete'/>",
+        data : {"prd_cd":prd_cd,"usr_id":usr_id},
+        success : function (){
+          window.location.reload();
+        },
+        error : function (){
+          alert("오류가 발생했습니다.");
+        }
+      });
     });
 
     $('i[name=non-fill-heart]').on("click",function (){
-      let count = $(this).attr('cnt');
       let prd_cd = $(this).attr('prd_cd');
       let prd_nm = $(this).attr('prd_nm');
       let prd_str_prc = $(this).attr('prd_str_prc');
@@ -196,7 +192,7 @@
         if(confirmUser){
           location.href = "<c:url value='/user/login'/>"
         }else{
-            return;
+          return;
         }
       }
 

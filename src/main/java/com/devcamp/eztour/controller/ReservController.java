@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,31 +47,14 @@ public class ReservController {
     static final String CMN_CD_ADT = "11A";
     static final String CMN_CD_CHD = "11B";
     static final String CMN_CD_BB = "11C";
-    static final String ARL_STT_GO = "go";
     static final String RSVT_STT_PRPR = "6A"; //예약접수상태코드
     static final String PAY_STT_PRPR = "7E"; //결제 중비 중 코드
     int travlr_cnt_num = 1;
 
     @GetMapping("/reserv")
-    public String getReservPage(String prd_dtl_cd, Model m, HttpSession session){
+    public String getReservPage(String prd_dtl_cd, Model m, RedirectAttributes rattr, HttpSession session){
         try {
-            ReservInfoDto reservInfoDto = null;
-
-            List reservInfo = reservService.getReservInfo(prd_dtl_cd);
-            List<AirlineReqDto> arlReqList = new ArrayList<>();
-
-            for(Object obj : reservInfo){
-                if(obj instanceof ReservInfoDto){
-                    reservInfoDto = (ReservInfoDto) obj;
-                    continue;
-                }
-                if(obj instanceof AirlineReqDto){
-                    arlReqList.add((AirlineReqDto) obj);
-                    continue;
-                }
-            }
-
-            sortArlReq(arlReqList, reservInfoDto);
+            ReservInfoDto reservInfo = reservService.getReservInfo(prd_dtl_cd);
 
             UserDto userDto = (UserDto) session.getAttribute("userDto");
             if(userDto!=null){
@@ -81,16 +65,10 @@ public class ReservController {
                 m.addAttribute("emailLast",  emailStr[1]);
             }
 
-            m.addAttribute("rid", reservInfoDto);
+            m.addAttribute("rid", reservInfo);
         } catch (Exception e) {
             e.printStackTrace();
-            String msg = null;
-            try {
-                msg = URLEncoder.encode("상품 점검중입니다. 다른 상품을 선택해주세요.", "UTF-8");
-            } catch (UnsupportedEncodingException ex) {
-                ex.printStackTrace();
-            }
-            m.addAttribute("msg",msg);
+            rattr.addFlashAttribute("msg", "RSVT_FAILED");
             return "redirect:/product/list";
         }
 
@@ -103,19 +81,21 @@ public class ReservController {
         , @RequestParam(required = true) int adt_prc
         , @RequestParam(required = true, defaultValue ="0") int chd_prc
         , @RequestParam(required = true, defaultValue ="0") int bb_prc
-        , HttpSession session, HttpServletRequest req, Model m){
+        , HttpSession session, HttpServletRequest req, RedirectAttributes rattr, Model m){
         //validator 필요!!!!
         UserDto userDto = (UserDto) session.getAttribute("userDto");
         String gst_id = (String) session.getAttribute("guest");
         //로그인 안했으면
 
-
         if(userDto != null){
             reservDto.setUsr_id(userDto.getUsr_id());
         } else if(gst_id != null){
-            m.addAttribute("msg", "GST_ONLY1PRD");
-            m.addAttribute("prd_dtl_cd", reservDto.getPrd_dtl_cd());
-            if(reservService.getReservCnt(gst_id) >= 1) return "redirect:/reserv/reserv";
+            reservDto.setUsr_id(gst_id);
+            if(reservService.getReservCnt(gst_id) >= 1) {
+//                rattr.addFlashAttribute("msg", "GST_ONLY1PRD");
+//                rattr.addFlashAttribute("prd_dtl_cd", reservDto.getPrd_dtl_cd());
+                return "redirect:/reserv/reserv?prd_dtl_cd="+reservDto.getPrd_dtl_cd()+"&msg=GST_ONLY1PRD";
+            }
         } else {
             gst_id = "guest" + makeRanNum();
 
@@ -123,6 +103,8 @@ public class ReservController {
 
             session.setAttribute("guest", gst_id);
             session.setMaxInactiveInterval(60*30);
+
+            reservDto.setUsr_id(gst_id);
         }
 
         reservDto.setEmail(emailFirst+"@"+emailLast);
@@ -147,12 +129,12 @@ public class ReservController {
         } catch (Exception e) {
             e.printStackTrace();
             //예약에 실패
-            m.addAttribute("msg", "RSVT_FAILED");
+            rattr.addFlashAttribute("msg", "RSVT_FAILED");
             return "redirect:"+req.getHeader("Referer");
         }
-        m.addAttribute("rsvt_no", rsvt_no);
-        m.addAttribute("prd_dtl_cd",  reservDto.getPrd_dtl_cd());
-        return "redirect:/reserv/conf";
+//        rattr.addFlashAttribute("rsvt_no", rsvt_no);
+//        rattr.addFlashAttribute("prd_dtl_cd",  reservDto.getPrd_dtl_cd());
+        return "redirect:/reserv/conf?rsvt_no="+rsvt_no+"&prd_dtl_cd="+reservDto.getPrd_dtl_cd();
     }
 
     @GetMapping("/conf")
@@ -160,14 +142,14 @@ public class ReservController {
         //guest session 추가시 유저 확인 필요
         //rsvt_no, prd_dtl_cd 값 null check
         if(rsvt_no == null || prd_dtl_cd == null){
-            return "redirect:/";
+//            rattr.addFlashAttribute("msg", "RSVT_CONF_FAIL");
+            return "redirect:"+req.getHeader("Referer");
         }
 
         try {
             List list = reservService.getReservConfInfo(rsvt_no,prd_dtl_cd);
             ReservConfInfoDto rcid = null;
             List<TravelerInfoDto> trvlrInfoDtos = new ArrayList<>();
-            List<AirlineReqDto> airlineReqDtos = new ArrayList<>();
 
 
             for(Object obj: list){
@@ -175,39 +157,17 @@ public class ReservController {
                     rcid = (ReservConfInfoDto) obj;
                     continue;
                 }
-                if(obj instanceof AirlineReqDto){
-                    airlineReqDtos.add((AirlineReqDto) obj);
-                    continue;
-                }
                 trvlrInfoDtos.add((TravelerInfoDto) obj);
             }
 
-            ////////비행기 시간 넣기//////////
-            AirlineReqDto goAirInfo = null;
-            AirlineReqDto backAirInfo = null;
-
-            if(airlineReqDtos.get(0).getArl_stt()==ARL_STT_GO){
-                goAirInfo = airlineReqDtos.get(0);
-                backAirInfo = airlineReqDtos.get(1);
-            } else {
-                goAirInfo = airlineReqDtos.get(1);
-                backAirInfo = airlineReqDtos.get(0);
-            }
-
-            rcid.setGo_dpr_arl_id(goAirInfo.getDpr_arl_id());
-            rcid.setGo_dpr_tm(goAirInfo.getDpr_tm());
-            rcid.setCb_arr_arl_id(backAirInfo.getArr_arl_id());
-            rcid.setCb_arr_tm(backAirInfo.getArr_tm());
-            ///////////////////////////////////
             m.addAttribute("rcid", rcid);
             m.addAttribute("tid", trvlrInfoDtos);
-            m.addAttribute("alrd", airlineReqDtos);
         } catch (Exception e) {
             e.printStackTrace();
-//            m.addAttribute("msg", "WRONG_RESERV");
-//            m.addAttribute("prd_dtl_cd", prd_dtl_cd);
-//            return "reserv/reserv";
-            return "redirect:/";
+            m.addAttribute("msg", "RSVT_WRONG");
+            m.addAttribute("prd_dtl_cd", prd_dtl_cd);
+            return "redirect:/reserv/reserv";
+//            return "redirect:/";
         }
         return "reserv/reservConfirm.tiles";
     }
@@ -256,21 +216,16 @@ public class ReservController {
         }
 
          //아래 서비스를 rsvt, prd_dtl_cd, usr_id로 찾는 방식으로 바꿀 것
-        List list = reservService.getReservView(rsvt_no, prd_dtl_cd);
+        List list = reservService.getReservView(rsvt_no);
 
         ReservConfInfoDto rcid = null; //ReservCo
         PayDto payDto = null;
         List<TravelerInfoDto> trvlrInfoDtos = new ArrayList<>();
-        List<AirlineReqDto> airlineReqDtos = new ArrayList<>();
 
 
         for(Object obj: list){
             if(obj instanceof ReservConfInfoDto){
                 rcid = (ReservConfInfoDto) obj;
-                continue;
-            }
-            if(obj instanceof AirlineReqDto){
-                airlineReqDtos.add((AirlineReqDto) obj);
                 continue;
             }
             if(obj instanceof PayDto || obj == null){
@@ -280,22 +235,6 @@ public class ReservController {
             trvlrInfoDtos.add((TravelerInfoDto) obj);
         }
 
-        ////////비행기 시간 넣기//////////
-        AirlineReqDto goAirInfo = null;
-        AirlineReqDto backAirInfo = null;
-
-        if(airlineReqDtos.get(0).getArl_stt()==ARL_STT_GO){
-            goAirInfo = airlineReqDtos.get(0);
-            backAirInfo = airlineReqDtos.get(1);
-        } else {
-            goAirInfo = airlineReqDtos.get(1);
-            backAirInfo = airlineReqDtos.get(0);
-        }
-
-        rcid.setGo_dpr_arl_id(goAirInfo.getDpr_arl_id());
-        rcid.setGo_dpr_tm(goAirInfo.getDpr_tm());
-        rcid.setCb_arr_arl_id(backAirInfo.getArr_arl_id());
-        rcid.setCb_arr_tm(backAirInfo.getArr_tm());
 
         m.addAttribute("payDto", payDto);
         m.addAttribute("rcid", rcid);
@@ -350,6 +289,9 @@ public class ReservController {
             jsonObject.addProperty("status", "SUCCESS");
         }
 
+        jsonObject.addProperty("page", reservDto.getPage());
+        jsonObject.addProperty("pageSize", reservDto.getPageSize());
+
         return jsonObject.toString();
     }
 
@@ -388,28 +330,6 @@ public class ReservController {
             }
         }
         return false;
-    }
-
-    private void sortArlReq(List<AirlineReqDto> arlReqList, ReservInfoDto rid) {
-        AirlineReqDto goAirInfo = null;
-        AirlineReqDto backAirInfo = null;
-
-        if(arlReqList.get(0).getArl_stt()==ARL_STT_GO){
-            goAirInfo = arlReqList.get(0);
-            backAirInfo = arlReqList.get(1);
-        } else {
-            goAirInfo = arlReqList.get(1);
-            backAirInfo = arlReqList.get(0);
-        }
-
-        rid.setGo_dpr_arl_id(goAirInfo.getDpr_arl_id());
-        rid.setGo_dpr_tm(goAirInfo.getDpr_tm());
-        rid.setGo_arr_arl_id(goAirInfo.getArr_arl_id());
-        rid.setGo_arr_tm(goAirInfo.getArr_tm());
-        rid.setCb_dpr_arl_id(backAirInfo.getDpr_arl_id());
-        rid.setCb_dpr_tm(backAirInfo.getDpr_tm());
-        rid.setCb_arr_arl_id(backAirInfo.getArr_arl_id());
-        rid.setCb_arr_tm(backAirInfo.getArr_tm());
     }
 
     private List<TravelerInfoDto> setTrvlrInfo(String ageStatus, int price, Integer count, ReservDto reservDto) {

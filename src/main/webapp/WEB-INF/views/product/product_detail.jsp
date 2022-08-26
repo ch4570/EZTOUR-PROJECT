@@ -225,7 +225,7 @@
             </div>
 
             <form class="detail-item__form" action="/reserv/reserv" method="get">
-                <input type="hidden" value="${prdDto.adt_prc}" name="prd_dtl_cd"/>
+                <input type="hidden" value="${prdDto.prd_dtl_cd}" name="prd_dtl_cd"/>
                 <div class="detail-item__pay">
                     <div class="pay_adult pay-margin">
                         <div class="pay__info">

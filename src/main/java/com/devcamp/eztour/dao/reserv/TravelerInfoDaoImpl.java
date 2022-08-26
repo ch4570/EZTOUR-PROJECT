@@ -23,4 +23,9 @@ public class TravelerInfoDaoImpl implements TravelerInfoDao {
     public List<TravelerInfoDto> selectTrvlrInfoList(String rsvt_no) throws Exception {
         return session.selectList(namespace+"selectTrvlrInfoList", rsvt_no);
     }
+
+    @Override
+    public int deleteTrvlrInfoList(String rsvt_no) throws Exception {
+        return session.delete(namespace + "deleteTrvlrInfoList", rsvt_no);
+    }
 }

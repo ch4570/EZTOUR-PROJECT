@@ -60,4 +60,11 @@
         WHERE B.prd_dtl_cd = #{prd_dtl_cd}
     </select>
 
+    <select id="selectOneRecentProduct" resultType="TrvPrdDtlReadDto" parameterType="String">
+        SELECT A.prd_cd, A.dstn_cd, A.cmn_cd_thm, A.prd_nm, A.prd_dtl_desc, A.trv_per, FORMAT(A.prd_str_prc,0) AS prd_str_prc, A.dpr_str_date, A.dpr_fin_date,
+               A.evnt_yn, A.fin_yn, A.act_yn, A.dc_yn, A.pc_prc, A.vcnt, D.lk_yn, B.img_pth, B.mn_img_yn,D.usr_id,A.dpr_day
+        FROM trv_prd A LEFT OUTER JOIN att_prd D ON A.prd_cd = D.prd_cd
+                       JOIN prd_img B ON A.prd_cd = B.prd_cd
+        WHERE act_yn=1 AND  A.prd_cd = #{prd_cd}
+    </select>
 </mapper>

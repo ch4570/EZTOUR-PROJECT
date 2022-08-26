@@ -48,4 +48,8 @@ public interface ReservDao {
     int selectReservCnt(String usr_id) throws Exception;
 
     String selectGuestReserv(Map<String, String> map) throws Exception;
+
+    int updateReservCancel(ReservDto reservDto) throws Exception;
+
+    int updateReservCnt(Map<String, Object> map) throws Exception;
 }

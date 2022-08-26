@@ -25,9 +25,9 @@
                         [${rcid.prd_dtl_cd}]${rcid.prd_nm}
                     </div>
                     <div class="dv_arl_box">
-                        <span class="dv_arl_code">${rcid.go_dpr_arl_id}</span>
+                        <span class="dv_arl_code">${rcid.dom_dpr_date}</span>
                         <span>${rcid.go_dpr_tm}</span> ~
-                        <span class="dv_arl_code">${rcid.cb_arr_arl_id}</span>
+                        <span class="dv_arl_code">${rcid.dom_fin_date}</span>
                         <span>${rcid.cb_arr_tm}</span>
                     </div>
 
@@ -104,19 +104,26 @@
             <h2 class="rc_header">여행자 정보</h2>
             <div class="dv_dtl_box">
                 <div class="rc_reserv_dtl_subbox">
-                    <c:forEach var="trvlrInfo" items="${tid}" begin="0" end="${tid.size()}">
-                        <div class="rc_trvlr_box">
-                            <div class="rc_trvlr_nm">${trvlrInfo.trvlr_nm}</div>
-                            <div class="rc_trvlr_info_box">
-                                <c:set var="trvlr_en_nm" value="${trvlrInfo.trvlr_en_nm}"/>
-                                <div class="rc_trvlr_en_nm">- ${empty trvlr_en_nmm ? "영문명" : trvlr_en_nm}</div>
-                                <div class="rc_trvlr_sub_box">
-                                    <span class="rc_trvlr_prc_title">- 상품가 </span>
-                                    <span class="rc_trvlr_prc"><fmt:formatNumber value="${trvlrInfo.pay_ftr_prc}" type="number"/>원</span>
+                    <c:choose>
+                        <c:when test="${empty tid}">
+                            <div>여행자 정보가 없습니다.</div>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="trvlrInfo" items="${tid}" begin="0" end="${tid.size()}">
+                                <div class="rc_trvlr_box">
+                                    <div class="rc_trvlr_nm">${trvlrInfo.trvlr_nm}</div>
+                                    <div class="rc_trvlr_info_box">
+                                        <c:set var="trvlr_en_nm" value="${trvlrInfo.trvlr_en_nm}"/>
+                                        <div class="rc_trvlr_en_nm">- ${empty trvlr_en_nmm ? "영문명" : trvlr_en_nm}</div>
+                                        <div class="rc_trvlr_sub_box">
+                                            <span class="rc_trvlr_prc_title">- 상품가 </span>
+                                            <span class="rc_trvlr_prc"><fmt:formatNumber value="${trvlrInfo.pay_ftr_prc}" type="number"/>원</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </c:forEach>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>
@@ -143,10 +150,39 @@
                             <div>
                                 <dl>
                                     <dt>결제상태</dt>
-                                    <dd>${payDto.cmn_cd_pay_stt}</dd>
+                                    <c:choose>
+                                        <c:when test="${payDto.cmn_cd_pay_stt eq '7A'}">
+                                            <dd>결제대기</dd>
+                                        </c:when>
+                                        <c:when test="${payDto.cmn_cd_pay_stt eq '7B'}">
+                                            <dd>결제취소</dd>
+                                        </c:when>
+                                        <c:when test="${payDto.cmn_cd_pay_stt eq '7C'}">
+                                            <dd>결제완료</dd>
+                                        </c:when>
+                                        <c:when test="${payDto.cmn_cd_pay_stt eq '7D'}">
+                                            <dd>결제실패</dd>
+                                        </c:when>
+                                        <c:when test="${payDto.cmn_cd_pay_stt eq '7E'}">
+                                            <dd>결제준비중</dd>
+                                        </c:when>
+                                        <c:when test="${payDto.cmn_cd_pay_stt eq '7F'}">
+                                            <dd>결제오류</dd><!--결제위조시도(금액)-->
+                                        </c:when>
+                                        <c:when test="${payDto.cmn_cd_pay_stt eq '7G'}">
+                                            <dd>결제오류</dd><!--결제위조시도(마일리지)-->
+                                        </c:when>
+                                    </c:choose>
                                 </dl>
                                 <dl>
-                                    <dt>결제금액</dt>
+                                    <c:choose>
+                                        <c:when test="${payDto.cmn_cd_pay_stt eq '7B'}">
+                                            <dt>환불금액</dt>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <dt>결제금액</dt>
+                                        </c:otherwise>
+                                    </c:choose>
                                     <dd>${payDto.pay_prc}</dd>
                                     <dd>(사용한 마일리지 : ${payDto.used_mlg})</dd>
                                 </dl>
