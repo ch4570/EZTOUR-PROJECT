@@ -29,6 +29,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto selectUsrHst(String usr_id) throws Exception {
+        return userDao.selectUsrHst(usr_id);
+    }
+
+    @Override
     public int updateHstForLogin(String usr_id) throws Exception {
         return userDao.updateHstForLogin(usr_id);
     }
@@ -110,5 +115,12 @@ public class UserServiceImpl implements UserService {
     public int changePwd(String usr_id, String new_pwd) throws Exception{
         return userDao.changePwd(usr_id, new_pwd);
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public int rstRelease(String usr_id) throws Exception{
+        userDao.rstRelease(usr_id);
+        return userDao.rstReleaseLog(usr_id);
+    }
+
 
 }

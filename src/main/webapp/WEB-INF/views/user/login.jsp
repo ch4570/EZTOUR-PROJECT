@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>로그인</title>
@@ -12,6 +12,8 @@
     let msg = "${msg}";
     if(msg=="ACC_ERR")  alert("잘못된 접근입니다.");
     if(msg=="LOGIN_FAIL")  alert("아이디와 비밀번호를 다시 확인해주세요.");
+
+
 </script>
 
 <div class="outer-content">
@@ -84,16 +86,60 @@
 </div>
     <br/>
 
+<!-- 휴면계정 해제 모달 -->
+<div class="modal hidden" id="rstReleaseModal">
+    <div class="modal__overlay" id="rstReleaseOverlay"></div>
+    <div class="modal__content" style="width: 600px; height: 400px;">
+        <br/>
+        <div name="pwChkForm" style="display: flex; flex-direction: column; align-items: flex-start;
+        justify-content: space-around; width: 550px; height: 350px; padding-left: 40px">
+            <h2 style="font-weight: bolder; font-size: x-large; padding-right: 250px">휴면계정 해제 안내</h2>
+            <hr>
+            <div style="font-size: 18px;">
+                안녕하세요!
+            </div>
+            <div style="font-size: 18px;">
+                회원님은 이지투어 계정에 1년 이상 로그인하지 않아
+            </div>
+            <div style="font-size: 18px;">
+                관련 법령에 따라 휴면 상태로 전환되었습니다.
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: space-around; background-color: lightgray;width: 500px; height: 70px; text-align: left; margin: 20px 0px; padding: 10px;">
+                <div>
+                    마지막 접속일 : <fmt:formatDate value="${lst_acc_date}" pattern="yyyy-MM-dd" />
+                </div>
+                <div>
+                    휴면 전환일 :  <fmt:formatDate value="${rst_chg_date}" pattern="yyyy-MM-dd" />
+                </div>
+            </div>
+            <div>
+                이지투어 계정 서비스를 계속 이용하시려면
+            </div>
+            <div>
+                <span style="font-weight: bold">[휴면 해제하기]</span> 버튼을 클릭해주세요.
+            </div>
+            <div style="width: 400px; display: flex; justify-content: space-evenly; align-items: flex-end; margin-left: 60px;">
+                <input type="button" id="closeReleaseModal" value="취소">
+                <input type="button" id="releaseRstBtn" style="margin-top: 30px; cursor: pointer;" value="휴면 해제하기" onclick="goPost()" >
+            </div>
+        </div>
+    </div>
+</div>
+
 <form name="kakaoForm" id="kakaoForm" method = "post" action="/user/setSubInfo">
     <input type="hidden" name="email" id="kakaoEmail" />
     <input type="hidden" name="kakao_id" id="kakaoId" />
     <input type="hidden" name="gndr" id="kakaoGender" />
 </form>
 
-
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
+    window.history.forward();
+    $( document ).ready(function() {
+        history.replaceState({}, null, location.pathname);
+    });
+
     <!-- 카카오 로그인 init -->
     $(document).ready(function(){
         $.ajax({
@@ -287,7 +333,33 @@
         element.select();
     }
 
+    const rstReleaseModal = document.querySelector("#rstReleaseModal");
+    const rstReleaseOverlay = rstReleaseModal.querySelector("#rstReleaseOverlay");
+    const openRstReleaseModal = () => {
+        rstReleaseModal.classList.remove("hidden");
+    }
+    const closeRstReleaseModal = () => {
+        rstReleaseModal.classList.add("hidden")
+    }
+    rstReleaseOverlay.addEventListener("click", closeRstReleaseModal);
 
-    </script>
+
+    $(document).ready(function(){
+        if("${param.rstmsg}"==="RST_ERR") {
+            openRstReleaseModal();
+        }
+    });
+
+    function goPost(){
+        alert("들어온건가?");
+        let f=document.createElement('form');
+        f.setAttribute('method','post');
+        f.setAttribute('action','/user/rstRelease?usr_id=${usr_id}');
+        document.body.appendChild(f);
+        f.submit();
+    }
+
+
+</script>
 </body>
 </html>

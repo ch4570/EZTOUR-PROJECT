@@ -210,6 +210,9 @@
     if(msg=="DEL_ERR")    alert("회원 탈퇴 과정에 문제가 발생했습니다. 다시 시도해주세요.");
     if(msg=="PWD_ERR")    alert("현재 비밀번호가 올바르지 않습니다. 다시 입력해주세요.");
 
+
+
+
     $.fn.radioSelect = function(val) {
         this.each(function() {
             var $this = $(this);

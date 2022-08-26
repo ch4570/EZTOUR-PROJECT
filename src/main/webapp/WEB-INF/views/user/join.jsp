@@ -108,9 +108,7 @@
 <script>
     window.history.forward();
     $( document ).ready(function() {
-
         history.replaceState({}, null, location.pathname);
-
     });
 
   <!-- 공백 사용 방지 -->

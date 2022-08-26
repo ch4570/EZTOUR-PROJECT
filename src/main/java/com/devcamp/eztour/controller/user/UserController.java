@@ -20,6 +20,9 @@ import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,10 +108,28 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String loginView(HttpSession session, Model m, RedirectAttributes rattr) {
+    public String loginView(HttpSession session, Model m, RedirectAttributes rattr, String lst_acc_date, String rst_chg_Date, String usr_id) {
         if(session.getAttribute("userDto")==null) {
             String naverAuthUrl = naverloginbo.getAuthorizationUrl(session);
             m.addAttribute("naverUrl", naverAuthUrl);
+
+            Date lst_acc_date2 = null;
+            Date rst_chg_Date2= null;
+            try {
+                SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                if(lst_acc_date!=null && rst_chg_Date!=null) {
+                    lst_acc_date2 = transFormat.parse(lst_acc_date);
+                    rst_chg_Date2 = transFormat.parse(rst_chg_Date);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+                rattr.addFlashAttribute("msg", "ACC_ERR");
+                return "redirect:/";
+            }
+
+            m.addAttribute("lst_acc_date", lst_acc_date2);
+            m.addAttribute("rst_chg_Date", rst_chg_Date2);
+            m.addAttribute("usr_id", usr_id);
             return "user/login.tiles";
         }else {
             rattr.addFlashAttribute("msg", "ACC_ERR");
@@ -121,7 +142,18 @@ public class UserController {
                         HttpSession session, HttpServletResponse response, RedirectAttributes rattr) throws Exception {
 
         UserDto userDto = userService.selectUsr(usr_id);
-        System.out.println(usr_id);
+
+        if(userDto.getCmn_cd_usr_stt().equals("2C")) {
+            userDto = userService.selectUsrHst(usr_id);
+
+            Date from = new Date();
+            SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String lst_acc_date = transFormat.format(userDto.getLst_acc_date());
+            String rst_chg_date = transFormat.format(userDto.getRst_chg_date());
+
+            String rstmsg="RST_ERR";
+            return "redirect:/user/login?lst_acc_date=" +lst_acc_date+ "&rst_chg_date=" +rst_chg_date+ "&rstmsg=" +rstmsg+ "&usr_id=" +usr_id;
+        }
 
         if(!(userDto!=null && bCryptPasswordEncoder.matches(pwd,userDto.getPwd()))) {
             rattr.addFlashAttribute("msg", "LOGIN_FAIL");
@@ -402,6 +434,23 @@ public class UserController {
         }
         rattr.addFlashAttribute("msg","MOD_OK");
         return "redirect:/user/mypage";
+    }
+
+    @PostMapping("/rstRelease")
+    public String rstRelease(String usr_id, RedirectAttributes rattr){
+        try {
+            System.out.println("휴면 릴리즈에서 usr_id = " + usr_id);
+            int rowCnt = userService.rstRelease(usr_id);
+            if(rowCnt!=1)
+                throw new Exception("user rstRelease error");
+        } catch (Exception e) {
+            e.printStackTrace();
+            rattr.addFlashAttribute("msg","RST_ERR");
+            return "redirect:/user/login";
+        }
+        System.out.println("된건가?");
+        rattr.addFlashAttribute("msg","RLS_OK");
+        return "redirect:/user/login";
     }
 
     // 유니코드로된 이름 한글 변환

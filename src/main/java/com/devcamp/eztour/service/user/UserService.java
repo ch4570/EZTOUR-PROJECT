@@ -13,6 +13,8 @@ public interface UserService {
 
     UserDto selectUsr(String usr_id) throws Exception;
 
+    UserDto selectUsrHst(String usr_id) throws Exception;
+
     int updateHstForLogin(String usr_id) throws Exception;
 
     @Transactional(rollbackFor = Exception.class)
@@ -46,4 +48,6 @@ public interface UserService {
     boolean checkPwdForUsrMod(String usr_id, String pwd)throws Exception;
 
     int changePwd(String usr_id, String new_pwd)throws Exception;
+
+    int rstRelease(String usr_id)throws Exception;
 }

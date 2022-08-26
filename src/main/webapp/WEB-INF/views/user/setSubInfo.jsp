@@ -4,23 +4,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>네이버 로그인 성공 / 추가정보 입력</title>
+    <title>SNS 회원가입 추가정보 입력</title>
     <link rel="stylesheet" href="/css/user/user_join.css">
 </head>
-<script>
-    let msg = "${msg}";
-    if(msg=="REG_ERR")   alert("회원가입 도중 문제가 생겼습니다. 다시 시도해주세요.");
-</script>
 
 <body>
-이메일 : ${email}
-핸드폰 : ${phn}
-이름 : ${usr_nm}
-생년월일 : ${brth}
-성별 : ${gndr}
-네이버아이디 : ${naver_id}
-카카오아이디 : ${kakao_id}
-
 <h2 class="login-title" id="loginTitle">추가 정보 입력</h2>
 
 <br><br>
