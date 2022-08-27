@@ -83,17 +83,19 @@ public class ProductController {
 
     @GetMapping("recent/list")
     public String getRecentProducts(String prd_cd,Model m,String keyword, String standard) throws Exception{
-
         TrvPrdDtlReadDto readDto = productDetailService.getOneProductDetail(prd_cd);
-        System.out.println(readDto);
         m.addAttribute("list",readDto);
         return "product/product_recently.tiles";
     }
 
     @GetMapping("/attractive")
     public String getProductAttractive(HttpSession session, Model m) throws Exception{
-
         UserDto userDto = (UserDto)session.getAttribute("userDto");
+
+        if(userDto == null){
+            return "redirect:/user/login";
+        }
+
         List<TrvPrdDtlReadDto> list = productDetailService.getProductAttractive(userDto.getUsr_id());
         int cnt = productDetailService.getProductAttractiveCnt(userDto.getUsr_id());
         m.addAttribute("list",list);

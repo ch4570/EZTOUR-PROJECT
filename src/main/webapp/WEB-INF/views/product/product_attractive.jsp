@@ -33,6 +33,12 @@
 <script>
     $(document).ready(function (){
 
+        let usr_id = "${sessionScope.userDto.usr_id}";
+
+        if(usr_id == null || usr_id == ""){
+            location.href = "<c:url value='/'/>";
+        }
+
         $('#delete_all').on("click",function (){
 
             const result = confirm("관심 상품을 전부 삭제하시겠습니까?");
