@@ -1,7 +1,7 @@
 .detail-item__main {
     margin: 100px auto;
     width: 1200px;
-    /*overflow:hidden;*/
+    overflow:hidden;
     height:auto;
 }
 
@@ -157,7 +157,6 @@ ul.detail-item__tab li.selected{
 }
 
 .detail-item__rev-wrap {
-    height: 1000vh;
     width: 25%;
     float: right;
 }
