@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>fastcampus</title>
-    <link rel="stylesheet" href="<c:url value='/css/rvw/rvwDetail.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/rvw/rvwDetail.css?after'/>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
@@ -44,7 +44,7 @@
             <!-- 글 내용-->
             <div class="detailInfo">
                 <div class="detailInfo-content" name="rvw_cont">
-                    <p><c:out value="${rvwDto.rvw_cont}"/></p>
+                    <div class="detailInfo-content-child"><c:out value="${rvwDto.rvw_cont}"/></div>
                 </div>
             </div>
             <!-- 삭제, 수정, 목록 버튼-->
@@ -68,15 +68,15 @@
                 </div>
             </form>
             <!--좋아요 버튼-->
-            <!--div>
+            <div>
                 <a class="text-dark heart" style="text-decoration-line: none;">
                     <img id="heart" src="/resources/icon/empty_heart_icon.svg">
                     좋아요
                 </a>
-            </div-->
+            </div>
             <c:choose>
                 <c:when test="${rvwLkAdmDto.rvw_lk_yn == 1}">
-                    <!--div class="view_btn_set">
+                    <div class="view_btn_set">
                         <i class="fas fa-heart" name="fill-heart" id="heart-fill"></i>
                     </div>
                 </c:when>

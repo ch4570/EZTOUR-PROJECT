@@ -56,14 +56,12 @@ table {
 
 .content{
     width: 1200px;
-    height: 1500px;
     margin: 0 auto;
     position: relative;
 }
 
 .review-wrap{
     width: 880px;
-    height: 170px;
     margin: 0 auto;
     padding-top: 30px;
     text-align: center;
@@ -82,13 +80,13 @@ table {
 
 .review-title-desc{
     margin-top: 14px;
+    margin-bottom: 80px;
     font-size: 20px;
     color: #1c1c1c;
 }
 
 .boarder-wrap{
     width: 880px;
-    height: 800px;
     margin: 10px auto;
 }
 
@@ -108,6 +106,7 @@ table {
     font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
     font-weight: bold;
     float: none;
+    word-break: break-word; /* 개행없는 글이 영역을 벗어 날 때 줄 바꿈 */
 }
 
 .reviewLikeViewCnt-lk_cnt-rvw_cont{
@@ -211,7 +210,6 @@ a, a:hover, a:active {
 /* 글 내용 */
 
 .detailInfo {
-    min-height: 250px;
     border-bottom: 5px solid #f0f0f0;
     padding-bottom: 30px;
     width: 100%;
@@ -226,6 +224,11 @@ a, a:hover, a:active {
     font-size: 15px;
     line-height: 24px;
     color: #363636;
+}
+
+.detailInfo-content-child {
+    margin-top: 0;
+    word-break: break-word; /* 개행없는 글이 영역을 벗어 날 때 줄 바꿈 */
 }
 
 .boardView+.boardBtns {
