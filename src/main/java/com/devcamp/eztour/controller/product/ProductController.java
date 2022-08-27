@@ -3,6 +3,7 @@ package com.devcamp.eztour.controller.product;
 import com.devcamp.eztour.domain.product.PrdDtlPageDto;
 import com.devcamp.eztour.domain.product.TrvPrdDtlDto;
 import com.devcamp.eztour.domain.product.TrvPrdDtlReadDto;
+import com.devcamp.eztour.domain.user.UserDto;
 import com.devcamp.eztour.service.product.ProductService;
 import com.devcamp.eztour.service.productDetail.ProductDetailService;
 import lombok.RequiredArgsConstructor;
@@ -202,6 +203,18 @@ public class ProductController {
         System.out.println(readDto);
         m.addAttribute("list",readDto);
         return "product/product_recently.tiles";
+    }
+
+    @GetMapping("/attractive")
+    public String getProductAttractive(HttpSession session, Model m) throws Exception{
+
+        UserDto userDto = (UserDto)session.getAttribute("userDto");
+        List<TrvPrdDtlReadDto> list = productDetailService.getProductAttractive(userDto.getUsr_id());
+        int cnt = productDetailService.getProductAttractiveCnt(userDto.getUsr_id());
+        m.addAttribute("list",list);
+        m.addAttribute("cnt",cnt);
+
+        return "product/product_attractive.tiles";
     }
 
 }

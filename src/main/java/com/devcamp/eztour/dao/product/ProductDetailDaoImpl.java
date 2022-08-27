@@ -53,4 +53,14 @@ public class ProductDetailDaoImpl implements ProductDetailDao {
         return session.selectOne(namespace+"selectOneRecentProduct",prd_cd);
     }
 
+    @Override
+    public List<TrvPrdDtlReadDto> selectProductAttractive(String usr_id) throws Exception {
+        return session.selectList(namespace+"selectProductAttractive",usr_id);
+    }
+
+    @Override
+    public int selectProductAttractiveCnt(String usr_id) throws Exception {
+        return session.selectOne(namespace+"selectProductAttractiveCnt",usr_id);
+    }
+
 }

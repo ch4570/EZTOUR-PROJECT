@@ -197,4 +197,12 @@ public class TrvPrdDtlReadDto {
         this.dpr_day = dpr_day;
     }
 
+    public TrvPrdDtlReadDto(String prd_cd, String prd_nm, String prd_str_prc, String img_pth, String usr_id){
+        this.prd_cd = prd_cd;
+        this.prd_nm = prd_nm;
+        this.prd_str_prc = prd_str_prc;
+        this.img_pth = img_pth;
+        this.usr_id = usr_id;
+    }
+
 }
