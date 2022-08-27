@@ -20,4 +20,8 @@ public interface ProductDetailService {
     PrdDtlPageDto getProductDetailPage(String prd_dtl_cd) throws Exception;
 
     TrvPrdDtlReadDto getOneProductDetail(String prd_cd) throws Exception;
+    List<TrvPrdDtlReadDto> getProductAttractive(String usr_id) throws Exception;
+    int getProductAttractiveCnt(String usr_id) throws Exception;
+    int removeAllProductAttractive(String usr_id) throws Exception;
+    int removeProductAttractive(Map map) throws Exception;
 }

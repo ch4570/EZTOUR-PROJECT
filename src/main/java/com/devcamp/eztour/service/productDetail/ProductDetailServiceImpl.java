@@ -50,4 +50,24 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         return productDetailDao.selectOneProduct(prd_cd);
     }
 
+    @Override
+    public List<TrvPrdDtlReadDto> getProductAttractive(String usr_id) throws Exception {
+        return productDetailDao.selectProductAttractive(usr_id);
+    }
+
+    @Override
+    public int getProductAttractiveCnt(String usr_id) throws Exception {
+        return productDetailDao.selectProductAttractiveCnt(usr_id);
+    }
+
+    @Override
+    public int removeAllProductAttractive(String usr_id) throws Exception {
+        return productDetailDao.deleteAllProductAttractive(usr_id);
+    }
+
+    @Override
+    public int removeProductAttractive(Map map) throws Exception {
+        return productDetailDao.deleteProductAttractive(map);
+    }
+
 }

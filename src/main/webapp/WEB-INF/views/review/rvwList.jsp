@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <title>fastcampus</title>
-    <link rel="stylesheet" href="<c:url value='/css/rvw/rvwList.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/rvw/rvwList.css?after'/>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
@@ -81,12 +81,12 @@
                         <div class="reviewTitle">
                             <br>
                             <a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>">
-                                <span class="reviewTitle-rvw_ttl"><c:out value="${rvwDto.rvw_ttl}"/></span>
+                                <p class="reviewTitle-rvw_ttl"><c:out value="${rvwDto.rvw_ttl}"/></p>
                             </a>
                         </div>
                         <div class="reviewContent">
                             <a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>">
-                                <span class="reviewContent-rvw_cont"><c:out value="${rvwDto.rvw_cont}"/></span>
+                                <p class="reviewContent-rvw_cont"><c:out value="${rvwDto.rvw_cont}"/></p>
                             </a>
                         </div>
                         <div class="reviewWriter">
