@@ -17,5 +17,8 @@ public interface ProductDetailDao {
     List<TrvPrdDtlReadDto> selectAllProductOrder(Map map) throws Exception;
     List<TrvPrdDtlReadDto> selectUserLike() throws Exception;
     PrdDtlPageDto selectProductDetailPage(String prd_dtl_cd) throws Exception;
+    TrvPrdDtlReadDto selectOneProduct(String prd_cd) throws Exception;
+    List<TrvPrdDtlReadDto> selectProductAttractive(String usr_id) throws Exception;
+    int selectProductAttractiveCnt(String usr_id) throws Exception;
 
 }

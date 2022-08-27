@@ -85,9 +85,11 @@
 
 <script>
 
-
   // 상품 리스트 보기
   $(document).ready(function () {
+    let msg = '${msg}';
+
+    if(msg=='RSVT_FAILED') { alert('유효하지 않은 상품입니다. 5555-0000으로 예약 및 결제 문의바랍니다.'); }
 
 
     // 글자색 변경을 위해 Controller 에게 옵션을 받음
@@ -110,9 +112,6 @@
       $('#high_price').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
       $('#vcnt_top').css({'font-weight':'bold','color':'rgba(0, 0, 0, .5)'});
     }
-
-
-
 
     // 자세히보기 버튼 클릭 시 클래스 'active' 추가
     $('button[name="btnDetail"]').on('click', function () {
@@ -137,16 +136,13 @@
               $(result).each(function() {
                 $('.detail__item--list'+count).
                 append('<li class="detail-item__list">'+
-                        '<div class="detail-item__list--item">'+
-                        '<span>'+ this.prd_cd +'</span>'+
-                        '<span>'+ this.prd_dtl_cd +'</span>'+
-                        '<span>'+ this.prd_nm +'</span>'+
-                        '<span>'+ this.dom_dpr_date +'</span>'+
-                        '<span>'+ this.dom_fin_date +'</span>'+
-                        '<span>'+ this.arl_nm +'</span>'+
-                        '<span>'+ this.rsvt_yn +'</span>'+
-                        '<span>'+ this.prd_str_prc +'</span></div>'+
-                        '<div class="detail-item__btn"><button class="detail-item__btn--btn" prd_dtl_cd="' + this.prd_dtl_cd + '" name="detailItemBtn">'+
+                        '<div class="detail-item__list--info">'+
+                        '<span class="list__prd_nm">'+ this.prd_nm +'</span>'+
+                        '<div><i class="far fa-calendar"></i><span class="list__dpr_date">'+ this.dom_dpr_date +'</span>'+
+                        '~<span class="list__fin_date">'+ this.dom_fin_date +'</span></div>'+
+                        '<span>'+ this.arl_nm +'</span></div>'+
+                        '<div class="detail-item__list--price"><span>'+ this.prd_str_prc +'<span>원</span></span>'+
+                        '<button class="detail-item__btn--btn" prd_dtl_cd="' + this.prd_dtl_cd + '" name="detailItemBtn">'+
                         '자세히보기</button></div></li>');
               });
             },

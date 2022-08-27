@@ -1,14 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <html>
 <head>
   <title>Title</title>
+  <link rel="stylesheet" href="<c:url value='/css/rvw/rvwDetail.css'/>">
   <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
 <body>
 <h2>rvwCmtTest</h2>
 comment: <input type="text" name="cmt_cont"><br>
-<button id="sendBtn" type="button">SEND</button>
+<button id="sendBtn" type="button">등록</button>
 <button id="modBtn" type="button">수정</button>
+
 
 <div id="rvwCmtList"></div>
 <div id="replyForm" style="display:none">
@@ -17,7 +20,7 @@ comment: <input type="text" name="cmt_cont"><br>
 </div>
 <script>
 
-  let rvw_no = 2;
+  let rvw_no = 2; // rvwDto.prd_nm
 
 
   let showList = function (rvw_no){
@@ -25,7 +28,7 @@ comment: <input type="text" name="cmt_cont"><br>
       type:'GET',       // 요청 메서드
       url: '/comments?rvw_no='+rvw_no,  // 요청 URI
       success : function(result){
-        $("#rvwCmtList").html(toHtml(result));
+        $("#rvwCmtList").html(toHtml(result)); // 서버로부터 응답이 도착하면 호출될 함수, <div id="rvwCmtList">[반환 값 = toHtml(result)]</div>
       },
       error   : function(){ alert("error") } // 에러가 발생했을 때, 호출될 함수
     }); // $.ajax()
@@ -159,21 +162,61 @@ comment: <input type="text" name="cmt_cont"><br>
       });
     }); // Ajax end
 
-    let toHtml = function (comments) {
-      let tmp = "<ul>";
+    let toHtml = function (comments) { // comment == result
+      let tmp = "<ul class='Comment_list'>";
 
       comments.forEach(function (comment) {
-        tmp += '<li data-cmt_no=' + comment.cmt_no
+      if(comment.cmt_no!=comment.pcmt_no){
+        tmp += '<li class="CommentItem CommentItem--reply" data-cmt_no=' + comment.cmt_no
         tmp += ' data-pcmt_no=' + comment.pcmt_no
         tmp += ' data-rvw_no=' + comment.rvw_no + '>'
-      if(comment.cmt_no!=comment.pcmt_no)
-        tmp += 'ㄴ'
-        tmp += ' usr_nm=<span class="usr_nm">' + comment.usr_nm + '</span>'
-        tmp += ' cmt_cont=<span class="cmt_cont">' + comment.cmt_cont + '</span>'
-        tmp += ' mdf_date=' + comment.mdf_date
+        tmp += '<div class="comment_area">'
+        tmp += '<div class="comment_box">'
+        tmp += '<div class="comment_nick_box">'
+        tmp += '<div class="comment_nick_info">'
+        tmp += '<span class="usr_nm">' + comment.usr_nm + '</span>'
+        tmp += '<span class="cmt_no">' + comment.cmt_no + '</span>'
+        tmp += '</div>'
+        tmp += '</div>'
+        tmp += '<div class="comment_text_box">'
+        tmp += '<p class="comment_text_view">'
+        tmp += '<span class="text_comment">' + comment.cmt_cont + '</span>'
+        tmp += '</p>'
+        tmp += '</div>'
+        tmp += '<div class="comment_info_box">'
+        tmp += '<span class="comment_info_date">' + comment.mdf_date + '</span>'
+        tmp += '<button class="replyBtn">답글</button>'
         tmp += '<button class="delBtn">삭제</button>'
         tmp += '<button class="modBtn">수정</button>'
+        tmp += '</div>'
+        tmp += '</div>'
+        tmp += '</div>'
+        tmp += '</li>'
+      }
+        tmp += '<li class="CommentItem" data-cmt_no=' + comment.cmt_no
+        tmp += ' data-pcmt_no=' + comment.pcmt_no
+        tmp += ' data-rvw_no=' + comment.rvw_no + '>'
+        tmp += '<div class="comment_area">'
+        tmp += '<div class="comment_box">'
+        tmp += '<div class="comment_nick_box">'
+        tmp += '<div class="comment_nick_info">'
+        tmp += '<span class="usr_nm">' + comment.usr_nm + '</span>'
+        tmp += '<span class="cmt_no">' + comment.cmt_no + '</span>'
+        tmp += '</div>'
+        tmp += '</div>'
+        tmp += '<div class="comment_text_box">'
+        tmp += '<p class="comment_text_view">'
+        tmp += '<span class="text_comment">' + comment.cmt_cont + '</span>'
+        tmp += '</p>'
+        tmp += '</div>'
+        tmp += '<div class="comment_info_box">'
+        tmp += '<span class="comment_info_date">' + comment.mdf_date + '</span>'
         tmp += '<button class="replyBtn">답글</button>'
+        tmp += '<button class="delBtn">삭제</button>'
+        tmp += '<button class="modBtn">수정</button>'
+        tmp += '</div>'
+        tmp += '</div>'
+        tmp += '</div>'
         tmp += '</li>'
       })
       return tmp + "</ul>";

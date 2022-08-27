@@ -1,13 +1,19 @@
 package com.devcamp.eztour.domain.reserv;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter @Setter
+@ToString
 public class PageHandler {
     private int page;
     private int pageSize;
     private int totalCnt;
     private int totalPage;
-    private int navSize = 5;
-    private int beginPage;
-    private int endPage;
+    private int navSize = 3;
+    private int beginPage; //nav size 안에서 nav 시작 숫자
+    private int endPage;   //nav size 안에서 nav 끝 숫자
     private boolean showPrev;
     private boolean showNext;
 
@@ -21,96 +27,9 @@ public class PageHandler {
         this.totalCnt = totalCnt;
 
         this.totalPage = (int)Math.ceil(totalCnt/(double)pageSize);
-        this.beginPage = (page-1)/pageSize * pageSize + 1;
-        this.endPage = Math.min((page-1)/pageSize*pageSize + pageSize, totalPage);
+        this.beginPage = (page-1)/navSize*navSize + 1;
+        this.endPage = Math.min((page-1)/navSize*navSize + navSize, totalPage);
         this.showPrev = beginPage != 1;
         this.showNext = endPage != totalPage;
-    }
-
-    @Override
-    public String toString() {
-        return "PageHandlerProduct{" +
-                "page=" + page +
-                ", pageSize=" + pageSize +
-                ", totalCnt=" + totalCnt +
-                ", totalPage=" + totalPage +
-                ", navSize=" + navSize +
-                ", beginPage=" + beginPage +
-                ", endPage=" + endPage +
-                ", showPrev=" + showPrev +
-                ", showNext=" + showNext +
-                '}';
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public int getTotalCnt() {
-        return totalCnt;
-    }
-
-    public void setTotalCnt(int totalCnt) {
-        this.totalCnt = totalCnt;
-    }
-
-    public int getTotalPage() {
-        return totalPage;
-    }
-
-    public void setTotalPage(int totalPage) {
-        this.totalPage = totalPage;
-    }
-
-    public int getNavSize() {
-        return navSize;
-    }
-
-    public void setNavSize(int navSize) {
-        this.navSize = navSize;
-    }
-
-    public int getbeginPage() {
-        return beginPage;
-    }
-
-    public void setbeginPage(int beginPage) {
-        this.beginPage = beginPage;
-    }
-
-    public int getEndPage() {
-        return endPage;
-    }
-
-    public void setEndPage(int endPage) {
-        this.endPage = endPage;
-    }
-
-    public boolean isShowPrev() {
-        return showPrev;
-    }
-
-    public void setShowPrev(boolean showPrev) {
-        this.showPrev = showPrev;
-    }
-
-    public boolean isShowNext() {
-        return showNext;
-    }
-
-    public void setShowNext(boolean showNext) {
-        this.showNext = showNext;
     }
 }

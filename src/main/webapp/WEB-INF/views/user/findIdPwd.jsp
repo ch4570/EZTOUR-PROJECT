@@ -20,7 +20,13 @@
             <div class="find__form">
                 <h2 class="find-title" id="findIdTitle">아이디 찾기</h2>
                 <h2 class="find-title" id="findPwdTitle" style="display: none">비밀번호 찾기</h2>
-
+                <div class="find-info">
+                    <i class="fa fa-check" aria-hidden="true"></i> 회원가입 정보로 아이디와 비밀번호를 찾을 수 있습니다.
+                </div>
+                <div class="find-info">
+                    <i class="fa fa-check" aria-hidden="true"></i> 아이디와 비밀번호를 찾을 수 없는 경우 대표번호(1577-0000)로 문의 바랍니다.
+                </div>
+                <hr>
                 <nav class="find-nav">
                     <button  type="button" id="findId" onclick="findIdView()" >아이디 찾기</button>
                     <button  type="button" id="findPwd" onclick="findPwdView()" >비밀번호 찾기</button>
@@ -59,22 +65,26 @@
 <!-- 아이디/비밀번호 찾기 결과 모달창 -->
 <div class="modal hidden" id="resultModal">
     <div class="modal__overlay" id="resultOverlay"></div>
-    <div class="modal__content">
+    <div class="modal__content" style="width: 500px; height: 300px;">
         <br/>
-        <h2 id="idHead">회원님의 아이디는 ...</h2>
-        <h2 id="pwdHead" style="display: none">회원님의 비밀번호는 ...</h2>
+        <div style="display: flex; flex-direction: column; align-items: center">
+        <h2 id="idHead"  style="font-weight: bolder; font-size: xx-large; padding-right: 250px">아이디 찾기</h2>
+        <h2 id="pwdHead" style="display: none; font-weight: bolder; font-size: xx-large; padding-right: 250px">비밀번호 찾기</h2>
         <hr>
-            <div style="margin-left: 30px; font-size: 18px;">
-                <div class="form-check" id="idChk">
-                    <label>회원님의 아이디는 <input class="form-check-input" name="resultId" value="" readonly></label>
+            <div style="margin-left: 30px; font-size: 18px; margin-top: 30px">
+                <div class="form-check" id="idChk" style="display: flex; flex-direction: column; align-items: flex-start">
+                    <div>회원님의 아이디는</div>
+                    <div> <input class="form-check-input" name="resultId" value="" readonly> 입니다.</div>
                 </div>
                 <div class="form-check" id="pwdChk" style="display: none">
-                <label>회원님의 비밀번호는 <input class="form-check-input" name="resultPwd" value="" readonly></label>
+                    <div style="margin-right: 250px">회원님의 비밀번호는</div>
+                    <div><input class="form-check-input" name="resultPwd" value="" readonly> 입니다.</div>
                 </div>
                 <br/>
                 <hr>
             </div>
-        <button onclick="location.replace('/user/login')"> 로그인 하러 가기 </button>
+        <button id="toLoginBtn" onclick="location.replace('/user/login')"> 로그인 하러 가기 </button>
+    </div>
     </div>
 </div>
 

@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     margin-top: 100px;
+    margin-bottom: 100px;
 }
 
 .mypage-main-content{
@@ -11,8 +12,15 @@
 }
 
 #user-name{
-    font-size: xx-large;
-    color: crimson
+    font-size: 50px;
+    color: #FF5678;
+    font-weight: bolder;
+
+}
+
+#mlg{
+    font-size: 30px;
+    font-weight: bolder;
 }
 
 .mypage-sub-content{
@@ -21,23 +29,209 @@
 }
 
 .reserv-header{
-    margin: 20px 0px;
+    margin-top: 20px;
 }
 
+.box-header{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
 
 .box {
+    display: flex;
+    justify-content: space-between;
     width: 480px;
     height: 330px;
-    border: 1px solid black;
+    border: 1px solid #ccc;
     border-radius: 10px;
-    margin: auto;
+    margin-right: 0px;
+    margin-left: 0px;
     margin-bottom: 30px;
-    transition: all 0.5s;
-    transition-delay: 0.3s;
 }
 
-.box:hover {
-    width: 500px;
-    height: 350px;
+
+.image-box{
+    position: relative;
+    height: 330px;
+    width: 240px;
+    -webkit-border-bottom-left-radius: 10px;
+    -webkit-border-top-left-radius: 10px;
+    background-image: url(../../image/user/portugal.jpg);
+    background-size: 100% 100%;
 }
 
+.label-rsrv-stt{
+
+}
+
+.input-rsrv-stt{
+    width: 65px;
+    border: 1px solid coral;
+    font-weight: bold;
+    text-align: center;
+    color: coral;
+}
+
+.input-pay-stt{
+    width: 65px;
+    border: 1px solid hotpink;
+    font-weight: bold;
+    text-align: center;
+    color: hotpink;
+}
+
+.box-non-rsrv{
+    width: 1000px;
+    height: 220px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.box-sub{
+    width: 480px;
+    height: 280px;
+    border: 1px solid #ccc;
+}
+
+.service-box-frame{
+    width: 480px;
+    height: 280px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-between;
+}
+
+.service-box{
+    width: 235px;
+    height: 135px;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    font-weight: bold;
+}
+
+table {
+    border: 1px #ccc solid;
+    font-size: .9em;
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+th {
+    text-align: left;
+}
+
+thead {
+    font-weight: bold;
+    color: #fff;
+    background: #444;
+}
+
+td, th {
+    padding: 1em .5em;
+    vertical-align: middle;
+}
+
+td {
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    background: #fff;
+}
+
+a {
+    color: #333333;
+}
+
+a:hover{
+    color: black;
+}
+
+.service-box:hover{
+    color: #FD5678;
+}
+
+
+
+@media all and (max-width: 768px) {
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    th {
+        text-align: right;
+    }
+
+    table {
+        position: relative;
+        padding-bottom: 0;
+        border: none;
+    }
+
+    thead {
+        float: left;
+        white-space: nowrap;
+    }
+
+    tbody {
+        overflow-x: auto;
+        overflow-y: hidden;
+        position: relative;
+        white-space: nowrap;
+    }
+
+    tr {
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    th {
+        border-bottom: 1px solid #ccc;
+    }
+
+    td {
+        border-bottom: 1px solid #e5e5e5;
+    }
+}
+
+#msg {
+    height: 30px;
+    text-align:center;
+    font-size:16px;
+    color:red;
+    margin-bottom: 20px;
+}
+
+hr{
+    background-color: #cccccc;
+    width: 480px;
+    margin-top: 15px;
+
+}
+
+#pwChkBtn {
+    all: unset;
+    background: #1c1c1c;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    width: 300px;
+    height: 30px;
+    font-size: 12px;
+
+}
+
+#pwd{
+    width: 200px;
+    font-size: 15px;
+    line-height: 30px;
+    outline: none;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    padding: 0px 20px;
+    margin-top: 30px;
+}

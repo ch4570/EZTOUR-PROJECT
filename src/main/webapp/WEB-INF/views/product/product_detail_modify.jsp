@@ -96,13 +96,81 @@
                             <input type="datetime-local" name="dom_fin_date" placeholder="국내 도착일" class="input_prd" value="<fmt:formatDate value="${dom_fin_date}" pattern="yyyy-MM-dd HH:mm:ss"/>"/><br>
                             <form:errors path="dom_fin_date" cssClass="error_msg"/><br><br>
 
-                            <input type="submit" value="수정" id="submit_btn"/>
                         </form:form>
+                    <button id="submit_btn">상품 상세 수정</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    function checkForm(){
+        let prd_dtl_cd = $('input[name=prd_dtl_cd]').val();
+        let prd_cd = $('input[name=prd_cd]').val();
+        let arl_nm = $('input[name=arl_nm]').val();
+        let min_stt_cnt = $('input[name=min_stt_cnt]').val();
+        let max_stt_cnt = $('input[name=max_stt_cnt]').val();
+        let dom_dpr_date = $('input[name=dom_dpr_date]').val();
+        let dom_fin_date = $('input[name=dom_fin_date]').val();
+        let loc_fin_date = $('input[name=loc_fin_date]').val();
+        let loc_dpr_date = $('input[name=loc_dpr_date]').val();
 
+        if(prd_cd == null || prd_cd == ""){
+            alert('상품코드는 필수 입력 항목입니다.');
+            return;
+        }
+
+
+        if(prd_dtl_cd == null || prd_dtl_cd == ""){
+            alert('상품 상세 코드는 필수 입력 항목입니다.');
+            return;
+        }
+
+        if(arl_nm == null || arl_nm == ""){
+            alert('항공사정보는 필수 입력 항목입니다.');
+            return;
+        }
+
+        if(min_stt_cnt == null || min_stt_cnt == ""){
+            alert('최소 출발인원은 필수 입력 항목입니다.');
+            return;
+        }
+
+        if(max_stt_cnt == null || max_stt_cnt == ""){
+            alert('최대 출발인원은 필수 입력 항목입니다.');
+            return;
+        }
+
+        if(dom_dpr_date == null || dom_dpr_date == ""){
+            alert('국내 출발일자는 필수 입력 항목입니다.');
+            return;
+        }
+
+        if(dom_fin_date == null || dom_fin_date == ""){
+            alert('국내 도착일자는 필수 입력 항목입니다.');
+            return;
+        }
+
+        if(loc_dpr_date == null || loc_dpr_date == ""){
+            alert('현지 출발일자는 필수 입력 항목입니다.');
+            return;
+        }
+
+        if(loc_fin_date == null || loc_fin_date == ""){
+            alert('현지 도착일자는 필수 입력 항목입니다.');
+            return;
+        }
+
+
+        $('form').submit();
+
+    }
+
+    $(document).ready(function (){
+        $('#submit_btn').on("click",function (){
+            checkForm();
+        });
+    });
+</script>
 </body>
 </html>

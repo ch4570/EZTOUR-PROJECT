@@ -1,0 +1,401 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.wrap{
+    width : 100%;
+    height: 100%;
+}
+
+.content{
+    width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.review-wrap{
+    width: 880px;
+    margin: 0 auto;
+    padding-top: 30px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
+    color: #1c1c1c;
+}
+
+.review-title{
+    font-size: 28px;
+    color: #1c1c1c;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.review-title-desc{
+    margin-top: 14px;
+    margin-bottom: 80px;
+    font-size: 20px;
+    color: #1c1c1c;
+}
+
+.boarder-wrap{
+    width: 880px;
+    margin: 10px auto;
+}
+
+.boarder-wrap h2{
+    display: block;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ddd;
+    overflow: hidden;
+    margin: 0;
+}
+
+.tit{
+    width: 100%;
+    margin: 0 0 20px 0;
+    font-size: 26px;
+    color: #1c1c1c;
+    font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
+    font-weight: bold;
+    float: none;
+    word-break: break-word; /* 개행없는 글이 영역을 벗어 날 때 줄 바꿈 */
+}
+
+.reviewLikeViewCnt-lk_cnt-rvw_cont{
+    float: left;
+    font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
+    font-size: 15px;
+    color: #1c1c1c;
+}
+
+.right{
+    float: right;
+    font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
+    font-size: 15px;
+}
+
+.date{
+    margin-right: 50px;
+}
+
+.writer{
+    margin-right: 30px;
+}
+
+/* 관련 상품 */
+.prdInfo{
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid #f0f0f0;
+    background: #f8f8f8;
+}
+
+.prdImg{
+    display: block;
+    width: 300px;
+    height: 180px;
+    overflow: hidden;
+    float: left;
+}
+
+.prdInfo-content{
+    width: 570px;
+    height: 100%;
+    float: right;
+    position: relative;
+}
+
+.prdInfo-content-title{
+    font-size: 20px;
+    line-height: 18px;
+    position: absolute;
+    top: 50px;
+    color: #1c1c1c;
+    font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
+    font-weight: bold;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    word-wrap: normal;
+    word-break: break-all;
+    white-space: normal;
+    overflow: hidden;
+}
+
+.view{
+    display: block;
+    margin: 30px 0 0 0;
+    float: right;
+}
+
+.btn.st-blue{
+    background: #1c1c1c;
+    color: #fff;
+}
+
+.btn.sz-l{
+    height: 50px;
+    line-height: 50px;
+    font-size: 15px;
+    padding: 0 65px;
+    margin-top: 100px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.btn{
+    display: inline-block;
+    zoom: 1;
+    text-align: center;
+    border: 0;
+    font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
+    cursor: pointer;
+}
+
+a, a:hover, a:active {
+    text-decoration: none;
+}
+
+/* 글 내용 */
+
+.detailInfo {
+    border-bottom: 5px solid #f0f0f0;
+    padding-bottom: 30px;
+    width: 100%;
+    position: relative;
+    margin: 30px auto 0;
+}
+
+.detailInfo-content {
+    width: 100%;
+    position: relative;
+    margin: 0;
+    font-size: 15px;
+    line-height: 24px;
+    color: #363636;
+}
+
+.detailInfo-content-child {
+    margin-top: 0;
+    word-break: break-word; /* 개행없는 글이 영역을 벗어 날 때 줄 바꿈 */
+}
+
+.boardView+.boardBtns {
+    text-align: right;
+}
+
+.value-move{
+    display: none;
+}
+
+
+.boradBtns {
+    margin-top: 30px;
+
+}
+
+.boardView+.boardBtns .btn {
+    width: 90px;
+    padding: 0 10px;
+}
+
+.boardBtns .btn {
+    /* width: 200px; */
+}
+
+.btn.st-lblue {
+    background: #1c1c1c;
+    color: #fff;
+}
+
+.btn.sz-inp {
+    height: 38px;
+    line-height: 38px;
+    font-size: 14px;
+    padding: 0 20px;
+    border-radius: 3px;
+    float: right;
+    margin-left: 20px;
+}
+
+
+
+
+/* 좋아요 및 댓글 */
+
+.view_btn_set {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    text-align: center;
+    padding-bottom: 50px;
+    position: relative;
+}
+
+.view_btn_set i {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.CommentBox {
+    margin-top: -17px;
+    border-top: 1px solid;
+    border-color: #ebecef;
+}
+
+.Comment_option {
+    position: relative;
+    padding-top: 16px;
+    margin-bottom: 11px;
+}
+
+.Comment_title {
+    float: left;
+    margin-top: 3px;
+    margin-right: 12px;
+    font-size: 17px;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+.CommentBox .comment_list .CommentItem {
+    position: relative;
+}
+
+.CommentBox .comment_list .comment_area {
+    position: relative;
+    padding: 12px 23px 10px 0;
+}
+
+.CommentBox .comment_list .comment_box {
+    padding-left: 46px;
+}
+
+.CommentBox .comment_list .comment_nick_box {
+    margin-bottom: 4px;
+}
+
+.CommentBox .comment_list .comment_nick_box .comment_nick_info {
+    display: inline-block;
+    position: relative;
+    font-size: 13px;
+    vertical-align: top;
+}
+
+.CommentBox .comment_list .comment_nick_box .comment_nick_info .usr_nm {
+    font-weight: 700;
+}
+
+/* 부모 댓글의 이름 */
+
+.CommentBox .comment_list .comment_text_box {
+    position: relative;
+    font-size: 13px;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.CommentBox .comment_list .comment_text_box .comment_text_view {
+    overflow: hidden;
+}
+
+.CommentBox .comment_list .comment_text_box .text_comment {
+    line-height: 17px;
+    word-break: break-all;
+    word-wrap: break-word;
+    vertical-align: top;
+}
+
+.CommentBox .comment_list .comment_info_box {
+    margin-top: 7px;
+    font-size: 12px;
+    color: #979797;
+}
+
+.CommentBox .comment_list .comment_info_box .comment_info_date {
+    margin-right: 8px;
+}
+
+.CommentBox .comment_list .comment_info_box .replyBtn {
+    margin-right: 8px;
+}
+
+.CommentBox .comment_list .comment_info_box .delBtn {
+    margin-right: 8px;
+}
+
+/* 부모 댓글의 내용, 등록날짜, 답글, 삭제, 수정 버튼 */
+
+.CommentBox .comment_list .CommentItem.CommentItem--reply {
+    padding-left: 46px;
+}
+
+
+
+
+

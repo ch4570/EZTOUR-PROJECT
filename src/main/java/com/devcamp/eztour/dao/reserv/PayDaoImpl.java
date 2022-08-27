@@ -1,5 +1,6 @@
 package com.devcamp.eztour.dao.reserv;
 
+import com.devcamp.eztour.domain.reserv.CancelViewDto;
 import com.devcamp.eztour.domain.reserv.PayDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,16 @@ public class PayDaoImpl implements PayDao {
     @Override
     public int deletePayAdmin() throws Exception {
         return session.delete(namespace+"deletePayAdmin");
+    }
+
+    @Override
+    public CancelViewDto selectCancelInfo(String rsvt_no) throws Exception {
+        return session.selectOne(namespace + "selectCancelInfo", rsvt_no);
+    }
+
+    @Override
+    public PayDto selectPayById(Map<String, String> map) throws Exception{
+        return session.selectOne(namespace+"selectPayById", map);
     }
 
 }

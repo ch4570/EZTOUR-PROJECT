@@ -2,7 +2,6 @@
 const openPwCheck = document.getElementById("openPwCheck");
 const pwCheckModal = document.querySelector("#pwCheckModal");
 const pwCheckOverlay = pwCheckModal.querySelector("#pwCheckOverlay");
-const closePwCheckBtn = pwCheckModal.querySelector("#closePwCheckBtn")
 const openPwCheckModal = () => {
     delModal.classList.add("hidden")
     pwCheckModal.classList.remove("hidden");
@@ -11,7 +10,6 @@ const closePwCheckModal = () => {
     pwCheckModal.classList.add("hidden")
 }
 openPwCheck.addEventListener("click", openPwCheckModal);
-closePwCheckBtn.addEventListener("click", closePwCheckModal);
 pwCheckOverlay.addEventListener("click", closePwCheckModal);
 
 <!-- 탈퇴 사유 모달 -->
@@ -40,20 +38,5 @@ $(function() {
     });
 });
 
-<!-- 탈퇴 실행 -->
-$(function() {
-    $( "#delBtn:contains('탈퇴하기')" ).on("click" , function() {
-        if(confirm('정말 탈퇴하시겠습니까?')){
-            fncUsrDel();
-        }
-        else{
-            return false;
-        }
-    });
-});
 
-function fncUsrDel(){
-    document.detailForm.action='/user/usrPwdCheck';
-    document.detailForm.submit();
-}
 

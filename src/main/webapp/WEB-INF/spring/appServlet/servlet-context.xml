@@ -50,6 +50,32 @@
 
 	</beans:bean>
 
+	<!-- interceptor 빈 생성 -->
+	<beans:bean id="LoginInterceptor" class="com.devcamp.eztour.common.LoginInterceptor"/>
+	<!-- interceptor 등록/설정 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/user/*"/>
+			<mapping path="/reserv/list"/>
+			<mapping path="/reserv/conf"/>
+			<mapping path="/reserv/reservView"/>
+			<mapping path="/pay/pay"/>
+			<mapping path="/pay/saveResult"/>
+			<mapping path="/pay/confirm"/>
+			<mapping path="/pay/cnc"/>
+			<exclude-mapping path="/user/login"/>
+			<exclude-mapping path="/user/auth"/>
+			<exclude-mapping path="/user/join"/>
+			<exclude-mapping path="/user/authOk"/>
+			<exclude-mapping path="/user/userNaverLoginPro"/>
+			<exclude-mapping path="/user/setSubInfo"/>
+			<exclude-mapping path="/user/findIdPwd"/>
+			<exclude-mapping path="/user/selectJoin"/>
+			<beans:ref bean="LoginInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
 	<context:component-scan base-package="com.devcamp.eztour"/>
+
 
 </beans:beans>

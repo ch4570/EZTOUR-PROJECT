@@ -3,6 +3,7 @@ package com.devcamp.eztour.dao.reserv;
 import com.devcamp.eztour.dao.product.ProductDao;
 import com.devcamp.eztour.dao.product.ProductDetailDao;
 import com.devcamp.eztour.dao.user.UserDao;
+import com.devcamp.eztour.domain.product.TrvPrdDtlReadDto;
 import com.devcamp.eztour.domain.reserv.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -279,4 +280,57 @@ public class ReservDaoImplTest {
         assertTrue(reservDao.insertReserv(reservDto)==1);
     }
 
+    @Test
+    public void selectReservByRsvtNoTest() throws Exception {
+        String rsvt_no = "A010011661104869005";
+        ReservDto reservDto = reservDao.selectReservByRsvtNo(rsvt_no);
+        assertTrue(rsvt_no.equals(reservDto.getRsvt_no()));
+    }
+
+    @Test
+    public void selectTheUnAppredListCntTest() throws Exception{
+        int cnt = reservDao.selectTheUnAppredListCnt();
+        assertTrue(cnt == 1);
+    }
+
+    @Test
+    public void selectTheUnAppredListPageTest() throws Exception {
+        PageHandler ph = new PageHandler(1,1);
+        Map<String, Integer> map = new HashMap<>();
+        map.put("pageSize", ph.getPageSize());
+        map.put("offset", ph.getBeginPage()-1);
+
+        List<ReservDto> list = reservDao.selectTheUnAppredListPage(map);
+        assertTrue(list.size()==1);
+    }
+
+    @Test
+    public void guestReservCheckTest() throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("rsvt_no", "A010011661341179345");
+        map.put("mn_rsvt_nm", "asdf");
+        map.put("phn", "01011111111");
+
+        assertTrue("guest1661341179754".equals(reservDao.selectGuestReserv(map)));
+
+    }
+
+    @Test
+    public void updateReservCancelTest() throws Exception{
+        ReservDto reservDto = new ReservDto("1" , "6D", "7D");
+        reservDao.updateReservCancel(reservDto);
+        ReservDto newReservDto = reservDao.selectReserv("1");
+        assertTrue(reservDto.getRsvt_no().equals(newReservDto.getRsvt_no()));
+    }
+
+    @Test
+    public void updateReservCntTest() throws Exception{
+        Map<String, Object> map = new HashMap<>();
+        map.put("option", "plus");
+        map.put("pr_rsvt_cnt", 2);
+        map.put("rsvt_no", "A010011661233766093");
+        map.put("prd_dtl_cd", "EMP43220220822");
+
+        reservDao.updateReservCnt(map);
+    }
 }

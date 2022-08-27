@@ -45,4 +45,19 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         return productDetailDao.selectProductDetailPage(prd_dtl_cd);
     }
 
+    @Override
+    public TrvPrdDtlReadDto getOneProductDetail(String prd_cd) throws Exception {
+        return productDetailDao.selectOneProduct(prd_cd);
+    }
+
+    @Override
+    public List<TrvPrdDtlReadDto> getProductAttractive(String usr_id) throws Exception {
+        return productDetailDao.selectProductAttractive(usr_id);
+    }
+
+    @Override
+    public int getProductAttractiveCnt(String usr_id) throws Exception {
+        return productDetailDao.selectProductAttractiveCnt(usr_id);
+    }
+
 }

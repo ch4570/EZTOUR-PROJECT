@@ -1,4 +1,4 @@
-package com.devcamp.eztour;
+package com.devcamp.eztour.controller.home;
 
 import com.devcamp.eztour.domain.category.DestinationCategoryDto;
 import com.devcamp.eztour.domain.home.TrvPrdDto;
@@ -31,18 +31,21 @@ public class HomeController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "home/home";
+        return "home/home.tiles";
     }
 
     @GetMapping("/search")
     public String getSearch(String keyword, Model m) {
 
         try {
+            System.out.println(keyword);
             List<TrvPrdDto> list = homeService.getSearch(keyword);
 
             System.out.println(list);
 
             int resultCnt = homeService.getSearchResultCnt(keyword);
+
+            System.out.println(resultCnt);
 
             m.addAttribute("list", list);
             m.addAttribute("resultCnt", resultCnt);

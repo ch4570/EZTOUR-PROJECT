@@ -3,8 +3,15 @@
     display: flex;
     justify-content: center;
     margin-top: 100px;
+    margin-bottom: 50px;
     font-size: 30px;
     font-weight: 800;
+}
+
+.find-info{
+    font-size: 14px;
+    color : #999999;
+    padding: 5px 0px;
 }
 
 .outer-content{
@@ -20,7 +27,7 @@
 }
 
 .find-nav{
-    padding-top : 80px;
+    padding-top : 20px;
     text-align: center;
     font-size: 18px;
 }
@@ -46,6 +53,7 @@
 .form-inp, .form-inp-find{
     padding-top : 30px;
     width: 540px;
+    margin-left: 5px;
 }
 
 #usr_nm, #phn, #usrid, #usrnm, #email, #checkNum, #email1, #email2{
@@ -100,5 +108,34 @@
     padding: 0px 20px;
     min-height: 50px;
     margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.form-check-input{
+    border: 1px solid #e5e5e5;
+    outline: none;
+    border-radius: 2px;
+    font-size: 25px;
+    font-weight: bold;
+    width: 350px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+hr{
+    margin-top: 20px;
+    width: 460px;
+    border-color : #cccccc;
+}
+
+#toLoginBtn {
+    all: unset;
+    background: #1c1c1c;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    width: 300px;
+    height: 30px;
+    font-size: 12px;
     margin-top: 10px;
 }

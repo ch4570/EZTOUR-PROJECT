@@ -3,51 +3,96 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="/css/common/header.css" />
+    <link rel="stylesheet" href="/css/user/user_selectJoin.css">
 </head>
 <body>
-    <button id="openAuthModalBtn">휴대폰 인증 하기</button>
+<div class="form-user-selectjoin">
+    <div>
+        <div class="form-selectjoin-content" style="height: 500px">
+            <h2 class="login-title" id="loginTitle" style="margin-bottom: 100px;">회원가입</h2>
 
-    <!-- 1. 인증하기 버튼 누르면 Modal창 뜸. checkNum 입력 -->
+            <div class="form-selectjoin-general" style="margin-bottom: 50px;">
+                <div style="width: 540px;">
+                    <h3>본인인증</h3>
+                    <div style="font-size: 15px; margin-top: 5px;">휴대폰 인증을 통한 본인인증을 진행해주세요</div>
+                </div>
+                <div style="height:120px; display: flex; justify-content: center"><button id="openAuthModalBtn"><i class="fa fa-mobile fa-lg" aria-hidden="true" style="color: white"></i> &nbsp;휴대폰 인증 하기</button></div>
+                <div style="margin-right: 80px; font-size: 15px;"><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: crimson"></i> SNS 회원가입시 추가정보를 반드시 기입해야 가입 완료됩니다.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- 휴대폰 인증 모달창 -->
     <div class="modal hidden" id="authModal">
         <div class="modal__overlay" id="authOverlay"></div>
-        <div class="modal__content">
-            <h5>인증번호 입력</h5>
-            <hr>
-            <form id="form" method="" action="">
-                <div style="margin-left: 30px; font-size: 18px;">
-                    <div class="form-check">
-                        <label>이름
-                        <input class="form-check-input" name="usr_nm" id="usr_nm"></label>
-                        <label>핸드폰 번호
-                        <input class="form-check-input" name="phn" id="phn"></label>
-
+        <div class="modal__content" style="width: 500px; height: 450px;">
+            <div name="authForm" style="height: 450px; display: flex; flex-direction: column; align-items: center; justify-content: space-evenly">
+                <h2 id="auth-phn" style="">핸드폰 인증</h2>
+                <h2 id="auth-phn-info" style=""><i class="fa fa-check" aria-hidden="true"></i> 회원가입을 위해 이름과 핸드폰 번호를 입력해주세요.</h2>
+                <hr>
+                <form id="authform" method="" action="">
+                    <div style="font-size: 18px;">
+                        <div class="form-check">
+                            <div class="form-input-usrinfo">
+                                <div style="margin-top: 30px; padding-right: 200px;">이름</div>
+                                <input class="form-check-input-usrinfo" name="usr_nm" id="usr_nm">
+                                <div id="msg-nm" style="color: crimson; font-size: 12px; margin: 10px 0px; padding-right: 130px"></div>
+                            </div>
+                            <div class="form-input-usrinfo" style="width: 240px">
+                                <div style="padding-right: 140px;">핸드폰 번호</div>
+                                <input class="form-check-input-usrinfo" name="phn" id="phn">
+                                <div id="msg-phn" style="color: crimson; font-size: 12px; margin: 10px 0px; padding-right: 80px"></div>
+                            </div>
+                        </div>
+                        <br/>
+                        <!-- rest 호출-->
+                        <input type="button" id="authModalBtn" onclick="authPhn()" value="인증번호 보내기">
+                        <!-- submit 버튼 -->
+                        <input class="hidden" type="button" id="checkAuthBtn" value="인증하기">
                     </div>
-                    <br/>
-                    <hr>
-                    <!-- rest 호출-->
-                    <input type="button" id="authModalBtn" onclick="authPhn()" value="인증번호 보내기">
-                    <!-- submit 버튼 -->
-                    <input class="hidden" type="button" id="checkAuthBtn" value="인증하기">
-                </div>
-            </form>
-            <button id="closeAuthModalBtn"> 닫기 </button>
+                </form>
+            </div>
         </div>
     </div>
 
-    <!-- 2. 입력하고 인증하기 누르면 에이잭스로 일치여부 판별 -->
-    <!-- 3. 틀리면 에이잭스로 틀리다고 알려주고 alert() -->
-    <!-- 4. 맞으면 /user/join 으로 넘기기 -->
 <script>
+    function setMessage(msg, element) {
+        if (msg == 'no-nm') {
+            document.getElementById("msg-nm").innerHTML = "이름을 입력해주세요";
+            document.getElementById("msg-phn").innerHTML = "";
+            $('#usr_nm').css('border-color', 'crimson');
+            $('#phn').css('border-color', '#ccc');
+
+        } else if (msg == 'no-phn') {
+            document.getElementById("msg-phn").innerHTML = "핸드폰 번호를 입력해주세요.";
+            document.getElementById("msg-nm").innerHTML = "";
+            $('#usr_nm').css('border-color', '#ccc');
+            $('#phn').css('border-color', 'crimson');
+        }
+        element.select()
+    }
+
     function authPhn() {
         let phn = $("#phn").val()
         const authModalBtn = document.querySelector("#authModalBtn");
         const checkAuthBtn = document.querySelector("#checkAuthBtn");
+
+        // 에이잭스 실행전 유효성 검사
+        if($("#usr_nm").val().length==0) {
+            setMessage('no-nm', $("#usr_nm"));
+            return false;
+        }
+        if($("#phn").val().length==0) {
+            setMessage('no-phn', $("phn"));
+            return false;
+        }
+
             $.ajax({
             type:'GET',       // 요청 메서드
             url: '/authPhn/' + phn,  // 요청 URI
             success : function(msg){
-                alert(msg);   // 서버로부터 응답이 도착하면 호출될 함수
+                alert("인증번호를 보냈습니다.");   // 서버로부터 응답이 도착하면 호출될 함수
                 // 밑에 input버튼 생성,
                 $(".form-check").append("<input name='checkNum' id='checkNum' placeholder='인증번호를 입력하세요.'>");
                 // #phn 사라지고
@@ -61,14 +106,14 @@
 
     // checkNum 에이잭스
     $("#checkAuthBtn").click(function(){
-        let form = $("#form");
+        let form = $("#authform");
         let checkNum = $("#checkNum").val()
 
         $.ajax({
             type:'GET',
             url: '/checkAuthNum/' + checkNum,
             success : function(msg){
-                alert(msg);   // 서버로부터 응답이 도착하면 호출될 함수
+                alert("인증되었습니다.");   // 서버로부터 응답이 도착하면 호출될 함수
                 form.attr("action", "<c:url value='/user/authOk'/>");
                 form.attr("method", "post");
                 form.submit();
@@ -80,7 +125,6 @@
     const openAuthModalBtn = document.getElementById("openAuthModalBtn");
     const authModal = document.querySelector("#authModal");
     const authOverlay = authModal.querySelector("#authOverlay");
-    const closeAuthModalBtn = authModal.querySelector("#closeAuthModalBtn")
     const openAuthModal = () => {
         authModal.classList.remove("hidden");
     }
@@ -88,7 +132,6 @@
         authModal.classList.add("hidden")
     }
     openAuthModalBtn.addEventListener("click", openAuthModal);
-    closeAuthModalBtn.addEventListener("click", closeAuthModal);
     authOverlay.addEventListener("click", closeAuthModal);
 
 </script>

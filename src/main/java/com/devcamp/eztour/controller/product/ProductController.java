@@ -7,7 +7,6 @@ import com.devcamp.eztour.domain.user.UserDto;
 import com.devcamp.eztour.service.product.ProductService;
 import com.devcamp.eztour.service.productDetail.ProductDetailService;
 import lombok.RequiredArgsConstructor;
-import org.apache.velocity.app.event.implement.EscapeXmlReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -118,6 +116,29 @@ public class ProductController {
     }
 
     @ResponseBody
+    @GetMapping("/show/delete")
+    public ResponseEntity<List<TrvPrdDtlReadDto>> deleteProduct(String prd_cd, HttpSession session) {
+
+        boolean result = false;
+        List<TrvPrdDtlReadDto> trvList = (List<TrvPrdDtlReadDto>)session.getAttribute("trvList");
+        session.removeAttribute("trvList");
+        for(int i=0; i< trvList.size(); i++){
+            System.out.println(trvList.get(i).getPrd_cd());
+            if(trvList.get(i).getPrd_cd().equals(prd_cd)){
+                trvList.remove(i);
+                result = true;
+            }
+        }
+        session.setAttribute("trvList",trvList);
+
+        if(result){
+            return new ResponseEntity<>(trvList,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(trvList,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @ResponseBody
     @GetMapping("/detailList")
     public ResponseEntity<List<TrvPrdDtlDto>> getMoreList(String prd_cd) {
         List<TrvPrdDtlDto> productList = null;
@@ -173,6 +194,27 @@ public class ProductController {
         m.addAttribute("prdDto",prdDtlPageDto);
         System.out.println(prdDtlPageDto);
         return "product/product_detail.tiles";
+    }
+
+    @GetMapping("recent/list")
+    public String getRecentProducts(String prd_cd,Model m,String keyword, String standard) throws Exception{
+
+        TrvPrdDtlReadDto readDto = productDetailService.getOneProductDetail(prd_cd);
+        System.out.println(readDto);
+        m.addAttribute("list",readDto);
+        return "product/product_recently.tiles";
+    }
+
+    @GetMapping("/attractive")
+    public String getProductAttractive(HttpSession session, Model m) throws Exception{
+
+        UserDto userDto = (UserDto)session.getAttribute("userDto");
+        List<TrvPrdDtlReadDto> list = productDetailService.getProductAttractive(userDto.getUsr_id());
+        int cnt = productDetailService.getProductAttractiveCnt(userDto.getUsr_id());
+        m.addAttribute("list",list);
+        m.addAttribute("cnt",cnt);
+
+        return "product/product_attractive.tiles";
     }
 
 }

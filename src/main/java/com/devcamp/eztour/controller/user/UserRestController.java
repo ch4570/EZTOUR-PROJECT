@@ -80,4 +80,18 @@ public class UserRestController {
         return mailService.joinEmail(email);
     }
 
+    @GetMapping("/checkPwdForUsrMod/{pwd}")
+    public ResponseEntity<Boolean> checkPwdForUsrMod(@PathVariable String pwd, HttpSession session){
+        UserDto userDto = (UserDto) session.getAttribute("userDto");
+        String usr_id = userDto.getUsr_id();
+        System.out.println(usr_id);
+        System.out.println(pwd);
+        try {
+            boolean pwdCheck = userService.checkPwdForUsrMod(usr_id, pwd);
+            return new ResponseEntity<>(pwdCheck, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }

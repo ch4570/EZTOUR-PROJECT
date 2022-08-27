@@ -27,10 +27,10 @@
                 <div>
                     <p>${rcid.prd_nm}</p>
                     <div>
-                        <span>${rcid.go_dpr_arl_id}</span>
-                        <span>${rcid.go_dpr_tm}</span> ~
-                        <span>${rcid.cb_arr_arl_id}</span>
-                        <span>${rcid.cb_arr_tm}</span>
+                        <span>${rcid.dom_dpr_date}</span>
+                        <span>${rcid.loc_fin_date}</span> ~
+                        <span>${rcid.loc_dpr_date}</span>
+                        <span>${rcid.dom_fin_date}</span>
                     </div>
                 </div>
                 <div>
@@ -91,7 +91,7 @@
                         </dl>
                         <dl>
                             <dt>할부개월수</dt>
-                            <dd>${payDto.dvd_mnt==0 ? "일시불" : payDto.dvd_mnt }</dd>
+                            <dd>${payDto.dvd_mnt==0 ? "일시불" : payDto.dvd_mnt + "개월" }</dd>
                         </dl>
                     </div>
                 </div>

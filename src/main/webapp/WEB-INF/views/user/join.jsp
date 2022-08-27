@@ -26,7 +26,7 @@
         <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 10px;">정보입력</h2>
           <p style="font-size: 12px; color: gray"><i class="fa fa-check" aria-hidden="true"></i>  모든 항목은 필수입니다.</p>
           <p style="font-size: 12px; margin-bottom: 20px; color: gray"><i class="fa fa-check" aria-hidden="true"></i>  회원정보는 예약이나 각종 이벤트 참여에 따른 정보 제공에 활용되므로 정확하게 입력해주세요.</p>
-        <hr>
+        <hr style="width: 535px;">
       </div>
     <div class="input-id">
       <label for="">아이디</label><br>
@@ -39,14 +39,14 @@
     </div>
     <div class="input-pwd">
       <label for="">비밀번호</label><br>
-      <input class="input-field" type="text" name="pwd" id="pwd1" placeholder="6~12자리의 영문자와 숫자 조합"
+      <input class="input-field" type="password" name="pwd" id="pwd1" placeholder="6~12자리의 영문자와 숫자 조합"
              onkeyup="noSpaceForm(this); moreThanSixPwd();" onchange="noSpaceForm(this);" style="margin-bottom: 0px;"><br>
         <p id="nonAlterPwd1" style="margin-bottom: 20px; padding: 5px 5px;"> </p>
         <p id="moreThan6Pwd" style="margin-bottom: 20px; padding: 5px 5px; display: none; color: red" >6자이상 입력해주세요.</p>
     </div>
     <div class="input-pwd">
         <label for="">비밀번호 확인</label><br>
-        <input class="input-field" type="text" id="pwd2" placeholder="6~12자리의 영문자와 숫자 조합"
+        <input class="input-field" type="password" id="pwd2" placeholder="6~12자리의 영문자와 숫자 조합"
                onkeyup="noSpaceForm(this); checkPwd();" onchange="noSpaceForm(this);" style="margin-bottom: 0px;"><br>
         <p id="nonAlterPwd2" style="margin-bottom: 20px; padding: 5px 5px;"> </p>
         <p id="alertPwd" style="margin-bottom: 20px; padding: 5px 5px; display: none; color: red" >비밀번호가 일치하지 않습니다.</p>
@@ -54,17 +54,17 @@
     </div>
     <div class="input-basic">
        <label for="">이름</label><br>
-       <input class="input-field" type="text" name="usr_nm" value="${param.usr_nm}"
+       <input class="input-field" type="text" name="usr_nm" id="usr_nm" value="${param.usr_nm}"
              onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);" readonly><br>
     </div>
     <div class="input-basic">
         <label for="">핸드폰 번호</label><br>
-        <input class="input-field" type="text" name="brth" value="${param.phn}"
+        <input class="input-field" type="text" name="phn" id="phn" value="${param.phn}"
                onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);" readonly><br>
     </div>
     <div class="input-basic">
        <label for="">생년월일</label><br>
-       <input class="input-field" type="text" name="brth" placeholder="20201231"
+       <input class="input-field" type="text" name="brth" id="brth" placeholder="20201231"
               onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);"><br>
     </div>
     <div class="input-basic">
@@ -89,15 +89,16 @@
             <option>@yahoo.co.kr</option>
         </select>
         <div>
-            <input class="input-field mail-check-input" placeholder="인증번호 6자리를 입력해주세요." style="width:270px;" disabled="disabled" maxlength="6">
+            <input class="input-field mail-check-input" id="input-authCheckNum" placeholder="인증번호 6자리를 입력해주세요." style="width:270px;" disabled="disabled" maxlength="6">
             <input type="button" id="mail-Check-Btn" value="이메일 인증">
-            <span id="mail-check-warn"></span>
+            <div id="mail-check-warn"></div>
         </div>
+        <input type="hidden" name="email" value=""/>
     </div>
 
     <div style="text-align: center">
         <input type="button" id="goback" onclick="history.back()" value="취소">
-        <button id="submit">확인</button>
+        <button id="submit" onsubmit="checkForm();">확인</button>
     </div>
     </div>
   </form>
@@ -106,6 +107,11 @@
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script>
     window.history.forward();
+    $( document ).ready(function() {
+
+        history.replaceState({}, null, location.pathname);
+
+    });
 
   <!-- 공백 사용 방지 -->
   function noSpaceForm(obj) {
@@ -197,6 +203,7 @@
     $('#mail-Check-Btn').click(function() {
         const email = $('#email1').val() + $('#email2').val(); // 이메일 주소값 얻어오기!
         console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
+        $('input[name=email]').attr('value',email);
         const checkInput = $('.mail-check-input') // 인증번호 입력하는곳
 
         $.ajax({
@@ -228,6 +235,31 @@
             $resultMsg.css('color','red');
         }
     });
+
+    function checkForm(){
+        alert("들어왔나?");
+        if(!((moreThanSixId()) && ($("#usr_id").css("border-color") == "forestgreen"))){
+            alert("아이디를 다시 확인해주세요.");
+            return false;
+        }else if(!(checkPwd() && moreThanSixPwd())){
+            alert("비밀번호를 다시 확인해주세요.");
+            return false;
+        }else if($("#usr_nm").val().length==0){
+            alert("올바르지 않은 접근입니다.");
+            return false;
+        }else if($("#phn").val().length==0){
+            alert("올바르지 않은 접근입니다.");
+            return false;
+        }else if($("#brth").val().length==0){
+            alert("생일을 다시 입력해주세요");
+            return false;
+        }else if(!($("#mail-check-warn").css("color") == "green")){
+            alert("이메일 인증번호를 다시 확인해주세요.");
+            return false;
+        }
+        return true;
+    }
+
 
 </script>
 </body>

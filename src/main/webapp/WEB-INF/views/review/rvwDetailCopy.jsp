@@ -45,6 +45,51 @@
 </div>
 <script>
     $(document).ready(function (){
+        // 좋아요가 있는지 확인한 값을 heartval에 저장
+        <%--var heartval = "${rvwLkAdmDto.rvw_lk_yn}"--%>
+        // heartval이 1이면 좋아요가 이미 되있는것이므로 full_heart_icon.svg를 출력하는 코드
+        // if(heartval == "1") {
+        //     console.log(heartval);
+        // $("#heart").prop("src", "/icon/full_heart_icon.svg");
+        // }
+        // else if(heartval == "0" || heartval == ""){
+        //     console.log(heartval);
+        // $("#heart").prop("src", "/icon/empty_heart_icon.svg");
+        // }
+
+        // 좋아요 버튼을 클릭 시 실행되는 코드
+        var heartval = "${rvwLkAdmDto.rvw_lk_yn}"
+
+        $('i[name=fill-heart]').on("click", function () {
+            if(heartval == ""){
+                alert("로그인을 해야 후기에 좋아요 버튼를 누를 수 있습니다.");
+                var confirmUser = confirm("로그인 하시겠습니까?");
+                if(confirmUser){
+                    location.href = "<c:url value='/user/login'/>"
+                }else{
+                    return;
+                }
+            }
+            $.ajax({
+                url : '/heart',
+                type : 'POST',
+                // headers : {"content-type": "application/json"}, // 요청 헤더
+                <%--data : JSON.stringify({'rvw_no': ${rvwDto.rvw_no}}),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.--%>
+                data : {'rvw_no': "${rvwDto.rvw_no}"},
+                success : function (data){
+                    if(data=="HeartUp") {
+                        $('#heart').prop("src", "/icon/full_heart_icon.svg");
+                        location.reload();
+                    }
+                    else {
+                        $('#heart').prop("src", "/icon/empty_heart_icon.svg");
+                        location.reload();
+                    }
+                }
+
+            });
+        });
+
         $('#listBtn').on("click", function(){
             alert("listBtn clicked")
             location.href = "<c:url value='/review/list${searchCondition.queryString}'/>";

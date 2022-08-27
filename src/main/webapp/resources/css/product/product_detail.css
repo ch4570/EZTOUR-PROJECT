@@ -1,7 +1,8 @@
 .detail-item__main {
     margin: 100px auto;
     width: 1200px;
-    height: 1000vh;
+    /*overflow:hidden;*/
+    height:auto;
 }
 
 .detail-item__title {
@@ -17,13 +18,8 @@
 }
 
 .detail-item__info {
-    width: 69%;
+    width: 73%;
     float: left;
-}
-
-.detail-item__rev {
-    width: 28%;
-    float: right;
 }
 
 .detail-item__img {
@@ -70,9 +66,7 @@
 .price-info__tit,
 .price-info__age1,
 .price-info__age2,
-.price-info__age3,
-.air-info__air,
-.detail-item__info-box {
+.price-info__age3 {
     display: flex;
     flex-direction: column;
 }
@@ -82,43 +76,108 @@
 .price-info__age2 span,
 .price-info__age3 span {
     text-align: right;
-    padding: 20px 46px 20px;
+    padding: 20px 52px 20px;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    font-size: 15.85px;
+}
+
+.price-info__age1 span:last-child,
+.price-info__age2 span:last-child,
+.price-info__age3 span:last-child {
+    font-weight: 900;
+}
+
+.price-info__tit span {
+    text-align: left;
 }
 
 .detail-item__air-info {
-    margin: 30px 0;
-}
-
-
-ul.detail-item__tab{
-    margin: 0px;
-    padding: 0px;
     display: flex;
     justify-content: space-between;
+    padding: 30px;
+    margin-top: 30px;
+    font-size: 15px;
+}
+
+.air-info__air {
+    display: flex;
+    flex-direction: column;
+}
+
+.air-info__air span:first-child {
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.air-info__air span:first-child,
+.dom_dpr_date,
+.loc_fin_date {
+    margin-bottom: 20px;
+}
+
+.dom_dpr_date span:first-child::after,
+.loc_dpr_date span:first-child::after,
+.loc_fin_date span:first-child::after,
+.dom_fin_date span:first-child::after {
+    content: '|';
+    margin-right: 15px;
+    margin-left: 15px;
+    color: rgba(0, 0, 0, .3);
+    font-size: 15px;
+}
+
+.detail-item__menu {
+    margin-top: 70px;
+}
+
+.ul-wrap {
+    width: 100%;
+}
+
+ul.detail-item__tab{
+    display: flex;
 }
 
 ul.detail-item__tab li{
-    font-size: 19px;
-    font-weight: 700;
-    display: inline-block;
-    padding: 20px 33px;
-    cursor: pointer;
+    flex: 1;
+    font-size: 18px;
+    letter-spacing: -0.72px;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
     border: 1px solid rgba(0,0,0,.1);
+    position: relative;
+    z-index: 0;
 }
 
 ul.detail-item__tab li.selected{
     border: 1px solid black;
 }
 
+.detail-item__rev-wrap {
+    height: 1000vh;
+    width: 25%;
+    float: right;
+}
+
 .detail-item__rev {
-    position: sticky;
     top: 30px;
+    position: sticky;
 }
 
 .cont_box{
     display: none;
     padding: 12px;
+    margin-top: 70px;
 }
+
+.cont_box__tit {
+    font-size: 35px;
+    font-weight: 700;
+}
+
 
 .cont_box.selected{
     display: inherit;
@@ -131,15 +190,247 @@ ul.detail-item__tab li.selected{
     padding: 30px 0;
 }
 
-.pay__combo-box {
+/*tab1*/
+.whole-schedule {
+    margin-top: 60px;
+}
+
+
+
+/*tab2*/
+.rev-notice {
     display: flex;
+    flex-direction: column;
+    margin-top: 60px;
+    border-top:  1px solid rgba(0,0,0,1);
+}
+
+.rev-notice__pre-notice,
+.rev-notice__deposit,
+.rev-notice__etc,
+.conditions-info{
+    display: flex;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    line-height: 1.4;
+    font-size: 14px;
+    letter-spacing: -0.42px;
+}
+
+.pre-notice__tit,
+.deposit__tit,
+.etc__tit,
+.conditions-info__tit {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 0;
+    min-width: 180px;
+    font-size: 16px;
+    border-right: 1px solid rgba(0,0,0,.1);
+    font-weight: 600;
+}
+
+.item-cell > * {
+    padding: 20px 30px;
+}
+
+/*tab3*/
+.go-qna {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px;
+    background-color: #f7f7f7;
+    margin-top: 60px;
+}
+
+.go-qna__con p {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.go-qna__btn a {
+    padding: 13px 18px;
+    background-color: white;
+    border: 1px solid black;
+    font-size: 15px;
+    display: inline-flex;
+}
+
+/*tab4*/
+.conditions-info {
+    border-top:  1px solid rgba(0,0,0,1);
+    margin-top: 60px;
+}
+
+/*tab5*/
+.gogo {
+    margin-top: 60px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.gogo__img {
+    width: 10%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid rgba(0,0,0,.1);
+    box-sizing: border-box;
+    padding: 30px 20px;
+}
+
+.gogo__con {
+    width: 90%;
+    float: right;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.gogo__img img {
+    width: 60px;
+    height: 60px;
+}
+
+.gogo__con p:first-child {
+    font-weight: 600;
     margin-bottom: 30px;
 }
 
-.pay__combo-box button {
+.gogo__con p:nth-child(2) {
+    font-weight: 400;
+}
 
+.gogo__con-a {
+    cursor: pointer;
+    color: #006f80 !important;
+}
+
+.gogo__btn {
+    border: 1px solid rgba(0,0,0,.1);
+    padding: 5px 10px;
+    font-size: 15px;
+    box-sizing: border-box;
+    align-self: flex-end;
+    margin-top: 40px;
+}
+
+/*예약*/
+.rev__code {
+    margin-bottom: 20px;
+}
+
+.rev__code span:first-child,
+.rev__date span,
+.pay__info span:first-child {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.rev__code span:last-child {
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.pay__info span:first-child {
+    margin-bottom: 10px;
+}
+
+.pay__info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.pay__info span:last-child {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.pay__info span:last-child em {
+    font-size: 17px;
+}
+
+.pay_adult,
+.pay_child,
+.pay_baby {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pay__combo-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pay-margin {
+    margin-bottom: 25px;
+}
+
+.pay__combo-box button {
+    all: unset;
+    height: 40px;
+    width: 40px;
+    border: 1px solid rgba(0,0,0,.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .pay__combo-box input {
+    all: unset;
+    height: 40px;
+    width: 60px;
+    border: 1px solid rgba(0,0,0,.1);
+}
 
+.pay__combo-box input[type="number"] {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 40px;
+}
+
+.detail-item__total-pay {
+    margin-top: 50px;
+}
+
+.detail-item__total-pay span {
+    font-weight: 600;
+    font-size: 25px;
+}
+
+.detail-item__total-pay div {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.detail-item__total-pay div input[type="number"] {
+    all: unset;
+    text-align: right;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.detail-item__rev-btn {
+    margin-top: 20px;
+}
+
+.detail-item__rev-btn button {
+    all: unset;
+    background: #1c1c1c;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
 }

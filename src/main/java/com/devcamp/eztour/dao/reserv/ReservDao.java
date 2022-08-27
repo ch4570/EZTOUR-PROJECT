@@ -17,9 +17,15 @@ public interface ReservDao {
 
     List<Object> selectReservListPage(Map<String, Object> map) throws Exception;
 
+    ReservDto selectReservByRsvtNo(String rsvt_no) throws Exception;
+
     List<ReservDto> selectAllReserv() throws Exception;
 
     ReservConfInfoDto selectReservConfInfo(String rsvt_no) throws Exception;
+
+    List<ReservDto> selectTheUnAppredListPage(Map<String, Integer> map) throws Exception;
+
+    int selectTheUnAppredListCnt() throws Exception;
 
     int updateReservStatus(Map<String, String> map) throws Exception;
 
@@ -38,4 +44,12 @@ public interface ReservDao {
     long selectPayFtrPrc(String rsvt_no) throws Exception;
 
     int deleteReserv(String rsvt_no) throws Exception;
+
+    int selectReservCnt(String usr_id) throws Exception;
+
+    String selectGuestReserv(Map<String, String> map) throws Exception;
+
+    int updateReservCancel(ReservDto reservDto) throws Exception;
+
+    int updateReservCnt(Map<String, Object> map) throws Exception;
 }

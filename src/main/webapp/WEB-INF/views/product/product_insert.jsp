@@ -107,15 +107,90 @@
                                 <input type="date" class="input_prd" name="dpr_fin_date" placeholder="출발 마감"><br>
                                 <form:errors path="dpr_fin_date" cssClass="error_msg"/><br><br>
 
-                                <input type="submit" value="상품 등록" id="submit_btn">
                             </form:form>
+                            <button id="submit_btn">상품 등록</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 <script>
+
+    function checkForm(){
+        let prd_cd = $('input[name=prd_cd]').val();
+        let dstn_cd = $('input[name=dstn_cd]').val();
+        let cmn_cd_thm = $('input[name=cmn_cd_thm]').val();
+        let prd_nm = $('input[name=prd_nm]').val();
+        let prd_dtl_desc = $('textarea[name=prd_dtl_desc]').val();
+        let trv_per = $('input[name=trv_per]').val();
+        let prd_str_prc = $('input[name=prd_str_prc]').val();
+        let dpr_day = $('input[name=dpr_day]').val();
+        let dpr_str_date = $('input[name=dpr_str_date]').val();
+        let dpr_fin_date = $('input[name=dpr_fin_date]').val();
+
+        if(prd_cd == null || prd_cd == ""){
+            alert('상품코드는 필수 입력 항목입니다.');
+            return;
+        }
+
+
+        if(dstn_cd == null || dstn_cd == ""){
+            alert('여행지코드는 필수 입력 항목입니다.');
+            return;
+        }
+
+        if(cmn_cd_thm == null || cmn_cd_thm == ""){
+            alert('테마코드는 필수 입력 항목입니다.');
+            return;
+        }
+
+        if(prd_nm == null || prd_nm == ""){
+            alert('상품이름은 필수 입력 항목입니다.');
+            return;
+        }
+
+        if(prd_dtl_desc == null || prd_dtl_desc == ""){
+            alert('상품 상세설명은 필수 입력 항목입니다.');
+            return;
+        }
+
+        if(trv_per == null || trv_per == ""){
+            alert('여행기간은 필수 입력 항목입니다.');
+            return;
+        }
+
+        if(prd_str_prc == null || prd_str_prc == ""){
+            alert('상품시작가격은 필수 입력 항목입니다.');
+            return;
+        }
+
+        if(dpr_day == null || dpr_day == ""){
+            alert('출발요일은 필수 입력 항목입니다.');
+            return;
+        }
+
+        if(dpr_str_date == null || dpr_str_date == ""){
+            alert('출발시작일은 필수 입력 항목입니다.');
+            return;
+        }
+
+        if(dpr_fin_date == null || dpr_fin_date == ""){
+            alert('출발마감일은 필수 입력 항목입니다.');
+            return;
+        }
+
+        $('form').submit();
+
+    }
+
+
+
     $(document).ready(function (){
+
+        $('#submit_btn').on("click",function (){
+           checkForm();
+        });
+
         $('#cntn_select').change(function (){
             let value = $(this).val();
             $.ajax({

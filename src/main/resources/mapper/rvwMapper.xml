@@ -60,8 +60,9 @@
                B.prd_cd
         FROM pay A INNER JOIN trv_prd_dtl B ON A.prd_dtl_cd = B.prd_dtl_cd
         WHERE A.cmn_cd_pay_stt ='7C'
-        AND B.fin_date <![CDATA[<=]]> CURRENT_TIMESTAMP
         AND A.usr_id = #{usr_id}
+        AND B.dom_fin_date <![CDATA[<=]]> CURRENT_TIMESTAMP
+        OR B.loc_fin_date <![CDATA[<=]]> CURRENT_TIMESTAMP
     </select>
 
 
@@ -200,6 +201,17 @@
         SELECT count(*)
         FROM rvw A INNER JOIN trv_prd B ON A.prd_cd = B.prd_cd
         WHERE B.cntn_cd = #{cntn_cd}
+    </select>
+
+    <select id="getRvwttlRvwCont" parameterType="int" resultType="RvwDto">
+        SELECT rvw_ttl,
+               rvw_cont,
+               wrt_nm,
+               wrt_email,
+               usr_id,
+               rvw_no
+        FROM rvw
+        WHERE rvw_no = #{rvw_no}
     </select>
 
 </mapper>

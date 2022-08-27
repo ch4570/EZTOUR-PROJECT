@@ -39,11 +39,11 @@ public class MessageController {
         smsSecretKey = value;
     }
 
-//    @PostConstruct
+    @PostConstruct
     public void MessageController() {
         messageService = NurigoApp.INSTANCE.initialize(smsKey, smsSecretKey, "https://api.coolsms.co.kr");
-        System.out.println("===================================="+smsKey);
     }
+
 
     @GetMapping("/authPhn/{phn}")
     public ResponseEntity<String> sendOne(@PathVariable(value="phn", required=false) String phn) {
@@ -84,11 +84,11 @@ public class MessageController {
 
     // 임의의 숫자 여섯 자리 만들기
     private String authNum() {
-        Random random = new Random();	//랜덤 함수 선언
-        int createNum = 0;  			//1자리 난수
-        String ranNum = ""; 			//1자리 난수 형변환 변수
-        int letter    = 6;			    //난수 자릿수:6
-        String resultNum = "";  		//결과 난수
+        Random random = new Random();   //랜덤 함수 선언
+        int createNum = 0;           //1자리 난수
+        String ranNum = "";          //1자리 난수 형변환 변수
+        int letter    = 6;             //난수 자릿수:6
+        String resultNum = "";        //결과 난수
 
         for (int i=0; i<letter; i++) {
             createNum = random.nextInt(9);   //0부터 9까지 올 수 있는 1자리 난수 생성

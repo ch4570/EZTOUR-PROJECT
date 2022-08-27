@@ -50,11 +50,13 @@ public class RvwController {
             rattr.addFlashAttribute("msg","DEL_ERR");
         }
 
-        return "redirect:/review/list"+sc.getQueryString();
+        return "redirect:/review/list.tiles"+sc.getQueryString();
         }
 
     @GetMapping("/list")
     public String list(SearchCondition sc, Model m) {
+
+        System.out.println("sc = " + sc);
 
         System.out.println("sc.getCntn_cd() = " + sc.getCntn_cd());
         if (sc.getCntn_cd() == "") {
@@ -109,20 +111,24 @@ public class RvwController {
             usr_id = userDto.getUsr_id();
             System.out.println("usr_id = " + usr_id);
         } catch (NullPointerException e) {
-            usr_id = "";
+            usr_id = ""; // 비회원
         }
+
+        RvwDto rvwDto = rvwService.read(rvw_no);
+        System.out.println("rvwDto = " + rvwDto);
+        m.addAttribute("rvwDto", rvwDto);
 
 
         // 1. rvw_lk_adm 테이블 데이터가 있는지 아니면 rvw_lk_adm 테이블 데이터가 없는지 조건문
         RvwLkAdmDto rvwLkAdmDto = rvwLkAdmService.select(usr_id, rvw_no);
-        if(rvwLkAdmDto == null && usr_id != "")
+        if(rvwLkAdmDto == null && usr_id != "") // 회원 + 좋아요를 누른적이 없다면,
             rvwLkAdmService.insert(usr_id, rvw_no);
             rvwLkAdmDto = rvwLkAdmService.select(usr_id,rvw_no);
 
         System.out.println("rvwLkAdmDto = " + rvwLkAdmDto);
 
-        if(rvwLkAdmDto == null)
-            rvwLkAdmDto.setRvw_lk_yn(0);
+//        if(usr_id == "")
+//            rvwLkAdmDto.setRvw_lk_yn(0);
 
         m.addAttribute("rvwLkAdmDto", rvwLkAdmDto);
 
@@ -132,8 +138,7 @@ public class RvwController {
         if(rowCnt == 1)
             m.addAttribute("check", "me");
 
-        RvwDto rvwDto = rvwService.read(rvw_no);
-        m.addAttribute("rvwDto", rvwDto);
+
 
 // 나중에 아래 내용도 같이 예외 같이 처리하기
 //        catch (Exception e) {
@@ -142,15 +147,14 @@ public class RvwController {
 //            return "redirect:/rvwList"+sc.getQueryString();
 //        }
 
-        return "review/rvwDetail";
+        return "review/rvwDetail.tiles";
     }
 
 
     @GetMapping("/write")
-    public String write(Model m,RedirectAttributes rattr, HttpSession session) throws Exception {
+    public String write(Model m, RedirectAttributes rattr, HttpSession session) throws Exception {
         if(session.getAttribute("userDto")==null){
-            rattr.addFlashAttribute("msg", "ACC_ERR");
-            return "redirect:/user/login";
+            return "redirect:/user/login.tiles";
         }
         UserDto userDto = (UserDto) session.getAttribute("userDto");
         String usr_id = userDto.getUsr_id();
@@ -168,16 +172,18 @@ public class RvwController {
         System.out.println("list = " + list);
         System.out.println("rvwDto = " + rvwDto);
         m.addAttribute("list", list);
-        return "review/rvwRegister";
+        m.addAttribute("mode", "new");
+        return "review/rvwRegister.tiles";
     }
 
 
         @PostMapping("/write")
         public String write (RvwDto rvwDto, Model m, RedirectAttributes rattr, HttpSession session) throws Exception {
+            m.addAttribute("mode", "new");
             try {
                 if(rvwDto.getRvw_ttl() == "" || rvwDto.getRvw_cont() == "" || rvwDto.getPrd_dtl_cd() == ""){
                     rattr.addFlashAttribute("msg", "RVW_REGISTER_ERR");
-                    return "redirect:/review/write";
+                    return "redirect:/review/write.tiles";
                 }
 
                 String prd_cd = rvwService.getprdCd(rvwDto.getPrd_dtl_cd());
@@ -188,12 +194,13 @@ public class RvwController {
 
                 int rowCnt = rvwService.write(rvwDto);
 
-                if (rowCnt != 1)
+                if (rowCnt != 1) {
                     throw new Exception("Write failed");
+                }
 
                 rattr.addFlashAttribute("msg", "WRT_OK");
 
-                return "redirect:/review/list";
+                return "redirect:/review/list.tiles";
             } catch (Exception e) {
                 e.printStackTrace();
                 UserDto userDto = (UserDto) session.getAttribute("userDto");
@@ -202,35 +209,36 @@ public class RvwController {
                 List<RvwDto> list = rvwService.selectPrdnm(usr_id);
                 m.addAttribute("list", list);
                 rattr.addFlashAttribute("msg", "WRT_ERR");
-                return "review/rvwRegister";
+                return "review/rvwRegister.tiles";
             }
         }
 
         @GetMapping("/modify")
-        public String modify (Integer rvw_no, Model m, HttpSession session) throws Exception {
+        public String modify (RvwDto rvwDto, Integer rvw_no, Model m, HttpSession session) throws Exception {
             UserDto userDto = (UserDto) session.getAttribute("userDto");
             String usr_id = userDto.getUsr_id();
 
-            RvwDto rvwDto = rvwService.selectUsernmEmail(usr_id);
-            rvwDto.setRvw_no(rvw_no);
-            rvwDto.setWrt_nm(rvwDto.getUsr_nm());
-            rvwDto.setWrt_email(rvwDto.getEmail());
+//            rvwDto = rvwService.selectUsernmEmail(usr_id);
+//            rvwDto.setRvw_no(rvw_no);
+//            rvwDto.setWrt_nm(rvwDto.getUsr_nm());
+//            rvwDto.setWrt_email(rvwDto.getEmail());
+            System.out.println("rvw_no = " + rvw_no);
+            rvwDto = rvwService.getRvwttlRvwCont(rvw_no);
 
             List<RvwDto> list = rvwService.selectPrdnm(usr_id);
             m.addAttribute("list", list);
             m.addAttribute("rvwDto", rvwDto);
-
-            return "review/rvwRegister";
+            return "review/rvwRegister.tiles";
         }
 
         @PostMapping("/modify")
         public String modify (RvwDto rvwDto, SearchCondition sc, HttpSession session, Model m, RedirectAttributes rattr) throws Exception {
-
-
+            int rvw_no = rvwDto.getRvw_no();
             try {
                 if(rvwDto.getRvw_ttl() == "" || rvwDto.getRvw_cont() == "" || rvwDto.getPrd_dtl_cd() == ""){
+                    System.out.println("rvw_no = " + rvw_no);
                     rattr.addFlashAttribute("msg", "RVW_REGISTER_ERR");
-                    return "redirect:/review/modify";
+                    return "redirect:/review/modify.tiles?rvw_no=" + rvw_no;
                 }
 
                 String prd_cd = rvwService.getprdCd(rvwDto.getPrd_dtl_cd());
@@ -243,7 +251,7 @@ public class RvwController {
 
                 rattr.addFlashAttribute("msg", "MOD_OK");
 
-                return "redirect:/review/list" + sc.getQueryString();
+                return "redirect:/review/list.tiles" + sc.getQueryString();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -253,7 +261,7 @@ public class RvwController {
                 List<RvwDto> list = rvwService.selectPrdnm(usr_id);
                 m.addAttribute("list", list);
                 rattr.addFlashAttribute("msg", "WRT_ERR");
-                return "review/rvwRegister";
+                return "review/rvwRegister.tiles";
             }
         }
     }
