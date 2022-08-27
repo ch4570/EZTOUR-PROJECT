@@ -6,9 +6,10 @@
 <meta charset="UTF-8">
 
 <title>Insert title here</title>
+    <link rel="stylesheet" href="/css/home/footerCenter.css">
 </head>
     <body>
-
+    <div class="footerCenter">
         <div class="aside">
             <button class="aside__btn" name="asideBtn">
                 <em><i class="fas fa-ellipsis-v"></i></em>
@@ -82,6 +83,7 @@
                 </dl>
             </div>
         </div>
+    </div>
     <script>
         $(document).ready(function () {
             // 자세히보기 버튼 클릭 시 클래스 'active' 추가
