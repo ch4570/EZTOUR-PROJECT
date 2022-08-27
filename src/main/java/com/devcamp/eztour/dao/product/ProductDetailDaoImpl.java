@@ -63,4 +63,14 @@ public class ProductDetailDaoImpl implements ProductDetailDao {
         return session.selectOne(namespace+"selectProductAttractiveCnt",usr_id);
     }
 
+    @Override
+    public int deleteAllProductAttractive(String usr_id) throws Exception {
+        return session.delete(namespace+"deleteAllProductAttractive",usr_id);
+    }
+
+    @Override
+    public int deleteProductAttractive(Map map) throws Exception {
+        return session.delete(namespace+"deleteProductAttractive",map);
+    }
+
 }

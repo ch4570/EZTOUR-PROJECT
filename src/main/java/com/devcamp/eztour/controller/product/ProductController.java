@@ -217,4 +217,32 @@ public class ProductController {
         return "product/product_attractive.tiles";
     }
 
+    @ResponseBody
+    @PostMapping("/attractive/deleteAll")
+    public ResponseEntity<String> deleteAllProductAttractive(String usr_id) throws Exception{
+        int result = productDetailService.removeAllProductAttractive(usr_id);
+
+        if(result == 0){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }else{
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/attractive/delete")
+    public ResponseEntity<String> deleteProductAttractive(String usr_id, String prd_cd) throws Exception{
+        Map map = new HashMap();
+        map.put("usr_id",usr_id);
+        map.put("prd_cd",prd_cd);
+
+        int result = productDetailService.removeProductAttractive(map);
+
+        if(result == 1){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

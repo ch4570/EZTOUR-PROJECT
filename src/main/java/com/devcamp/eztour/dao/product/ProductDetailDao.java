@@ -20,5 +20,7 @@ public interface ProductDetailDao {
     TrvPrdDtlReadDto selectOneProduct(String prd_cd) throws Exception;
     List<TrvPrdDtlReadDto> selectProductAttractive(String usr_id) throws Exception;
     int selectProductAttractiveCnt(String usr_id) throws Exception;
+    int deleteAllProductAttractive(String usr_id) throws Exception;
+    int deleteProductAttractive(Map map) throws Exception;
 
 }

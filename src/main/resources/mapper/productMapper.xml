@@ -443,18 +443,4 @@
         WHERE usr_id = #{usr_id} and prd_cd = #{prd_cd}
     </delete>
 
-    <select id="selectProductAttractive" parameterType="String" resultType="TrvPrdDtlReadDto">
-        SELECT A.prd_cd,A.prd_nm,A.prd_str_prc,B.img_pth
-        FROM trv_prd A
-        JOIN prd_img B ON A.prd_cd = B.prd_cd
-        JOIN att_prd C ON A.prd_cd = C.prd_cd
-        WHERE C.usr_id = #{usr_id}
-    </select>
-
-    <select id="selectProductAttractiveCnt" parameterType="String" resultType="int">
-        SELECT COUNT(*)
-        FROM att_prd
-        WHERE usr_id = #{usr_id}
-    </select>
-
 </mapper>

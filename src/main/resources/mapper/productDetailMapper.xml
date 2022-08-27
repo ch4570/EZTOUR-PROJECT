@@ -67,4 +67,27 @@
                        JOIN prd_img B ON A.prd_cd = B.prd_cd
         WHERE act_yn=1 AND  A.prd_cd = #{prd_cd}
     </select>
+
+    <select id="selectProductAttractive" parameterType="String" resultType="TrvPrdDtlReadDto">
+        SELECT A.prd_cd,A.prd_nm,A.prd_str_prc,B.img_pth
+        FROM trv_prd A
+                 JOIN prd_img B ON A.prd_cd = B.prd_cd
+                 JOIN att_prd C ON A.prd_cd = C.prd_cd
+        WHERE C.usr_id = #{usr_id}
+    </select>
+
+    <select id="selectProductAttractiveCnt" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM att_prd
+        WHERE usr_id = #{usr_id}
+    </select>
+
+    <delete id="deleteAllProductAttractive" parameterType="String">
+        DELETE FROM att_prd WHERE usr_id = #{usr_id}
+    </delete>
+
+    <delete id="deleteProductAttractive" parameterType="map">
+        DELETE FROM att_prd WHERE usr_id = #{usr_id} AND prd_cd = #{prd_cd}
+    </delete>
+
 </mapper>
