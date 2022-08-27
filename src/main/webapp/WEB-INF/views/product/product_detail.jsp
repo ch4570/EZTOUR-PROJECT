@@ -313,7 +313,8 @@
 
                 <div class="detail-item__total-pay">
                     <span>최종 합계금액</span>
-                    <div><input readonly type="number" name="total_price" value="${prdDto.adt_prc}"/>원</div>
+                    <div><input type="hidden" readonly name="total_price" value="${prdDto.adt_prc}"/></div>
+                    <span id="total_price">${prdDto.adt_prc}</span><em>원</em>
                 </div>
             </form>
             <div class="detail-item__rev-btn">
@@ -325,7 +326,19 @@
 </div>
 
 <script>
+    function totalPriceFormatter(total_price){
+        return total_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');
+    }
+
+
     $(document).ready(function(){
+
+        function presentTotalPrice(total_price){
+            total_price = totalPriceFormatter(total_price);
+            $('#total_price').text(total_price);
+        }
+
+        presentTotalPrice($('#total_price').text());
 
         // 예약 가능한 인원 수
         const revPerCnt = parseInt(${prdDto.max_stt_cnt-prdDto.pr_rsvt_cnt});
@@ -337,6 +350,7 @@
             perTotCnt = 0;
             return;
         }
+
 
         $('ul.detail-item__tab li').click(function(){
             const tab_id = $(this).attr('data-tab');
@@ -352,18 +366,25 @@
 
         $('.plus-button').eq("0").on("click",function (){
             const quantity = $('.quantity').eq("0").val();
+
             if(parseInt(quantity)+1 > 10){
-                alert("예약은 최대 10명까지 가능합니다!");
+                $('.plus-button').eq("0").attr('disabled',true);
+                $('.plus-button').eq("0").css("background-color","#f7f7f7");
+                $('.plus-button > i').eq("0").css("display","none");
             }else{
                 if((perTotCnt+1) > revPerCnt){
                     alert("최대 예약 가능 인원을 초과하였습니다.");
                 }else{
+                    $('.minus-button').eq("0").attr('disabled',false);
+                    $('.minus-button').eq("0").css("background-color","");
+                    $('.minus-button > i').eq("0").css("display","");
                     $('.quantity').eq("0").val(parseInt(quantity)+1);
                     let adultPcr = parseInt($('.pay__combo-box').eq("0").attr('price'));
                     let totalPrice = parseInt($('input[name=total_price]').val());
                     totalPrice = totalPrice+adultPcr;
                     $('input[name=total_price]').val(totalPrice);
                     perTotCnt += 1;
+                    presentTotalPrice(totalPrice);
                 }
 
             }
@@ -372,18 +393,25 @@
 
         $('.plus-button').eq("1").on("click",function (){
             const quantity = $('.quantity').eq("1").val();
+
             if(parseInt(quantity)+1 > 10){
-                alert("예약은 최대 10명까지 가능합니다!");
+                $('.plus-button').eq("1").attr('disabled',true);
+                $('.plus-button').eq("1").css("background-color","#f7f7f7");
+                $('.plus-button > i').eq("1").css("display","none");
             }else{
                 if((perTotCnt+1) > revPerCnt){
                     alert("최대 예약 가능 인원을 초과하였습니다.");
                 }else{
+                    $('.minus-button').eq("1").attr('disabled',false);
+                    $('.minus-button').eq("1").css("background-color","");
+                    $('.minus-button > i').eq("1").css("display","");
                     $('.quantity').eq("1").val(parseInt(quantity)+1);
                     let childPcr = parseInt($('.pay__combo-box').eq("1").attr('price'));
                     let totalPrice = parseInt($('input[name=total_price]').val());
                     totalPrice = totalPrice+childPcr;
                     $('input[name=total_price]').val(totalPrice);
                     perTotCnt +=1;
+                    presentTotalPrice(totalPrice);
                 }
 
             }
@@ -392,17 +420,23 @@
         $('.plus-button').eq("2").on("click",function (){
             const quantity = $('.quantity').eq("2").val();
             if(parseInt(quantity)+1 > 10){
-                alert("예약은 최대 10명까지 가능합니다!");
+                $('.plus-button').eq("2").attr('disabled',true);
+                $('.plus-button').eq("2").css("background-color","#f7f7f7");
+                $('.plus-button > i').eq("2").css("display","none");
             }else{
                 if((perTotCnt+1) > revPerCnt){
                     alert("최대 예약 가능 인원을 초과하였습니다.");
                 }else{
+                    $('.minus-button').eq("2").attr('disabled',false);
+                    $('.minus-button').eq("2").css("background-color","");
+                    $('.minus-button > i').eq("2").css("display","");
                     $('.quantity').eq("2").val(parseInt(quantity)+1);
                     let babyPcr = parseInt($('.pay__combo-box').eq("2").attr('price'));
                     let totalPrice = parseInt($('input[name=total_price]').val());
                     totalPrice = totalPrice+babyPcr;
                     $('input[name=total_price]').val(totalPrice);
                     perTotCnt +=1;
+                    presentTotalPrice(totalPrice);
                 }
 
             }
@@ -412,8 +446,13 @@
             const quantity = $('.quantity').eq("0").val();
             let totalPrice = parseInt($('input[name=total_price]').val());
             if(parseInt(quantity)-1 < 0){
-                alert("예약인원은 0명보다 작을 수 없습니다.");
+                $('.minus-button').eq("0").attr('disabled',true);
+                $('.minus-button').eq("0").css("background-color","#f7f7f7");
+                $('.minus-button > i').eq("0").css("display","none");
             }else{
+                $('.plus-button').eq("0").attr('disabled',false);
+                $('.plus-button').eq("0").css("background-color","");
+                $('.plus-button > i').eq("0").css("display","");
                 $('.quantity').eq("0").val(parseInt(quantity)-1);
                 let adultPcr = parseInt($('.pay__combo-box').eq("0").attr('price'));
                 if(totalPrice==0){
@@ -422,6 +461,7 @@
                     totalPrice = totalPrice-adultPcr;
                     $('input[name=total_price]').val(totalPrice);
                     perTotCnt -=1;
+                    presentTotalPrice(totalPrice);
                 }
             }
         });
@@ -430,8 +470,13 @@
             const quantity = $('.quantity').eq("1").val();
             let totalPrice = parseInt($('input[name=total_price]').val());
             if(parseInt(quantity)-1 < 0){
-                alert("예약인원은 0명보다 작을 수 없습니다.");
+                $('.minus-button').eq("1").attr('disabled',true);
+                $('.minus-button').eq("1").css("background-color","#f7f7f7");
+                $('.minus-button > i').eq("1").css("display","none");
             }else{
+                $('.plus-button').eq("1").attr('disabled',false);
+                $('.plus-button').eq("1").css("background-color","");
+                $('.plus-button > i').eq("1").css("display","");
                 $('.quantity').eq("1").val(parseInt(quantity)-1);
                 let childPcr = parseInt($('.pay__combo-box').eq("1").attr('price'));
                 if(totalPrice==0){
@@ -440,6 +485,7 @@
                     totalPrice = totalPrice-childPcr;
                     $('input[name=total_price]').val(totalPrice);
                     perTotCnt -=1;
+                    presentTotalPrice(totalPrice);
                 }
             }
         });
@@ -448,8 +494,13 @@
             const quantity = $('.quantity').eq("2").val();
             let totalPrice = parseInt($('input[name=total_price]').val());
             if(parseInt(quantity)-1 < 0){
-                alert("예약인원은 0명보다 작을 수 없습니다.");
+                $('.minus-button').eq("2").attr('disabled',true);
+                $('.minus-button').eq("2").css("background-color","#f7f7f7");
+                $('.minus-button > i').eq("2").css("display","none");
             }else{
+                $('.plus-button').eq("2").attr('disabled',false);
+                $('.plus-button').eq("2").css("background-color","");
+                $('.plus-button > i').eq("2").css("display","");
                 $('.quantity').eq("2").val(parseInt(quantity)-1);
                 let babyPcr = parseInt($('.pay__combo-box').eq("2").attr('price'));
                 if(totalPrice==0){
@@ -458,6 +509,7 @@
                     totalPrice = totalPrice-babyPcr;
                     $('input[name=total_price]').val(totalPrice);
                     perTotCnt -=1;
+                    presentTotalPrice(totalPrice);
                 }
             }
         });
