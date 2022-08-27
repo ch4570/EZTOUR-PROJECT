@@ -35,13 +35,20 @@ public class EventDaoImpl implements EventDao {
     // 이벤트 이미지 등록 및 관리
 
     @Override
-    public int selectEventImage()throws Exception{
+    public int selectEventImage(EventDto eventDto)throws Exception{
         return  session.selectOne(namespace+"selectEventImage");
     }
+
+    @Override
+    public int selectEventImage() throws Exception {
+        return 0;
+    }
+
     @Override
     public List<EventDto> selectEventImage(PageHandlerEvent pageHandlerEvent) {
-        return session.selectList(namespace+"selectEventImage",pageHandlerEvent);
+        return null;
     }
+
     @Override
     public List<EventDto> searchSelectEventImage(PageHandlerEvent pageHandlerEvent) {
         return session.selectList(namespace+"searchSelectEventImage",pageHandlerEvent);
@@ -67,19 +74,25 @@ public class EventDaoImpl implements EventDao {
         return 0;
     }
 
+    @Override
+    public int eventInsertImage(EventDto eventDto) throws Exception {
+        return 0;
+    }
 
     @Override
-    public int eventInsertImage(EventDto eventDto)throws Exception{
+    public int updateEventImage(EventDto eventDto) throws Exception {
+        return 0;
+    }
+
+    @Override
+    public int deleteEventImage() {
+        return 0;
+    }
+
+    @Override
+    public int insertEventImage(EventDto eventDto)throws Exception{
         return  session.insert(namespace + " eventInsertImage",eventDto);
     }
 
-    @Override
-    public int updateEventImage(EventDto eventDto)throws Exception{
-        return session.update(namespace="updateEventImage");
-    }
-    @Override
-    public int deleteEventImage(){
-        return session.delete(namespace+"deleteEventImage");
-    }
 
 }

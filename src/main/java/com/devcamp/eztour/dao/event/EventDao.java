@@ -15,7 +15,9 @@ public interface EventDao {
 
     List<EventDto>selectEventPage(Map map)throws Exception;
 
-    int selectEventImage()throws Exception;
+    int selectEventImage(EventDto eventDto)throws Exception;
+
+    abstract int selectEventImage()throws Exception;
 
     List<EventDto> selectEventImage(PageHandlerEvent pageHandlerEvent);
 
@@ -35,4 +37,6 @@ public interface EventDao {
     int updateEventImage(EventDto eventDto)throws Exception;
 
  int deleteEventImage();
+
+    int insertEventImage(EventDto eventDto)throws Exception;
 }

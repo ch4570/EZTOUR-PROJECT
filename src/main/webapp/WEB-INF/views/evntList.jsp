@@ -31,7 +31,10 @@
             width: 1200px;
             margin: 0px auto;
         }
+        .item-info{
+            display: flex;
 
+        }
     </style>
 </head>
 
@@ -51,14 +54,16 @@
 <c:forEach items="${list}" var="list">
     <div class="list-item" name="eventItem">
         <a>
-            <div class="item-img" ><img src="" class="rounded mx-auto d-block" style="width: 400px; padding:15px 15px 15px 15px;"></div>
             <div class="item-info">
-                <a href="<c:url value='/event/eventList/eventListLook?evnt_No=${event.evnt_no}'/>">${list.evnt_ttl}</a>
-            </div>
 
+                <div class="item-img">
+                    <img src="resources/image/event/2022/08/25/e66dfb7e-8e39-4832-95cd-6f1195cae839_kakaoevent.jpg"  width="400px" height="300px" padding="15px 15px 15px 15px">
+<%--                    <img src="${EventDto.evnt_img_pth}" width="400px" height="300px" padding="15px 15px 15px 15px"/>--%>
+                <a href="<c:url value='/event/eventList/eventListLook?evnt_No=${event.evnt_no}'/>">${list.evnt_ttl}</a>
+                </div>
+            </div>
         </a>
     </div>
-
    </c:forEach>
 </table>
 <br>

@@ -4,7 +4,7 @@
 </head>
 <body>
   <H3>업로드를 해보자.</H3>
-<from action="uploadFormAction" method="post">
+<from action="uploadFormAction" method="post" enctype="multipart/form-data">
     <input type="file" name="uploadFile"multiple>
     <input type="submit" value="파일 전송">
 </from>

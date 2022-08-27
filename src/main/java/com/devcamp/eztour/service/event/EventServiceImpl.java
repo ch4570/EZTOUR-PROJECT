@@ -43,8 +43,13 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventDto> searchSelectEventImage(PageHandlerEvent pageHandlerEvent) throws Exception{
-        return eventDao.searchSelectEventImage(pageHandlerEvent);
+    public List<EventDto> searchSelectEventImage(PageHandlerEvent pageHandlerEvent) throws Exception {
+        return null;
+    }
+
+    @Override
+    public int selectEventImage() throws Exception{
+        return eventDao.selectEventImage();
     }
     @Override
     public List<EventDto> selectEventImage(PageHandlerEvent pageHandlerEvent) throws Exception{
@@ -55,30 +60,26 @@ public class EventServiceImpl implements EventService {
         return eventDao.searchSelectEventImageCnt(pageHandlerEvent);
     }
 
+    @Override
+    public int eventInsertImage(EventDto eventDto) throws Exception {
+        return 0;
+    }
 
-      @Override
-      public int eventInsertImage(EventDto eventDto)throws Exception{
-          return eventDao.eventInsertImage();
+
+    @Override
+      public int insertEventImage(EventDto eventDto)throws Exception{
+          return eventDao.insertEventImage();
       }
 
     @Override
-    public int insertEventImage(EventDto eventDto) throws Exception {
+    public int deleteEventImage() throws Exception {
         return 0;
     }
 
     @Override
-      public int deleteEventImage()throws Exception{
-          return eventDao.deleteEventImage();
-      }
-
-      @Override
-    public int updateEventImage(EventDto eventDto)throws Exception{
-          return eventDao.updateEventImage(eventDto);
-      }
-
-
-
-
+    public int updateEventImage(EventDto eventDto) throws Exception {
+        return 0;
+    }
 
 
 }

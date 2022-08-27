@@ -22,6 +22,8 @@ public interface EventService {
 
     List<EventDto> searchSelectEventImage(PageHandlerEvent pageHandlerEvent) throws Exception;
 
+    int selectEventImage() throws Exception;
+
     List<EventDto> selectEventImage(PageHandlerEvent pageHandlerEvent) throws Exception;
 
     int searchSelectEventImageCnt(PageHandlerEvent pageHandlerEvent) throws Exception;

@@ -25,41 +25,17 @@
     </select>
 <!-- 이벤트 이미지 매퍼-->
 
-
-    <select id="selectEventImageCnt" resultType="eventDto">
-        SELECT COUNT(*)
+    <select id="selectEventImage" resultType="eventDto">
+        SELECT evnt_no,evnt_ttl,evnt_cont,reg_date,mdf_date,fin_date,evnt_img_pth
         FROM evnt
+        ORDER BY reg_date
     </select>
+    <insert id="insertEventImage" parameterType="int">
+   INSERT INTO evnt(evnt_no,evnt_ttl,evnt_cont,reg_date,mdf_date,fin_date,evnt_img_pth)
+   VALUES (#{evnt_no},#{evnt_ttl},#{evnt_cont},now(),#{mdf_date},#{fin_date},#{evnt_img_pth})
 
-
-
-    <select id="searchSelectEventImage"  resultType="eventDto">
-        SELECT evnt_no,prd_cd,evnt_ttl,evnt_cont,evnt_img_pth
-        FROM evnt
-        WHERE TRUE
-
-        ORDER BY reg_date DESC
-        LIMIT #{pageSize} OFFSET #{startList};
-    </select>
-    <select id="searchSelectEventImageCnt"  resultType="eventDto">
-        SELECT COUNT(*)
-        FROM evnt
-        WHERE TRUE
-
-    </select>
-
-
-
-    <insert id="eventInsertImage" parameterType="eventDto">
-        INSERT INTO evnt(evnt_img_pth)
-        VALUES (#{evnt_img_pth});
     </insert>
 
-    <update id="updateImage" parameterType="eventDto">
-          UPDATE evnt SET evnt_img_pth=#{evnt_img_pth} WHERE  prd_cd=#{prd_cd}
-    </update>
-    <delete id="deleteImage" parameterType="int">
-        DELETE FROM evnt WHERE evnt_img_pth=#{evnt_img_pth}
-    </delete>
+
 
 </mapper>
