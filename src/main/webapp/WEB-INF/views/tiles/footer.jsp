@@ -89,7 +89,7 @@
                 <div class="modal_recently">
                     <i class="fa-solid fa-x" name="modal_close_btn"></i>
                     <div class="modal_tlt">
-                        <strong>최근 본 상품 (${sessionScope.trvList.size()})</strong>
+                        <strong>최근 본 상품 (${sessionScope.trvList == null ? 0 : sessionScope.trvList.size()})</strong>
                         <hr>
                     </div>
                     <div class="modal_recently_content">
