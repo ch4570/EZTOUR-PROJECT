@@ -48,6 +48,7 @@ public class UserController {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+
     @GetMapping("/selectJoin")
     public String selectJoin(HttpSession session, Model m, RedirectAttributes rattr) {
         if(session.getAttribute("userDto")==null) {
@@ -62,13 +63,18 @@ public class UserController {
 
     @GetMapping("/auth")
     public String auth(HttpSession session) {
-
         return "user/auth.tiles";
     }
 
-    // 인증번호 맞을시 이름과 폰번호를 들고 redirect
+    // 인증번호 맞을시 중복체크 후에 이름과 폰번호 들고 redirect
     @PostMapping("/authOk")
-    public String authOk(String usr_nm, String phn) throws Exception {
+    public String authOk(String usr_nm, String phn, RedirectAttributes rattr) throws Exception {
+
+        if(userService.findId(usr_nm, phn)!=null){
+            rattr.addFlashAttribute("msg","DUPL_ID");
+            return "redirect:/user/auth";
+        }
+
         usr_nm = URLEncoder.encode(usr_nm, "utf-8");
         return "redirect:/user/join?usr_nm="+usr_nm+"&phn="+phn;
     }
@@ -155,8 +161,6 @@ public class UserController {
             rattr.addFlashAttribute("msg", "ACC_ERR");
             return "redirect:/";
         }
-
-
     }
 
     @PostMapping("/login")

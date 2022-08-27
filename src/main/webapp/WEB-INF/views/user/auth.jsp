@@ -57,6 +57,9 @@
     </div>
 
 <script>
+    let msg = "${msg}";
+    if(msg=="DUPL_ID")  alert("이미 가입한 사용자입니다.");
+
     function setMessage(msg, element) {
         if (msg == 'no-nm') {
             document.getElementById("msg-nm").innerHTML = "이름을 입력해주세요";
