@@ -23,6 +23,19 @@
         ORDER BY reg_date DESC, evnt_no DESC
         LIMIT #{offset}, #{eventPageSize}
     </select>
+<!-- 이벤트 이미지 매퍼-->
+
+    <select id="selectEventImage" resultType="eventDto">
+        SELECT evnt_no,evnt_ttl,evnt_cont,reg_date,mdf_date,fin_date,evnt_img_pth
+        FROM evnt
+        ORDER BY reg_date
+    </select>
+    <insert id="insertEventImage" parameterType="int">
+   INSERT INTO evnt(evnt_no,evnt_ttl,evnt_cont,reg_date,mdf_date,fin_date,evnt_img_pth)
+   VALUES (#{evnt_no},#{evnt_ttl},#{evnt_cont},now(),#{mdf_date},#{fin_date},#{evnt_img_pth})
+
+    </insert>
+
 
 
 </mapper>

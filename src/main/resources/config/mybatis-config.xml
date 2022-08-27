@@ -43,6 +43,8 @@
         <!-- 기혁님 끝 -->
 
         <!-- 종현님 시작 -->
+         <typeAlias alias="EventDto" type="com.devcamp.eztour.domain.event.EventDto"></typeAlias>
+
 
         <typeAlias alias="eventDto" type="com.devcamp.eztour.domain.event.EventDto"/>
 
