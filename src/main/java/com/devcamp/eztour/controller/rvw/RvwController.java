@@ -115,6 +115,7 @@ public class RvwController {
         }
 
         RvwDto rvwDto = rvwService.read(rvw_no);
+        System.out.println("rvwDto = " + rvwDto);
         m.addAttribute("rvwDto", rvwDto);
 
 

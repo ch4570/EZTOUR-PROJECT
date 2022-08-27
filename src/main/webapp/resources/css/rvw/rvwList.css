@@ -235,7 +235,24 @@ table {
 	border-radius: 10px;
 	border-width: 1px;
 	border-style: hidden;
-	display:block;
+}
+
+.reviewContent-rvw_cont{
+	margin-top: 0;
+	width: 540px;
+	height: 120px;
+	overflow: hidden;
+	display:-webkit-box; /* 속성은 블록을 수직, 수평으로 배치하거나 역순으로 배열하거나 임의로 배치 순서를 바꿀 수 있는 속성 */
+	-webkit-line-clamp: 8; /* 텍스를 자를 때 원하는 단위 ex) 8줄 */
+	-webkit-box-orient: vertical; /* 콘텐츠를 가로 또는 세로로 배치할지 여부를 결정하는 속성 */
+	word-break: break-word; /* 개행없는 글이 영역을 벗어 날 때 줄 바꿈 */
+}
+
+.reviewTitle-rvw_ttl {
+	width: 350px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .wrap .content .reviewArea .reviewDetail .reviewInfo .reviewWriter{
