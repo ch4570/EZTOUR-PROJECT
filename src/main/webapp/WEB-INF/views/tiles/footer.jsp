@@ -29,8 +29,8 @@
                         </a>
                     </li>
                     <li>
-                        <a class="aside__link" href="#">
-                            <a href="<c:url value='/product/attractive'/>"><span><i class="far fa-heart"></i></span></a>
+                        <a class="aside__link" href="<c:url value='/product/attractive'/>">
+                            <span><i class="far fa-heart"></i></span>
                             <span>관심상품</span>
                         </a>
                     </li>
