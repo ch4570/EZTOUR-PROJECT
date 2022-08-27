@@ -11,6 +11,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="https://kit.fontawesome.com/46b11191c3.js" crossorigin="anonymous"></script>
+	<link rel="shortcut icon" href="<c:url value='/image/logo/logo_shortcut.png'/> "/>
 	<link rel="stylesheet" href="/css/home/home.css">
 	<title>EZ Tour</title>
 </head>
@@ -22,7 +23,7 @@
 	<div class="header-inner">
 		<div class="main-title">
 			<a href="/">
-				<h1>EZTour</h1>
+				<h1><img src="<c:url value='/image/logo/logo_main.png'/>"><img src="<c:url value='/image/logo/logo_main_letter.png'/>"></h1>
 			</a>
 		</div>
 		<nav class="main-nav">
@@ -100,7 +101,7 @@
 						</c:if>
 					</c:when>
 				</c:choose>
-				<li><a href="#">에약확인/결제</a></li>
+				<li><a href="<c:url value='/reserv/list'/>">예약확인/결제</a></li>
 				<li><a href="/customer/main">고객센터</a></li>
 				<li><button id="open" class="prd-search"><i class="fa-solid fa-magnifying-glass"></i></button></li>
 			</ul>
