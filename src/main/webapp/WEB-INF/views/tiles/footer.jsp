@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +30,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="aside__link" href="<c:url value='/product/attractive'/>">
+                        <a class="aside__link" href="#">
                             <span><i class="far fa-heart"></i></span>
                             <span>관심상품</span>
                         </a>
@@ -89,17 +90,21 @@
                 <div class="modal_recently">
                     <i class="fa-solid fa-x" name="modal_close_btn"></i>
                     <div class="modal_tlt">
-                        <strong>최근 본 상품 (${sessionScope.trvList == null ? 0 : sessionScope.trvList.size()})</strong>
-                        <hr>
+                        <strong>최근 본 상품 (${sessionScope.trvList.size()})</strong>
                     </div>
                     <div class="modal_recently_content">
                         <div class="product--list__modal">
                             <c:forEach items="${sessionScope.trvList}" var="trvList">
                                 <div class="product__recent--list">
                                     <a><i class="fa-solid fa-x" name="product__recent--cancel" prd_cd="${trvList.prd_cd}"></i></a>
-                                    <img src="<c:url value='${trvList.img_pth}'/>" width="300px" height="400px">
-                                    <a href="/product/recent/list?prd_cd=${trvList.prd_cd}"><p>${trvList.prd_nm}</p></a>
-                                    <div class="product__cost--list"><strong>${trvList.prd_str_prc}</strong><h6>원</h6></div>
+                                    <img src="<c:url value='${trvList.img_pth}'/>" >
+                                    <a href="/product/recent/list?prd_cd=${trvList.prd_cd}">
+                                        <p>${trvList.prd_nm}</p>
+                                    </a>
+                                    <div class="product__cost--list">
+                                        <strong><fmt:formatNumber value="${trvList.prd_str_prc}" pattern="#,##0"/></strong>
+                                        <em>원</em>
+                                    </div>
                                 </div>
                             </c:forEach>
                         </div>
@@ -150,7 +155,7 @@
                             $('.product--list__modal').append('<div class="product__recent--list">'+
                                 '<a><i class="fa-solid fa-x" name="product__recent--cancel" prd_cd='+this.prd_cd+'></i></a>'
                                 + '<img src='+ this.img_pth +' width="300px" height="400px">' +
-                                '<a href="/product/recent/list?prd_nm="'+this.prd_nm+'><p>'+ this.prd_nm +'</p></a>'
+                                '<a href="/product/recent/list?prd_cd="'+this.prd_cd+'><p>'+ this.prd_nm +'</p></a>'
                                 + '<div class="product__cost--list"><strong>' + this.prd_str_prc + '</strong><h6>원</h6></div>'
                                 + '</div>'
                             );
@@ -186,7 +191,7 @@
                             $('.product--list__modal').append('<div class="product__recent--list">'+
                                 '<a><i class="fa-solid fa-x" name="product__recent--cancel" prd_cd='+this.prd_cd+'></i></a>'
                                 + '<img src='+ this.img_pth +' width="300px" height="400px">' +
-                                '<a href="/product/recent/list?prd_nm="'+this.prd_nm+'><p>'+ this.prd_nm +'</p></a>'
+                                '<a href="/product/recent/list?prd_cd="'+this.prd_cd+'><p>'+ this.prd_nm +'</p></a>'
                                 + '<div class="product__cost--list"><strong>' + this.prd_str_prc + '</strong><h6>원</h6></div>'
                                 + '</div>'
                             );

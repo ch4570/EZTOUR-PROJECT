@@ -13,10 +13,10 @@
     </div>
     <form class="customer-search" action="/customer/faqSearch" >
         <span class="search__title">무엇을 도와드릴까요?</span>
-        <div class="search__form">
-            <input type="search" name="keyword" placeholder="검색어를 입력하세요">
-            <button><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
+<%--        <div class="search__form">--%>
+<%--            <input type="search" name="keyword" placeholder="검색어를 입력하세요">--%>
+<%--            <button><i class="fa-solid fa-magnifying-glass"></i></button>--%>
+<%--        </div>--%>
     </form>
 
     <div class="customer-menu">
