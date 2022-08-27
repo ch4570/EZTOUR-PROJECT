@@ -1,11 +1,13 @@
 package com.devcamp.eztour.controller.user;
 
+import com.devcamp.eztour.domain.user.AES256Cipher;
 import com.devcamp.eztour.domain.user.NaverLoginBO;
 import com.devcamp.eztour.domain.user.UserDto;
 import com.devcamp.eztour.service.reserv.ReservService;
 import com.devcamp.eztour.service.user.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,11 +16,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -108,11 +116,13 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String loginView(HttpSession session, Model m, RedirectAttributes rattr, String lst_acc_date, String rst_chg_date, String usr_id) {
+    public String loginView(HttpSession session, Model m, RedirectAttributes rattr, String lst_acc_date,
+                            String rst_chg_date, String usr_id, @CookieValue(name="id", required = false) String enCookieId) throws Exception{
         if(session.getAttribute("userDto")==null) {
             String naverAuthUrl = naverloginbo.getAuthorizationUrl(session);
             m.addAttribute("naverUrl", naverAuthUrl);
-            System.out.println(lst_acc_date);
+
+           // 휴면 계정 date 처리
             Date lst_acc_date2 = null;
             Date rst_chg_date2= null;
             try {
@@ -128,14 +138,25 @@ public class UserController {
                 return "redirect:/";
             }
 
+            String deCookieId=null;
+            // 쿠키 복호화
+            if(enCookieId!=null) {
+                AES256Cipher a256 = AES256Cipher.getInstance();
+                deCookieId = a256.AES_Decode(enCookieId);
+            }
+
+            m.addAttribute("deCookieId",deCookieId);
             m.addAttribute("lst_acc_date", lst_acc_date2);
             m.addAttribute("rst_chg_date", rst_chg_date2);
             m.addAttribute("usr_id", usr_id);
             return "user/login.tiles";
+
         }else {
             rattr.addFlashAttribute("msg", "ACC_ERR");
             return "redirect:/";
         }
+
+
     }
 
     @PostMapping("/login")
@@ -165,11 +186,14 @@ public class UserController {
                                                  userDto.getEmail(), userDto.getRl(), userDto.getPhn(), userDto.getMlg(), userDto.getCmn_cd_prf_img());
         session.setAttribute("userDto", loginUser);
 
+        // 쿠키 암호화
+        AES256Cipher a256 = AES256Cipher.getInstance();
+
         if(rememberId) {
-            Cookie cookie = new Cookie("id", bCryptPasswordEncoder.encode(usr_id));
+            Cookie cookie = new Cookie("id", a256.AES_Encode(usr_id));
             response.addCookie(cookie);
         } else {
-            Cookie cookie = new Cookie("id", bCryptPasswordEncoder.encode(usr_id));
+            Cookie cookie = new Cookie("id", "");
             cookie.setMaxAge(0);
             response.addCookie(cookie);
         }
@@ -296,7 +320,6 @@ public class UserController {
     public String findIdPwd(){
         return "user/findIdPwd.tiles";
     }
-
 
     @RequestMapping(value="/userNaverLoginPro",  method = {RequestMethod.GET,RequestMethod.POST})
     public String userNaverLoginPro(Model model, @RequestParam Map<String,Object> paramMap, @RequestParam String code, @RequestParam String state, HttpSession session) throws SQLException, Exception {
@@ -468,4 +491,5 @@ public class UserController {
         }
         return result.toString();
     }
+
 }

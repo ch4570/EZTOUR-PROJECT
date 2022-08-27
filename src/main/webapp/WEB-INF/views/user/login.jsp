@@ -37,7 +37,7 @@
                 </nav>
 
                 <div class="form-inp">
-                    <input id="id" type="text" name="usr_id" value="${cookie.id.value}" placeholder="아이디 입력" autofocus>
+                    <input id="id" type="text" name="usr_id" value="${deCookieId}" placeholder="아이디 입력" autofocus>
                     <div class="msg" id="msg-id"></div>
                     <input id="pwd" type="password" name="pwd" placeholder="비밀번호">
                     <div class="msg" id="msg-pwd"></div>
