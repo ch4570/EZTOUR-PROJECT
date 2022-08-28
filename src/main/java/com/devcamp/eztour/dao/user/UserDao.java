@@ -12,6 +12,9 @@ public interface UserDao {
     int insertUsrHis(UserDto user) throws Exception;
 
     UserDto selectUsr(String usr_id) throws Exception;
+
+    UserDto selectUsrHst(String usr_id) throws Exception;
+
     int updateHstForLogin(String usr_id) throws Exception;
 
     int updateUsr(UserDto user) throws Exception;
@@ -43,5 +46,11 @@ public interface UserDao {
     List<Map> selectPaylogForMypage(String usr_id) throws Exception;
 
     boolean checkPwdForUsrMod(String usr_id, String pwd)throws Exception;
+
+    int changePwd(String usr_id, String new_pwd)throws Exception;
+
+    int rstRelease(String usr_id)throws Exception;
+
+    int rstReleaseLog(String usr_id)throws Exception;
 
     }

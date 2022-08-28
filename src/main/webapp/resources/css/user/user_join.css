@@ -126,7 +126,7 @@ hr{
     margin-bottom: 20px;
 }
 
-#delBtn{
+#delBtn, #pwdChangeBtn{
     width: 100px;
     height : 35px;
     background-color: #333333;

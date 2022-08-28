@@ -4,23 +4,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>네이버 로그인 성공 / 추가정보 입력</title>
+    <title>SNS 회원가입 추가정보 입력</title>
     <link rel="stylesheet" href="/css/user/user_join.css">
 </head>
-<script>
-    let msg = "${msg}";
-    if(msg=="REG_ERR")   alert("회원가입 도중 문제가 생겼습니다. 다시 시도해주세요.");
-</script>
 
 <body>
-이메일 : ${email}
-핸드폰 : ${phn}
-이름 : ${usr_nm}
-생년월일 : ${brth}
-성별 : ${gndr}
-네이버아이디 : ${naver_id}
-카카오아이디 : ${kakao_id}
-
 <h2 class="login-title" id="loginTitle">추가 정보 입력</h2>
 
 <br><br>
@@ -93,10 +81,10 @@
             <div class="input-basic">
                 <label for="">성별</label><br>
                 <div class="select"  style="display: flex; justify-content: space-between;">
-                    <input type="radio" id="select" name="gndr" value="${m}" onclick="return(false);"><label for="select" id="man">남성</label>
-                    <input type="radio" id="select2" name="gndr" value="${f}" onclick="return(false);"><label for="select2" id="woman">여성</label>
+                    <input type="radio" id="select" name="gndr" value="${m}" ${not empty kakao_id? '' : "onclick='return(false);'"}><label for="select" id="man">남성</label>
+                    <input type="radio" id="select2" name="gndr" value="${f}" ${not empty kakao_id? '' : "onclick='return(false);'"}><label for="select2" id="woman">여성</label>
                 </div>
-            </div>
+            </div
             <div class="input-basic">
                 <label for="">이메일</label><br>
                 <input type="text" class="input-field" name="email" id="email" value="${email}" >

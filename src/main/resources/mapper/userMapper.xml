@@ -58,6 +58,15 @@
             usr_id = #{usr_id}
     </select>
 
+    <select id="selectUsrHst" parameterType="string" resultType="UserDto">
+        SELECT
+            *
+        FROM
+            usr_hst
+        WHERE
+            usr_id = #{usr_id}
+    </select>
+
     <!-- 로그인시 이력테이블 업데이트 -->
     <update id="updateHstForLogin" parameterType="string">
         UPDATE
@@ -73,7 +82,6 @@
         UPDATE
             usr
         SET
-            pwd = #{pwd},
             email = #{email},
             phn = #{phn},
             cmn_cd_prf_img = #{cmn_cd_prf_img}
@@ -249,4 +257,32 @@
                 pwd = #{pwd}
             )AS pwd_check
     </select>
+
+    <update id="changePwd" parameterType="Map">
+        UPDATE
+            usr
+        SET
+            pwd = #{new_pwd}
+        WHERE
+            usr_id = #{usr_id}
+    </update>
+
+    <update id="rstRelease" parameterType="String">
+        UPDATE
+            usr
+        SET
+            cmn_cd_usr_stt = '2A'
+        WHERE
+            usr_id = #{usr_id}
+    </update>
+
+    <update id="rstReleaseLog" parameterType="String">
+        UPDATE
+            usr_hst
+        SET
+            rst_rls_date = now()
+        WHERE
+            usr_id = #{usr_id}
+    </update>
+
 </mapper>
