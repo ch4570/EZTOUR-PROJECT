@@ -29,7 +29,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="aside__link" href="#">
+                        <a class="aside__link" href="<c:url value='/product/attractive'/>">
                             <span><i class="far fa-heart"></i></span>
                             <span>관심상품</span>
                         </a>
@@ -89,7 +89,7 @@
                 <div class="modal_recently">
                     <i class="fa-solid fa-x" name="modal_close_btn"></i>
                     <div class="modal_tlt">
-                        <strong>최근 본 상품 (${sessionScope.trvList.size()})</strong>
+                        <strong>최근 본 상품 (${sessionScope.trvList == null ? 0 : sessionScope.trvList.size()})</strong>
                     </div>
                     <div class="modal_recently_content">
                         <div class="product--list__modal">
