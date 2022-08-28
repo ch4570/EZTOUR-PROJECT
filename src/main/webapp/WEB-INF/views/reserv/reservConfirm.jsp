@@ -12,7 +12,7 @@
 <head>
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-    <link rel="stylesheet" href="<c:url value='/css/reserv/reserv_confirm.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/reserv/reserv.css'/>">
 </head>
 <body>
 <div class="rc_big_box">
@@ -30,18 +30,18 @@
         <div class="rc_content_box">
             <p class="rc_content_box_header">${rcid.prd_nm}</p>
             <div>
-                <span class="arp_code">${rcid.go_dpr_arl_id}</span>
-                <span>${rcid.go_dpr_tm}</span> ~
-                <span class="arp_code">${rcid.cb_arr_arl_id}</span>
-                <span>${rcid.cb_arr_tm}</span>
+                <span class="arp_code">${rcid.arl_nm}</span>
+                <span>${rcid.dom_dpr_date}</span> ~
+                <span class="arp_code">${rcid.arl_nm}</span>
+                <span>${rcid.dom_fin_date}</span>
             </div>
             <div class="rc_dtl_content_box">
                 <div class="rc_low">
                     <dl class="rc_col1">
                         <dt>예약일</dt>
 <%--                        <c:set var="today" value="${rcid.rsvt_date}" />--%>
-<%--                        <dd><fmt:parseDate value="${today}" timeStyle="yyyy/MM/dd(E)"/></dd>--%>
-                        <dd>${rcid.rsvt_date}</dd>
+                        <dd><fmt:formatDate value="${rcid.rsvt_date}" pattern="yyyy/MM/dd(E)"/></dd>
+<%--                        <dd>${rcid.rsvt_date}</dd>--%>
                     </dl>
                     <dl class="rc_col2">
                         <dt>예약번호</dt>
@@ -71,11 +71,33 @@
                 <div class="rc_low">
                     <dl class="rc_col1">
                         <dt>상품금액</dt>
-                        <dd>${rcid.sum_prc}</dd>
+                        <dd><fmt:formatNumber value="${rcid.sum_prc}" type="number"/>원</dd>
                     </dl>
                     <dl class="rc_col2">
                         <dt>처리상태</dt>
-                        <dd>${rcid.cmn_cd_rsvt_stt}</dd>
+                        <c:choose>
+                            <c:when test="${rcid.cmn_cd_rsvt_stt eq '6A'}">
+                                <dd>예약접수</dd>
+                            </c:when>
+                            <c:when test="${rcid.cmn_cd_rsvt_stt eq '6B'}">
+                                <dd>예약승인</dd>
+                            </c:when>
+                            <c:when test="${rcid.cmn_cd_rsvt_stt eq '6C'}">
+                                <dd>예약반려</dd>
+                            </c:when>
+                            <c:when test="${rcid.cmn_cd_rsvt_stt eq '6D'}">
+                                <dd>예약취소</dd>
+                            </c:when>
+                            <c:when test="${rcid.cmn_cd_rsvt_stt eq '6E'}">
+                                <dd>예약완료</dd>
+                            </c:when>
+                            <c:when test="${rcid.cmn_cd_rsvt_stt eq '6F'}">
+                                <dd>예약불가</dd>
+                            </c:when>
+                            <c:when test="${rcid.cmn_cd_rsvt_stt eq '6G'}">
+                                <dd>예약기타상태</dd>
+                            </c:when>
+                        </c:choose>
                     </dl>
                 </div>
             </div>
@@ -85,13 +107,15 @@
         <h2 class="rc_header">여행자 정보</h2>
         <div class="rc_reserv_dtl_subbox">
             <c:forEach var="trvlrInfo" items="${tid}" begin="0" end="${tid.size()}">
-                <div class="rc_trvlr_nm">${trvlrInfo.trvlr_nm}</div>
-                <div class="rc_trvlr_info_box">
-                    <c:set var="trvlr_en_nm" value="${trvlrInfo.trvlr_en_nm}"/>
-                    <div class="rc_trvlr_en_nm">- ${empty trvlr_en_nmm ? "영문명" : trvlr_en_nm}</div>
-                    <div class="rc_trvlr_sub_box">
-                        <span class="rc_trvlr_prc_title">- 상품가 </span>
-                        <span class="rc_trvlr_prc">${trvlrInfo.pay_ftr_prc}</span>
+                <div class="rc_trvlr_box">
+                    <div class="rc_trvlr_nm">${trvlrInfo.trvlr_nm}</div>
+                    <div class="rc_trvlr_info_box">
+                        <c:set var="trvlr_en_nm" value="${trvlrInfo.trvlr_en_nm}"/>
+                        <div class="rc_trvlr_en_nm">- ${empty trvlr_en_nmm ? "영문명" : trvlr_en_nm}</div>
+                        <div class="rc_trvlr_sub_box">
+                            <span class="rc_trvlr_prc_title">- 상품가 </span>
+                            <span class="rc_trvlr_prc"><fmt:formatNumber value="${trvlrInfo.pay_ftr_prc}" type="number"/> 원</span>
+                        </div>
                     </div>
                 </div>
             </c:forEach>
@@ -106,6 +130,10 @@
 
 <script>
     $(document).ready(function(){
+        // history.pushState(null, "", location.href);
+        // window.addEventListener("popstate", () => history.pushState(null, "", location.href));
+
+
         $('.home').on("click", function(){
             location.href = '<c:url value="/"/>'
         });
@@ -113,7 +141,12 @@
         $('#rsvtCheck').on("click", function(){
             location.href = '<c:url value="/reserv/list"/>';
         });
-    })
+    });
+
+    <%--window.onpopstate = function(event){--%>
+    <%--    alert("뒤로가기를 사용 못함 :" + ${document.location});--%>
+
+    <%--}--%>
 </script>
 </body>
 </html>

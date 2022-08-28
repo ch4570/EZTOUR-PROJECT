@@ -2,6 +2,7 @@ package com.devcamp.eztour.service.reserv;
 
 import com.devcamp.eztour.dao.reserv.GuestDao;
 import com.devcamp.eztour.dao.reserv.PayDao;
+import com.devcamp.eztour.dao.reserv.TravelerInfoDao;
 import com.devcamp.eztour.dao.user.UserDao;
 import com.devcamp.eztour.domain.reserv.*;
 import com.devcamp.eztour.domain.user.UserDto;
@@ -42,6 +43,8 @@ public class PayServiceImpl implements PayService {
     GuestDao guestDao;
     @Autowired
     UserDao userDao;
+    @Autowired
+    TravelerInfoDao travelerInfoDao;
 
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder()
             .version(HttpClient.Version.HTTP_1_1)
@@ -225,6 +228,17 @@ public class PayServiceImpl implements PayService {
         }
 
         return responseMap;
+    }
+
+    @Override
+    public int deleteTrvlrList(String rsvt_no) {
+        int rowCnt = 0;
+        try {
+            rowCnt = travelerInfoDao.deleteTrvlrInfoList(rsvt_no);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rowCnt;
     }
 }
 

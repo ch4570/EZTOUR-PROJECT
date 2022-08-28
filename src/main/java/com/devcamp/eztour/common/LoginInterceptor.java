@@ -15,9 +15,10 @@ public class LoginInterceptor implements HandlerInterceptor {
         throws Exception {
         HttpSession session = request.getSession();
         UserDto userDto = (UserDto) session.getAttribute("userDto");
+        String gst_id = (String) session.getAttribute("guest");
 
         // 로그인하지 않았다면 toURL을 세션에 담아 로그인 페이지로 리다이렉트
-        if (userDto == null) {
+        if (!(userDto != null || gst_id != null)) {
             String toURL = request.getRequestURL().toString() + "?" + request.getQueryString();
             request.getSession().setAttribute("toURL", toURL);
 

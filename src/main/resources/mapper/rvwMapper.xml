@@ -207,7 +207,9 @@
         SELECT rvw_ttl,
                rvw_cont,
                wrt_nm,
-               wrt_email
+               wrt_email,
+               usr_id,
+               rvw_no
         FROM rvw
         WHERE rvw_no = #{rvw_no}
     </select>

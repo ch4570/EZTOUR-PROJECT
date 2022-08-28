@@ -36,6 +36,10 @@
     color: #cccccc;
 }
 
+.aside__menu--list li a {
+    cursor: pointer;
+}
+
 .aside__menu--list li:not(:last-child) {
     margin-bottom: 30px;
 }
@@ -126,4 +130,111 @@
 .foot-menu-dtl{
     text-decoration: none;
     margin-left: 30px;
+}
+
+.modal_main{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1050;
+}
+
+.modal_main .modal_wrap {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal_wrap .modal_recently {
+    background-color: #fff;
+    width: 65%;
+    height: 90%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    position: relative;
+    overflow-y: scroll;
+}
+
+.modal_recently .modal_tlt{
+    width: 90%;
+    height: 13%;
+    margin: 0 auto;
+}
+
+.modal_recently .modal_tlt > strong{
+    padding-top : 30px;
+    color : black;
+    font-weight: 800;
+    font-size: 23px;
+    display: inline-block;
+}
+
+.modal_tlt {
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    padding: 20px 0 0 0;
+
+}
+
+.modal_recently >i{
+    color: black;
+    float : right;
+    width: 70px;
+    font-size: 25px;
+    margin-top: 20px;
+}
+
+.modal_recently_content {
+    box-sizing: border-box;
+    margin-top: 40px;
+}
+
+.product--list__modal {
+    box-sizing: border-box;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(400px, 1fr));
+    justify-items: center;
+    row-gap: 10px;
+    padding: 0 20px;
+}
+
+.product__recent--list {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.product__recent--list a:first-child {
+    position: absolute;
+    left: 290px;
+    top: 10px;
+    color: white;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.product__recent--list img {
+    height: 400px;
+    width: 330px;
+}
+
+.product__recent--list a:not(:first-child) p {
+    width: 330px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 17px;
+    font-weight: 500;
+    margin: 10px 0;
+}
+
+.product__cost--list {
+    text-align: right;
+    font-size: 22px;
+    font-weight: 600;
 }

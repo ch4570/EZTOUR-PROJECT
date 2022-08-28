@@ -16,13 +16,13 @@ public interface ReservService {
 
     boolean saveReservInfo(ReservDto reservDto, List<TravelerInfoDto> list) throws Exception;
 
-    List getReservInfo(String prd_dtl_cd) throws Exception;
+    ReservInfoDto getReservInfo(String prd_dtl_cd) throws Exception;
 
     List getReservConfInfo(String rsvt_no, String prd_dtl_cd);
 
     List getReservList(String usr_id) throws Exception;
 
-    List getReservView(String rsvt_no, String prd_dtl_cd);
+    List getReservView(String rsvt_no);
 
     List getReservListPage(Map<String, Object> map) throws Exception;
 
@@ -38,5 +38,9 @@ public interface ReservService {
 
     int getReservCnt(String usr_id);
 
-    GuestDto guestReservCheck(String rsvt_no, String mn_rsvt_nm, String phn) throws Exception;
+    String guestReservCheck(String rsvt_no, String mn_rsvt_nm, String phn) throws Exception;
+
+    int changeReservSttNCnt(ReservDto reservDto) throws Exception;
+
+    int changeReservCount(String prd_dtl_cd, String rsvt_no, String option);
 }

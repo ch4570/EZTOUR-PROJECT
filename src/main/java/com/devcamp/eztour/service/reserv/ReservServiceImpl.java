@@ -67,27 +67,32 @@ public class ReservServiceImpl implements ReservService {
         return true;
     }
 
-    @Override
+//    @Override
 //    @Transactional(rollbackFor = Exception.class)
-    public List getReservInfo(String prd_dtl_cd) throws Exception{
-        PlatformTransactionManager tm = new DataSourceTransactionManager(ds);
-        DefaultTransactionDefinition txd = new DefaultTransactionDefinition();
-        txd.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-        TransactionStatus status = tm.getTransaction(txd);
+//    public List getReservInfo(String prd_dtl_cd) throws Exception{
+//        PlatformTransactionManager tm = new DataSourceTransactionManager(ds);
+//        DefaultTransactionDefinition txd = new DefaultTransactionDefinition();
+//        txd.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+//        TransactionStatus status = tm.getTransaction(txd);
 
         //예외를 Exception말고 더 구체적으로 지정해야할까?
         //catch블럭에서 예외를 되던지려면 @Transactional을 사용할 수 있는 방법은 없겠지?
-        try{
-            List list = new ArrayList();
-            list.add(reservDao.selectPrdInfo(prd_dtl_cd));
-            list.addAll(reservDao.selectArlReqInfo(prd_dtl_cd));
+//        try{
+//            List list = new ArrayList();
+//            list.add(reservDao.selectPrdInfo(prd_dtl_cd));
+//            list.addAll(reservDao.selectArlReqInfo(prd_dtl_cd));
+//
+//            tm.commit(status);
+//            return list;
+//        } catch (Exception e){
+//            tm.rollback(status);
+//            throw new Exception("예약정보 불러오기 실패");
+//        }
 
-            tm.commit(status);
-            return list;
-        } catch (Exception e){
-            tm.rollback(status);
-            throw new Exception("예약정보 불러오기 실패");
-        }
+//    }
+    @Override
+    public ReservInfoDto getReservInfo(String prd_dtl_cd) throws Exception{
+        return reservDao.selectPrdInfo(prd_dtl_cd);
     }
 
     @Override
@@ -98,7 +103,7 @@ public class ReservServiceImpl implements ReservService {
         try {
             list.add(reservDao.selectReservConfInfo(rsvt_no));
             list.addAll(travelerInfoDao.selectTrvlrInfoList(rsvt_no));
-            list.addAll(reservDao.selectArlReqInfo(prd_dtl_cd));
+//            list.addAll(reservDao.selectArlReqInfo(prd_dtl_cd));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,14 +117,14 @@ public class ReservServiceImpl implements ReservService {
     }
 
     @Override
-    public List getReservView(String rsvt_no, String prd_dtl_cd){
+    public List getReservView(String rsvt_no){
         List<Object> list = new ArrayList<>();
             //트랜잭션 처리!!
         try {
             ReservConfInfoDto rcid = reservDao.selectReservConfInfo(rsvt_no);
             list.add(rcid);
             list.addAll(travelerInfoDao.selectTrvlrInfoList(rsvt_no));
-            list.addAll(reservDao.selectArlReqInfo(rcid.getPrd_dtl_cd()));
+//            list.addAll(reservDao.selectArlReqInfo(rcid.getPrd_dtl_cd()));
             list.add(payDao.selectPay(rsvt_no));
         } catch (Exception e) {
             e.printStackTrace();
@@ -190,7 +195,7 @@ public class ReservServiceImpl implements ReservService {
             result.put("pageHandler", ph);
 
             Map<String, Integer> map = new HashMap<>();
-            map.put("offset", (page-1) * pageSize + 1);
+            map.put("offset", (page-1) * pageSize);
             map.put("pageSize", pageSize);
 
             List<ReservDto> list = reservDao.selectTheUnAppredListPage(map);
@@ -213,14 +218,32 @@ public class ReservServiceImpl implements ReservService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public GuestDto guestReservCheck(String rsvt_no, String mn_rsvt_nm, String phn) throws Exception{
+    public String guestReservCheck(String rsvt_no, String mn_rsvt_nm, String phn) throws Exception{
         Map<String, String> map = new HashMap<>();
         map.put("rsvt_no", rsvt_no);
         map.put("mn_rsvt_nm", mn_rsvt_nm);
         map.put("phn", phn);
 
-        String gst_id = reservDao.selectGuestReserv(map);
-        GuestDto guestDto = guestDao.selectGuest(gst_id);
-        return guestDto;
+        return reservDao.selectGuestReserv(map);
+    }
+
+    @Override
+    public int changeReservSttNCnt(ReservDto reservDto) throws Exception{
+        return reservDao.updateReservCancel(reservDto);
+    }
+
+    @Override
+    public int changeReservCount(String prd_dtl_cd, String rsvt_no, String option){
+        Map<String, Object> map = new HashMap<>();
+        map.put("prd_dtl_cd", prd_dtl_cd);
+        map.put("rsvt_no", rsvt_no);
+        map.put("option", option);
+        int rowCnt = 0;
+        try {
+            rowCnt = reservDao.updateReservCnt(map);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rowCnt;
     }
 }

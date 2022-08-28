@@ -23,7 +23,7 @@ public class TrvPrdDtlReadDto {
     private Integer lk_yn;
     private Integer mn_img_yn;
     private String prd_dtl_cd;
-    private int	    prd_str_prc;
+    private String prd_str_prc;
     private String	arl_nm;
     private Integer	dpr_yn;
     private Integer rsvt_yn;
@@ -49,7 +49,7 @@ public class TrvPrdDtlReadDto {
     private String dom_fin_date;
 
 
-    public TrvPrdDtlReadDto(String prd_dtl_cd, String prd_cd, String arl_nm, int prd_str_prc, String dom_dpr_date, String prd_nm) {
+    public TrvPrdDtlReadDto(String prd_dtl_cd, String prd_cd, String arl_nm, String prd_str_prc, String dom_dpr_date, String prd_nm) {
         this.prd_dtl_cd = prd_dtl_cd;
         this.prd_cd = prd_cd;
         this.prd_str_prc = prd_str_prc;
@@ -58,7 +58,7 @@ public class TrvPrdDtlReadDto {
         this.prd_nm = prd_nm;
     }
 
-    public TrvPrdDtlReadDto(String prd_dtl_cd, String prd_cd, int prd_str_prc, String arl_nm, int min_stt_cnt, int max_stt_cnt,
+    public TrvPrdDtlReadDto(String prd_dtl_cd, String prd_cd, String prd_str_prc, String arl_nm, int min_stt_cnt, int max_stt_cnt,
                             String dom_dpr_date, String prd_nm, String dom_fin_date,String loc_dpr_date, String loc_fin_date) {
         this.prd_dtl_cd = prd_dtl_cd;
         this.prd_cd = prd_cd;
@@ -73,7 +73,7 @@ public class TrvPrdDtlReadDto {
         this.loc_fin_date = loc_fin_date;
         }
 
-    public TrvPrdDtlReadDto(String img_pth,Integer mn_img_yn, String prd_cd, String prd_nm,Integer prd_str_prc) {
+    public TrvPrdDtlReadDto(String img_pth,Integer mn_img_yn, String prd_cd, String prd_nm,String prd_str_prc) {
         this.img_pth = img_pth;
         this.mn_img_yn = mn_img_yn;
         this.prd_cd = prd_cd;
@@ -116,7 +116,7 @@ public class TrvPrdDtlReadDto {
 
     // 영욱님 공용 -> 수정 금지
     public TrvPrdDtlReadDto(String prd_cd, String dstn_cd, String cmn_cd_thm, String prd_nm, String prd_dtl_desc, String trv_per,
-                            Integer prd_str_prc, Date dpr_str_date, Date dpr_fin_date,
+                            String prd_str_prc, Date dpr_str_date, Date dpr_fin_date,
                             Integer evnt_yn, Integer fin_yn, Integer act_yn, Integer dc_yn,
                             Integer pc_prc, Integer vcnt, Integer lk_yn, String img_pth,
                             Integer mn_img_yn) {
@@ -141,7 +141,7 @@ public class TrvPrdDtlReadDto {
     }
 
     public TrvPrdDtlReadDto(String prd_cd, String dstn_cd, String cmn_cd_thm, String prd_nm, String prd_dtl_desc, String trv_per,
-                            Integer prd_str_prc, Date dpr_str_date, Date dpr_fin_date,
+                            String prd_str_prc, Date dpr_str_date, Date dpr_fin_date,
                             Integer evnt_yn, Integer fin_yn, Integer act_yn, Integer dc_yn,
                             Integer pc_prc, Integer vcnt, Integer lk_yn, String img_pth,
                             Integer mn_img_yn, String prd_dtl_cd, String arl_nm, Integer dpr_yn, Integer rsvt_yn, String nt_cd_nm) {
@@ -171,7 +171,7 @@ public class TrvPrdDtlReadDto {
     }
 
     public TrvPrdDtlReadDto(String prd_cd, String dstn_cd, String cmn_cd_thm, String prd_nm, String prd_dtl_desc, String trv_per,
-                            Integer prd_str_prc, Date dpr_str_date, Date dpr_fin_date,
+                            String prd_str_prc, Date dpr_str_date, Date dpr_fin_date,
                             Integer evnt_yn, Integer fin_yn, Integer act_yn, Integer dc_yn, Integer pc_prc,
                             int vcnt, Integer lk_yn, String img_pth, Integer mn_img_yn,
                             String usr_id,String dpr_day) {
@@ -195,6 +195,13 @@ public class TrvPrdDtlReadDto {
         this.mn_img_yn = mn_img_yn;
         this.usr_id = usr_id;
         this.dpr_day = dpr_day;
+    }
+
+    public TrvPrdDtlReadDto(String prd_cd, String prd_nm, String prd_str_prc, String img_pth){
+        this.prd_cd = prd_cd;
+        this.prd_nm = prd_nm;
+        this.prd_str_prc = prd_str_prc;
+        this.img_pth = img_pth;
     }
 
 }

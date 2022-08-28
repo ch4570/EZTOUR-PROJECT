@@ -8,4 +8,6 @@ public interface TravelerInfoDao {
     int insertTrvlrInfo(List<TravelerInfoDto> travelerInfoDto) throws Exception;
 
     List<TravelerInfoDto> selectTrvlrInfoList(String rsvt_no) throws Exception;
+
+    int deleteTrvlrInfoList(String rsvt_no) throws Exception;
 }

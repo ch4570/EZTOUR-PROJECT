@@ -200,7 +200,7 @@
                     $("#kakaoGender").val(response.kakao_account.gender);
                     $("#kakaoForm").submit();
                 } else {
-                    alert("로그인에 실패했습니다");
+                    alert("통신엔 성공했지만 로그인엔 실패 -> 컨트롤러문제");
                 }
             },
             error: function (xhr, status, error) {

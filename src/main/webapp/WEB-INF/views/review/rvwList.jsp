@@ -2,12 +2,14 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ page session="true"%>
+<c:set var="loginId" value="${sessionScope.userDto.usr_id==null ? '' : sessionScope.userDto.usr_id}"/>
+<c:set var="loginName" value="${loginId=='' ? '' : sessionScope.userDto.usr_nm}"/>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>fastcampus</title>
-    <link rel="stylesheet" href="<c:url value='/css/rvw/rvwList.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/rvw/rvwList.css?after'/>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
@@ -47,42 +49,44 @@
                     </select>
 
                     <input class="searchInput" type="text" name="keyword" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
-                    <input class="searchButton" type="submit" value="검색">
+                    <input class="searchButton sz-inp st-lblue btn_summit" type="submit" value="검색">
                 </form>
+                <c:choose>
+                    <c:when test="${loginId==''}">
+                        <button type="button" class="button-27" role="button" id="loginWriteBtn" style="margin-left: 610px; width: 66px; height: 49px; margin-top: 15px">작성하기</button>
+                    </c:when>
+                    <c:when test="${loginId!=''}">
+                        <button type="button" class="button-27" role="button" id="writeBtn" style="margin-left: 610px; width: 66px; height: 49px; margin-top: 15px">작성하기</button>
+                    </c:when>
+                </c:choose>
+                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","N")}'/>">최신순</a>
+                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","O")}'/>">오래된순</a>
+                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","L")}'/>">가장 많은 좋아요</a>
+                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","V")}'/>">가장 많은 조회수</a>
             </div>
         </div>
-        <button type="button" id="writeBtn" onclick="location.href='<c:url value="/review/write"/>'">작성하기</button>
         <div class="highArea">
             <a class="totalCnt">
                 총 ${totalCnt}건
             </a>
-            <!--div class="sort">
-<%--                <span class="sort_name" style="margin-right: 30px;" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("","N")}'/>'">최신순</span>--%>
-                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","N")}'/>">최신순</a>
-<%--                <span class="sort_name" style="margin-right: 30px;" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("","O")}'/>'">오래된순</span>--%>
-                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","O")}'/>">오래된순</a>
-<%--                <span class="sort_name" style="margin-right: 30px;" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("","L")}'/>'">가장 많은 좋아요</span>--%>
-                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","L")}'/>">가장 많은 좋아요</a>
-<%--                <span class="sort_name" onclick="location.href='<c:url value='/review/list${ph.sc.getQueryString("","V")}'/>'">가장 많은 조회수</span>--%>
-                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","V")}'/>">가장 많은 조회수</a>
-            </div-->
         </div>
         <div class="reviewArea">
             <c:forEach var="rvwDto" items="${list}">
-                <section class="reviewDetail"><a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>">${rvwDto.rvw_ttl}</a>
+                <section class="reviewDetail"><a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>"></a>
                     <div class="reviewImg">
-                        <img src="${rvwDto.img_pth}">
+                        <img class="reviewImg-thumbnail" src="/image/review/IMG_0966.JPG"  width="290" height="290">
+                        <!--img class="reviewImg-thumbnail" src="${rvwDto.img_pth}"-->
                     </div>
                     <div class="reviewInfo">
                         <div class="reviewTitle">
                             <br>
                             <a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>">
-                                <span class="reviewTitle-rvw_ttl">${rvwDto.rvw_ttl}</span>
+                                <p class="reviewTitle-rvw_ttl"><c:out value="${rvwDto.rvw_ttl}"/></p>
                             </a>
                         </div>
                         <div class="reviewContent">
                             <a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>">
-                                <span class="reviewContent-rvw_cont">${rvwDto.rvw_cont}</span>
+                                <p class="reviewContent-rvw_cont"><c:out value="${rvwDto.rvw_cont}"/></p>
                             </a>
                         </div>
                         <div class="reviewWriter">
@@ -125,6 +129,19 @@
     </div>
 </div>
 <script>
+    $(document).ready(function (){
+
+        $('#writeBtn').on("click", function(){
+            location.href = "<c:url value='/review/write'/>";
+        });
+
+        $('#loginWriteBtn').on("click", function(){
+            if(!confirm("후기 작성하기는 로그인이 필요합니다. 회원가입 하시겠어요?")) return;
+            location.href = "<c:url value='/user/login'/>";
+        });
+
+
+    });
 </script>
 </body>
 </html>
