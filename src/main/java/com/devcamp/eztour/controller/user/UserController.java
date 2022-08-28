@@ -1,23 +1,36 @@
 package com.devcamp.eztour.controller.user;
 
+import com.devcamp.eztour.domain.user.AES256Cipher;
 import com.devcamp.eztour.domain.user.NaverLoginBO;
 import com.devcamp.eztour.domain.user.UserDto;
 import com.devcamp.eztour.service.reserv.ReservService;
 import com.devcamp.eztour.service.user.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +45,9 @@ public class UserController {
     NaverLoginBO naverloginbo;
     @Autowired
     ReservService reservService;
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @GetMapping("/selectJoin")
     public String selectJoin(HttpSession session, Model m, RedirectAttributes rattr) {
@@ -46,19 +62,26 @@ public class UserController {
     }
 
     @GetMapping("/auth")
-    public String auth() {
+    public String auth(HttpSession session) {
         return "user/auth.tiles";
     }
 
-    // 인증번호 맞을시 이름과 폰번호를 들고 redirect
+    // 인증번호 맞을시 중복체크 후에 이름과 폰번호 들고 redirect
     @PostMapping("/authOk")
-    public String authOk(String usr_nm, String phn) throws Exception {
+    public String authOk(String usr_nm, String phn, RedirectAttributes rattr) throws Exception {
+
+        if(userService.findId(usr_nm, phn)!=null){
+            rattr.addFlashAttribute("msg","DUPL_ID");
+            return "redirect:/user/auth";
+        }
+
         usr_nm = URLEncoder.encode(usr_nm, "utf-8");
         return "redirect:/user/join?usr_nm="+usr_nm+"&phn="+phn;
     }
 
     @GetMapping("/join")
     public String join(HttpSession session, RedirectAttributes rattr, String usr_nm, String phn, Model m, HttpServletResponse response) {
+
         if(session.getAttribute("userDto")==null && usr_nm != null && phn != null) {
             m.addAttribute("usr_nm", usr_nm);
             m.addAttribute("phn", phn);
@@ -80,6 +103,11 @@ public class UserController {
         user.setGndr(gndr);
         System.out.println("user = " + user);
 
+        // 비밀번호 암호화
+        String encodedPwd = bCryptPasswordEncoder.encode(user.getPwd());
+        System.out.println("encodedPwd = " + encodedPwd);
+        user.setPwd(encodedPwd);
+
         try {
             int rowCnt = userService.insertUsr(user);
             if (rowCnt != 1)
@@ -94,11 +122,41 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String loginView(HttpSession session, Model m, RedirectAttributes rattr) {
+    public String loginView(HttpSession session, Model m, RedirectAttributes rattr, String lst_acc_date,
+                            String rst_chg_date, String usr_id, @CookieValue(name="id", required = false) String enCookieId) throws Exception{
         if(session.getAttribute("userDto")==null) {
             String naverAuthUrl = naverloginbo.getAuthorizationUrl(session);
             m.addAttribute("naverUrl", naverAuthUrl);
+
+           // 휴면 계정 date 처리
+            Date lst_acc_date2 = null;
+            Date rst_chg_date2= null;
+            try {
+                SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                if(lst_acc_date!=null && rst_chg_date!=null) {
+                    lst_acc_date2 = transFormat.parse(lst_acc_date);
+                    rst_chg_date2 = transFormat.parse(rst_chg_date);
+                    System.out.println("date타입 포맷되어 모델에 들어가나요?");
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+                rattr.addFlashAttribute("msg", "ACC_ERR");
+                return "redirect:/";
+            }
+
+            String deCookieId=null;
+            // 쿠키 복호화
+            if(enCookieId!=null) {
+                AES256Cipher a256 = AES256Cipher.getInstance();
+                deCookieId = a256.AES_Decode(enCookieId);
+            }
+
+            m.addAttribute("deCookieId",deCookieId);
+            m.addAttribute("lst_acc_date", lst_acc_date2);
+            m.addAttribute("rst_chg_date", rst_chg_date2);
+            m.addAttribute("usr_id", usr_id);
             return "user/login.tiles";
+
         }else {
             rattr.addFlashAttribute("msg", "ACC_ERR");
             return "redirect:/";
@@ -110,9 +168,19 @@ public class UserController {
                         HttpSession session, HttpServletResponse response, RedirectAttributes rattr) throws Exception {
 
         UserDto userDto = userService.selectUsr(usr_id);
-        System.out.println(usr_id);
 
-        if(!(userDto!=null && userDto.getPwd().equals(pwd))) {
+        if(userDto.getCmn_cd_usr_stt().equals("2C")) {
+            userDto = userService.selectUsrHst(usr_id);
+
+            SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String lst_acc_date = transFormat.format(userDto.getLst_acc_date());
+            String rst_chg_date = transFormat.format(userDto.getRst_chg_date());
+
+            String rstmsg="RST_ERR";
+            return "redirect:/user/login?lst_acc_date=" +lst_acc_date+ "&rst_chg_date=" +rst_chg_date+ "&rstmsg=" +rstmsg+ "&usr_id=" +usr_id;
+        }
+
+        if(!(userDto!=null && bCryptPasswordEncoder.matches(pwd,userDto.getPwd()))) {
             rattr.addFlashAttribute("msg", "LOGIN_FAIL");
             return "redirect:/user/login";
         }
@@ -122,11 +190,14 @@ public class UserController {
                                                  userDto.getEmail(), userDto.getRl(), userDto.getPhn(), userDto.getMlg(), userDto.getCmn_cd_prf_img());
         session.setAttribute("userDto", loginUser);
 
+        // 쿠키 암호화
+        AES256Cipher a256 = AES256Cipher.getInstance();
+
         if(rememberId) {
-            Cookie cookie = new Cookie("id", usr_id);
+            Cookie cookie = new Cookie("id", a256.AES_Encode(usr_id));
             response.addCookie(cookie);
         } else {
-            Cookie cookie = new Cookie("id", usr_id);
+            Cookie cookie = new Cookie("id", "");
             cookie.setMaxAge(0);
             response.addCookie(cookie);
         }
@@ -134,7 +205,6 @@ public class UserController {
         String toURL = (String) session.getAttribute("toURL");
         toURL = toURL==null || toURL.equals("") ? "/" : toURL;
         return "redirect:"+toURL;
-
     }
 
     @GetMapping("/logout")
@@ -243,7 +313,7 @@ public class UserController {
 
         userDto = userService.selectUsr(userDto.getUsr_id()); // 예외처리 예정
 
-        if(!(userDto!=null && userDto.getPwd().equals(pwd))) {
+        if(!(userDto!=null && bCryptPasswordEncoder.matches(pwd,userDto.getPwd()))) {
             String pwCheckErr = URLEncoder.encode("pwd가 일치하지 않습니다.", "utf-8");
             return "redirect:/user/usrMod?pwCheckErr="+pwCheckErr;
         }
@@ -254,7 +324,6 @@ public class UserController {
     public String findIdPwd(){
         return "user/findIdPwd.tiles";
     }
-
 
     @RequestMapping(value="/userNaverLoginPro",  method = {RequestMethod.GET,RequestMethod.POST})
     public String userNaverLoginPro(Model model, @RequestParam Map<String,Object> paramMap, @RequestParam String code, @RequestParam String state, HttpSession session) throws SQLException, Exception {
@@ -327,7 +396,6 @@ public class UserController {
 
     @PostMapping ("/setNaverConnection")
     public String setNaverConnection(String naver_id, HttpSession session, RedirectAttributes rattr){
-
         return "redirect:/";
     }
 
@@ -345,14 +413,15 @@ public class UserController {
         return "user/setSubInfo.tiles";
     }
 
-    @PostMapping("checkPwdForUsrMod")
+    @PostMapping("/checkPwdForUsrMod")
     public String checkPwdForUsrMod(HttpSession session, String pwd, RedirectAttributes rattr){
         UserDto userDto = (UserDto) session.getAttribute("userDto");
         String usr_id = userDto.getUsr_id();
-
         try {
-            boolean pwdCheck = userService.checkPwdForUsrMod(usr_id, pwd);
-            if(pwdCheck==true)
+            // 세션에 있는 아이디를 가져와서 유저정보를 다 가져오고, 거기서 비밀번호랑 해시암호랑 같은지 확인
+            userDto = userService.selectUsr(usr_id);
+            boolean pwdCheck = bCryptPasswordEncoder.matches(pwd, userDto.getPwd());
+            if(pwdCheck)
                 return "redirect:/user/usrMod";
 
             rattr.addFlashAttribute("msg","GET_ERR");
@@ -363,6 +432,52 @@ public class UserController {
             rattr.addFlashAttribute("msg","DB_ERR");
             return "redirect:/user/mypage";
         }
+    }
+
+    @PostMapping("/changePwd")
+    public String changePwd(HttpSession session, String pwd, String new_pwd, RedirectAttributes rattr) {
+        UserDto userDto = (UserDto) session.getAttribute("userDto");
+        String usr_id = userDto.getUsr_id();
+
+        try {
+            userDto = userService.selectUsr(usr_id);
+            boolean pwdCheck = bCryptPasswordEncoder.matches(pwd, userDto.getPwd());
+            System.out.println("pwd = " + pwd);
+            System.out.println("userDto.getPwd() = " + userDto.getPwd());
+            if(!pwdCheck){
+                rattr.addFlashAttribute("msg","PWD_ERR");
+                return "redirect:/user/usrMod";
+            }
+
+            String encodedPwd = bCryptPasswordEncoder.encode(new_pwd);
+            int rowCnt = userService.changePwd(usr_id, encodedPwd);
+            if(rowCnt != 1){
+                throw new Exception("user update error");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            rattr.addFlashAttribute("msg","MOD_ERR");
+            return "redirect:/user/usrMod";
+        }
+        rattr.addFlashAttribute("msg","MOD_OK");
+        return "redirect:/user/mypage";
+    }
+
+    @PostMapping("/rstRelease")
+    public String rstRelease(String usr_id, RedirectAttributes rattr){
+        try {
+            System.out.println("휴면 릴리즈에서 usr_id = " + usr_id);
+            int rowCnt = userService.rstRelease(usr_id);
+            if(rowCnt!=1)
+                throw new Exception("user rstRelease error");
+        } catch (Exception e) {
+            e.printStackTrace();
+            rattr.addFlashAttribute("msg","RST_ERR");
+            return "redirect:/user/login";
+        }
+        System.out.println("된건가?");
+        rattr.addFlashAttribute("msg","RLS_OK");
+        return "redirect:/user/login";
     }
 
     // 유니코드로된 이름 한글 변환
@@ -380,4 +495,5 @@ public class UserController {
         }
         return result.toString();
     }
+
 }

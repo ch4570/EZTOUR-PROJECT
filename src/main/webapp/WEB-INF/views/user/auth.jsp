@@ -57,6 +57,9 @@
     </div>
 
 <script>
+    let msg = "${msg}";
+    if(msg=="DUPL_ID")  alert("이미 가입한 사용자입니다.");
+
     function setMessage(msg, element) {
         if (msg == 'no-nm') {
             document.getElementById("msg-nm").innerHTML = "이름을 입력해주세요";
@@ -87,7 +90,6 @@
             setMessage('no-phn', $("phn"));
             return false;
         }
-
             $.ajax({
             type:'GET',       // 요청 메서드
             url: '/authPhn/' + phn,  // 요청 URI
@@ -133,6 +135,7 @@
     }
     openAuthModalBtn.addEventListener("click", openAuthModal);
     authOverlay.addEventListener("click", closeAuthModal);
+    authOverlay.addEventListener("click", function(){document.getElementById('authform').reset();});
 
 </script>
 </body>

@@ -71,6 +71,7 @@
 			<exclude-mapping path="/user/setSubInfo"/>
 			<exclude-mapping path="/user/findIdPwd"/>
 			<exclude-mapping path="/user/selectJoin"/>
+			<exclude-mapping path="/user/rstRelease"/>
 			<beans:ref bean="LoginInterceptor"/>
 		</interceptor>
 	</interceptors>

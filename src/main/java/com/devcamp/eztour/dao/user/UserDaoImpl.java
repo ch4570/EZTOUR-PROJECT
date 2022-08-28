@@ -34,6 +34,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public UserDto selectUsrHst(String usr_id) throws Exception {
+        return session.selectOne(namespace+"selectUsrHst", usr_id);
+    }
+
+    @Override
     public int updateHstForLogin(String usr_id) throws Exception {
         return session.update(namespace+"updateHstForLogin", usr_id);
     }
@@ -135,5 +140,21 @@ public class UserDaoImpl implements UserDao {
         return session.selectOne(namespace+"checkPwdForUsrMod", map);
     }
 
+    @Override
+    public int changePwd(String usr_id, String new_pwd){
+        Map map = new HashMap<>();
+        map.put("usr_id", usr_id);
+        map.put("new_pwd", new_pwd);
+        return session.update(namespace+"changePwd", map);
+    }
 
+    @Override
+    public int rstRelease(String usr_id){
+        return session.update(namespace+"rstRelease", usr_id);
+    }
+
+    @Override
+    public int rstReleaseLog(String usr_id){
+        return session.update(namespace+"rstReleaseLog", usr_id);
+    }
 }

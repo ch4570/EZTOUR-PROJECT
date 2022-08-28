@@ -6,6 +6,7 @@ import com.devcamp.eztour.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,9 @@ public class UserRestController {
 
     @Autowired
     private MailSendService mailService;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // 아이디 중복여부 가져오는 메서드
     @GetMapping("/checkId/{usr_id}")
@@ -84,10 +88,10 @@ public class UserRestController {
     public ResponseEntity<Boolean> checkPwdForUsrMod(@PathVariable String pwd, HttpSession session){
         UserDto userDto = (UserDto) session.getAttribute("userDto");
         String usr_id = userDto.getUsr_id();
-        System.out.println(usr_id);
-        System.out.println(pwd);
         try {
-            boolean pwdCheck = userService.checkPwdForUsrMod(usr_id, pwd);
+            userDto = userService.selectUsr(usr_id);
+            System.out.println("userDto.getPwd() = " + userDto.getPwd());
+            boolean pwdCheck = bCryptPasswordEncoder.matches(pwd, userDto.getPwd());
             return new ResponseEntity<>(pwdCheck, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

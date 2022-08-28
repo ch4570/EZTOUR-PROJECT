@@ -26,7 +26,7 @@
                 <div class="find-info">
                     <i class="fa fa-check" aria-hidden="true"></i> 아이디와 비밀번호를 찾을 수 없는 경우 대표번호(1577-0000)로 문의 바랍니다.
                 </div>
-                <hr>
+                <hr style="width: 540px;">
                 <nav class="find-nav">
                     <button  type="button" id="findId" onclick="findIdView()" >아이디 찾기</button>
                     <button  type="button" id="findPwd" onclick="findPwdView()" >비밀번호 찾기</button>
@@ -107,6 +107,9 @@
             'border-bottom': '3px solid #E6E6E6',
             'color' : 'gray'
         });
+
+        document.getElementById('usr_nm').value = null;
+        document.getElementById('phn').value = null;
     }
 
     function findIdView() {
@@ -123,6 +126,10 @@
             'border-bottom': '3px solid #E6E6E6',
             'color': 'gray'
         });
+
+        document.getElementById('usrid').value = null;
+        document.getElementById('usrnm').value = null;
+        document.getElementById('email1').value = null;
     }
 
     function authPhn(){
