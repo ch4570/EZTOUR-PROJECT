@@ -22,9 +22,9 @@
                 <a><i class="fa-solid fa-x" name="product__attr--cancel" prd_cd="${list.prd_cd}"></i></a>
                 <img src="${list.img_pth}" width="350px" height="250px">
                 <div class="text">
-                    <p>상품코드 ${list.prd_cd}</p>
+                    <a href="<c:url value='/product/recent/list?prd_cd=${list.prd_cd}'/>"><p>상품코드 ${list.prd_cd}</p>
                     <p>${list.prd_nm}</p>
-                    <strong><fmt:formatNumber value="${list.prd_str_prc}" pattern="#,##0"/></strong><em> 원~</em>
+                    <strong><fmt:formatNumber value="${list.prd_str_prc}" pattern="#,##0"/></strong><em> 원~</em></a>
                 </div>
             </div>
         </c:forEach>
