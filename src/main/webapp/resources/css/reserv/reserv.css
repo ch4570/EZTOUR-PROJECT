@@ -1,3 +1,53 @@
+button{
+    cursor: pointer;
+}
+.reserv_main_header {
+    font-size: 35px;
+    font-weight: 700;
+    margin: 0 0 84px 0;
+    text-align: center;
+}
+.reserv_icon_box{
+    background-size: cover;
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+}
+.pay_conf_icon{
+    background-image: url("/icon/plane-ticket.png");
+}
+.reserv_conf_icon{
+    background-image: url("/icon/suitcase.png");
+}
+.reserv_btn_large{
+    width: 365px;
+    height: 52px;
+    border: 1px solid black;
+    background-color: black;
+    color: white;
+    font-size: 17px;
+    border-radius: 3px;
+}
+
+.reserv_conf_main_header {
+    font-size: 35px;
+    font-weight: 700;
+    margin: 0 0 28px 0;
+    text-align: center;
+}
+
+.reserv_top_border{
+    border-top: 1px solid black;
+    padding-top: 31px;
+}
+
+.reserv_m_btn{
+    width: 175px;
+    height: 54px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
 /*예약페이지*/
 .ri_biggest_box {
     padding: 65px 0 0 0;
@@ -292,13 +342,6 @@
     margin: 0 0 25px 0;
 }
 
-.reserv_main_header {
-    font-size: 35px;
-    font-weight: 700;
-    margin: 0 0 84px 0;
-    text-align: center;
-}
-
 .rc_header{
     font-size: 22px;
     font-weight: 600;
@@ -307,12 +350,11 @@
 }
 
 .rc_middle_box div {
-    text-align: center;
-    margin: 32px 0 30px 0;
+    margin: 32px 0 0px 0;
 }
 
 .rc_middle_box div p{
-    margin: 0 0 7px 0;
+    margin: 0 0 9px 0;
 }
 .rc_content_box{
     width: 100%;
@@ -322,6 +364,7 @@
     font-size: 18px;
     font-weight: 700;
     margin: 0 0 10px 0;
+    line-height: 26px;
 }
 .rc_dtl_content_box{
     display: block;
@@ -348,26 +391,27 @@
 }
 .rc_col1 dt,
 .rc_col2 dt{
-    width: 70px;
+    width: 116px;
+    color: #a8a8a8;
+    font-weight: 600;
 }
 
 .rc_reserv_dtl_subbox{
-    margin: 0 0 25px 0;
-    width: 100%;
+    padding: 0 70px;
 }
-.rc_trvlr_box {
+.rc_trvlr_box:not(:last-child) {
     margin: 0 0 29px 0;
 }
 .rc_trvlr_nm{
     font-size: 20px;
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 17px;
 }
 .rc_trvlr_info_box{
 
 }
 .rc_trvlr_en_nm{
-    margin-bottom: 10px;
+    margin-bottom: 16px;
     width: 50%;
     display: inline-block;
     color: #a8a8a8;
@@ -379,7 +423,8 @@
 .rc_trvlr_prc_title{
     color: #a8a8a8;
     font-weight: 600;
-    margin-right: 54px;
+    width: 130px;
+    display: inline-block;
 }
 .rc_trvlr_prc{
     font-size: 19px;
@@ -391,12 +436,21 @@
 }
 
 .rc_btn{
-    width: 150px;
-    height: 44px;
+    width: 160px;
+    height: 48px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.rc_btn_margine{
-    margin: 0 10px 0 0;
+.rc_btn_m{
+    width: 226px;
+    height: 48px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.rc_btn_margin{
+    margin: 0 42px 0 0;
 }
 
 <!-- 예약내역 상세페이지 -->
@@ -444,17 +498,19 @@
     font-size: 22px;
     font-weight: 600;
     margin: 0 0 15px 0px;
+    line-height: 27px;
 }
 .dv_arl_box{
     margin: 0 0 10px 0;
 }
 .dv_arl_code{
     border: 1px solid #006f80;
-    border-radius: 4px;
+    border-radius: 2px;
     color: #006f80;
     display: inline-block;
     height: 21px;
     line-height: 21px;
+    margin-right: 4px;
 }
 .dv_detail_box{
 
@@ -481,7 +537,7 @@
 
 .dv_col1 dt,
 .dv_col2 dt{
-    width: 117px;
+    width: 130px;
     color: #acabab;
     font-size: 15px;
     font-weight: 600;
@@ -494,39 +550,152 @@
  /*결제 페이지*/
 .pv_big_box{
     display: block;
+    margin: 77px 0;
 }
 .pv_header{
     font-size: 25px;
     font-weight: 700;
     text-align: center;
-    margin: 64px 0;
+    margin: 0 0 64px 0;
 }
-.pv_mth_box{
+.pv_sub_box{
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    margin: auto;
+}
+.pv_pg_box{
     text-align: center;
-    margin-bottom: 60px;
+    display: flex;
+    margin: 0 auto;
+    width: 100%;
 }
+
+.pv_pg_box button{
+    border: 1px solid white;
+    padding: 10px 24px;
+    cursor: pointer;
+    width: 33.3%;
+    height: 57px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.pv_pg{
+}
+
+.pv_active {
+    background-color: #000000;
+    color: white;
+}
+
 .pay_mth_credit{
     margin: 10px 0;
 }
 .pv_dtl_box{
-    width: 60%;
+    padding: 49px 0 61px 0;
+    width: 100%;
     margin: auto;
 }
+.pv_dtl_box span{
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 21px;
+}
+.pv_dtl_box p{
+    margin-bottom: 21px;
+    color: #3f3f3f;
+}
+
 .pv_low{
-    margin: 0 0 40px 0;
+    margin: 0 0 36px 0;
+    display: block;
+    width: 100%;
 }
 .pv_label{
-    font-size: 20px;
-    margin-right: 20px;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
 }
-.pv_no_border{
-    border: 1px;
-    font-size: 20px;
+.pv_mlg_info {
+    margin-top: 13px;
 }
+
+.pv_large_inputbox{
+    border: 1px solid #bfbfbf;
+    font-size: 19px;
+    width: 95%;
+    height: 51px;
+    padding: 0px 14px;
+    background-color: #e7e6e6;
+}
+.pv_mlg_box {
+    position: relative;
+    height: 100%;
+}
+.pv_large_inputbox:focus{
+    outline: none;
+}
+.pv_large_inputbox_white{
+    border: 1px solid #bfbfbf;
+    font-size: 19px;
+    width: 76%;
+    height: 51px;
+    padding: 0px 14px;
+}
+
+.pv_price_box{
+    display: flex;
+    justify-content: space-between;
+    font-size: 22px;
+    font-weight: 700;
+}
+.pv_price_box > div{
+    width: 50%;
+    text-align: right;
+}
+.pv_price {
+    display: inline-block;
+}
+.pv_price_box .pv_won{
+    display: inline-block;
+}
+.pv_background_blue{
+    background-color: rgba(204, 227, 246, 0.46);
+}
+.mlg_btn {
+    width: 18%;
+    height: 53px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 6px;
+    background-color: black;
+    border-radius: 3px;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+}
+
 .padding_btm{
     padding: 0 0 33px 0;
 }
-
+.reserv_btn_m_black{
+    color: white;
+    background-color: black;
+    border-radius: 3px;
+}
+.reserv_btn_m_gray{
+    border-radius: 3px;
+    border: transparent;
+}
+.reserv_btn_m_white{
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    background-color: white;
+}
 /*예약리스트*/
 .rl_list_box{
     width: 1000px;
@@ -542,11 +711,13 @@
 .rl_list{
     border: 1px solid #c7c7c7;
     border-radius: 8px;
-    display: flex;
     position: relative;
     width: 100%;
-    height: 275px;
+    height: 298px;
     margin: 0 0 33px 0;
+}
+rl_list{
+    display: flex;
 }
 .rsvt_img_box{
     width: 221px;
@@ -559,6 +730,8 @@
     display: inline-block;
     position: absolute;
     padding: 33px 62px 27px 35px;
+    width: 682px;
+    height: 240px;
 }
 .rl_info_box{
     font-size: 17px;
@@ -597,6 +770,7 @@
     font-size: 20px;
     font-weight: 400;
     margin: 0 0 10px 0;
+    line-height: 22px;
 }
 .rl_title_box span{
     font-size: 15px;
@@ -607,6 +781,14 @@
     font-size: 25px;
     font-weight: 700;
     text-align: end;
+    position: absolute;
+    right: 0;
+    padding-right: 62px;
+    bottom: 33px;
+}
+.rl_prc span{
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .rl_paging_box{
@@ -616,4 +798,65 @@
     color: gray;
     font-weight: 700;
     letter-spacing: 6px;
+}
+
+/*결제취소*/
+.cnc_box{
+    margin: 60px auto;
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+}
+.cnc_rsn_box{
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 55px;
+}
+.cnc_rsn_box span{
+    margin-bottom: 25px;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 600;
+}
+.cnc_rsn{
+    display: block;
+    width: 97%;
+    padding: 10px;
+    border: 1px solid #b6b6b6;
+    border-radius: 4px;
+    height: 100px;
+    resize: none;
+    font-size: 14px;
+}
+.cnc_rsn:focus{
+    outline: none;
+}
+.cnc_info_box{
+    display: inline-block;
+}
+.cnc_info_box div:not(:last-child){
+    margin-bottom: 35px;
+    font-size: 21px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+}
+.cnc_info_box div span:first-child{
+    display: inline-block;
+}
+.cnc_info_box div span:last-child{
+    display: inline-block;
+}
+.cnc_total_price {
+    border-top: 1px solid black;
+    padding: 35px 0 0 0;
+    margin-bottom: 35px;
+    font-size: 25px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+}
+.cnc_btn_box{
+    text-align: center;
+    margin: 64px 0px 0 0;
 }

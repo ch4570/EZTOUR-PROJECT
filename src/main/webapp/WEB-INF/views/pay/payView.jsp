@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Title</title>
@@ -20,77 +21,141 @@
 <div class="pv_big_box">
     <h1 class="pv_header">결제페이지</h1>
     <form>
-        <div>
-            <div class="pv_mth_box">
-                <input type="radio" name="pay_mthd" value="card" checked><p class="pay_mth_credit">신용카드</p>
+        <div class="pv_sub_box">
+            <div class="pv_pg_box">
+                <button type="button" class="pv_pg pg_name" value="credit_card">신용카드</button>
+                <button type="button" class="pv_pg pg_name" value="kakaopay">카카오페이</button>
+                <button type="button" class="pv_pg pg_name" value="payco">페이코</button>
                 <input type="hidden" name="prd_nm" value="${prd_nm}">
             </div>
             <div class="pv_dtl_box">
                 <div class="pv_low">
                     <label class="pv_label">결제자명</label>
-                    <input type="text" class="pv_no_border" name="usr_nm" value="${userDto.usr_nm}" readonly>
+                    <input type="text" class="pv_large_inputbox" name="usr_nm" value="${userDto.usr_nm}" readonly>
                 </div>
                 <div class="pv_low">
-                    <label class="pv_label">마일리지 사용</label>
-                    <input type="text" name="used_mlg" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-                    <input type="hidden" name="realMlg" value="${userDto.mlg}" >
-                    <p>나의 마일리지 : ${userDto.mlg}</p>
+                    <div class="pv_label">
+                        <label>마일리지 사용</label>
+<%--                        <span>나의 마일리지 한도 내에서 입력해주세요</span>--%>
+                    </div>
+                    <div class="pv_mlg_box">
+                        <input type="text" name="used_mlg" class="pv_large_inputbox_white" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                        <button type="button" class="mlg_btn">사용</button>
+                    </div>
+                    <input type="hidden" name="realMlg" value="${userDto.mlg}">
+                    <p class="pv_mlg_info">나의 마일리지 : <fmt:formatNumber value="${userDto.mlg}" type="number"/> (5,000마일리지부터 사용 가능합니다.)</p>
                 </div>
                 <div class="pv_low">
                     <label class="pv_label">여행상품금액</label>
-                    <input type="text" class="pv_no_border" name="pay_ftr_prc" value="${pay_ftr_prc}" readonly>
+<%--                    <input type="text" class="pv_large_inputbox" name="pay_ftr_prc" value="${pay_ftr_prc}" readonly>--%>
+                    <input type="text" class="pv_large_inputbox" name="pay_ftr_prc" value="<fmt:formatNumber value="${pay_ftr_prc}" type="number"/>" readonly>
                 </div>
                 <div class="pv_low">
                     <label class="pv_label">이메일</label>
-                    <input type="text" class="pv_no_border" name="email" value="${userDto.email}" readonly>
+                    <input type="text" class="pv_large_inputbox" name="email" value="${userDto.email}" readonly>
                 </div>
 
-                <div class="pv_low">
-                    <h3 class="pv_label">총 결제금액</h3>
-                    <input type="text" class="pv_no_border" name="pay_prc" value="${pay_ftr_prc}" readonly>
+                <div class="pv_low pv_price_box reserv_top_border">
+                    <h3 class="pv_price_label">총 결제금액</h3>
+                    <div>
+                        <div class="pay_prc pv_price"><fmt:formatNumber value="${pay_ftr_prc}" type="number"/></div>
+                        <span class="pv_won">원</span>
+                    </div>
                 </div>
             </div>
             <div class="pv_dtl_box padding_btm">
-                <h3>카드결제시 유의사항</h3>
+                <span>카드결제시 유의사항</span>
                 <p>- 결제내역이 다를 경우 담당자 또는 이지투어 고객센터로 연락주시기 바랍니다.</p>
                 <p>- 무통장 입금의 입금자명과 금액을 반드시 확인하여 주시기 바랍니다.</p>
             </div>
             <div class="pv_dtl_box rc_btn_box">
-                <button type="button" class="payBtn rc_btn rc_btn_margine">결제하기</button>
-                <button type="button" class="cancelBtn rc_btn">취소</button>
+                <button type="button" class="payBtn reserv_m_btn rc_btn_margin reserv_btn_m_black">결제하기</button>
+                <button type="button" class="cancelBtn reserv_m_btn reserv_btn_m_gray">취소</button>
             </div>
         </div>
     </form>
 </div>
 <script>
     $(document).ready(function(){
+        let pg_name = '';
        $('.cancelBtn').on("click", function () {
            location.href = '<c:url value="/reserv/reservView?rsvt_no=${param.rsvt_no}&prd_dtl_cd=${param.prd_dtl_cd}"/>'
             });
 
+       $('.pg_name').on("click", function(){
+           let pv_pgs = document.getElementsByClassName("pv_pg");
+           if($(this).val()=='credit_card'){
+               pg_name = 'html5_inicis.INIpayTest';
+           } else if($(this).val()=='kakaopay'){
+               pg_name = 'kakaopay.TC0ONETIME';
+           } else {
+               pg_name = 'payco.PARTNERTEST'
+           }
+
+           for(i = 0; i < pv_pgs.length; i++){
+               pv_pgs[i].className = pv_pgs[i].className.replace(" pv_active", "");
+           }
+
+           $(this).addClass(" pv_active");
+       });
+
+       let checkMlg = function (){
+           let used_mlg = parseInt($('input[name="used_mlg"]').val());
+           let real_mlg = parseInt($('input[name="realMlg"]').val());
+           let price = parseInt('${pay_ftr_prc}');
+
+           if(used_mlg<5000 && used_mlg != 0){
+               alert("5000마일리지부터 사용 가능합니다.");
+               $('input[name="used_mlg"]').val(0);
+               $('.pay_prc').html(price.toLocaleString());
+               return false;
+           }
+           if(used_mlg > real_mlg){
+               alert("사용가능한 마일리지를 확인해주세요");
+               $('input[name="used_mlg"]').val(0);
+               $('.pay_prc').html(price.toLocaleString());
+               return false;
+           }
+
+           return true;
+       }
+
+       $('.mlg_btn').on("click", function(){
+           let used_mlg_ref = $('input[name="used_mlg"]');
+           if(checkMlg()){
+               let price = parseInt(${pay_ftr_prc});
+               let used_mlg = parseInt($('input[name="used_mlg"]').val());
+               $('.pay_prc').html((price - used_mlg).toLocaleString());
+               used_mlg_ref.addClass(" pv_background_blue");
+               return;
+           }
+
+           used_mlg_ref.className = used_mlg_ref.removeClass("pv_background_blue");
+       });
+
         $('.payBtn').on("click", function(){
-            let used_mlg = parseInt($('input[name="used_mlg"]').val());
-            let realMlg = parseInt($('input[name="realMlg"]').val());
-            if(used_mlg>realMlg){
-                alert("사용가능한 마일리지를 확인해주세요");
+            if(pg_name==''){
+                alert('결제 수단을 선택해주세요');
                 return;
             }
 
-            // IMP.request_pay(param, callback) 결제창 호출
+            if(!checkMlg()) return;
+
+            let final_amount = (${pay_ftr_prc} - parseInt($('input[name="used_mlg"]').val()));
+
             var IMP = window.IMP;
             IMP.init("imp03490268");
 
-            IMP.request_pay({ // param
-                pg: "kakaopay.TC0ONETIME",
-                pay_method: $('input[name="pay_mthd"]').val(),
+            IMP.request_pay({
+                pg: pg_name,
+                pay_method: 'card',
                 merchant_uid: generateMId(20),
                 name: '${param.rsvt_no}',
-                amount: 100,
+                amount: final_amount,
                 buyer_email: '${userDto.email}',
                 buyer_name: '${userDto.usr_nm}',
-            }, function (rsp) { // callback
-                if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-                    // jQuery로 HTTP 요청
+            }, function (rsp) {
+                if (rsp.success) {
                     let payDto = {pay_no: rsp.merchant_uid
                         , rsvt_no: '${param.rsvt_no}'
                         , prd_dtl_cd: '${param.prd_dtl_cd}'
@@ -98,10 +163,9 @@
                         , used_mlg:$('input[name="used_mlg"]').val()
                         , pay_ftr_prc: '${pay_ftr_prc}'};
                     jQuery.ajax({
-                        url: "/pay/saveResult", // 예: https://www.myservice.com/payments/complete
+                        url: "/pay/saveResult",
                         method: "POST",
                         contentType: "application/json; charset=utf-8",
-                        // dataType:"json",
                         data: JSON.stringify(payDto)
                     }).done(function (data) {
                         let result = JSON.parse(data);
