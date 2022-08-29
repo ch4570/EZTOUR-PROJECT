@@ -15,6 +15,7 @@ button{
 }
 .pay_conf_icon{
     background-image: url("/icon/plane-ticket.png");
+    background-size: cover;
 }
 .reserv_conf_icon{
     background-image: url("/icon/suitcase.png");
@@ -859,4 +860,30 @@ rl_list{
 .cnc_btn_box{
     text-align: center;
     margin: 64px 0px 0 0;
+}
+
+/*환불완료페이지*/
+/*cancel confirm = cc*/
+
+.cc_big_box {
+    margin: 100px auto;
+    text-align: center;
+}
+.cc_icon{
+    background-image: url("/icon/tour-guide.png");
+    width: 130px;
+    height: 130px;
+    background-size: cover;
+    margin: auto;
+}
+.cc_sub_box{
+    margin: 45px 0 60px;
+}
+.cc_sub_box span:not(:last-child){
+    margin: 0 0 9px 0;
+}
+.cc_sub_box span {
+    display: block;
+    font-size: 19px;
+    font-weight: 500;
 }
