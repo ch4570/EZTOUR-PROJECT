@@ -63,6 +63,10 @@
                         <form:input path="prd_str_prc" placeholder="상품시작가격" cssClass="input_prd"/><br>
                         <form:errors path="prd_str_prc" cssClass="error_msg"/><br><br>
 
+                        <form:label path="trv_dtl_per">상품 상세 여행기간</form:label><br>
+                        <form:input path="trv_dtl_per" placeholder="상품 상세 여행기간" cssClass="input_prd"/><br>
+                        <form:errors path="trv_dtl_per" cssClass="error_msg"/><br><br>
+
                         <form:label path="arl_nm">항공사명</form:label><br>
                         <form:input path="arl_nm" placeholder="항공사명" cssClass="input_prd"/><br>
                         <form:errors path="arl_nm" cssClass="error_msg"/><br><br>

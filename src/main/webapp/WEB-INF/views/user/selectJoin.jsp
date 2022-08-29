@@ -26,8 +26,8 @@
                 </div>
 
                     <div style="display: flex; justify-content: center;">
-                        <a class="snsIcon" href="${naverUrl}"><img src="../img/user/btnG_아이콘원형.png" alt="" style="width: 70px;"><em>네이버 로그인</em></a>
-                        <a class="snsIcon" href="javascript:kakaoLogin()"><img src="../img/user/카카오아이콘.png" alt="" style="width: 70px;"><em>카카오 로그인</em></a>
+                        <a class="snsIcon" href="${naverUrl}"><img src="../img/user/btnG_아이콘원형.png" alt="" style="width: 70px;"><em>네이버 회원가입</em></a>
+                        <a class="snsIcon" href="javascript:kakaoLogin()"><img src="../img/user/카카오아이콘.png" alt="" style="width: 70px;"><em>카카오 회원가입</em></a>
                     </div>
                 <div style="margin-right: 80px; font-size: 15px;"><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: crimson"></i> SNS 회원가입시 추가정보를 반드시 기입해야 가입 완료됩니다.</div>
             </div>
@@ -35,6 +35,8 @@
         </div>
     </div>
 </div>
+
+
 
 <form name="kakaoForm" id="kakaoForm" method = "post" action="/user/setSubInfo">
     <input type="hidden" name="email" id="kakaoEmail" />
