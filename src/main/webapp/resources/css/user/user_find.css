@@ -139,3 +139,27 @@ hr{
     font-size: 12px;
     margin-top: 10px;
 }
+
+.pwd-check-input{
+    width: 200px;
+    font-size: 15px;
+    line-height: 30px;
+    outline: none;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    padding: 0px 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#pwdChangeBtn{
+    all: unset;
+    background: #1c1c1c;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    width: 300px;
+    height: 30px;
+    font-size: 12px;
+    margin-top: 10px;
+}

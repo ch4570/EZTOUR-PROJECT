@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="form-inp-find" style="display:none;">
-                    <input id="usrid" type="text" name="usr_id" placeholder="아이디를 입력하세요." >
+                    <input id="usrid" type="text" placeholder="아이디를 입력하세요." >
                     <input id="usrnm"  name="usr_nm" placeholder="이름을 입력하세요.">
                     <div class="input-basic">
                         <input type="text" class="input-field" name="email1" id="email1"
@@ -69,7 +69,7 @@
         <br/>
         <div style="display: flex; flex-direction: column; align-items: center">
         <h2 id="idHead"  style="font-weight: bolder; font-size: xx-large; padding-right: 250px">아이디 찾기</h2>
-        <h2 id="pwdHead" style="display: none; font-weight: bolder; font-size: xx-large; padding-right: 250px">비밀번호 찾기</h2>
+        <h2 id="pwdHead" style="display: none; font-weight: bolder; font-size: xx-large; padding-right: 250px">비밀번호 재설정</h2>
         <hr>
             <div style="margin-left: 30px; font-size: 18px; margin-top: 30px">
                 <div class="form-check" id="idChk" style="display: flex; flex-direction: column; align-items: flex-start">
@@ -77,8 +77,8 @@
                     <div> <input class="form-check-input" name="resultId" value="" readonly> 입니다.</div>
                 </div>
                 <div class="form-check" id="pwdChk" style="display: none">
-                    <div style="margin-right: 250px">회원님의 비밀번호는</div>
-                    <div><input class="form-check-input" name="resultPwd" value="" readonly> 입니다.</div>
+                    <div style="margin-right: 250px">비밀번호를 재설정해주세요</div>
+                    <div><input class="form-check-input" name="resultPwd" value="" readonly></div>
                 </div>
                 <br/>
                 <hr>
@@ -88,16 +88,45 @@
     </div>
 </div>
 
+<!-- 비밀번호 변경 모달 -->
+<div class="modal hidden" id="pwdChangeModal">
+    <div class="modal__overlay" id="pwdChangeOverlay"></div>
+    <div class="modal__content" style="width: 450px; height: 250px; padding: 30px 20px;">
+        <div>
+            <h2 style="font-weight: bolder; font-size: x-large; padding-right: 220px;">비밀번호 변경</h2>
+            <h2 id="change-pwd-info" style="padding-top: 20px; padding-right: 20px; font-size: 15px;"><i class="fa fa-check" aria-hidden="true"></i> &nbsp;현재 비밀번호와 변경할 비밀번호를 입력해주세요</h2>
+            <hr style="width: 400px;">
+            <form name="pwdChangeForm" action="/user/findAndChangePwd" method="post" onsubmit="">
+                <input type="hidden" name="usr_id" value="">
+                <div style="font-size: 18px;">
+                    <div class="form-check">
+                        <span style="font-size: 15px; font-weight: bold;">변경할 비밀번호</span>
+                        <input class="pwd-check-input" type="password" style="margin-bottom: 0px;" id="new_pwd" name="new_pwd" placeholder="변경할 비밀번호를 입력해주세요">
+                    </div>
+                    <div class="form-check">
+                        <span style="font-size: 15px; padding-left: 15px; font-weight: bold;">비밀번호 확인</span>
+                        <input class="pwd-check-input" type="password" id="new_pwd_chk" name="new_pwd_chk" placeholder="비밀번호를 다시 입력해주세요">
+                    </div>
+                    <button id="pwdChangeBtn">변경하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+    let msg = "${msg}";
+    if(msg=="NEW_PWD_ERR")    alert("변경할 비밀번호를 입력하지 않았거나, 비밀번호 확인란과 일치하지 않습니다. 다시 입력해주세요.");
+    if(msg=="MOD_ERR")    alert("비밀번호를 변경하는 도중 에러가 발생했습니다. 변경을 원할시 고객센터(1577-0000)에 연락주세요.");
 
     window.history.forward();
 
     function findPwdView(){
         $(".form-inp").hide();
-        $("#findTitle").hide();
+        $("#findIdTitle").hide();
         $(".form-inp-find").show();
-        $("#rsvTitle").show();
+        $("#findPwdTitle").show();
         $("#findPwd").css({
             'border-bottom': '3px solid #333333',
             'color' : '#333333'
@@ -113,10 +142,10 @@
     }
 
     function findIdView() {
-        $("#rsvTitle").hide();
+        $("#findPwdTitle").hide();
         $(".form-inp-find").hide();
         $(".form-inp").show();
-        $("#findTitle").show();
+        $("#findIdTitle").show();
         $("#findId").css({
             'border-bottom': '3px solid #333333',
             'color': '#333333'
@@ -140,7 +169,7 @@
             type:'GET',
             url: '/authPhn/' + phn,
             success : function(msg){
-                alert(msg);
+                alert("인증번호를 보냈습니다.");
                 findIdBtn.classList.add("hidden")
                 checkAuthBtn.classList.remove("hidden")
                 $("#checkAuthBtn").before("<input id='checkNum' name='checkNum' placeholder='인증번호를 입력해주세요.'>");
@@ -211,6 +240,16 @@
         });
     });
 
+    <!-- 비밀번호 변경 모달 -->
+    const pwdChangeModal = document.querySelector("#pwdChangeModal");
+    const pwdChangeOverlay = pwdChangeModal.querySelector("#pwdChangeOverlay");
+    const openPwChangeModal = () => {
+        pwdChangeModal.classList.remove("hidden");
+    }
+    const closePwChangeModal = () => {
+        pwdChangeModal.classList.add("hidden");
+    }
+    pwdChangeOverlay.addEventListener("click", closePwChangeModal);
 
     $('#mailCheckBtn').click(function(){
         const inputCode = $(".mail-check-input").val();
@@ -223,16 +262,12 @@
                 type: 'POST',
                 url: '/findPwd/' + usr_id + "/" + usr_nm + "/" + email,
                 success: function (pwd) {
-                    // 1. 모달 열기
-                    openresultModal();
-                    $("#pwdHead").show();
-                    $("#pwdChk").show();
-                    $("#idChk").hide();
-                    $("#idHead").hide();
-
                     alert("인증에 성공했습니다.");
-                    // 2. 모달에 pwd 전달
-                    $('input[name=resultPwd]').attr('value', pwd);
+
+                    // 1. 유저 아이디 삽입
+                    $('input[name=usr_id]').attr('value',usr_id);
+                    // 2. 비밀번호 변경 모달 열기
+                    openPwChangeModal();
                 },
                 error: function () {
                     alert("존재하지 않는 사용자입니다.")
@@ -242,17 +277,17 @@
 
     });
 
-        const resultModal = document.querySelector("#resultModal");
-        const resultOverlay = resultModal.querySelector("#resultOverlay");
-        const closeresultModalBtn = resultModal.querySelector("#closeresultModalBtn")
-        const openresultModal = () => {
-            resultModal.classList.remove("hidden");
-        }
-        const closeresultModal = () => {
-            resultModal.classList.add("hidden")
-        }
-        closeresultModalBtn.addEventListener("click", closeresultModal);
-        resultOverlay.addEventListener("click", closeresultModal);
+    const resultModal = document.querySelector("#resultModal");
+    const resultOverlay = resultModal.querySelector("#resultOverlay");
+    const closeresultModalBtn = resultModal.querySelector("#closeresultModalBtn")
+    const openresultModal = () => {
+        resultModal.classList.remove("hidden");
+    }
+    const closeresultModal = () => {
+        resultModal.classList.add("hidden")
+    }
+    closeresultModalBtn.addEventListener("click", closeresultModal);
+    resultOverlay.addEventListener("click", closeresultModal);
 
 </script>
 
