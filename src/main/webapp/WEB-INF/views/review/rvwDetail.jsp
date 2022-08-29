@@ -44,7 +44,7 @@
             <!-- 글 내용-->
             <div class="detailInfo">
                 <div class="detailInfo-content" name="rvw_cont">
-                    <div class="detailInfo-content-child"><c:out value="${rvwDto.rvw_cont}"/></div>
+                    <div class="detailInfo-content-child"><c:out value="${rvwDto.rvw_cont}" escapeXml="false"/></div>
                 </div>
             </div>
             <!-- 삭제, 수정, 목록 버튼-->
