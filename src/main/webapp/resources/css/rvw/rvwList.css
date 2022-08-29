@@ -308,15 +308,20 @@ table {
 	color: #1c1c1c;
 	position: relative;
 }
-
 .wrap .content .searchArea .searchBox .searchButton{
 	width: 90px;
 	height: 50px;
 	position: absolute;
-	right: 10px;
+	right: 9px;
 	top: 15px;
 	font-weight: bold;
+	background: #1c1c1c;
+	color: #fff;
+	cursor: pointer;
+	font-size: 16px;
+	font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
 }
+
 
 .wrap .content .searchArea .searchBox .searchOption{
 	width: 130px;
@@ -375,7 +380,15 @@ table {
 	font-size: 15px;
 	color: #1c1c1c;
 }
-
+.button-27 {
+	all: unset;
+	background: #1c1c1c;
+	color: #fff;
+	text-align: center;
+	cursor: pointer;
+	font-size: 16px;
+	font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
+}
 
 
 

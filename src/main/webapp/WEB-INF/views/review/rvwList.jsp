@@ -53,15 +53,15 @@
                 </form>
                 <c:choose>
                     <c:when test="${loginId==''}">
-                        <button type="button" class="button-27" role="button" id="loginWriteBtn" style="margin-left: 610px; width: 66px; height: 49px; margin-top: 15px">작성하기</button>
+                        <button type="button" class="button-27" role="button" id="loginWriteBtn" style="margin-left: 610px; width: 100px; height: 49px; margin-top: 15px">작성하기</button>
                     </c:when>
                     <c:when test="${loginId!=''}">
-                        <button type="button" class="button-27" role="button" id="writeBtn" style="margin-left: 610px; width: 66px; height: 49px; margin-top: 15px">작성하기</button>
+                        <button type="button" class="button-27" role="button" id="writeBtn" style="margin-left: 610px; width: 100px; height: 49px; margin-top: 15px">작성하기</button>
                     </c:when>
                 </c:choose>
                 <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","N")}'/>">최신순</a>
                 <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","O")}'/>">오래된순</a>
-                <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","L")}'/>">가장 많은 좋아요</a>
+                <!--a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","L")}'/>">가장 많은 좋아요</a-->
                 <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","V")}'/>">가장 많은 조회수</a>
             </div>
         </div>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="reviewContent">
                             <a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>">
-                                <p class="reviewContent-rvw_cont"><c:out value="${rvwDto.rvw_cont}"/></p>
+                                <p class="reviewContent-rvw_cont">${rvwDto.rvw_cont}</p>
                             </a>
                         </div>
                         <div class="reviewWriter">
@@ -97,10 +97,10 @@
                         </div>
                         <div class="reviewLikeViewCnt">
                             <br>
-                            <span class="reviewLikeViewCnt-lk_cnt-rvw_cont" style="margin-left: 50px">좋아요 ${rvwDto.lk_cnt}</span>
-                            <br>
-                            <br>
                             <span class="reviewLikeViewCnt-lk_cnt-rvw_cont" style="margin-left: 50px">조회수 ${rvwDto.rvw_vcnt}</span>
+                            <br>
+                            <br>
+                            <!--span class="reviewLikeViewCnt-lk_cnt-rvw_cont" style="margin-left: 50px">좋아요 ${rvwDto.lk_cnt}</span-->
                         </div>
                     </div>
                 </section>

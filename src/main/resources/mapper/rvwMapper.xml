@@ -61,8 +61,7 @@
         FROM pay A INNER JOIN trv_prd_dtl B ON A.prd_dtl_cd = B.prd_dtl_cd
         WHERE A.cmn_cd_pay_stt ='7C'
         AND A.usr_id = #{usr_id}
-        AND B.dom_fin_date <![CDATA[<=]]> CURRENT_TIMESTAMP
-        OR B.loc_fin_date <![CDATA[<=]]> CURRENT_TIMESTAMP
+        AND (B.dom_fin_date <![CDATA[<=]]> CURRENT_TIMESTAMP OR B.loc_fin_date <![CDATA[<=]]> CURRENT_TIMESTAMP)
     </select>
 
 
@@ -116,9 +115,10 @@
                A.rvw_vcnt,
                A.rvw_cont,
                B.img_pth,
-               C.prd_nm
+               C.prd_nm,
+               A.prd_dtl_cd
         FROM rvw A INNER JOIN prd_img B ON A.prd_cd = B.prd_cd
-                   INNER JOIN trv_prd C ON A.prd_cd = C.prd_cd
+                   INNER JOIN trv_prd_dtl C ON A.prd_dtl_cd = C.prd_dtl_cd
         WHERE rvw_no = #{rvw_no};
     </select>
 

@@ -235,6 +235,7 @@ a, a:hover, a:active {
     border-radius: 2px;
     /* line-height: 24px; */
     color: #363636;
+    white-space: pre-line;
 }
 
 .boardView+.boardBtns {
