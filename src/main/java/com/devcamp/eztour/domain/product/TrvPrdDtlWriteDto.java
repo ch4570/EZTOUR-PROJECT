@@ -59,6 +59,10 @@ public class TrvPrdDtlWriteDto {
     @Length(max = 100, message = "상품이름은 100자까지 입력가능 합니다.")
     private String prd_nm;
 
+    @NotBlank(message = "상품 상세 여행기간은 필수 입력 항목입니다.")
+    @Length(max = 30, message = "상품 상세 여행기간은 30자까지 입력가능합니다.")
+    private String trv_dtl_per;
+
     private String	frs_reg_date;
     private String	frs_rgs_no;
     private String  fnl_mod_date;

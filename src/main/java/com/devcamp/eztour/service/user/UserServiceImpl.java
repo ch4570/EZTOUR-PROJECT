@@ -83,8 +83,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void setNaverConnection(Map<String, Object> apiJson) throws Exception {
-        userDao.setNaverConnection(apiJson);
+    public int setNaverConnection(Map<String, Object> apiJson) throws Exception {
+        return userDao.setNaverConnection(apiJson);
     }
 
     @Override
