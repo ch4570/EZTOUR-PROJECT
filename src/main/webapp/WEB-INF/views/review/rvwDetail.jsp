@@ -24,7 +24,7 @@
         <div class="boarder-wrap">
             <h2>
                 <p class="tit" name="rvw_ttl"><c:out value="${rvwDto.rvw_ttl}"/></p>
-                <span class="reviewLikeViewCnt-lk_cnt-rvw_cont" name="lk_cnt">좋아요 ${rvwDto.lk_cnt} | 조회수 ${rvwDto.rvw_vcnt}</span>
+                <span class="reviewLikeViewCnt-lk_cnt-rvw_cont" name="lk_cnt">조회수 ${rvwDto.rvw_vcnt}</span>
                 <p class="right">
                     <span class="date" name="rvw_reg_date">등록일 | <fmt:formatDate value="${rvwDto.rvw_reg_date}" pattern="yyyy-MM-dd hh:mm:ss"/></span>
                     <span class="writer" name="wrt_nm">작성자 | ${rvwDto.wrt_nm}</span>
@@ -37,8 +37,8 @@
                     <!--img src="${rvwDto.img_pth}" alt="상품사진"-->
                 </a>
                 <div class="prdInfo-content">
-                    <a class="prdInfo-content-title" href="#">${rvwDto.prd_nm}</a>
-                    <a class="btn sz-l st-blue view" href="#">상품보기</a>
+                    <a class="prdInfo-content-title" href="/product/detail?prd_dtl_cd=${rvwDto.prd_dtl_cd}">${rvwDto.prd_nm}</a>
+                    <a class="btn sz-l st-blue view" href="/product/detail?prd_dtl_cd=${rvwDto.prd_dtl_cd}">상품보기</a>
                 </div>
             </div>
             <!-- 글 내용-->
@@ -68,20 +68,20 @@
                 </div>
             </form>
             <!--좋아요 버튼-->
-            <div>
+            <!--div>
                 <a class="text-dark heart" style="text-decoration-line: none;">
                     <img id="heart" src="/resources/icon/empty_heart_icon.svg">
                     좋아요
                 </a>
-            </div>
+            </div-->
             <c:choose>
                 <c:when test="${rvwLkAdmDto.rvw_lk_yn == 1}">
-                    <div class="view_btn_set">
+                    <!--div class="view_btn_set">
                         <i class="fas fa-heart" name="fill-heart" id="heart-fill"></i>
-                    </div>
+                    </div-->
                 </c:when>
                 <c:otherwise>
-                    <div class="view_btn_set">
+                    <!--div class="view_btn_set">
                         <i class="far fa-heart" name="non-fill-heart" id="heart-empty"></i>
                     </div-->
                 </c:otherwise>
