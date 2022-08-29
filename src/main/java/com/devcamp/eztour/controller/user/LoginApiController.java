@@ -30,15 +30,19 @@ public class LoginApiController {
 
     @RequestMapping(value="/kakaoLoginPro", method= RequestMethod.POST)
     public Map<String, Object> kakaoLoginPro(@RequestParam Map<String,Object> paramMap, HttpSession session) throws SQLException, Exception {
-        System.out.println("paramMap:" + paramMap);
         Map <String, Object> resultMap = new HashMap<String, Object>();
 
-        Map kakaoConnectionCheck = userService.kakaoConnectionCheck(paramMap);
+        Map kakaoConnectionCheck = null;
+
+        try {
+            kakaoConnectionCheck = userService.kakaoConnectionCheck(paramMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         if(kakaoConnectionCheck == null) { // 이메일과 카카오 아이디 둘다 없을시
             resultMap.put("JavaData", "register");
         } else if(kakaoConnectionCheck.get("kakao_id") == null && kakaoConnectionCheck.get("email") != null) { // 이메일 가입 되어있고 카카오 연동 안되어 있을시
-            System.out.println("kakaoLogin");
             userService.setKakaoConnection(paramMap);
             UserDto userDto = userService.userKakaoLoginPro((String)paramMap.get("kakao_id"));
             session.setAttribute("userDto", userDto);
@@ -52,7 +56,6 @@ public class LoginApiController {
 
             String toURL = (String)session.getAttribute("toURL");
             resultMap.put("toURL", toURL);
-
         }
         return resultMap;
     }

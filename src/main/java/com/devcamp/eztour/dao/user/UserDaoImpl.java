@@ -103,7 +103,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Map naverConnectionCheck(Map map) {
-        System.out.println("네이버 로그인 에러 확인을 위한 로그 :::: map = " + map);
         return session.selectOne(namespace+"naverConnectionCheck", map);
     }
 

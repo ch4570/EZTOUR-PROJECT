@@ -25,6 +25,15 @@
         padding: 0px 5px;
     }
 
+    #OpenPwdChangeModal{
+        width: 130px;
+        height : 40px;
+        background-color: #333333;
+        color: white;
+        margin-right: 400px;
+        margin-bottom: 20px;
+    }
+
 </style>
 </head>
 <body>
@@ -184,16 +193,16 @@
                 <div style="font-size: 18px;">
                     <div class="form-check">
                         <span style="font-size: 15px; font-weight: bold; padding-left: 15px;">현재 비밀번호</span>
-                        <input class="pwd-check-input" name="pwd" placeholder="현재 비밀번호를 입력해주세요">
+                        <input class="pwd-check-input" type="password" name="pwd" placeholder="현재 비밀번호를 입력해주세요">
                     </div>
                     <hr>
                     <div class="form-check">
                         <span style="font-size: 15px; font-weight: bold;">변경할 비밀번호</span>
-                        <input class="pwd-check-input" style="margin-bottom: 0px;" id="new_pwd" name="new_pwd" placeholder="변경할 비밀번호를 입력해주세요">
+                        <input class="pwd-check-input" type="password" style="margin-bottom: 0px;" id="new_pwd" name="new_pwd" placeholder="변경할 비밀번호를 입력해주세요">
                     </div>
                     <div class="form-check">
                         <span style="font-size: 15px; padding-left: 15px; font-weight: bold;">비밀번호 확인</span>
-                        <input class="pwd-check-input" id="new_pwd_chk" name="new_pwd_chk" placeholder="비밀번호를 다시 입력해주세요">
+                        <input class="pwd-check-input" type="password" id="new_pwd_chk" name="new_pwd_chk" placeholder="비밀번호를 다시 입력해주세요">
                     </div>
                     <button id="pwdChangeBtn">변경하기</button>
                 </div>
@@ -209,9 +218,7 @@
     if(msg=="MOD_ERR")   alert("회원정보 수정 도중 문제가 발생했습니다. 다시 시도해주세요.");
     if(msg=="DEL_ERR")    alert("회원 탈퇴 과정에 문제가 발생했습니다. 다시 시도해주세요.");
     if(msg=="PWD_ERR")    alert("현재 비밀번호가 올바르지 않습니다. 다시 입력해주세요.");
-
-
-
+    if(msg=="NWE_PWD_ERR")    alert("변경할 비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
 
     $.fn.radioSelect = function(val) {
         this.each(function() {
