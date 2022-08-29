@@ -93,12 +93,12 @@
                     let result = JSON.parse(data);
                     switch (result.status){
                         case 'CANCEL_FAILED':
-                            alert("CANCEL_FAILED");
-                            break;
+                            alert("환불이 실패하였습니다. 000-0000-0000으로 문의전화 바랍니다.");
+                            return;
 
                         case 'ACCESS_DENIED':
-                            alert("ACCESS_DENIED");
-                            break;
+                            alert("잘못된 접근입니다.");
+                            return;
 
                         case 'SUCCESS':
                             alert('SUCCESS!!!');
