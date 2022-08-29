@@ -14,55 +14,64 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <!-- iamport.payment.js -->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <link rel="stylesheet" href="<c:url value='/css/reserv/reserv.css'/>">
 </head>
 <body>
-    <div>
-        <h1>환불 페이지</h1>
-        <div>
-            <div>
-                <div>사진</div>
+    <div class="rl_list_box">
+        <h1 class="reserv_main_header">환불 페이지</h1>
+        <div class="rl_list">
+            <div class="rsvt_img_box">
+                <img src="${cncViewDto.img_pth}"/>
             </div>
-            <div>
-                <span>예약번호</span>
-                <span>${param.rsvt_no}</span> |
-                <span>예약일</span>
-                <span>${cncViewDto.rsvt_date}</span>
+            <div class="rl_content_box">
+                <div class="rl_info_box">
+                    <span class="rl_info_label">예약번호</span>
+                    <span class="rl_info">${param.rsvt_no}</span> |
+                    <span class="rl_info_label">예약일</span>
+                    <span class="rl_info"><fmt:formatDate value="${cncViewDto.rsvt_date}" pattern="yyyy-MM-dd"/></span>
+                </div>
+                <div class="rl_title_box">
+                    <h3>${cncViewDto.prd_nm}</h3>
+                    <span>${cncViewDto.prd_dtl_desc}</span>
+                </div>
+                <div class="rl_prc"><fmt:formatNumber value="${cncViewDto.sum_prc}" type="number"/><span>원</span></div>
             </div>
-            <div>
-                <p>${cncViewDto.prd_nm}</p>
-                <span>${cncViewDto.prd_dtl_desc}</span>
-            </div>
-            <div>${cncViewDto.sum_prc}원</div>
         </div>
         <form>
-            <div>
-                <span>취소사유</span>
-                <input type="text" name="reason" placeholder="취소사유를 입력해주세요">
-                <input type="hidden" name="amount" value="${cncViewDto.pay_prc}">
-                <input type="hidden" name="pay_no" value="${cncViewDto.pay_no}">
-            </div>
-            <div>
-                <div>
-                    <span>여행상품금액</span>
-                    <span>${cncViewDto.sum_prc}원</span>
+            <div class="cnc_box">
+                <div class="cnc_rsn_box">
+                    <span>취소사유</span>
+                    <textarea name="reason" class="cnc_rsn" placeholder="취소사유를 입력해주세요"></textarea>
+                    <input type="hidden" name="amount" value="${cncViewDto.pay_prc}">
+                    <input type="hidden" name="pay_no" value="${cncViewDto.pay_no}">
                 </div>
-                <div>
-                    <span>사용한 마일리지</span>
-                    <span>${cncViewDto.used_mlg}원</span>
+                <div class="cnc_info_box">
+                    <div>
+                        <span>여행상품금액</span>
+                        <span><fmt:formatNumber value="${cncViewDto.sum_prc}" type="number"/>원</span>
+                    </div>
+                    <div>
+                        <span>사용한 마일리지</span>
+                        <span><fmt:formatNumber value="${cncViewDto.used_mlg}" type="number"/></span>
+                    </div>
+                    <div class="cnc_total_price">
+                        <span>총 환불금액</span>
+                        <span><fmt:formatNumber value="${cncViewDto.pay_prc}" type="number"/>원</span>
+                    </div>
                 </div>
-                <div>
-                    <span>총 환불금액</span>
-                    <span>${cncViewDto.pay_prc}원</span>
+                <div class="cnc_btn_box">
+                    <button type="button" class="toRsvt rc_btn_m rc_btn_margin reserv_btn_m_white">취소</button>
+                    <button type="button" class="cncBtn rc_btn_m reserv_btn_m_black">환불하기</button>
                 </div>
-            </div>
-            <div>
-                <button>취소</button>
-                <button type="button" class="cncBtn">환불하기</button>
             </div>
         </form>
     </div>
     <script>
         $(document).ready(function(){
+            $('.toRsvt').on("click", function(){
+               location.href = "/reserv/reservView?rsvt_no=${cncViewDto.rsvt_no}&prd_dtl_cd=${cncViewDto.prd_dtl_cd}";
+            });
+
             $('.cncBtn').on("click", function(){
                 let cancelViewDto = {
                     pay_no: '${cncViewDto.pay_no}',
