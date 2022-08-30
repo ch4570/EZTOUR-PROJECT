@@ -150,7 +150,7 @@
                 pg: pg_name,
                 pay_method: 'card',
                 merchant_uid: generateMId(20),
-                name: '${param.rsvt_no}',
+                name: '[별빛이흐른다_ver1 ] 스위스일주7일 [체르마트숙박+마테호른일출+리기클래식열차/스파]',
                 amount: final_amount,
                 buyer_email: '${userDto.email}',
                 buyer_name: '${userDto.usr_nm}',
