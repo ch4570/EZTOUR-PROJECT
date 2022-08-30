@@ -88,7 +88,7 @@ pageEncoding="UTF-8"%>
                     <li><a href="<c:url value='/user/mypage'/>">마이페이지</a></li>
                 </c:if>
                 <c:if test="${sessionScope.userDto.rl == 'Admin' || sessionScope.userDto.rl == 'supAdmin'}">
-                    <li><a href="<c:url value='/product/admin'/>">관리자페이지</a></li>
+                    <li><a href="<c:url value='/reserv/admin'/>">관리자페이지</a></li>
                 </c:if>
               </c:when>
           </c:choose>

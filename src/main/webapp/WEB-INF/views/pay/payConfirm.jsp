@@ -62,7 +62,7 @@
                     <div class="rc_low">
                         <dl class="rc_col1">
                             <dt>- 여행기간</dt>
-                            <dd>${rcid.trv_per}</dd>
+                            <dd>${rcid.trv_dtl_per}</dd>
                         </dl>
                         <dl class="rc_col2">
                             <dt>- 출발인원</dt>
@@ -108,7 +108,7 @@
                         </dl>
                         <dl class="rc_col2">
                             <dt>- 마일리지사용</dt>
-                            <dd>${payDto.used_mlg} 마일리지</dd>
+                            <dd><fmt:formatNumber value="${payDto.used_mlg}" type="number"/>마일리지</dd>
                         </dl>
                     </div>
                     <div class="rc_low">

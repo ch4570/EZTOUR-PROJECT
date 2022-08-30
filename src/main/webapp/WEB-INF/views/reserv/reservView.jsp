@@ -45,7 +45,7 @@
                         <div class="dv_low">
                             <dl class="dv_col1"l>
                                 <dt>- 여행기간</dt>
-                                <dd>${rcid.trv_per}</dd>
+                                <dd>${rcid.trv_dtl_per}</dd>
                             </dl>
                             <dl class="dv_col2">
                                 <dt>- 출발인원</dt>
@@ -106,7 +106,7 @@
                 <div class="rc_reserv_dtl_subbox">
                     <c:choose>
                         <c:when test="${empty tid}">
-                            <div>여행자 정보가 없습니다.</div>
+                            <div class="reserv_text_center">여행자 정보가 없습니다.</div>
                         </c:when>
                         <c:otherwise>
                             <c:forEach var="trvlrInfo" items="${tid}" begin="0" end="${tid.size()}">
@@ -134,7 +134,7 @@
                 <div>
                     <c:choose>
                         <c:when test="${empty payDto}">
-                            결제 내역이 없습니다.
+                            <div class="reserv_text_center">결제 내역이 없습니다.</div>
                         </c:when>
                         <c:otherwise>
                             <div class="dv_low">
@@ -172,7 +172,7 @@
                             <div class="dv_low">
                                 <dl class="dv_col1">
                                     <c:choose>
-                                        <c:when test="${payDto.cmn_cd_pay_stt eq '7B'}">
+                                        <c:when test="${payDto.cmn_cd_pay_stt == '7B'}">
                                             <dt>- 환불금액</dt>
                                         </c:when>
                                         <c:otherwise>
@@ -204,7 +204,7 @@
                     <button class="reservList rc_btn_m reserv_btn_m_black" type="button">예약 목록보기</button>
                 </c:when>
                 <c:otherwise>
-                    <button class="reservList rc_btn_m" type="button">예약 목록보기</button>
+                    <button class="reservList reserv_btn_large reserv_btn_m_black" type="button">예약 목록보기</button>
                 </c:otherwise>
             </c:choose>
         </div>

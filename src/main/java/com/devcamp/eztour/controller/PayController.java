@@ -364,6 +364,7 @@ public class PayController {
         reservService.updateRsvtStt(RESERV_CANCEL, PAY_STT_CANCELLED, cancelViewDto.getRsvt_no());
         //상품상세 예약 인원 빼기
         reservService.changeReservCount(payDto.getPrd_dtl_cd(), payDto.getRsvt_no(), "minus");
+        payService.deleteTrvlrList(cancelViewDto.getRsvt_no());
 
         String result = jsonResult.toString();
         return result;
