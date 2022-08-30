@@ -21,7 +21,7 @@
             <div class="login-subtitle" style="margin-bottom: 20px; width: 540px;">
                 <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 10px;">정보입력</h2>
                 <p style="font-size: 12px; margin-bottom: 20px; color: gray">회원정보는 예약이나 각종 이벤트 참여에 따른 정보 제공에 활용되므로 정확하게 입력해주세요.</p>
-                <hr>
+                <hr style="width: 550px;">
             </div>
             <div class="input-id">
                 <label for="">아이디</label><br>
@@ -34,14 +34,14 @@
             </div>
             <div class="input-pwd">
                 <label for="">비밀번호</label><br>
-                <input class="input-field" type="text" name="pwd" id="pwd1" placeholder="6~12자리의 영대소문자와 숫자 조합"
+                <input class="input-field" type="password" name="pwd" id="pwd1" placeholder="6~12자리의 영대소문자와 숫자 조합"
                        onkeyup="noSpaceForm(this); moreThanSixPwd();" onchange="noSpaceForm(this);" style="margin-bottom: 0px;"><br>
                 <p id="nonAlterPwd1" style="margin-bottom: 20px; padding: 5px 5px;"> </p>
                 <p id="moreThan6Pwd" style="margin-bottom: 20px; padding: 5px 5px; display: none; color: red" >6자이상 입력해주세요.</p>
             </div>
             <div class="input-pwd">
                 <label for="">비밀번호 확인</label><br>
-                <input class="input-field" type="text" id="pwd2" placeholder="6~12자리의 영대소문자와 숫자 조합"
+                <input class="input-field" type="password" id="pwd2" placeholder="6~12자리의 영대소문자와 숫자 조합"
                        onkeyup="noSpaceForm(this); checkPwd();" onchange="noSpaceForm(this);" style="margin-bottom: 0px;"><br>
                 <p id="nonAlterPwd2" style="margin-bottom: 20px; padding: 5px 5px;"> </p>
                 <p id="alertPwd" style="margin-bottom: 20px; padding: 5px 5px; display: none; color: red" >비밀번호가 일치하지 않습니다.</p>
@@ -87,11 +87,11 @@
             </div
             <div class="input-basic">
                 <label for="">이메일</label><br>
-                <input type="text" class="input-field" name="email" id="email" value="${email}" >
+                <input type="text" class="input-field" name="email" id="email" value="${email}" readonly>
             </div>
 
             <div style="text-align: center">
-                <input type="button" id="goback" onclick="history.back()" value="취소">
+                <input type="button" id="goback" onclick="history.back()" style="margin-bottom: 300px;" value="취소">
                 <button id="submit">확인</button>
             </div>
         </div>
@@ -101,6 +101,11 @@
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script>
     window.history.forward();
+
+    window.history.forward();
+    $( document ).ready(function() {
+        history.replaceState({}, null, location.pathname);
+    });
 
     <!-- 공백 사용 방지 -->
     function noSpaceForm(obj) {

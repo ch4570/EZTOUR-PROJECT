@@ -179,7 +179,7 @@
         UPDATE
             usr
         SET
-            naver_id = ${naver_id}
+            naver_id = #{naver_id}
         WHERE
             usr_nm = #{usr_nm}
           AND

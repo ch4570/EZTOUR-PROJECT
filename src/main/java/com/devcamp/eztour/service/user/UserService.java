@@ -35,7 +35,7 @@ public interface UserService {
 
     UserDto userNaverLoginPro(String naver_id) throws Exception;
 
-    void setNaverConnection(Map<String, Object> apiJson) throws Exception;
+    int setNaverConnection(Map<String, Object> apiJson) throws Exception;
 
     Map kakaoConnectionCheck(Map paramMap) throws Exception;
 

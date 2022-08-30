@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,9 +21,11 @@ import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -123,7 +126,8 @@ public class UserController {
 
     @GetMapping("/login")
     public String loginView(HttpSession session, Model m, RedirectAttributes rattr, String lst_acc_date,
-                            String rst_chg_date, String usr_id, @CookieValue(name="id", required = false) String enCookieId) throws Exception{
+                            String rst_chg_date, String usr_id, @CookieValue(name="id", required = false) String enCookieId,
+                            String naver_id, String usr_nm, String phn) throws Exception{
         if(session.getAttribute("userDto")==null) {
             String naverAuthUrl = naverloginbo.getAuthorizationUrl(session);
             m.addAttribute("naverUrl", naverAuthUrl);
@@ -136,7 +140,6 @@ public class UserController {
                 if(lst_acc_date!=null && rst_chg_date!=null) {
                     lst_acc_date2 = transFormat.parse(lst_acc_date);
                     rst_chg_date2 = transFormat.parse(rst_chg_date);
-                    System.out.println("date타입 포맷되어 모델에 들어가나요?");
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -144,8 +147,8 @@ public class UserController {
                 return "redirect:/";
             }
 
-            String deCookieId=null;
             // 쿠키 복호화
+            String deCookieId=null;
             if(enCookieId!=null) {
                 AES256Cipher a256 = AES256Cipher.getInstance();
                 deCookieId = a256.AES_Decode(enCookieId);
@@ -169,6 +172,13 @@ public class UserController {
 
         UserDto userDto = userService.selectUsr(usr_id);
 
+        // 비밀번호 확인
+        if(!(userDto!=null && bCryptPasswordEncoder.matches(pwd,userDto.getPwd()))) {
+            rattr.addFlashAttribute("msg", "LOGIN_FAIL");
+            return "redirect:/user/login";
+        }
+
+        // 휴면계정 확인
         if(userDto.getCmn_cd_usr_stt().equals("2C")) {
             userDto = userService.selectUsrHst(usr_id);
 
@@ -178,11 +188,6 @@ public class UserController {
 
             String rstmsg="RST_ERR";
             return "redirect:/user/login?lst_acc_date=" +lst_acc_date+ "&rst_chg_date=" +rst_chg_date+ "&rstmsg=" +rstmsg+ "&usr_id=" +usr_id;
-        }
-
-        if(!(userDto!=null && bCryptPasswordEncoder.matches(pwd,userDto.getPwd()))) {
-            rattr.addFlashAttribute("msg", "LOGIN_FAIL");
-            return "redirect:/user/login";
         }
 
         userService.updateHstForLogin(usr_id); // 예외처리 예정 (에러 발생시 세션 안넘기고 에러메세지 + 메인 이동)
@@ -326,7 +331,7 @@ public class UserController {
     }
 
     @RequestMapping(value="/userNaverLoginPro",  method = {RequestMethod.GET,RequestMethod.POST})
-    public String userNaverLoginPro(Model model, @RequestParam Map<String,Object> paramMap, @RequestParam String code, @RequestParam String state, HttpSession session) throws SQLException, Exception {
+    public String userNaverLoginPro(@RequestParam Map<String,Object> paramMap, @RequestParam String code, @RequestParam String state, HttpSession session, Model model, RedirectAttributes rattr, ModelMap modelMap) throws SQLException, Exception {
         System.out.println("paramMap:" + paramMap);
         Map <String, Object> resultMap = new HashMap<String, Object>();
 
@@ -345,7 +350,6 @@ public class UserController {
         birthDay = birthDay.replaceAll("-", "");
         birthDay.trim();
         birthDay = birthYear+birthDay;
-        System.out.println(birthDay);
 
         // 핸드폰 특수문자 버리기
         String phn = (String)apiJson.get("mobile");
@@ -354,7 +358,6 @@ public class UserController {
         // 이름 한글 변환
         String name = (String)apiJson.get("name");
         name = uniToKor(name);
-        System.out.println(name);
 
         apiJson.put("usr_nm", name);
         apiJson.put("brth", birthDay);
@@ -363,9 +366,14 @@ public class UserController {
 
         String naver_id = (String)apiJson.get("naver_id");
 
-        // 네이버로그인 정보와 일치하는 사용자정보 불러오기
-        Map<String, Object> naverConnectionCheck = userService.naverConnectionCheck(apiJson);
-        System.out.println(naverConnectionCheck);
+        // 네이버 정보와 일치하는 사용자 정보 불러오기
+        Map<String, Object> naverConnectionCheck = null;
+        try {
+            naverConnectionCheck = userService.naverConnectionCheck(apiJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         if(naverConnectionCheck == null) { // 일치하는 정보가 아예 없으면 가입
             model.addAttribute("email",apiJson.get("email"));
             model.addAttribute("brth",apiJson.get("brth"));
@@ -374,29 +382,41 @@ public class UserController {
             model.addAttribute("gndr",apiJson.get("gender"));
             model.addAttribute("naver_id",apiJson.get("naver_id"));
             return "user/setSubInfo.tiles";
-        }else if(naverConnectionCheck.get("naver_id") == null && naverConnectionCheck.get("email") != null) { // 가입했지만 네이버 연동 안되어 있을시, confirm("연동하시겠습니까?")
-            model.addAttribute("msg", "alrdy_usr"); // 이미 가입한 회원입니다. sns 계정과 연동하시겠습니까?
-            model.addAttribute("naver_id",apiJson.get("naver_id"));
+        }else if(naverConnectionCheck.get("naver_id") == null && naverConnectionCheck.get("phn") != null) { // 가입했지만 네이버 연동 안되어 있을시, confirm("연동하시겠습니까?")
+            rattr.addFlashAttribute("msg","NAVER_SET_CONFIRM");
 
-            userService.setNaverConnection(apiJson);
-
-            UserDto userDto = userService.userNaverLoginPro(naver_id);
-            session.setAttribute("userDto", userDto);
+            String usr_nm = URLEncoder.encode((String) naverConnectionCheck.get("usr_nm"));
+            return "redirect:/user/login?naver_id=" +naver_id+ "&usr_nm=" +usr_nm+ "&phn=" +naverConnectionCheck.get("phn");
         }else { // 모두 연동 되어있을시, 바로 세션으로 정보 저장
             UserDto userDto = userService.userNaverLoginPro(naver_id); // 해당 네이버 아이디를 가진 사용자를 부른다. (아이디, 이름, 이메일, 핸드폰, 역할)
             session.setAttribute("userDto", userDto);
             userService.updateHstForLogin(userDto.getUsr_id()); // 예외처리 예정 (에러 발생시 세션 안넘기고 에러메세지 + 메인 이동)
         }
-        String toURL = (String)session.getAttribute("toURL");
 
-        // 이전에 눌렀던 url 이동 (마이페이지, 고객센터에 적용?)
+        String toURL = (String) session.getAttribute("toURL");
         toURL = toURL==null || toURL.equals("") ? "/" : toURL;
         return "redirect:"+toURL;
     }
 
     @PostMapping ("/setNaverConnection")
-    public String setNaverConnection(String naver_id, HttpSession session, RedirectAttributes rattr){
-        return "redirect:/";
+    public String setNaverConnection(String naver_id, String usr_nm, String phn, HttpSession session, RedirectAttributes rattr){
+        Map<String, Object> apiJson = new HashMap<>();
+        apiJson.put("naver_id", naver_id);
+        apiJson.put("usr_nm", usr_nm);
+        apiJson.put("phn", phn);
+        UserDto userDto = null;
+        try {
+            int rowCnt = userService.setNaverConnection(apiJson);
+            if(rowCnt != 1){
+                throw new Exception("naver connection error" +usr_nm);
+            }
+            rattr.addFlashAttribute("msg", "SET_NAVER_OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            rattr.addFlashAttribute("msg","SET_NAVER_ERR");
+            return "redirect:/user/login";
+        }
+        return "redirect:/user/login";
     }
 
     @PostMapping ("/setSubInfo")
@@ -404,12 +424,14 @@ public class UserController {
         m.addAttribute("kakao_id", kakao_id);
         m.addAttribute("gndr", gndr);
         m.addAttribute("email", email);
-        return "/user/setSubInfo";
+        return "redirect:/user/setSubInfo";
     }
 
     @GetMapping("/setSubInfo")
-    public String setSubInfo(Model m){
-
+    public String setSubInfo(Model m,String kakao_id, String gndr, String email){
+        m.addAttribute("kakao_id", kakao_id);
+        m.addAttribute("gndr", gndr);
+        m.addAttribute("email", email);
         return "user/setSubInfo.tiles";
     }
 
@@ -435,32 +457,60 @@ public class UserController {
     }
 
     @PostMapping("/changePwd")
-    public String changePwd(HttpSession session, String pwd, String new_pwd, RedirectAttributes rattr) {
+    public String changePwd(HttpSession session, HttpServletRequest req, String pwd, String new_pwd, RedirectAttributes rattr) {
         UserDto userDto = (UserDto) session.getAttribute("userDto");
         String usr_id = userDto.getUsr_id();
 
         try {
-            userDto = userService.selectUsr(usr_id);
-            boolean pwdCheck = bCryptPasswordEncoder.matches(pwd, userDto.getPwd());
-            System.out.println("pwd = " + pwd);
-            System.out.println("userDto.getPwd() = " + userDto.getPwd());
-            if(!pwdCheck){
-                rattr.addFlashAttribute("msg","PWD_ERR");
+            if (req.getRequestURI().equals("/user/usrMod")) {
+                userDto = userService.selectUsr(usr_id);
+                boolean pwdCheck = bCryptPasswordEncoder.matches(pwd, userDto.getPwd());
+                System.out.println("pwd = " + pwd);
+                System.out.println("userDto.getPwd() = " + userDto.getPwd());
+                if (!pwdCheck) {
+                    rattr.addFlashAttribute("msg", "PWD_ERR");
+                    return "redirect:/user/usrMod";
+                }
+            }
+            // 변경할 비밀번호, 비밀번호 확인란과 일치하지 않을시
+            if (!(pwd.equals(new_pwd))) {
+                rattr.addFlashAttribute("msg", "NEW_PWD_ERR");
                 return "redirect:/user/usrMod";
             }
-
-            String encodedPwd = bCryptPasswordEncoder.encode(new_pwd);
-            int rowCnt = userService.changePwd(usr_id, encodedPwd);
-            if(rowCnt != 1){
-                throw new Exception("user update error");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            rattr.addFlashAttribute("msg","MOD_ERR");
-            return "redirect:/user/usrMod";
+                String encodedPwd = bCryptPasswordEncoder.encode(new_pwd);
+                int rowCnt = userService.changePwd(usr_id, encodedPwd);
+                if (rowCnt != 1) {
+                    throw new Exception("user update error");
+                }
+            } catch(Exception e){
+                e.printStackTrace();
+                rattr.addFlashAttribute("msg", "MOD_ERR");
+                return "redirect:/user/usrMod";
         }
-        rattr.addFlashAttribute("msg","MOD_OK");
+        rattr.addFlashAttribute("msg", "MOD_OK");
         return "redirect:/user/mypage";
+    }
+
+    @PostMapping("/findAndChangePwd")
+    public String findAndChangePwd(String usr_id, String new_pwd, String new_pwd_chk, RedirectAttributes rattr){
+        // 1. 일치 여부 확인
+        if (!(new_pwd.equals(new_pwd_chk))) {
+            rattr.addFlashAttribute("msg", "NEW_PWD_ERR");
+            return "redirect:/user/findIdPwd";
+        }
+        String encodedPwd = bCryptPasswordEncoder.encode(new_pwd);
+        try{
+            int rowCnt = userService.changePwd(usr_id, encodedPwd);
+            if (rowCnt != 1) {
+                throw new Exception("user change pwd error");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            rattr.addFlashAttribute("msg", "MOD_ERR");
+            return "redirect:/user/findIdPwd";
+        }
+        rattr.addFlashAttribute("msg","NEW_PWD_OK");
+        return "redirect:/user/login";
     }
 
     @PostMapping("/rstRelease")
@@ -475,7 +525,6 @@ public class UserController {
             rattr.addFlashAttribute("msg","RST_ERR");
             return "redirect:/user/login";
         }
-        System.out.println("된건가?");
         rattr.addFlashAttribute("msg","RLS_OK");
         return "redirect:/user/login";
     }

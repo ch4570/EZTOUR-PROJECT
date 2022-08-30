@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<% pageContext.setAttribute("LF", "\n"); %>
 <%@ page session="true"%>
 <!DOCTYPE html>
 <html>
@@ -28,7 +30,6 @@
                     <input class="value-move" tpye="hidden" name="rvw_no" value="${rvwDto.rvw_no}">
                     <input class="value-move" tpye="hidden" name="wrt_nm" value="${rvwDto.wrt_nm}">
                     <input class="value-move" tpye="hidden" name="wrt_email" value="${rvwDto.wrt_email}">
-                    <input class="value-move" tpye="hidden" name="rvw_cont" value="${rvwDto.rvw_cont}">
                     <p class="left">
                         <span class="writer" name="wrt_nm" value="${rvwDto.wrt_nm}">작성자 | ${rvwDto.wrt_nm}</span>
                         <span class="email" name="wrt_email" value="${rvwDto.wrt_email}">이메일 | ${rvwDto.wrt_email}</span>
@@ -49,7 +50,7 @@
                     </div>
                 </div>
                 <!-- 글 내용-->
-                <textarea class="detailInfo-content" name="rvw_cont" placeholder="내용을 입력해주세요"><c:out value="${rvwDto.rvw_cont}"/></textarea>
+                <textarea class="detailInfo-content"  id="textarea" name="rvw_cont" placeholder="내용을 입력해주세요"><c:out value="${rvwDto.rvw_cont}" escapeXml="false"/></textarea>
                 <div class="boradBtns">
                     <c:if test="${mode ne 'new'}">
                         <button class="btn sz-inp st-lblue btn_summit" type="button" id="modifyBtn">확인</button>
@@ -70,6 +71,10 @@
     if(msg=="WRT_ERR") alert("게시물 등록에 실패했습니다. 다시 시도해주세요.");
 
     $(document).ready(function (){
+
+
+
+
         // 신규 등록
         $('#newRegisterBtn').on("click", function(){
             let form = $('#form-reviewRegister');
