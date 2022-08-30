@@ -92,7 +92,7 @@
     <select id="selectTheUnAppredListPage" parameterType="Map" resultType="ReservDto">
         select r.rsvt_no, r.usr_id, r.mn_rsvt_nm, r.email, r.rsvt_date, r.phn, r.prd_dtl_cd, tpd.prd_nm
         FROM rsvt r INNER JOIN trv_prd_dtl tpd
-                               ON r.prd_cd = tpd.prd_cd
+                               ON r.prd_dtl_cd = tpd.prd_dtl_cd
         WHERE cmn_cd_rsvt_stt = '6A'
         ORDER BY r.rsvt_date ASC
         LIMIT #{pageSize} OFFSET #{offset}
@@ -101,7 +101,7 @@
     <select id="selectTheUnAppredListCnt" resultType="int">
         select count(*)
         FROM rsvt r INNER JOIN trv_prd_dtl tpd
-                               ON r.prd_cd = tpd.prd_cd
+                               ON r.prd_dtl_cd = tpd.prd_dtl_cd
         WHERE cmn_cd_rsvt_stt = '6A'
     </select>
 
