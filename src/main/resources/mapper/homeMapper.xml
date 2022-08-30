@@ -5,7 +5,7 @@
 <mapper namespace="com.devcamp.eztour.dao.homeMapper">
 
     <sql id="selectFromProduct">
-        SELECT A.prd_cd, A.dstn_cd, A.prd_nm, A.prd_dtl_desc, A.prd_str_prc, B.img_pth, B.mn_img_yn
+        SELECT A.prd_cd, A.dstn_cd, A.prd_nm, A.prd_dtl_desc, A.prd_str_prc, B.img_pth, B.mn_img_yn,A.act_yn
         FROM trv_prd A
         JOIN prd_img B
         ON A.prd_cd = B.prd_cd

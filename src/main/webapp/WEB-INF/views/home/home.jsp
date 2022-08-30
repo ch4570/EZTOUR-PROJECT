@@ -132,17 +132,21 @@
             <div class="modal_recently">
                 <i class="fa-solid fa-x" name="modal_close_btn"></i>
                 <div class="modal_tlt">
-                    <strong>최근 본 상품 (${sessionScope.trvList.size()})</strong>
-                    <hr>
+                    <strong>최근 본 상품 (${sessionScope.trvList == null ? 0 : sessionScope.trvList.size()})</strong>
                 </div>
                 <div class="modal_recently_content">
                     <div class="product--list__modal">
                         <c:forEach items="${sessionScope.trvList}" var="trvList">
                             <div class="product__recent--list">
                                 <a><i class="fa-solid fa-x" name="product__recent--cancel" prd_cd="${trvList.prd_cd}"></i></a>
-                                <img src="<c:url value='${trvList.img_pth}'/>" width="300px" height="400px">
-                                <a href="/product/recent/list?prd_cd=${trvList.prd_cd}"><p>${trvList.prd_nm}</p></a>
-                                <div class="product__cost--list"><strong>${trvList.prd_str_prc}</strong><h6>원</h6></div>
+                                <img src="<c:url value='${trvList.img_pth}'/>" >
+                                <a href="/product/recent/list?prd_cd=${trvList.prd_cd}">
+                                    <p>${trvList.prd_nm}</p>
+                                </a>
+                                <div class="product__cost--list">
+                                    <strong><fmt:formatNumber value="${trvList.prd_str_prc}" pattern="#,##0"/></strong>
+                                    <em>원</em>
+                                </div>
                             </div>
                         </c:forEach>
                     </div>
@@ -415,8 +419,8 @@
                     </a>
                 </li>
                 <li>
-                    <a class="aside__link" href="#">
-                        <a href="<c:url value='/product/attractive'/>"><span><i class="far fa-heart"></i></span></a>
+                    <a class="aside__link">
+                        <span><i class="far fa-heart" name="attr_prd"></i></span>
                         <span>관심상품</span>
                     </a>
                 </li>
@@ -480,6 +484,27 @@
             $(".aside").toggleClass('open');
             $(".aside__btn").toggleClass('open');
         })
+
+        $('i[name=attr_prd]').on("click",function (){
+
+            let userDto = '${sessionScope.userDto}';
+
+            if(userDto != null && userDto != ''){
+                location.href = "<c:url value='/product/attractive'/>";
+            }
+
+            if(userDto == null || userDto == ''){
+                alert("관심 상품은 회원만 사용 가능합니다.");
+                let loginConfirm = confirm("로그인 하시겠습니까?");
+
+                if(loginConfirm){
+                    location.href = "<c:url value='/user/login'/>";
+                }else{
+                    return;
+                }
+            }
+
+        });
     });
 
     const productContainers = [...document.querySelectorAll('.product-container')];

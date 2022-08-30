@@ -22,7 +22,7 @@ public class TrvPrdReadDto {
     private int star;
     private boolean evnt_yn;
     private boolean fin_yn;
-    private boolean act_yn;
+    private Integer act_yn;
     private boolean dc_yn;
     private int pr_prc;
     private int add_sv_rt;
@@ -56,7 +56,7 @@ public class TrvPrdReadDto {
 
     public TrvPrdReadDto(String prd_cd, String dstn_cd, String cmn_cd_thm, String prd_nm,
                          String prd_dtl_desc, String trv_per, Integer prd_str_prc,
-                         String dpr_str_date, String dpr_fin_date,boolean act_yn,
+                         String dpr_str_date, String dpr_fin_date, Integer act_yn,
                          Date frs_reg_date) {
 
         this.prd_cd = prd_cd;
@@ -84,7 +84,7 @@ public class TrvPrdReadDto {
 
 
     public TrvPrdReadDto(String prd_cd, String dstn_cd, String prd_nm, String prd_dtl_desc,
-                         Integer prd_str_prc, String img_pth, boolean mn_img_yn) {
+                         Integer prd_str_prc, String img_pth, boolean mn_img_yn, Integer act_yn) {
         this.prd_cd = prd_cd;
         this.dstn_cd = dstn_cd;
         this.prd_nm = prd_nm;
@@ -92,6 +92,7 @@ public class TrvPrdReadDto {
         this.prd_str_prc = prd_str_prc;
         this.img_pth = img_pth;
         this.mn_img_yn = mn_img_yn;
+        this.act_yn = act_yn;
     }
 
     public TrvPrdReadDto(String prd_cd,String dstn_cd, String cmn_cd_thm, String prd_nm, String prd_dtl_desc,
