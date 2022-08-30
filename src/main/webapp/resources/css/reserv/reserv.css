@@ -564,16 +564,7 @@ button{
     border-radius: 8px;
     margin-bottom: 50px;
 }
-.dv_dtl_box h2,
-.dv_trvlr_box{
 
-}
-.dv_dtl_subbox{
-
-}
-.dv_trvlr_subbox{
-
-}
 .dv_dtl_title{
     font-size: 22px;
     font-weight: 600;
@@ -626,6 +617,9 @@ button{
 .dv_col2 dd{
     font-size: 18px;
     font-weight: 400;
+}
+.reserv_text_center{
+    text-align: center;
 }
  /*결제 페이지*/
 .pv_big_box{
