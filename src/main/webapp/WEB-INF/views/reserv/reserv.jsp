@@ -105,7 +105,7 @@
                         </tr>
                         <tr class="ri_table_row">
                             <th>여행기간</th>
-                            <td>${rid.trv_per}</td>
+                            <td>${rid.trv_dtl_per}</td>
                         </tr>
                         <tr class="ri_table_row">
                             <th>일정</th>
