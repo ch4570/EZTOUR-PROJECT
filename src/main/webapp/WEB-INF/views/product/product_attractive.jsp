@@ -47,15 +47,15 @@
                         <div class="item-attr">
                             <div class="product__list">
                                 <div class="image-box" style="background-image: url(../..${list.img_pth})">
-                                    <a style="position: absolute; top:10px; left:290px; z-index: 1000; color: #000; opacity:0.7;"><i class="fa fa-times-circle fa-2x" aria-hidden="true" name="product__attr--cancel" prd_cd="${list.prd_cd}"></i></a>
+                                    <a style="position: absolute; top:10px; left:290px; z-index: 1000; color: #000; opacity:0.7; cursor: pointer"><i class="fa fa-times-circle fa-2x" aria-hidden="true" name="product__attr--cancel" prd_cd="${list.prd_cd}"></i></a>
                                 </div>
                                 <a href="<c:url value='/product/recent/list?prd_cd=${list.prd_cd}'/>">
                                     <div class="text">
                                         <p style="font-size: 13px; font-weight: bold; color: #999999; padding-top: 10px">상품코드 ${list.prd_cd}</p>
-                                        <p style="font-size: 16px; font-weight: bold; ">
+                                        <p style="font-size: 16px; font-weight: bold; line-height: normal;">
                                             <c:choose>
-                                                <c:when test="${fn:length(list.prd_nm) > 45}">
-                                                    <c:out value="${fn:substring(list.prd_nm,0,44)}"/>....
+                                                <c:when test="${fn:length(list.prd_nm) > 40}">
+                                                    <c:out value="${fn:substring(list.prd_nm,0,39)}"/>....
                                                 </c:when>
                                                 <c:otherwise>
                                                     <c:out value="${list.prd_nm}"/>
