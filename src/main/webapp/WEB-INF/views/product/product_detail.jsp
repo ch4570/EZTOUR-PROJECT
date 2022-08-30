@@ -94,8 +94,8 @@
         <div class="detail-item__menu">
             <div class="ul-wrap">
                 <ul class="detail-item__tab">
-                    <li class="tab-link selected" data-tab="tab-1">여행일정</li>
-                    <li class="tab-link" data-tab="tab-2">예약안내사항</li>
+                    <li class="tab-link selected" data-tab="tab-1">예약안내사항</li>
+                    <li class="tab-link" data-tab="tab-2">여행일정</li>
                     <li class="tab-link" data-tab="tab-3">상품문의</li>
                     <li class="tab-link" data-tab="tab-4">약관정보</li>
                     <li class="tab-link" data-tab="tab-5">해외안전정보</li>
@@ -103,6 +103,44 @@
             </div>
 
             <div id="tab-1" class="cont_box selected">
+                <div class="cont_box__tit">
+                    <span>예약안내사항</span>
+                </div>
+
+                <div class="rev-notice">
+                    <div class="rev-notice__pre-notice item-cell">
+                        <div class="pre-notice__tit">
+                            <span>여행전 안내사항</span>
+                        </div>
+                        <div class="pre-notice__con">
+                            <p>① 호텔은 동급의 다른 호텔로 변경 될 수 있습니다. <br>
+                                ② 현지 사정 및 휴관일로 인해 입장을 하지 못할 경우 다른 관광지로 대체 됩니다.<br>
+                                ③ 현지의 예고없는 기차스케줄 변동으로 일정의 순서 및 관광지에 대한 변동이 있을 수 있습니다.<br>
+                                이점 양지하여 주시기 바랍니다.<br>
+                                ④ 국적기인 경우, 대한항공 편과 아시아나 항공 편은 출발 7일 전 서로 대체될 수 있습니다.</p>
+                        </div>
+                    </div>
+                    <div class="rev-notice__deposit item-cell">
+                        <div class="deposit__tit">
+                            <span>입금계좌 안내</span>
+                        </div>
+                        <div>
+                            <span>신한은행 111-123-987654 / (주)세븐일레븐</span>
+                        </div>
+                    </div>
+                    <div class="rev-notice__etc item-cell">
+                        <div class="etc__tit">
+                            <span>기타사항</span>
+                        </div>
+                        <div class="etc__con">
+                            <p>★여행 약관 12조★<br>
+                                국외여행을 실시함에 있어서 이용운송 숙박 기관에 지급하여야 할 요금이 계약 체결시 보다 5%이상 증감 하거나 여행 요금에 적용된 외화 환율이 계약 체결시보다 2%이상 증감한 경우 여행업자 또는 여행자는 증감된 금액범위 내에서여행요금의 증감을 상대방에게 청구 할 수 있습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-2" class="cont_box">
                 <div class="cont_box__tit">
                     <span class="">여행일정</span>
                 </div>
@@ -359,44 +397,6 @@
                 </div>
             </div>
 
-            <div id="tab-2" class="cont_box">
-                <div class="cont_box__tit">
-                    <span>예약안내사항</span>
-                </div>
-
-                <div class="rev-notice">
-                    <div class="rev-notice__pre-notice item-cell">
-                        <div class="pre-notice__tit">
-                            <span>여행전 안내사항</span>
-                        </div>
-                        <div class="pre-notice__con">
-                            <p>① 호텔은 동급의 다른 호텔로 변경 될 수 있습니다. <br>
-                                ② 현지 사정 및 휴관일로 인해 입장을 하지 못할 경우 다른 관광지로 대체 됩니다.<br>
-                                ③ 현지의 예고없는 기차스케줄 변동으로 일정의 순서 및 관광지에 대한 변동이 있을 수 있습니다.<br>
-                                이점 양지하여 주시기 바랍니다.<br>
-                                ④ 국적기인 경우, 대한항공 편과 아시아나 항공 편은 출발 7일 전 서로 대체될 수 있습니다.</p>
-                        </div>
-                    </div>
-                    <div class="rev-notice__deposit item-cell">
-                        <div class="deposit__tit">
-                            <span>입금계좌 안내</span>
-                        </div>
-                        <div>
-                            <span>신한은행 111-123-987654 / (주)세븐일레븐</span>
-                        </div>
-                    </div>
-                    <div class="rev-notice__etc item-cell">
-                        <div class="etc__tit">
-                            <span>기타사항</span>
-                        </div>
-                        <div class="etc__con">
-                            <p>★여행 약관 12조★<br>
-                                국외여행을 실시함에 있어서 이용운송 숙박 기관에 지급하여야 할 요금이 계약 체결시 보다 5%이상 증감 하거나 여행 요금에 적용된 외화 환율이 계약 체결시보다 2%이상 증감한 경우 여행업자 또는 여행자는 증감된 금액범위 내에서여행요금의 증감을 상대방에게 청구 할 수 있습니다.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div id="tab-3" class="cont_box">
                 <div class="cont_box__tit">
                     <span>상품문의</span>
@@ -468,7 +468,7 @@
             </div>
             <div class="rev__date">
                 <span>일정</span>
-                <span>${prdDto.trv_per}</span>
+                <span>${prdDto.trv_dtl_per}</span>
             </div>
 
             <form class="detail-item__form" action="/reserv/reserv" method="get">
