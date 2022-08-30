@@ -74,8 +74,8 @@
             <c:forEach var="rvwDto" items="${list}">
                 <section class="reviewDetail"><a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>"></a>
                     <div class="reviewImg">
-                        <img class="reviewImg-thumbnail" src="/image/review/IMG_0966.JPG"  width="290" height="290">
-                        <!--img class="reviewImg-thumbnail" src="${rvwDto.img_pth}"-->
+                        <!--img class="reviewImg-thumbnail" src="/image/review/IMG_0966.JPG"  width="290" height="290"-->
+                        <img class="reviewImg-thumbnail" src="${rvwDto.img_pth}" width="290" height="290">
                     </div>
                     <div class="reviewInfo">
                         <div class="reviewTitle">

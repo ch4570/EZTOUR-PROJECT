@@ -9,21 +9,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>$Title$</title>
+    <title>이지투어</title>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <link rel="stylesheet" href="<c:url value='/css/reserv/reserv.css'/>">
 </head>
 <body>
-    <div>
-        <h2>환불완료</h2>
-        <div>
+    <div class="cc_big_box">
+        <h2 class="reserv_main_header">환불완료</h2>
+        <div class="cc_icon"></div>
+        <div class="cc_sub_box">
             <span>환불이 완료되었습니다.</span>
             <span>고객님의 다음 여행을 돕기 위해 준비하는</span>
             <span>이지투어 되겠습니다.</span>
             <span>감사합니다</span>
         </div>
-        <div>사진</div>
-        <button type="button" class="toMainBtn">메인으로</button>
-        <button type="button" class="reservList">나의 결제/예약페이지</button>
+        <div class="rc_btn_box">
+            <button type="button" class="toMainBtn rc_btn_m rc_btn_margin reserv_btn_m_white">메인으로</button>
+            <button type="button" class="reservList rc_btn_m reserv_btn_m_black">나의 결제/예약페이지</button>
+        </div>
     </div>
 <script>
     $(document).ready(function(){

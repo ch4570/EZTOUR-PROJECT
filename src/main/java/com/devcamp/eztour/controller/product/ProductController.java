@@ -92,10 +92,6 @@ public class ProductController {
     public String getProductAttractive(HttpSession session, Model m) throws Exception{
         UserDto userDto = (UserDto)session.getAttribute("userDto");
 
-        if(userDto == null){
-            return "redirect:/user/login";
-        }
-
         List<TrvPrdDtlReadDto> list = productDetailService.getProductAttractive(userDto.getUsr_id());
         int cnt = productDetailService.getProductAttractiveCnt(userDto.getUsr_id());
         m.addAttribute("list",list);

@@ -123,15 +123,6 @@
                                 <tr class="ri_trvlr_row">
                                     <th class="ri_trvlr_col1">휴대폰 번호</th>
                                     <td class="ri_trvlr_col2">
-    <%--                                    <select name="phnFirst">--%>
-    <%--                                        <option value="010">010</option>--%>
-    <%--                                        <option value="010">010</option>--%>
-    <%--                                        <option value="010">011</option>--%>
-    <%--                                        <option value="010">016</option>--%>
-    <%--                                        <option value="010">017</option>--%>
-    <%--                                        <option value="010">018</option>--%>
-    <%--                                        <option value="010">019</option>--%>
-    <%--                                    </select>--%>
                                         <input type="text" class="ri_trvlr_inputbox" name="phn" placeholder="01012341234" value="${userDto.phn}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                     </td>
                                 </tr>
