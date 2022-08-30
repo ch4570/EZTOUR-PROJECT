@@ -108,12 +108,12 @@ pageEncoding="UTF-8"%>
         </div>
         <h1>어디로 떠나세요?</h1>
         <form class="form-search" action="/search">
-          <div>
-            <input class="search-input" name="keyword" type="search" placeholder="검색어를 입력하세요"/>
-            <button class="search-btn" type="submit">
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-          </div>
+        <div class="modal_sub_box">
+          <input class="search-input" name="keyword" type="search" placeholder="검색어를 입력하세요"/>
+          <button class="search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
         </form>
       </div>
     </div>

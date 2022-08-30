@@ -47,12 +47,30 @@ button{
     height: 54px;
     font-size: 16px;
     font-weight: 600;
+    cursor: pointer;
+}
+
+.reserv_red{
+    color: #e02525;
+}
+.reserv_gray_bg_color{
+    background-color: whitesmoke;
+}
+.reserv_see_content{
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    border-bottom: 1px solid black;
+    color: #4b4b4b;
+    font-size: 13px;
 }
 
 /*예약페이지*/
 .ri_biggest_box {
     padding: 65px 0 0 0;
     display: grid;
+    width: 1000px;
+    margin: auto;
 }
 
 .ri_header_box {
@@ -67,7 +85,7 @@ button{
 }
 
 .ri_header_sub {
-    margin: 30px 0 30px 0;
+    margin: 30px 0 0 0;
     font-size: 13px;
 }
 
@@ -112,12 +130,23 @@ button{
     margin: 0 0 90px 0;
 }
 
+.ri_agree_box > p {
+    font-size: 14px;
+    color: gray;
+}
+
 .ri_sub_header {
     font-size: 25px;
     font-weight: 700;
     margin: 0 0 25px 0;
 }
-
+.ri_total_agree{
+    margin: 0 0 20px 0;
+}
+.ri_agree_info{
+    font-size: 14px;
+    font-weight: 600;
+}
 .ri_agree_checkbox span {
     font-size: 20px;
     font-weight: 500;
@@ -133,9 +162,19 @@ button{
 }
 
 .ri_agree_checklist_box{
-
+    padding: 20px 0;
+    border-top: 1px solid black;
+    border-bottom: 1px solid #c8c8c8;
+    margin: 0 0 20px 0;
 }
-
+.ri_agree_low{
+    font-size: 17px;
+    position: relative;
+    line-height: 20px;
+}
+.ri_agree_low:not(:last-child){
+    margin: 0 0 15px 0;
+}
 .ri_reserv_info_box {
     /*border-top: 1.5px solid black;*/
 
@@ -178,23 +217,28 @@ button{
     width: 80%;
     padding: 0 0 0 20px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 20px;
+    vertical-align: middle;
 }
 
 .ri_arl_line{
-    margin: 0;
+    margin: 0 0 2px 0;
     padding: 0;
-    font-weight: normal;
-    font-size: 14px;
     letter-spacing: -0.42px;
     box-sizing: border-box;
 }
 .ri_arl_line dt{
     display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    margin-right: 10px;
 }
 .ri_arl_line dd{
     display: inline-block;
+}
+.ri_arl_line > span {
+    margin: 0 10px 0 10px;
 }
 .ri_trvlr_box{
     margin: 0 0 90px 0;
@@ -227,8 +271,8 @@ button{
 }
 .ri_trvlr_inputbox{
     height: 33px;
-    border: 1px solid #c2c0c0;
-    width: 155px;
+    border: 1px solid #e5e5e5;
+    width: 165px;
     padding: 7px;
     font-size: 16px;
 }
@@ -254,41 +298,75 @@ button{
     justify-content: center;
     text-align: center;
     padding: 37px 37px;
+    width: 25%;
+    border-bottom: 1px solid #e7e7e7;
+    border-right: 1px solid #e7e7e7;
 }
+.ri_trvlrinfo_row:first-child{
+    border-left: 1px solid #e7e7e7;
+}
+
+
 .ri_trvlrinfo_col1{
-    margin: 0px 0 12px 0;
-    font-size: 20px;
+    margin: 0px auto 12px;
+    font-size: 16px;
     font-weight: 700;
 }
 .ri_trvlrinfo_col2{
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
 }
-.ri_trvlrinfo_col2 span{
-    margin: 0 0 10px 0;
-    font-size: 13px;
+.ri_trvlrinfo_col2 span:first-child{
+    margin: 0px auto 20px;
+    font-size: 14px;
+    font-weight: 600;
 }
-.ri_trvlrinfo_col2 div{
+.ri_trvlrinfo_col2 span:last-child{
+    margin: 20px auto;
+    font-size: 22px;
+    font-weight: 600;
+}
+.ri_trvlrinfo_col2 > div{
     position: relative;
     display: flex;
     align-items: center;
 }
 .ri_trvlrinfo_col2 button {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 43px;
+    background-color: white;
+    border: 1px solid #e7e7e7;
+    font-size: 19px;
 }
-.ri_trvlrinfo_col2 div input{
-    height: 30px;
-    width: 41px;
+.ri_trvlrinfo_col2 button:hover{
+    border: 1px solid black;
+}
+.ri_trvlrinfo_col2 > div > input{
+    height: 39px;
+    width: 45px;
+    border: none;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    text-align: center;
+    font-size: 20px;
+}
+.ri_trvlrinfo_col2 > div > input:focus{
+    outline: none;
+}
+.ri_trvlrinfo_col2 > div > input:hover{
+    cursor: default;
 }
 .ri_trvlrinfo-totalbox{
-
+    line-height: 34px;
 }
-.ri_trvlrinto_total{
+.ri_trvlrinfo_total{
     width: 92px;
     border: 1px;
     text-align: center;
     margin: 10px 0;
+    font-size: 29px;
+    font-weight: 600;
 }
 .ri_etc{
     margin: 0 0 70px 0;
@@ -297,10 +375,11 @@ button{
     display: block;
 }
 .ri_etc div textarea{
-    width: 100%;
+    width: 97%;
     height: 140px;
-    /* padding: 16px 19px; */
+    padding: 11px;
     font-size: 16px;
+    resize: none;
 }
 .req_cont{
 
