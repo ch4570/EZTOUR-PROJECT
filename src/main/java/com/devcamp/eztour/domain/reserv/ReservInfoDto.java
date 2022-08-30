@@ -2,6 +2,8 @@ package com.devcamp.eztour.domain.reserv;
 
 import lombok.*;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,10 +28,10 @@ public class ReservInfoDto {
     private String cb_arr_tm; //오는 비행기 한국 도착 시간
     private String cb_arr_arl_id; //해외-한국 도착하는 비행기 id(경유가능성)
 
-    private String dom_dpr_date;
-    private String dom_fin_date;
-    private String loc_dpr_date;
-    private String loc_fin_date;
+    private Date dom_dpr_date;
+    private Date dom_fin_date;
+    private Date loc_dpr_date;
+    private Date loc_fin_date;
     //요금
     private int adt_prc;
     private int chd_prc;
