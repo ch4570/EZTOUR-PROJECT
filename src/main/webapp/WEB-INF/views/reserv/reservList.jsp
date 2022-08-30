@@ -84,7 +84,7 @@
                         <span>${reserv.prd_dtl_desc}</span>
                     </div>
 
-                    <div class="rl_prc"><fmt:formatNumber value="${reserv.sum_prc}" type="number"/>원</div>
+                    <div class="rl_prc"><fmt:formatNumber value="${reserv.sum_prc}" type="number"/><span>원</span></div>
                 </div>
             </a>
         </div>

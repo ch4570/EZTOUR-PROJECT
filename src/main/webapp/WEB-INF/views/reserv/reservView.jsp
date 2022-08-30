@@ -25,10 +25,10 @@
                         [${rcid.prd_dtl_cd}]${rcid.prd_nm}
                     </div>
                     <div class="dv_arl_box">
-                        <span class="dv_arl_code">${rcid.dom_dpr_date}</span>
-                        <span>${rcid.go_dpr_tm}</span> ~
-                        <span class="dv_arl_code">${rcid.dom_fin_date}</span>
-                        <span>${rcid.cb_arr_tm}</span>
+                        <span class="dv_arl_code">${rcid.arl_nm}</span>
+                        <span><fmt:formatDate value="${rcid.dom_dpr_date}" pattern="yyyy년 MM월 dd일 hh:mm"/></span> ~
+                        <span class="dv_arl_code">${rcid.arl_nm}</span>
+                        <span><fmt:formatDate value="${rcid.dom_fin_date}" pattern="yyyy년 MM월 dd일 hh:mm"/></span>
                     </div>
 
                     <div class="dv_detail_box">
@@ -55,12 +55,12 @@
                         <div class="dv_low">
                             <dl class="dv_col1">
                                 <dt>- 상품금액</dt>
-                                <dd>${rcid.sum_prc}</dd>
+                                <dd><fmt:formatNumber value="${rcid.sum_prc}" type="number"/>원</dd>
                             </dl>
                             <dl class="dv_col2">
                                 <dt>- 입금액</dt>
                                 <c:set var="pay" value="${payDto.pay_prc}"/>
-                                <dd>${empty pay ? 0 : pay}원</dd>
+                                <dd><fmt:formatNumber value="${empty pay ? 0 : pay}" type="number"/>원</dd>
                             </dl>
                         </div>
                         <div class="dv_low">
@@ -137,19 +137,13 @@
                             결제 내역이 없습니다.
                         </c:when>
                         <c:otherwise>
-                            <div>
-                                <dl>
-                                    <dt>여행상품번호</dt>
-                                    <dd>${payDto.prd_dtl_cd}</dd>
+                            <div class="dv_low">
+                                <dl class="dv_col1">
+                                    <dt>- 결제일</dt>
+                                    <dd><fmt:formatDate value="${payDto.pay_date}" pattern="yyy/MM/dd일(E)"/></dd>
                                 </dl>
-                                <dl>
-                                    <dt>결제일</dt>
-                                    <dd>${payDto.pay_date}</dd>
-                                </dl>
-                            </div>
-                            <div>
-                                <dl>
-                                    <dt>결제상태</dt>
+                                <dl class="dv_col2">
+                                    <dt>- 결제상태</dt>
                                     <c:choose>
                                         <c:when test="${payDto.cmn_cd_pay_stt eq '7A'}">
                                             <dd>결제대기</dd>
@@ -174,17 +168,22 @@
                                         </c:when>
                                     </c:choose>
                                 </dl>
-                                <dl>
+                            </div>
+                            <div class="dv_low">
+                                <dl class="dv_col1">
                                     <c:choose>
                                         <c:when test="${payDto.cmn_cd_pay_stt eq '7B'}">
-                                            <dt>환불금액</dt>
+                                            <dt>- 환불금액</dt>
                                         </c:when>
                                         <c:otherwise>
-                                            <dt>결제금액</dt>
+                                            <dt>- 결제금액</dt>
                                         </c:otherwise>
                                     </c:choose>
-                                    <dd>${payDto.pay_prc}</dd>
-                                    <dd>(사용한 마일리지 : ${payDto.used_mlg})</dd>
+                                    <dd><fmt:formatNumber value="${payDto.pay_prc}" type="number"/>원</dd>
+                                </dl>
+                                <dl class="dv_col2">
+                                    <dt>- 사용한 마일리지</dt>
+                                    <dd><fmt:formatNumber value="${payDto.used_mlg}" type="number"/></dd>
                                 </dl>
                             </div>
                         </c:otherwise>
@@ -197,15 +196,15 @@
             <c:set var="status" value="${rcid.cmn_cd_rsvt_stt}"/>
             <c:choose>
                 <c:when test="${status == '6B'}">
-                    <button type="button" class="payBtn rc_btn rc_btn_margine">결제 하기</button>
-                    <button class="reservList rc_btn" type="button">예약 목록보기</button>
+                    <button type="button" class="payBtn rc_btn_m rc_btn_margin reserv_btn_m_black">결제 하기</button>
+                    <button class="reservList rc_btn_m reserv_btn_m_white" type="button">예약 목록보기</button>
                 </c:when>
                 <c:when test="${status == '6A' || status == '6E'}">
-                    <button type="button" class="cncBtn rc_btn rc_btn_margine">${status == '6A' ? "예약접수" : "결제"} 취소</button>
-                    <button class="reservList rc_btn" type="button">예약 목록보기</button>
+                    <button type="button" class="cncBtn rc_btn_m rc_btn_margin reserv_btn_m_white">${status == '6A' ? "예약접수" : "결제"} 취소</button>
+                    <button class="reservList rc_btn_m reserv_btn_m_black" type="button">예약 목록보기</button>
                 </c:when>
                 <c:otherwise>
-                    <button class="reservList rc_btn" type="button">예약 목록보기</button>
+                    <button class="reservList rc_btn_m" type="button">예약 목록보기</button>
                 </c:otherwise>
             </c:choose>
         </div>

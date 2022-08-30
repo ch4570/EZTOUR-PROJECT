@@ -17,7 +17,8 @@
 <body>
 <div class="rc_big_box">
     <div class="rc_middle_box">
-        <h1 class="dv_main_header">예약완료</h1>
+        <h1 class="reserv_conf_main_header">예약완료</h1>
+        <div class="reserv_icon_box reserv_conf_icon"></div>
         <div>
             <p>상품예약이 정상적으로 완료되었습니다.</p>
             <p>이지투어 상품을 예약해 주셔서 감사합니다.</p>
@@ -30,51 +31,51 @@
         <div class="rc_content_box">
             <p class="rc_content_box_header">${rcid.prd_nm}</p>
             <div>
-                <span class="arp_code">${rcid.arl_nm}</span>
-                <span>${rcid.dom_dpr_date}</span> ~
-                <span class="arp_code">${rcid.arl_nm}</span>
-                <span>${rcid.dom_fin_date}</span>
+                <span class="dv_arl_code">${rcid.arl_nm}</span>
+                <span><fmt:formatDate value="${rcid.dom_dpr_date}" pattern="yyyy년 MM월 dd일(E) hh:mm"/></span> ~
+                <span class="dv_arl_code">${rcid.arl_nm}</span>
+                <span><fmt:formatDate value="${rcid.dom_fin_date}" pattern="yyyy년 MM월 dd일(E) hh:mm"/></span>
             </div>
             <div class="rc_dtl_content_box">
                 <div class="rc_low">
                     <dl class="rc_col1">
-                        <dt>예약일</dt>
+                        <dt>- 예약일</dt>
 <%--                        <c:set var="today" value="${rcid.rsvt_date}" />--%>
                         <dd><fmt:formatDate value="${rcid.rsvt_date}" pattern="yyyy/MM/dd(E)"/></dd>
 <%--                        <dd>${rcid.rsvt_date}</dd>--%>
                     </dl>
                     <dl class="rc_col2">
-                        <dt>예약번호</dt>
+                        <dt>- 예약번호</dt>
                         <dd>${rcid.rsvt_no}</dd>
                     </dl>
                 </div>
                 <div class="rc_low">
                     <dl class="rc_col1">
-                        <dt>상품번호</dt>
+                        <dt>- 상품번호</dt>
                         <dd>${rcid.prd_cd}</dd>
                     </dl>
                     <dl class="rc_col2">
-                        <dt>행사번호</dt>
+                        <dt>- 행사번호</dt>
                         <dd>${rcid.prd_dtl_cd}</dd>
                     </dl>
                 </div>
                 <div class="rc_low">
                     <dl class="rc_col1">
-                        <dt>여행기간</dt>
+                        <dt>- 여행기간</dt>
                         <dd>${rcid.trv_per}</dd>
                     </dl>
                     <dl class="rc_col2">
-                        <dt>출발인원</dt>
+                        <dt>- 출발인원</dt>
                         <dd>총 ${rcid.adt_cnt + rcid.chd_cnt + rcid.bb_cnt}명</dd>
                     </dl>
                 </div>
                 <div class="rc_low">
                     <dl class="rc_col1">
-                        <dt>상품금액</dt>
+                        <dt>- 상품금액</dt>
                         <dd><fmt:formatNumber value="${rcid.sum_prc}" type="number"/>원</dd>
                     </dl>
                     <dl class="rc_col2">
-                        <dt>처리상태</dt>
+                        <dt>- 처리상태</dt>
                         <c:choose>
                             <c:when test="${rcid.cmn_cd_rsvt_stt eq '6A'}">
                                 <dd>예약접수</dd>
@@ -123,17 +124,13 @@
         </div>
     </div>
     <div class="rc_btn_box">
-        <button class="home rc_btn">메인으로</button>
-        <button id="rsvtCheck" class="rc_btn">예약/결제 조회</button>
+        <button class="home rc_btn_m rc_btn_margin reserv_btn_m_white">메인으로</button>
+        <button id="rsvtCheck" class="rc_btn_m reserv_btn_m_black">예약/결제 조회</button>
     </div>
 </div>
 
 <script>
     $(document).ready(function(){
-        // history.pushState(null, "", location.href);
-        // window.addEventListener("popstate", () => history.pushState(null, "", location.href));
-
-
         $('.home').on("click", function(){
             location.href = '<c:url value="/"/>'
         });
