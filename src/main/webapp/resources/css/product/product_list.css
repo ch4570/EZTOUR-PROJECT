@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Alatsi&display=swap');
+
 .product-list__header {
     margin: 90px 0;
     display: flex;
@@ -157,6 +159,10 @@
     align-items: flex-end;
 }
 
+.item-prd_str_prc span:first-child {
+    font-family: 'Alatsi', sans-serif;
+}
+
 .item-dstn_cd,
 .item-prd_str_prc span:last-child{
     font-size: 20px;
@@ -262,6 +268,7 @@
     font-size: 30px;
     font-weight: 700;
     margin-bottom: 10px;
+    font-family: 'Alatsi', sans-serif;
 }
 
 .detail-item__list--price span span {

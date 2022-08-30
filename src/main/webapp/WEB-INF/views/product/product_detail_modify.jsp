@@ -59,6 +59,10 @@
                             <form:input path="prd_nm" placeholder="상품이름" value="${prd_dtl.prd_nm}" cssClass="input_prd"/><br>
                             <form:errors path="prd_nm" cssClass="error_msg"/><br><br>
 
+                            <form:label path="trv_dtl_per">상품 상세 여행기간</form:label><br>
+                            <form:input path="trv_dtl_per" placeholder="상품 상세 여행기간" cssClass="input_prd" value="${prd_dtl.trv_dtl_per}"/><br>
+                            <form:errors path="trv_dtl_per" cssClass="error_msg"/><br><br>
+
                             <form:label path="prd_str_prc">상품시작가격</form:label><br>
                             <form:input path="prd_str_prc" placeholder="상품시작가격" value="${prd_dtl.prd_str_prc}" cssClass="input_prd"/><br>
                             <form:errors path="prd_str_prc" cssClass="error_msg"/><br><br>

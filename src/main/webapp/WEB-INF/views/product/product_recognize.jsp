@@ -52,7 +52,7 @@
                             <div><span>${prd_list.prd_cd}</span></div> <div><span>${prd_list.cmn_cd_thm}</span></div>
                             <div><a href="<c:url value='/product/recognize/read?prd_cd=${prd_list.prd_cd}'/>"><span>${prd_list.prd_nm}</span></a></div>
                             <div><span><fmt:formatNumber value="${prd_list.prd_str_prc}" pattern="#,##0"/></span></div>
-                            <div><span style="color:${prd_list.act_yn == true ? 'blue' : 'red'}">${prd_list.act_yn == true ? '활성화' : '비활성화'}</span></div>
+                            <div><span style="color:${prd_list.act_yn == 1 ? 'blue' : 'red'}">${prd_list.act_yn == 1 ? '활성화' : '비활성화'}</span></div>
                         </div>
                     </div>
                 </c:forEach>

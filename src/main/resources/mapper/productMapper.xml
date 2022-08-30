@@ -20,9 +20,10 @@
 
     <insert id="insertProductDetail" parameterType="TrvPrdDtlWriteDto">
         INSERT INTO trv_prd_dtl(prd_dtl_cd,prd_cd,prd_str_prc,arl_nm,
-                                min_stt_cnt,max_stt_cnt,loc_dpr_date,prd_nm,loc_fin_date,frs_rgs_no,frs_reg_date,dom_dpr_date,dom_fin_date)
+                                min_stt_cnt,max_stt_cnt,loc_dpr_date,prd_nm,loc_fin_date,frs_rgs_no,
+                                frs_reg_date,dom_dpr_date,dom_fin_date,trv_dtl_per)
         VALUES(#{prd_dtl_cd},#{prd_cd},#{prd_str_prc},#{arl_nm},#{min_stt_cnt},#{max_stt_cnt},
-               #{loc_dpr_date},#{prd_nm},#{loc_fin_date},#{frs_rgs_no},now(),#{dom_dpr_date},#{dom_fin_date})
+               #{loc_dpr_date},#{prd_nm},#{loc_fin_date},#{frs_rgs_no},now(),#{dom_dpr_date},#{dom_fin_date},#{trv_dtl_per})
     </insert>
 
     <insert id="insertProductPrice" parameterType="TrvPrdPrcDto">
@@ -155,7 +156,7 @@
 
     <select id="selectProductDetail" parameterType="String" resultType="TrvPrdDtlReadDto">
         SELECT prd_dtl_cd,prd_cd,prd_str_prc,arl_nm,
-               min_stt_cnt,max_stt_cnt,dom_dpr_date,prd_nm,dom_fin_date,loc_dpr_date,loc_fin_date
+               min_stt_cnt,max_stt_cnt,dom_dpr_date,prd_nm,dom_fin_date,loc_dpr_date,loc_fin_date,trv_dtl_per
         FROM trv_prd_dtl
         WHERE prd_dtl_cd = #{prd_dtl_cd}
     </select>
@@ -164,7 +165,7 @@
         UPDATE trv_prd_dtl set prd_dtl_cd=#{prd_dtl_cd},prd_cd=#{prd_cd},prd_str_prc=#{prd_str_prc},arl_nm=#{arl_nm},
                                min_stt_cnt=#{min_stt_cnt},max_stt_cnt=#{max_stt_cnt},
                                loc_dpr_date=#{loc_dpr_date},prd_nm=#{prd_nm},loc_fin_date=#{loc_fin_date},
-                               dom_dpr_date=#{dom_dpr_date},dom_fin_date=#{dom_fin_date}
+                               dom_dpr_date=#{dom_dpr_date},dom_fin_date=#{dom_fin_date},trv_dtl_per=#{trv_dtl_per}
         WHERE prd_dtl_cd=#{prd_dtl_cd}
     </update>
 

@@ -86,10 +86,9 @@
               <div>
                <a href="<c:url value='/reserv/reservView?rsvt_no=${rsvt.rsvt_no}&prd_dtl_cd=${rsvt.prd_dtl_cd}'/>"  >
                   <section class="box">
-                      <div class="image-box">
+                      <div class="image-box" style="background-image: url(../..${rsvt.img_pth})">
                       </div>
                       <div style="width: 200px; padding: 20px; display: flex; flex-direction: column; justify-content: space-around">
-
                           <dl style="font-weight: bolder; display: flex; justify-content: space-between; flex-direction: column">
                               <dt>
                                   예약번호

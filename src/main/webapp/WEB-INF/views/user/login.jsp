@@ -8,13 +8,6 @@
 </head>
 <body>
 <br/>
-<script>
-    let msg = "${msg}";
-    if(msg=="ACC_ERR")  alert("잘못된 접근입니다.");
-    if(msg=="LOGIN_FAIL")  alert("아이디와 비밀번호를 다시 확인해주세요.");
-
-
-</script>
 
 <div class="outer-content">
     <div class="inner-content" style="display: flex; flex-direction: column; justify-content: flex-start">
@@ -22,7 +15,7 @@
         <!-- 일반회원 로그인 폼 시작 -->
         <form id="loginForm" action="<c:url value="/user/login"/>" method="post" onsubmit="return formCheck(this);">
             <div class="login__form" style="display: flex; flex-direction: column; align-items: center">
-                    <h2 class="login-title" id="loginTitle">로그인</h2>
+                    <h2 class="login-title" id="loginTitle">로그인 ${apiJson}</h2>
                     <h2 class="login-title" id="rsvTitle" style="display: none">예약확인</h2>
                 <nav class="login-nav">
                     <div id="msg">
@@ -132,14 +125,40 @@
     <input type="hidden" name="gndr" id="kakaoGender" />
 </form>
 
+<form name="naverForm" id="naverForm" method = "post" action="/user/setNaverConnection">
+    <input type="hidden" name="naver_id" id="naver_id" />
+    <input type="hidden" name="usr_nm" id="naver_usr_nm" />
+    <input type="hidden" name="phn" id="naver_phn" />
+</form>
+
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
+
+    let msg = "${msg}";
+    if(msg=="ACC_ERR")  alert("잘못된 접근입니다.");
+    if(msg=="LOGIN_FAIL")  alert("아이디와 비밀번호를 다시 확인해주세요.");
+    if(msg=="SET_NAVER_ERR")  alert("네이버 아이디 연동 과정에 문제가 생겼습니다.");
+    if(msg=="SET_NAVER_OK")  alert("네이버 계정과 성공적으로 연동되었습니다. 다시 로그인해주세요.");
+    if(msg=="RLS_OK")  alert("휴면 해제되었습니다. 다시 로그인해주세요.");
+    if(msg=="NEW_PWD_OK")  alert("비밀번호가 정상적으로 재설정되었습니다. 다시 로그인해주세요.");
+
+    if(msg=="NAVER_SET_CONFIRM"){
+        if (!confirm("이미 존재하는 회원정보입니다. 네이버 아이디와 연동하시겠습니까?")) {
+            alert("네이버 아이디 연동이 취소되었습니다.");
+        } else {
+            console.log("${param.usr_nm}")
+            $("#naver_id").val("${param.naver_id}");
+            $("#naver_usr_nm").val("${param.usr_nm}");
+            $("#naver_phn").val("${param.phn}");
+            $("#naverForm").submit();
+        }
+    }
+
     window.history.forward();
     $( document ).ready(function() {
         history.replaceState({}, null, location.pathname);
     });
-
     <!-- 카카오 로그인 init -->
     $(document).ready(function(){
         $.ajax({
@@ -200,11 +219,12 @@
                     $("#kakaoGender").val(response.kakao_account.gender);
                     $("#kakaoForm").submit();
                 } else {
-                    alert("통신엔 성공했지만 로그인엔 실패 -> 컨트롤러문제");
+                    alert("로그인에 실패했습니다.");
                 }
             },
             error: function (xhr, status, error) {
                 alert("로그인에 실패했습니다." + error);
+                console.log(status);
             }
         });
     }
@@ -343,7 +363,6 @@
     }
     rstReleaseOverlay.addEventListener("click", closeRstReleaseModal);
 
-
     $(document).ready(function(){
         if("${param.rstmsg}"==="RST_ERR") {
             openRstReleaseModal();
@@ -351,7 +370,6 @@
     });
 
     function goPost(){
-        alert("들어온건가?");
         let f=document.createElement('form');
         f.setAttribute('method','post');
         f.setAttribute('action','/user/rstRelease?usr_id=${usr_id}');

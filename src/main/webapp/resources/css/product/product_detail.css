@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Alatsi&display=swap');
+
+
 .detail-item__main {
     margin: 100px auto;
     width: 1200px;
@@ -190,11 +193,102 @@ ul.detail-item__tab li.selected{
 }
 
 /*tab1*/
+.luggage,
 .whole-schedule {
     margin-top: 60px;
 }
 
+.nth-day {
+    margin-bottom: 30px;
+}
 
+.schedule__tit {
+    font-size: 19px;
+    font-weight: 700;
+    border-top: 1px solid rgba(0,0,0,.1);
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    padding: 25px;
+    background-color: #f7f7f7;
+    /*margin-bottom: 30px;*/
+}
+
+.schedule__cont {
+    border: 1px solid rgba(0,0,0,.1);
+    padding: 25px;
+}
+
+.air_schedule {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 60px 0;
+}
+
+.start_schedule,
+.arrive_schedule {
+    display: flex;
+}
+
+.start_schedule i,
+.arrive_schedule i {
+    font-size: 60px;
+}
+
+.start_schedule-info,
+.arrive_schedule-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.start_schedule-info span:first-child,
+.arrive_schedule-info span:first-child {
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.start_schedule-info span:not(:first-child),
+.arrive_schedule-info span:not(:first-child) {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.schedule__cont--tit span {
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.schedule__cont--tit p {
+    margin: 25px 0;
+}
+
+.tit-second {
+    margin-top: 60px;
+}
+
+.schedule__cont--img {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.schedule__img {
+    height: 210px;
+    width: 250px;
+    border-radius: 20px;
+}
+
+.schedule__cont--detail {
+    box-sizing: border-box;
+}
+
+.schedule__cont--detail p {
+    font-weight: normal;
+    line-height: 1.4;
+    font-size: 14px;
+    letter-spacing: -0.42px;
+    box-sizing: border-box;
+}
 
 /*tab2*/
 .rev-notice {
@@ -402,7 +496,13 @@ ul.detail-item__tab li.selected{
 
 .detail-item__total-pay span {
     font-weight: 600;
-    font-size: 25px;
+    font-size: 17px;
+}
+
+.detail-item__total-pay #total_price {
+    font-family: 'Alatsi', sans-serif;
+    font-weight: 700;
+    font-size: 40px;
 }
 
 .detail-item__total-pay div {
@@ -420,7 +520,7 @@ ul.detail-item__tab li.selected{
 }
 
 .detail-item__rev-btn {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .detail-item__rev-btn button {
