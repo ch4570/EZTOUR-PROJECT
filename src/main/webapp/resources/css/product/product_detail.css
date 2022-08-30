@@ -425,6 +425,11 @@ ul.detail-item__tab li.selected{
     font-weight: 600;
 }
 
+.rev__code span:first-child,
+.rev__date span:first-child {
+    margin-right: 15px;
+}
+
 .rev__code span:last-child {
     font-size: 21px;
     font-weight: 700;
