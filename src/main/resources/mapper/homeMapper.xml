@@ -4,31 +4,28 @@
 
 <mapper namespace="com.devcamp.eztour.dao.homeMapper">
 
-    <sql id="selectFromProduct">
-        SELECT A.prd_cd, A.dstn_cd, A.prd_nm, A.prd_dtl_desc, A.prd_str_prc, B.img_pth, B.mn_img_yn,A.act_yn
-        FROM trv_prd A
-        JOIN prd_img B
-        ON A.prd_cd = B.prd_cd
-    </sql>
-
-    <sql id="searchCondition">
-        AND (prd_nm LIKE concat('%', #{keyword}, '%')
-        OR prd_dtl_desc LIKE concat('%', #{keyword}, '%'))
-    </sql>
 
     <select id="searchSelect" parameterType="String" resultType="TrvPrdReadDto">
-        <include refid="selectFromProduct"/>
+        SELECT A.prd_cd, A.dstn_cd, A.prd_nm, A.prd_dtl_desc, A.prd_str_prc, B.img_pth, B.mn_img_yn,A.act_yn
+        FROM trv_prd A
+                 JOIN prd_img B
+                      ON A.prd_cd = B.prd_cd
         WHERE TRUE
-        <include refid="searchCondition" />
-        AND act_yn = 1;
-        ORDER BY prd_nm DESC
+          AND (prd_nm LIKE concat('%', #{keyword}, '%')
+            OR prd_dtl_desc LIKE concat('%', #{keyword}, '%'))
+          AND act_yn = 1
+        ORDER BY prd_nm DESC;
     </select>
 
     <select id="searchResultCnt" parameterType="String" resultType="int">
         SELECT count(*)
-        FROM trv_prd
+        FROM trv_prd A
+                 JOIN prd_img B
+                      ON A.prd_cd = B.prd_cd
         WHERE TRUE
-        <include refid="searchCondition" />
+        AND (prd_nm LIKE concat('%', #{keyword}, '%')
+        OR prd_dtl_desc LIKE concat('%', #{keyword}, '%'))
+        AND act_yn = 1
     </select>
 
 </mapper>
