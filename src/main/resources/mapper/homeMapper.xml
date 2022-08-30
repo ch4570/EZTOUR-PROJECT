@@ -20,6 +20,7 @@
         <include refid="selectFromProduct"/>
         WHERE TRUE
         <include refid="searchCondition" />
+        AND act_yn = 1;
         ORDER BY prd_nm DESC
     </select>
 
