@@ -107,8 +107,255 @@
                     <span class="">여행일정</span>
                 </div>
 
+                <div class="luggage">
+                    <p class="luggage__tit">수화물 허용량 안내(이코노미 클래스 성인,인천-해당 항공사 허브공항-2016년 6월 기준~)</p>
+                    <span>${prdDto.arl_nm}</span>
+                    <div class="rev-notice">
+                        <div class="rev-notice__pre-notice item-cell">
+                            <div class="pre-notice__tit">
+                                <span>위탁 수화물 허용량</span>
+                            </div>
+                            <div class="pre-notice__con">
+                                <p>일반석 : 크기 : 3면의 합 158cm 이내, 23kg이하(1개)-미주/브라질 제외, 23kg이하(2개)-미주
+                            </div>
+                        </div>
+                        <div class="rev-notice__deposit item-cell">
+                            <div class="deposit__tit">
+                                <span>추가 시 요금(무게기준)</span>
+                            </div>
+                            <div>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="rev-notice__etc item-cell">
+                            <div class="etc__tit">
+                                <span>기내 반입 허용 사이즈</span>
+                            </div>
+                            <div class="etc__con">
+                                <p>인당 10kg / 3면의 합 115cm 이내, 표준규격 : 가로 40cm * 세로 55cm * 높이 20cm</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="whole-schedule">
 
+                    <div class="nth-day">
+                        <div class="schedule__tit">
+                            <span>1일차</span>
+                        </div>
+                        <div class="schedule__cont air_schedule">
+                            <div class="start_schedule">
+                                <i class="fas fa-plane-departure"></i>
+                                <div class="start_schedule-info">
+                                    <span><fmt:formatDate value="${prdDto.dom_dpr_date}" pattern="HH:mm"/></span>
+                                    <span><fmt:formatDate value="${prdDto.dom_dpr_date}" pattern="yyyy년 MM월 dd일 (EE)"/></span>
+                                    <span>인천(ICN) 출발</span>
+                                </div>
+                            </div>
+
+                            <div class="arrive_schedule">
+                                <i class="fas fa-plane-arrival"></i>
+                                <div class="arrive_schedule-info">
+                                    <span><fmt:formatDate value="${prdDto.loc_fin_date}" pattern="HH:mm"/></span>
+                                    <span><fmt:formatDate value="${prdDto.loc_fin_date}" pattern="yyyy년 MM월 dd일 (EE)"/></span>
+                                    <span>취리히(ZRH) 도착</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nth-day">
+                        <div class="schedule__tit">
+                            <span>2일차</span>
+                        </div>
+                        <div class="schedule__cont">
+                            <div class="schedule__cont--tit">
+                                <span>리기산</span>
+                                <p>-알프스의 여왕 리기산 산악열차 탑승, 아름다운 알프스의 파노라마를 감상 후 하산</p>
+                            </div>
+                            <div class="schedule__cont--img">
+                                <img class="schedule__img" src="/img/product_detail/1_1.jpg">
+                                <img class="schedule__img" src="/img/product_detail/1_2.jpg">
+                                <img class="schedule__img" src="/img/product_detail/1_3.jpg">
+                            </div>
+                            <div class="schedule__cont--detail">
+                                <p>유럽에서 산악열차가 처음 만들어진 곳이며 루체른호(湖)에서의 보트를 비롯해 산악열차, 케이블카 등이 연결됩니다. 아름다운 경관으로 인해 ‘산들의 여왕’이라고 불립니다.</p>
+                            </div>
+
+                            <div class="schedule__cont--tit tit-second">
+                                <span>체르마트</span>
+                                <p>-마음까지 깨끗해지는 청정도시 체르마트</p>
+                            </div>
+                            <div class="schedule__cont--img">
+                                <img class="schedule__img" src="/img/product_detail/6_1.jpg">
+                                <img class="schedule__img" src="/img/product_detail/6_2.jpg">
+                                <img class="schedule__img" src="/img/product_detail/6_3.jpg">
+                            </div>
+                            <div class="schedule__cont--detail">
+                                <p>마테호른 기슭에 위치한 체르마트는 청정 도시로 유명하며, 마을에서는 마테호른 봉우리가 보이는데 일출과 일몰때 더욱 아름다운 풍경을 감상할수있습니다. 산으로 둘러쌓여 있어 맑은 공기는 물론 조용하기까지 한 이 도시는 일년 내내 눈으로 덮혀있어 스위스다운 스위스를 보여줍니다.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nth-day">
+                        <div class="schedule__tit">
+                            <span>3일차</span>
+                        </div>
+                        <div class="schedule__cont">
+                            <div class="schedule__cont--tit">
+                                <span>칼트바트 미네랄 온천 & 스파</span>
+                                <p>-간단한 하이킹 + "칼트바트 미네랄 온천 & 스파" + 알프스 뷰 감상하기</p>
+                            </div>
+                            <div class="schedule__cont--img">
+                                <img class="schedule__img" src="/img/product_detail/2_1.jpg">
+                                <img class="schedule__img" src="/img/product_detail/2_2.jpg">
+                                <img class="schedule__img" src="/img/product_detail/2_3.jpg">
+                            </div>
+                            <div class="schedule__cont--detail">
+                                <p>※ 개별 수영복 및 타월은 준비 바랍니다.<br>
+                                    (래쉬가드 등 수영복 재질로 이루어진 복장 모두 가능하나 면티,면바지,레깅스 등 스포츠 의류 불가)<br>
+                                    현지에서 대여할시 (수영복 20프랑, 타월(대형) 5프랑) 별도이며 금액 등은 변동될 수 있습니다.</p>
+                            </div>
+
+                            <div class="schedule__cont--tit tit-second">
+                                <span>마테호른</span>
+                                <p>-피라미드형태의 특이한 형태의 알프스산맥</p>
+                            </div>
+                            <div class="schedule__cont--img">
+                                <img class="schedule__img" src="/img/product_detail/7_1.jpg">
+                                <img class="schedule__img" src="/img/product_detail/7_2.jpg">
+                                <img class="schedule__img" src="/img/product_detail/7_3.jpg">
+                            </div>
+                            <div class="schedule__cont--detail">
+                                <p>스위스와 이태리 국경에 위치한 산으로 체르마트 마을 남쪽에 위치하고 있습니다.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nth-day">
+                        <div class="schedule__tit">
+                            <span>4일차</span>
+                        </div>
+                        <div class="schedule__cont">
+                            <div class="schedule__cont--tit">
+                                <span>루체른 호수</span>
+                                <p>-스위스 중부 루체른에 있는 호수</p>
+                            </div>
+                            <div class="schedule__cont--img">
+                                <img class="schedule__img" src="/img/product_detail/3_1.jpg">
+                                <img class="schedule__img" src="/img/product_detail/3_2.jpg">
+                                <img class="schedule__img" src="/img/product_detail/3_3.jpg">
+                            </div>
+                            <div class="schedule__cont--detail">
+                                <p>눈 덮인 알프스 산봉우리를 배경으로 요정 동화에나 나올 법한 작은 탑과 지붕 있는 중세의 나무 다리가 즐비한 루체른은 지구상에서 가장 로맨틱하고 우아한 도시 중의 하나입니다.</p>
+                            </div>
+
+                            <div class="schedule__cont--tit tit-second">
+                                <span>라보 계단식 와이너리</span>
+                                <p>-유네스코 세계유산으로 더욱 주목받는 라보지역</p>
+                            </div>
+                            <div class="schedule__cont--img">
+                                <img class="schedule__img" src="/img/product_detail/8_1.jpg">
+                                <img class="schedule__img" src="/img/product_detail/8_2.jpg">
+                                <img class="schedule__img" src="/img/product_detail/8_3.jpg">
+                            </div>
+                            <div class="schedule__cont--detail">
+                                <p>끝없이 이어진 포도밭과 바다같은 호수 파노라마와 유네스코 세계유산으로 더욱 주목받는 라보지역 계단식 와이너리를 감상합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nth-day">
+                        <div class="schedule__tit">
+                            <span>5일차</span>
+                        </div>
+                        <div class="schedule__cont">
+                            <div class="schedule__cont--tit">
+                                <span>카펠교 & 워터 타워</span>
+                                <p>-스위스 루체른주 루체른 로이스강에 있는 다리</p>
+                            </div>
+                            <div class="schedule__cont--img">
+                                <img class="schedule__img" src="/img/product_detail/4_1.jpg">
+                                <img class="schedule__img" src="/img/product_detail/4_2.jpg">
+                                <img class="schedule__img" src="/img/product_detail/4_3.jpg">
+                            </div>
+                            <div class="schedule__cont--detail">
+                                <p>유럽에서 가장 오래되고 가장 긴 나무다리로 길이가 200m에 이른다. 우아한 형태로 루체른의 상징으로 불립니다.</p>
+                            </div>
+
+                            <div class="schedule__cont--tit tit-second">
+                                <span>프라우뮌스터</span>
+                                <p>-853년 독일 국왕 루이스에 의해 건립된 곳</p>
+                            </div>
+                            <div class="schedule__cont--img">
+                                <img class="schedule__img" src="/img/product_detail/9_1.jpg">
+                                <img class="schedule__img" src="/img/product_detail/9_2.jpg">
+                                <img class="schedule__img" src="/img/product_detail/9_3.jpg">
+                            </div>
+                            <div class="schedule__cont--detail">
+                                <p>로마네스크 양식과 아치형 복도의 아름다운 구조를 이루고있습니다.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nth-day">
+                        <div class="schedule__tit">
+                            <span>6일차</span>
+                        </div>
+                        <div class="schedule__cont">
+                            <div class="schedule__cont--tit">
+                                <span>빈사의 사자상</span>
+                                <p>-스위스 용병을 상징</p>
+                            </div>
+                            <div class="schedule__cont--img">
+                                <img class="schedule__img" src="/img/product_detail/5_1.jpg">
+                                <img class="schedule__img" src="/img/product_detail/5_2.jpg">
+                                <img class="schedule__img" src="/img/product_detail/5_3.jpg">
+                            </div>
+                            <div class="schedule__cont--detail">
+                                <p>빈사의 사자상은 스위스 루체른시에 있는 것으로 스위스 용병을 상징하는 것으로 가난하였던 스위스의 아픈 역사를 느끼게 하는 조각상입니다.</p>
+                            </div>
+
+                            <div class="schedule__cont--tit tit-second">
+                                <span>몽트뢰</span>
+                                <p>-레만 호수를 가장 아름답게 볼 수 있는 호반도시</p>
+                            </div>
+                            <div class="schedule__cont--img">
+                                <img class="schedule__img" src="/img/product_detail/10_1.jpg">
+                                <img class="schedule__img" src="/img/product_detail/10_2.jpg">
+                                <img class="schedule__img" src="/img/product_detail/10_3.jpg">
+                            </div>
+                            <div class="schedule__cont--detail">
+                                <p>헤밍웨이, 채플린, 바바라 헨드릭과 같은 대스타들이 살았던 그림같이 아름다운 작은 마을로 산책하기 좋은 마을입니다.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="nth-day">
+                        <div class="schedule__tit">
+                            <span>7일차</span>
+                        </div>
+                        <div class="schedule__cont air_schedule">
+                            <div class="start_schedule">
+                                <i class="fas fa-plane-departure"></i>
+                                <div class="start_schedule-info">
+                                    <span><fmt:formatDate value="${prdDto.loc_dpr_date}" pattern="HH:mm"/></span>
+                                    <span><fmt:formatDate value="${prdDto.loc_dpr_date}" pattern="yyyy년 MM월 dd일 (EE)"/></span>
+                                    <span>취리히(ZRH) 출발</span>
+                                </div>
+                            </div>
+
+                            <div class="arrive_schedule">
+                                <i class="fas fa-plane-arrival"></i>
+                                <div class="arrive_schedule-info">
+                                    <span><fmt:formatDate value="${prdDto.dom_fin_date}" pattern="HH:mm"/></span>
+                                    <span><fmt:formatDate value="${prdDto.dom_fin_date}" pattern="yyyy년 MM월 dd일 (EE)"/></span>
+                                    <span>인천(ICN) 도착</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -386,9 +633,7 @@
                     perTotCnt += 1;
                     presentTotalPrice(totalPrice);
                 }
-
             }
-
         });
 
         $('.plus-button').eq("1").on("click",function (){
