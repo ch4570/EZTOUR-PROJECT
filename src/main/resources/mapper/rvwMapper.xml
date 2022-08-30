@@ -61,7 +61,7 @@
         FROM pay A INNER JOIN trv_prd_dtl B ON A.prd_dtl_cd = B.prd_dtl_cd
         WHERE A.cmn_cd_pay_stt ='7C'
         AND A.usr_id = #{usr_id}
-        AND (B.dom_fin_date <![CDATA[<=]]> CURRENT_TIMESTAMP OR B.loc_fin_date <![CDATA[<=]]> CURRENT_TIMESTAMP)
+        AND B.loc_fin_date <![CDATA[<=]]> CURRENT_TIMESTAMP
     </select>
 
 

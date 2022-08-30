@@ -245,6 +245,11 @@ public class RvwController {
                     return "redirect:/review/modify.tiles?rvw_no=" + rvw_no;
                 }
 
+
+                //                 줄 바꾸기
+                String rvw_cont = rvwDto.getRvw_cont().replace("\r\n","<br>");
+                rvwDto.setRvw_cont(rvw_cont);
+
                 String prd_cd = rvwService.getprdCd(rvwDto.getPrd_dtl_cd());
                 rvwDto.setPrd_cd(prd_cd);
 

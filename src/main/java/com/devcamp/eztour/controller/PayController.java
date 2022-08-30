@@ -325,9 +325,7 @@ public class PayController {
             return jsonResult.toString();
         }
 
-//        if(cancel_request_amount != payDto.getPay_prc()){
-        if(100 != payDto.getPay_prc()){
-            //환불금액과 결제금액이 다르면?
+        if(!cancelViewDto.getPay_prc().equals(payDto.getPay_prc())){
             jsonResult.addProperty("status", "ACCESS_DENIED");
             return jsonResult.toString();
         }

@@ -33,8 +33,8 @@
             <!-- 관련 상품-->
             <div class="prdInfo">
                 <a class="prdImg" href="#">
-                    <img src="/image/review/IMG_0966.JPG"  width="300" height="180">
-                    <!--img src="${rvwDto.img_pth}" alt="상품사진"-->
+                    <!--img src="/image/review/IMG_0966.JPG"  width="300" height="180"-->
+                    <img src="${rvwDto.img_pth}" alt="상품사진" width="300" height="180">
                 </a>
                 <div class="prdInfo-content">
                     <a class="prdInfo-content-title" href="/product/detail?prd_dtl_cd=${rvwDto.prd_dtl_cd}">${rvwDto.prd_nm}</a>
@@ -44,7 +44,7 @@
             <!-- 글 내용-->
             <div class="detailInfo">
                 <div class="detailInfo-content" name="rvw_cont">
-                    <div class="detailInfo-content-child"><c:out value="${rvwDto.rvw_cont}"/></div>
+                    <div class="detailInfo-content-child"><c:out value="${rvwDto.rvw_cont}" escapeXml="false"/></div>
                 </div>
             </div>
             <!-- 삭제, 수정, 목록 버튼-->

@@ -32,5 +32,6 @@ public class PrdDtlPageDto {
     private Integer mn_img_yn;
     private Date dom_dpr_date;
     private Date dom_fin_date;
+    private String trv_dtl_per;
 
 }

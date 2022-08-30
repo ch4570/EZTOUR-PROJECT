@@ -29,8 +29,8 @@
                         </a>
                     </li>
                     <li>
-                        <a class="aside__link" href="<c:url value='/product/attractive'/>">
-                            <span><i class="far fa-heart"></i></span>
+                        <a class="aside__link">
+                            <span><i class="far fa-heart" name="attr_prd"></i></span>
                             <span>관심상품</span>
                         </a>
                     </li>
@@ -165,6 +165,27 @@
 
                     }
                 });
+            });
+
+            $('i[name=attr_prd]').on("click",function (){
+
+                let userDto = '${sessionScope.userDto}';
+
+                if(userDto != null && userDto != ''){
+                    location.href = "<c:url value='/product/attractive'/>";
+                }
+
+                if(userDto == null || userDto == ''){
+                    alert("관심 상품은 회원만 사용 가능합니다.");
+                    let loginConfirm = confirm("로그인 하시겠습니까?");
+
+                    if(loginConfirm){
+                        location.href = "<c:url value='/user/login'/>";
+                    }else{
+                        return;
+                    }
+                }
+
             });
 
             $('i[name=product__recent--cancel]').on("click",function (){

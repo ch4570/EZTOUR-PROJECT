@@ -47,6 +47,7 @@ public class TrvPrdDtlReadDto {
     private String usr_id;
     private String dom_dpr_date;
     private String dom_fin_date;
+    private String trv_dtl_per;
 
 
     public TrvPrdDtlReadDto(String prd_dtl_cd, String prd_cd, String arl_nm, String prd_str_prc, String dom_dpr_date, String prd_nm) {
@@ -59,7 +60,8 @@ public class TrvPrdDtlReadDto {
     }
 
     public TrvPrdDtlReadDto(String prd_dtl_cd, String prd_cd, String prd_str_prc, String arl_nm, int min_stt_cnt, int max_stt_cnt,
-                            String dom_dpr_date, String prd_nm, String dom_fin_date,String loc_dpr_date, String loc_fin_date) {
+                            String dom_dpr_date, String prd_nm, String dom_fin_date,
+                            String loc_dpr_date, String loc_fin_date, String trv_dtl_per) {
         this.prd_dtl_cd = prd_dtl_cd;
         this.prd_cd = prd_cd;
         this.prd_str_prc = prd_str_prc;
@@ -71,6 +73,7 @@ public class TrvPrdDtlReadDto {
         this.dom_fin_date = dom_fin_date;
         this.loc_dpr_date = loc_dpr_date;
         this.loc_fin_date = loc_fin_date;
+        this.trv_dtl_per = trv_dtl_per;
         }
 
     public TrvPrdDtlReadDto(String img_pth,Integer mn_img_yn, String prd_cd, String prd_nm,String prd_str_prc) {

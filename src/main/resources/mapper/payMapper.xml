@@ -25,7 +25,7 @@
     </delete>
 
     <select id="selectCancelInfo" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.CancelViewDto">
-        SELECT r.rsvt_date, r.prd_dtl_cd,
+        SELECT r.rsvt_date, r.rsvt_no, r.prd_dtl_cd,
                r.cmn_cd_pay_stt, r.sum_prc, tp.prd_nm, tp.prd_dtl_desc, p.pay_no, p.pay_prc, p.used_mlg, pi.img_pth
         FROM rsvt r
                  JOIN trv_prd tp
