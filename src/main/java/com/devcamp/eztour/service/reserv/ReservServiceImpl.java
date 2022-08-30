@@ -67,29 +67,6 @@ public class ReservServiceImpl implements ReservService {
         return true;
     }
 
-//    @Override
-//    @Transactional(rollbackFor = Exception.class)
-//    public List getReservInfo(String prd_dtl_cd) throws Exception{
-//        PlatformTransactionManager tm = new DataSourceTransactionManager(ds);
-//        DefaultTransactionDefinition txd = new DefaultTransactionDefinition();
-//        txd.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-//        TransactionStatus status = tm.getTransaction(txd);
-
-        //예외를 Exception말고 더 구체적으로 지정해야할까?
-        //catch블럭에서 예외를 되던지려면 @Transactional을 사용할 수 있는 방법은 없겠지?
-//        try{
-//            List list = new ArrayList();
-//            list.add(reservDao.selectPrdInfo(prd_dtl_cd));
-//            list.addAll(reservDao.selectArlReqInfo(prd_dtl_cd));
-//
-//            tm.commit(status);
-//            return list;
-//        } catch (Exception e){
-//            tm.rollback(status);
-//            throw new Exception("예약정보 불러오기 실패");
-//        }
-
-//    }
     @Override
     public ReservInfoDto getReservInfo(String prd_dtl_cd) throws Exception{
         return reservDao.selectPrdInfo(prd_dtl_cd);

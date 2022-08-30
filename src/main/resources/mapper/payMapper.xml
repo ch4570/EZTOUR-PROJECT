@@ -4,11 +4,11 @@
 
 <mapper namespace="com.devcamp.eztour.payMapper">
     <select id="selectPay" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.PayDto">
-        SELECT * FROM pay WHERE rsvt_no = #{rsvt_no} ORDER BY pay_no DESC Limit 1;
+        SELECT * FROM pay WHERE rsvt_no = #{rsvt_no} ORDER BY pay_date DESC Limit 1;
     </select>
 
     <select id="selectPayById" parameterType="Map" resultType="com.devcamp.eztour.domain.reserv.PayDto">
-        SELECT * FROM pay WHERE rsvt_no = #{rsvt_no} and usr_id = #{usr_id} ORDER BY pay_no DESC Limit 1;
+        SELECT * FROM pay WHERE rsvt_no = #{rsvt_no} and usr_id = #{usr_id} ORDER BY pay_date DESC Limit 1;
     </select>
 
     <select id="selectPayStatus" parameterType="Map" resultType="String">

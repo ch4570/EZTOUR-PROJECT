@@ -42,4 +42,5 @@ public class ReservInfoDto {
     private String email;
     //사진
     private String img_pth; //21
+    private String trv_dtl_per;
 }
