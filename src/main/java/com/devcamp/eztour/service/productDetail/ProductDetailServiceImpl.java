@@ -70,4 +70,9 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         return productDetailDao.deleteProductAttractive(map);
     }
 
+    @Override
+    public List<TrvPrdDtlReadDto> getUserSearch(Map map) throws Exception {
+        return productDetailDao.selectUserSearch(map);
+    }
+
 }

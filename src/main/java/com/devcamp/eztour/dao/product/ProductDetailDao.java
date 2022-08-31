@@ -22,5 +22,6 @@ public interface ProductDetailDao {
     int selectProductAttractiveCnt(String usr_id) throws Exception;
     int deleteAllProductAttractive(String usr_id) throws Exception;
     int deleteProductAttractive(Map map) throws Exception;
+    List<TrvPrdDtlReadDto> selectUserSearch(Map map) throws Exception;
 
 }

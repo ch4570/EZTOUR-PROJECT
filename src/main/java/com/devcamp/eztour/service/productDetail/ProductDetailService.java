@@ -24,4 +24,5 @@ public interface ProductDetailService {
     int getProductAttractiveCnt(String usr_id) throws Exception;
     int removeAllProductAttractive(String usr_id) throws Exception;
     int removeProductAttractive(Map map) throws Exception;
+    List<TrvPrdDtlReadDto> getUserSearch(Map map) throws Exception;
 }

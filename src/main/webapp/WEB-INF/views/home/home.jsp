@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="true" %>
 <c:set var="loginId" value="${sessionScope.userDto.usr_id==null ? '' : sessionScope.userDto.usr_id}"/>
 <c:set var="loginName" value="${loginId=='' ? '' : sessionScope.userDto.usr_nm}"/>
@@ -116,9 +117,9 @@
                 <button class="modal__cancel--button"><i class="fa-solid fa-x"></i></button>
             </div>
             <h1>어디로 떠나세요?</h1>
-            <form class="form-search" action="/search">
+            <form class="form-search" action="<c:url value='/product/list'/>">
                 <div>
-                    <input class="search-input" name="keyword" type="search" placeholder="검색어를 입력하세요"/>
+                    <input class="search-input" name="condition" type="search" placeholder="검색어를 입력하세요"/>
                     <button class="search-btn" type="submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>

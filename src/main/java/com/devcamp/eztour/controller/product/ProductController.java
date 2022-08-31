@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -25,11 +26,34 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/list")
-    public String getAllProduct(Model m, String cntn_cd, String nt_cd, String nt_cd_nm, String keyword, String standard,String usr_id) throws Exception{
+    public String getAllProduct(Model m, String cntn_cd, String nt_cd, String nt_cd_nm,
+                                @RequestParam(value = "keyword", defaultValue = "vcnt") String keyword,
+                                @RequestParam(value = "standard", defaultValue = "DESC") String standard,
+                                String usr_id,String condition) throws Exception{
 
         Map<String,String> map = new HashMap<>();
-
+        System.out.println(condition);
+        System.out.println(keyword);
+        System.out.println(standard);
         int option = 0;
+
+        if(condition != null){
+            map.put("keyword",keyword);
+            map.put("condition",condition);
+            map.put("standard",standard);
+
+            if(keyword.equals("vcnt")){
+                option = 1;
+            }else if(keyword.equals("prd_str_prc") && standard.equals("ASC")){
+                option = 2;
+            }else if(keyword.equals("prd_str_prc") && standard.equals("DESC")){
+                option = 3;
+            }
+            List<TrvPrdDtlReadDto> list = productDetailService.getUserSearch(map);
+            m.addAttribute("option",option);
+            m.addAttribute("list",list);
+            return "product/product_list.tiles";
+        }
 
         if((cntn_cd == null || nt_cd == null) && (keyword == null || standard == null)){
             try {
@@ -98,6 +122,29 @@ public class ProductController {
         m.addAttribute("cnt",cnt);
 
         return "product/product_attractive.tiles";
+    }
+
+    @GetMapping("/search/list")
+    public String getUserSearchList(Model m, String keyword,
+                                    @RequestParam(value = "condition", defaultValue = "vcnt") String condition,
+                                    @RequestParam(value = "standard", defaultValue = "DESC") String standard) throws Exception{
+        Map<String, String> map = new HashMap<>();
+        int option = 0;
+        map.put("keyword",keyword);
+        map.put("condition",condition);
+        map.put("standard",standard);
+
+        if(keyword.equals("vcnt")){
+            option = 1;
+        }else if(keyword.equals("prd_str_prc") && standard.equals("ASC")){
+            option = 2;
+        }else if(keyword.equals("prd_str_prc") && standard.equals("DESC")){
+            option = 3;
+        }
+        List<TrvPrdDtlReadDto> list = productDetailService.getUserSearch(map);
+        m.addAttribute("option",option);
+        m.addAttribute("list",list);
+        return "product/product_list.tiles";
     }
 
 }

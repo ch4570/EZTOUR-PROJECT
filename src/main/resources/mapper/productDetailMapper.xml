@@ -49,6 +49,18 @@
         WHERE act_yn=1
     </select>
 
+    <select id="selectUserSearch" resultType="TrvPrdDtlReadDto" parameterType="Map">
+        SELECT A.prd_cd, A.dstn_cd, A.cmn_cd_thm, A.prd_nm, A.prd_dtl_desc, A.trv_per, A.prd_str_prc, A.dpr_str_date, A.dpr_fin_date,
+               A.evnt_yn, A.fin_yn, A.act_yn, A.dc_yn, A.pc_prc, A.vcnt, D.lk_yn, B.img_pth, B.mn_img_yn,D.usr_id,A.dpr_day
+        FROM trv_prd A LEFT OUTER JOIN att_prd D ON A.prd_cd = D.prd_cd
+                       JOIN prd_img B ON A.prd_cd = B.prd_cd
+        WHERE TRUE
+          AND (A.prd_nm LIKE concat('%', #{condition}, '%')
+            OR A.prd_dtl_desc LIKE concat('%', #{condition}, '%'))
+        AND act_yn=1
+        ORDER BY ${keyword} ${standard}
+    </select>
+
     <select id="selectProductDetailPage" parameterType="String" resultType="PrdDtlPageDto">
         SELECT A.prd_cd,A.dstn_cd,B.prd_nm,A.trv_per,A.dpr_str_date,A.dpr_fin_date,B.arl_nm,B.pr_rsvt_cnt,
                B.min_stt_cnt,B.max_stt_cnt,B.loc_dpr_date,B.loc_fin_date,B.dom_dpr_date,B.dom_fin_date

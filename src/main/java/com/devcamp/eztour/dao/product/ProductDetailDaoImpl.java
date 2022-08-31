@@ -73,4 +73,9 @@ public class ProductDetailDaoImpl implements ProductDetailDao {
         return session.delete(namespace+"deleteProductAttractive",map);
     }
 
+    @Override
+    public List<TrvPrdDtlReadDto> selectUserSearch(Map map) throws Exception {
+        return session.selectList(namespace+"selectUserSearch",map);
+    }
+
 }
