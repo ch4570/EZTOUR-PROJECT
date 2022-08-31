@@ -102,7 +102,7 @@
             <div class="modal_recently_content">
 
                 <!-- 최근 본 상품 없을 시 -->
-                <c:if test="${sessionScope.trvList.size()==0}">
+                <c:if test="${sessionScope.trvList == null}">
                     <div class="no-list">
                         <div class="image-section">
                             <img src="../../image/product/no-product-list.PNG" width="250px" height="200px">
