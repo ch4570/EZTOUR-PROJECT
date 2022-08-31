@@ -72,7 +72,7 @@
                 </a>
 
                 <div style="display: flex;">
-                    <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","N")}'/>">최신순 | </a>
+                    <a class="sort_name clicked" href="<c:url value='/review/list${ph.sc.getQueryString("","N")}'/>">최신순 | </a>
                     <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","O")}'/>">&nbsp;오래된순 | </a>
                     <!--a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","L")}'/>">가장 많은 좋아요</a-->
                     <a class="sort_name" href="<c:url value='/review/list${ph.sc.getQueryString("","V")}'/>">&nbsp;가장 많은 조회수</a>
@@ -168,6 +168,29 @@
         });
 
     });
+
+    const sortName = document.getElementsByClassName("sort_name");
+
+    function handleClick(event) {
+
+        if (event.target.classList[1] === "clicked") {
+            //event.target.classList.remove("clicked");
+        } else {
+            for (var i = 0; i < sortName.length; i++) {
+                sortName[i].classList.remove("clicked");
+            }
+            event.target.classList.add("clicked");
+        }
+    }
+
+    function init() {
+        for (var i = 0; i < sortName.length; i++) {
+            sortName[i].addEventListener("click", handleClick);
+        }
+    }
+
+    init();
+
 </script>
 </body>
 </html>

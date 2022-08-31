@@ -40,12 +40,14 @@
 
 .sort_name{
 	font-size: 14px;
-	color: #333333;
+	color: #999999;
 	font-weight: bold;
-	cursor: pointer;
+	cursor: pointer
 }
 
-
+.clicked{
+	color: #333333;
+}
 
 .wrap .content .reviewArea{
 	width: 1000px;
