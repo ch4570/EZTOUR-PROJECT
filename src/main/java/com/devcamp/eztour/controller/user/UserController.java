@@ -382,7 +382,7 @@ public class UserController {
             model.addAttribute("gndr",apiJson.get("gender"));
             model.addAttribute("naver_id",apiJson.get("naver_id"));
             return "user/setSubInfo.tiles";
-        }else if(naverConnectionCheck.get("naver_id") == null && naverConnectionCheck.get("phn") != null) { // 가입했지만 네이버 연동 안되어 있을시, confirm("연동하시겠습니까?")
+        }else if((naverConnectionCheck.get("naver_id") == null) && (naverConnectionCheck.get("phn") != null)) { // 가입했지만 네이버 연동 안되어 있을시, confirm("연동하시겠습니까?")
             rattr.addFlashAttribute("msg","NAVER_SET_CONFIRM");
 
             String usr_nm = URLEncoder.encode((String) naverConnectionCheck.get("usr_nm"));

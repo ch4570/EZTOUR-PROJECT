@@ -15,8 +15,8 @@
 <div class="wrap">
     <div class="content">
         <div class="review-wrap">
-            <div class="review-title">여행후기 ${mode=="new" ? "작성" : "수정"}</div>
-            <div class="review-title-desc">
+            <div class="review-title" style="font-size: 35px;">여행후기 ${mode=="new" ? "작성" : "수정"}</div>
+            <div class="review-title-desc" style="font-size: 16px; color: #666666">
                 여행을 다녀온 고객분들의
                 <br>
                 솔직한 여행 이야기
@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <!-- 글 내용-->
-                <textarea class="detailInfo-content"  id="textarea" name="rvw_cont" placeholder="내용을 입력해주세요"><c:out value="${rvwDto.rvw_cont}" escapeXml="false"/></textarea>
+                <textarea class="detailInfo-content"  id="textarea" name="rvw_cont" style="padding: 20px; font-size: 20px" placeholder="내용을 입력해주세요"><c:out value="${rvwDto.rvw_cont}" escapeXml="false"/></textarea>
                 <div class="boradBtns">
                     <c:if test="${mode ne 'new'}">
                         <button class="btn sz-inp st-lblue btn_summit" type="button" id="modifyBtn">확인</button>
