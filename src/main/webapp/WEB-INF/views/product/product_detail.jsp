@@ -486,7 +486,7 @@
                                     aria-label="Decrease"
                             ><i class="fas fa-minus"></i></button>
                             <input readonly
-                                   type="number"
+                                   type="text"
                                    name="adt_cnt"
                                    class="quantity"
                                    min="0"
@@ -514,7 +514,7 @@
                                     aria-label="Decrease"
                             ><i class="fas fa-minus"></i></button>
                             <input readonly
-                                   type="number"
+                                   type="text"
                                    name="chd_cnt"
                                    class="quantity"
                                    min="0"
@@ -542,7 +542,7 @@
                                     aria-label="Decrease"
                             ><i class="fas fa-minus"></i></button>
                             <input readonly
-                                   type="number"
+                                   type="text"
                                    name="bb_cnt"
                                    class="quantity"
                                    min="0"

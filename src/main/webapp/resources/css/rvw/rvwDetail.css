@@ -35,7 +35,7 @@ ol, ul {
 blockquote, q {
     quotes: none;
 }
-blockquote:before, blockquote:after,
+blockquote:before, blockquote:f,
 q:before, q:after {
     content: '';
     content: none;
@@ -111,20 +111,15 @@ table {
 
 .reviewLikeViewCnt-lk_cnt-rvw_cont{
     float: left;
-    font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
     font-size: 15px;
     color: #1c1c1c;
 }
 
 .right{
     float: right;
-    font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
     font-size: 15px;
 }
 
-.date{
-    margin-right: 50px;
-}
 
 .writer{
     margin-right: 30px;
@@ -135,8 +130,9 @@ table {
     width: 100%;
     position: relative;
     overflow: hidden;
-    border-bottom: 1px solid #f0f0f0;
-    background: #f8f8f8;
+    border: 1px solid #ccc;
+    background: #ffffff;
+    border-radius: 8px;
 }
 
 .prdImg{
@@ -160,7 +156,6 @@ table {
     position: absolute;
     top: 50px;
     color: #1c1c1c;
-    font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
     font-weight: bold;
     margin: 0;
     display: -webkit-box;
@@ -199,7 +194,6 @@ table {
     zoom: 1;
     text-align: center;
     border: 0;
-    font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
     cursor: pointer;
 }
 
@@ -208,13 +202,19 @@ a, a:hover, a:active {
 }
 
 /* 글 내용 */
+.image-box{
+    width: 250px;
+    height: 180px;
+    position: relative;
+    -webkit-border-bottom-left-radius: 8px;
+    -webkit-border-top-left-radius: 8px;
+    background-size: 100% 100%;
+    margin: 0px;
+}
 
 .detailInfo {
-    border-bottom: 5px solid #f0f0f0;
-    padding-bottom: 30px;
     width: 100%;
     position: relative;
-    margin: 30px auto 0;
 }
 
 .detailInfo-content {
@@ -223,6 +223,7 @@ a, a:hover, a:active {
     margin: 0;
     font-size: 15px;
     line-height: 24px;
+    padding: 20px;
     color: #363636;
 }
 
