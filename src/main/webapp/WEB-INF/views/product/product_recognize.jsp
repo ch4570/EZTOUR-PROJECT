@@ -77,7 +77,7 @@
                                 <span><fmt:formatNumber value="${prd_list.prd_str_prc}" pattern="#,##0"/></span>
                             </div>
                             <div class="admin__board--tit_state">
-                                <span style="color:${prd_list.act_yn == true ? 'blue' : 'red'}">${prd_list.act_yn == true ? '활성화' : '비활성화'}</span>
+                                <span style="color:${prd_list.act_yn == 1 ? 'blue' : 'red'}">${prd_list.act_yn == 1 ? '활성화' : '비활성화'}</span>
                             </div>
                         </div>
                     </div>

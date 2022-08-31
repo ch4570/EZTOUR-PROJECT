@@ -14,7 +14,7 @@ pageEncoding="UTF-8"%>
     <div class="header-inner">
       <div class="main-title">
         <a href="/">
-          <h1>EZTour</h1>
+          <h1><img src="<c:url value='/image/logo/logo_header1.png'/>"><img src="<c:url value='/image/logo/logo_header2.png'/>"></h1>
         </a>
       </div>
       <nav class="main-nav">

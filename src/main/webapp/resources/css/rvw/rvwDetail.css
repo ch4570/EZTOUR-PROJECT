@@ -310,18 +310,18 @@ a, a:hover, a:active {
     font-size: 17px;
 }
 
-ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: block;
-    list-style-type: disc;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    padding-inline-start: 40px;
-}
+/*ul {*/
+/*    list-style: none;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    display: block;*/
+/*    !*list-style-type: disc;*!*/
+/*    margin-block-start: 1em;*/
+/*    margin-block-end: 1em;*/
+/*    margin-inline-start: 0px;*/
+/*    margin-inline-end: 0px;*/
+/*    padding-inline-start: 40px;*/
+/*}*/
 
 .CommentBox .comment_list .CommentItem {
     position: relative;

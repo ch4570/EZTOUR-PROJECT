@@ -97,9 +97,13 @@ button{
 }
 
 .ri_rsvt_info_img {
-    width: 200px;
+    width: 300px;
     height: 200px;
     display: inline-block;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    background-size: cover;
+    background-position: center;
 }
 
 .ri_rsvt_info_subbox {
@@ -772,7 +776,7 @@ button{
 }
 /*예약리스트*/
 .rl_list_box{
-    width: 1000px;
+    width: 1100px;
     margin: auto;
     padding: 80px 0;
 }
@@ -790,13 +794,22 @@ button{
     height: 298px;
     margin: 0 0 33px 0;
 }
-rl_list{
-    display: flex;
-}
+/*.rl_list{*/
+/*    display: flex;*/
+/*}*/
 .rsvt_img_box{
-    width: 221px;
+    width: 300px;
     height: 100%;
     display: inline-block;
+}
+
+.rsvt_img_box img {
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background-size: cover;
+    background-position: center;
 }
 
 /*예약목록페이지*/

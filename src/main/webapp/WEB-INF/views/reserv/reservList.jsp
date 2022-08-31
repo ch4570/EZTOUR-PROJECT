@@ -22,7 +22,7 @@
         <div class="rl_list">
             <a href="<c:url value='/reserv/reservView?rsvt_no=${reserv.rsvt_no}&prd_dtl_cd=${reserv.prd_dtl_cd}'/> ">
                 <div class="rsvt_img_box">
-<%--                    <img src="http://8080${reserv.img_pth}"/>--%>
+                    <img src="${reserv.img_pth}"/>
                 </div>
                 <div class="rl_content_box">
                     <div class="rl_info_box">
