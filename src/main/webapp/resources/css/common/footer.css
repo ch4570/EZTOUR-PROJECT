@@ -79,63 +79,90 @@
     right: 0px;
 }
 
-.foot-cont{
-    width: 200px;
-    height: 20px;
-    font-family:'NotoSansCJKkr',Helvetica,sans-serif;
-    color: #1c1c1c;
-    font-size: 14px;
+/*.foot-cont{*/
+/*    width: 200px;*/
+/*    height: 20px;*/
+/*    font-family:'NotoSansCJKkr',Helvetica,sans-serif;*/
+/*    color: #1c1c1c;*/
+/*    font-size: 14px;*/
+/*}*/
+
+/*.foot-menu{*/
+/*    font-family: 'NotoSansCJKkr',Helvetica,sans-serif;*/
+/*    color: #1c1c1c;*/
+/*    font-size: 15px;*/
+/*    display: flex;*/
+/*    margin: auto;*/
+/*    width: 1000px;*/
+/*    justify-content: space-between;*/
+/*}*/
+/*.foot-info-box:not(:last-child){*/
+/*    display: inline-block;*/
+/*    width: 33.3%;*/
+/*}*/
+/*.foot-info-box:last-child{*/
+/*    display: inline-block;*/
+/*    width: 18.3%;*/
+/*}*/
+/*.foot-Information{*/
+/*    width: 250px;*/
+/*    height: 100px;*/
+/*    position: absolute;*/
+/*    left: 400px;*/
+/*    bottom: 20px;*/
+/*}*/
+
+/*.foot-FollowUs{*/
+/*    width: 250px;*/
+/*    height: 100px;*/
+/*    position: absolute;*/
+/*    left: 800px;*/
+/*    bottom: 20px;*/
+/*}*/
+
+
+
+/*.foot-title{*/
+/*    font-family: 'TourEasyT',sans-serif;*/
+/*    font-size: 25px;*/
+/*    white-space: nowrap;*/
+/*    font-weight: 600;*/
+/*    margin-bottom: 12px;*/
+/*}*/
+
+/*.foot-desc{*/
+/*    font-size: 12px;*/
+/*    line-height: 20px;*/
+/*    font-family: 'TourEasyT',sans-serif;*/
+/*    color: #667;*/
+/*}*/
+
+/*.foot-menu-dtl{*/
+/*    text-decoration: none;*/
+/*}*/
+
+.foot {
+    width: 1200px;
+    margin: 0 auto;
 }
 
 .foot-menu{
-    font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
-    color: #1c1c1c;
-    font-size: 15px;
+    width: 100%;
     display: flex;
-    margin: auto;
-    width: 1000px;
     justify-content: space-between;
 }
-.foot-info-box:not(:last-child){
-    display: inline-block;
-    width: 33.3%;
-}
-.foot-info-box:last-child{
-    display: inline-block;
-    width: 18.3%;
-}
-.foot-Information{
-    width: 250px;
-    height: 100px;
-    position: absolute;
-    left: 400px;
-    bottom: 20px;
+
+.foottt {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 60px;
 }
 
-.foot-FollowUs{
-    width: 250px;
-    height: 100px;
-    position: absolute;
-    left: 800px;
-    bottom: 20px;
-}
-.foot-title{
-    font-family: 'TourEasyT',sans-serif;
+.foot-title {
     font-size: 25px;
-    white-space: nowrap;
-    font-weight: 600;
-    margin-bottom: 12px;
-}
-
-.foot-desc{
-    font-size: 12px;
-    line-height: 20px;
-    font-family: 'TourEasyT',sans-serif;
-    color: #667;
-}
-
-.foot-menu-dtl{
-    text-decoration: none;
+    font-weight: 700;
+    margin-bottom: 5px;
 }
 
 .modal_main{

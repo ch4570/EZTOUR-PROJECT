@@ -15,9 +15,9 @@
 }
 
 .detail-item__title h1 {
-    font-size: 40px;
+    font-size: 30px;
     font-weight: 700;
-    letter-spacing: -1.28px;
+    letter-spacing: -2px;
 }
 
 .detail-item__info {
@@ -130,7 +130,7 @@
 }
 
 .detail-item__menu {
-    margin-top: 70px;
+    margin-top: 40px;
 }
 
 .ul-wrap {
@@ -172,7 +172,7 @@ ul.detail-item__tab li.selected{
 .cont_box{
     display: none;
     padding: 12px;
-    margin-top: 70px;
+    margin-top: 30px;
 }
 
 .cont_box__tit {
@@ -448,6 +448,8 @@ ul.detail-item__tab li.selected{
 .pay__info span:last-child {
     font-size: 26px;
     font-weight: 700;
+    width: 136px;
+    text-align: right;
 }
 
 .pay__info span:last-child em {
@@ -488,14 +490,16 @@ ul.detail-item__tab li.selected{
     border: 1px solid rgba(0,0,0,.1);
 }
 
-.pay__combo-box input[type="number"] {
+.pay__combo-box input[type="text"] {
     text-align: center;
     font-size: 20px;
     font-weight: 600;
     line-height: 40px;
+    margin: 0 -1px;
 }
 
 .detail-item__total-pay {
+    width: 100%;
     margin-top: 50px;
 }
 
