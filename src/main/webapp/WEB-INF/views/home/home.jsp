@@ -269,37 +269,43 @@
         <!-- fade css -->
         <div class="myslide fade">
             <div class="txt">
-                <p>이것이<br />여행이지</p>
+                <p>이것이<br/>여행이지</p>
+                <p class="myslide_info">이지투어가 만드는 새로운 여행</p>
             </div>
-            <img class="fullImg" src="/img/home/main_img/main1.jpg" style="width: 100%; height: 100%" />
+            <img class="fullImg" src="/img/home/main_img/thailand.jpg" style="width: 100%; height: 100%" />
+<%--            <img class="fullImg" src="/img/home/main_img/main1.jpg" style="width: 100%; height: 100%" />--%>
         </div>
 
         <div class="myslide fade">
             <div class="txt">
-                <p>이것이<br />여행이지</p>
+                <p>여기서<br/>행복할 것</p>
+                <p class="myslide_info">기차타고 떠나는 이탈리아 여행</p>
+            </div>
+            <img class="fullImg" src="/img/home/main_img/italy.jpg" style="width: 100%; height: 100%" />
+        </div>
+
+        <div class="myslide fade">
+            <div class="txt">
+                <p>여행자들이<br/>사랑하는 나라</p>
+                <p class="myslide_info">역사와 낭만이 있는 크로아티아 여행</p>
             </div>
             <img class="fullImg" src="/img/home/main_img/main2.jpg" style="width: 100%; height: 100%" />
         </div>
 
         <div class="myslide fade">
             <div class="txt">
-                <p>이것이<br />여행이지</p>
+                <p class="narrow_line">어딜가나 포토존<br/>인생사진 찍으러 가자!</p>
+                <p class="myslide_info">오로라를 찾아 떠나는 아이슬란드 여행</p>
             </div>
-            <img class="fullImg" src="/img/home/main_img/main3.jpg" style="width: 100%; height: 100%" />
+            <img class="fullImg" src="/img/home/main_img/main124.jpg" style="width: 100%; height: 100%" />
         </div>
 
         <div class="myslide fade">
             <div class="txt">
-                <p>이것이<br />여행이지</p>
+                <p>떠날거야<br/>마일리지마!</p>
+                <p class="myslide_info">현금처럼 사용하는 마일리지</p>
             </div>
-            <img class="fullImg" src="/img/home/main_img/main4.jpg" style="width: 100%; height: 100%" />
-        </div>
-
-        <div class="myslide fade">
-            <div class="txt">
-                <p>이것이<br />여행이지</p>
-            </div>
-            <img class="fullImg" src="/img/home/main_img/main5.jpg" style="width: 100%; height: 100%" />
+            <img class="fullImg" src="/img/home/main_img/switzerland.jpg" style="width: 100%; height: 100%" />
         </div>
         <!-- /fade css -->
 
@@ -336,33 +342,33 @@
 
             <div class="product-card">
                 <div class="product-image">
-                    <span class="item__tit">괌으로 떠나요</span>
-                    <img src="/img/home/slider/gaum.jpg" class="product-thumb" alt="">
-                    <button class="card-btn">여행지 정보보기</button>
+                    <span class="item__tit">스페인으로 떠나요</span>
+                    <img src="/img/home/slider/spain.jpg" class="product-thumb" alt="">
+                    <button class="card-btn card_btn_spain">여행지 정보보기</button>
                 </div>
             </div>
 
             <div class="product-card">
                 <div class="product-image">
-                    <span class="item__tit">환상의 그랜드캐니언</span>
-                    <img src="/img/home/slider/grand.jpg" class="product-thumb" alt="">
-                    <button class="card-btn">여행지 정보보기</button>
+                    <span class="item__tit">신사의 나라 영국</span>
+                    <img src="/img/home/slider/rundun1.jpg" class="product-thumb" alt="">
+                    <button class="card-btn card_btn_eng">여행지 정보보기</button>
                 </div>
             </div>
 
             <div class="product-card">
                 <div class="product-image">
-                    <span class="item__tit">알로하 하와이</span>
-                    <img src="/img/home/slider/hawaii.jpg" class="product-thumb" alt="">
-                    <button class="card-btn">여행지 정보보기</button>
+                    <span class="item__tit">여행자의 천국 싱가포르</span>
+                    <img src="/img/home/slider/singapore1.jpg" class="product-thumb" alt="">
+                    <button class="card-btn card_btn_sing">여행지 정보보기</button>
                 </div>
             </div>
 
             <div class="product-card">
                 <div class="product-image">
-                    <span class="item__tit">최고의 휴양지, 세부</span>
-                    <img src="/img/home/slider/sebu.jpg" class="product-thumb" alt="">
-                    <button class="card-btn">여행지 정보보기</button>
+                    <span class="item__tit">골든 코스트, 호주</span>
+                    <img src="/img/home/slider/australia.jpg" class="product-thumb" alt="">
+                    <button class="card-btn card_btn_aus">여행지 정보보기</button>
                 </div>
             </div>
 
@@ -370,7 +376,7 @@
                 <div class="product-image">
                     <span class="item__tit">자연을 느껴요, 스위스</span>
                     <img src="/img/home/slider/swiss.jpg" class="product-thumb" alt="">
-                    <button class="card-btn">여행지 정보보기</button>
+                    <button class="card-btn card_btn_swiz">여행지 정보보기</button>
                 </div>
             </div>
 
@@ -378,7 +384,7 @@
                 <div class="product-image">
                     <span class="item__tit">도쿄로 떠나요</span>
                     <img src="/img/home/slider/tokyo.jpg" class="product-thumb" alt="">
-                    <button class="card-btn">여행지 정보보기</button>
+                    <button class="card-btn card_btn_tk">여행지 정보보기</button>
                 </div>
             </div>
 
@@ -506,6 +512,27 @@
             }
 
         });
+
+        $('.card_btn_aus').on("click", function (){
+           location.href = '<c:url value="/product/list?cntn_cd=E&nt_cd=1&nt_cd_nm=호주&usr_id="/>';
+        });
+        $('.card_btn_spain').on("click", function (){
+            location.href = '<c:url value="/product/list?cntn_cd=D&nt_cd=6&nt_cd_nm=스페인&usr_id="/>';
+        });
+        $('.card_btn_sing').on("click", function (){
+            location.href = '<c:url value="/product/list?cntn_cd=B&nt_cd=1&nt_cd_nm=싱가포르&usr_id="/>';
+        });
+        $('.card_btn_eng').on("click", function (){
+            location.href = '<c:url value="/product/list?cntn_cd=D&nt_cd=2&nt_cd_nm=영국&usr_id="/>';
+        });
+        $('.card_btn_swiz').on("click", function (){
+            location.href = '<c:url value="/product/list?cntn_cd=D&nt_cd=4&nt_cd_nm=스위스&usr_id="/>';
+        });
+        $('.card_btn_tk').on("click", function (){
+            location.href = '<c:url value="/product/list?cntn_cd=B&nt_cd=2&nt_cd_nm=일본&usr_id="/>';
+        });
+
+
     });
 
     const productContainers = [...document.querySelectorAll('.product-container')];
