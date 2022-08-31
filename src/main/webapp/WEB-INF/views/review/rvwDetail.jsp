@@ -5,48 +5,62 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>fastcampus</title>
+    <title></title>
     <link rel="stylesheet" href="<c:url value='/css/rvw/rvwDetail.css?after'/>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+
+    <style>
+        .tit{
+            width: 200px;
+            height: 50px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 20px;
+            font-size: 45px;
+            font-weight: bold;
+            color: #1c1c1c;
+        }
+    </style>
 </head>
 <body>
 <div class="wrap">
-    <div class="content">
-        <div class="review-wrap">
-            <div class="review-title">여행후기</div>
-            <div class="review-title-desc">
-                여행을 다녀온 고객분들의
-                <br>
-                솔직한 여행 이야기
+    <div class="content" style="padding-top: 80px; width: 900px;">
+            <div class="tit">
+                <h1>Review</h1>
+                <p style="font-size: 13px; padding-top: 20px; color: #666666">이지투어 고객님들의 소중한 후기</p>
+            </div>
+        <div class="boarder-wrap" style="margin-top: 120px">
+            <div style="display: flex; align-items: center">
+                <p class="ttl" name="rvw_ttl" style="font-size: 30px; font-weight: bold;"><c:out value="${rvwDto.rvw_ttl}"/></p>
+                <span class="reviewLikeViewCnt-lk_cnt-rvw_cont" name="lk_cnt" style="margin-left: 20px"><i class="fa fa-eye" aria-hidden="true"></i> ${rvwDto.rvw_vcnt}</span>
+            </div>
+            <div style="margin-top: 20px; display: flex; justify-content: end; font-weight: bold; color: #666666 " >
+                <p class="right">
+                    <span class="writer" name="wrt_nm">작성자 | ${rvwDto.wrt_nm}</span>
+                    <span class="date" name="rvw_reg_date">등록일 | <fmt:formatDate value="${rvwDto.rvw_reg_date}" pattern="yyyy-MM-dd"/></span>
+                </p>
             </div>
         </div>
-        <div class="boarder-wrap">
-            <h2>
-                <p class="tit" name="rvw_ttl"><c:out value="${rvwDto.rvw_ttl}"/></p>
-                <span class="reviewLikeViewCnt-lk_cnt-rvw_cont" name="lk_cnt">조회수 ${rvwDto.rvw_vcnt}</span>
-                <p class="right">
-                    <span class="date" name="rvw_reg_date">등록일 | <fmt:formatDate value="${rvwDto.rvw_reg_date}" pattern="yyyy-MM-dd hh:mm:ss"/></span>
-                    <span class="writer" name="wrt_nm">작성자 | ${rvwDto.wrt_nm}</span>
-                </p>
-            </h2>
+        <hr style="margin-top: 20px;">
+
+            <!-- 글 내용-->
+            <div class="detailInfo">
+                <div class="detailInfo-content" name="rvw_cont">
+                    <div class="detailInfo-content-child" style="font-size: 18px;"><c:out value="${rvwDto.rvw_cont}" escapeXml="false"/></div>
+                </div>
+            </div>
+
             <!-- 관련 상품-->
-            <div class="prdInfo">
-                <a class="prdImg" href="#">
-                    <!--img src="/image/review/IMG_0966.JPG"  width="300" height="180"-->
-                    <img src="${rvwDto.img_pth}" alt="상품사진" width="300" height="180">
-                </a>
-                <div class="prdInfo-content">
+            <div class="prdInfo" style="display: flex; justify-content: space-between;">
+                <div class="image-box" style="background-image: url(../..${rvwDto.img_pth})">
+                </div>
+                <div class="prdInfo-content" style="margin-right: 20px">
                     <a class="prdInfo-content-title" href="/product/detail?prd_dtl_cd=${rvwDto.prd_dtl_cd}">${rvwDto.prd_nm}</a>
                     <a class="btn sz-l st-blue view" href="/product/detail?prd_dtl_cd=${rvwDto.prd_dtl_cd}">상품보기</a>
                 </div>
             </div>
-            <!-- 글 내용-->
-            <div class="detailInfo">
-                <div class="detailInfo-content" name="rvw_cont">
-                    <div class="detailInfo-content-child"><c:out value="${rvwDto.rvw_cont}" escapeXml="false"/></div>
-                </div>
-            </div>
+
             <!-- 삭제, 수정, 목록 버튼-->
             <form action="" id="form" method="post">
                 <input class="value-move" type="hidden" name="rvw_no" value="${rvwDto.rvw_no}" readonly="readonly">

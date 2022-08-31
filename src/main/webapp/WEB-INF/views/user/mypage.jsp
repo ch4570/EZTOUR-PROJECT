@@ -34,10 +34,10 @@
                 <div>${loginName}님의 마일리지는 <span id="mlg"><fmt:formatNumber value="${mlg}" pattern="#,###" />P</span>가 있어요</div>
                 <div>어떤 여행을 하고싶으신가요?</div>
             </div>
-                <div style="display: flex; flex-direction: column; height: 90px; justify-content: space-around;">
-                <div style="font-weight: bold;">나는 <span style="font-weight: bolder; font-size: xx-large">머머머머머</span>하고싶어요. 나는 <span style="font-weight: bolder; font-size: xx-large">집에가고</span>싶어요</div>
-                <div style="font-weight: bold">나는 <span style="font-weight: bolder; font-size: xx-large">어쩌구저쩌구어쩌구</span>하고싶어요.</div>
-            </div>
+<%--            <div style="display: flex; flex-direction: column; height: 90px; justify-content: space-around;">--%>
+<%--                <div style="font-weight: bold;">나는 <span style="font-weight: bolder; font-size: xx-large">머머머머머</span>하고싶어요. 나는 <span style="font-weight: bolder; font-size: xx-large">집에가고</span>싶어요</div>--%>
+<%--                <div style="font-weight: bold">나는 <span style="font-weight: bolder; font-size: xx-large">어쩌구저쩌구어쩌구</span>하고싶어요.</div>--%>
+<%--            </div>--%>
           </div>
         </div>
 

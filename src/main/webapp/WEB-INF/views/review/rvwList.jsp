@@ -21,8 +21,18 @@
             <h1>Review</h1>
             <p style="font-size: 13px; padding-top: 20px; color: #666666">이지투어 고객님들의 소중한 후기</p>
         </div>
-        <div style="display: flex; flex-direction: column; align-items: center">
-            <div class="navi" style="display: flex;">
+        <div style="text-align: center; margin-top: 30px;">
+            <c:choose>
+                <c:when test="${loginId==''}">
+                    <button type="button" class="button-27" role="button" id="loginWriteBtn" style="width: 150px; height: 40px;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;후기 작성하기</button>
+                </c:when>
+                <c:when test="${loginId!=''}">
+                    <button type="button" class="button-27" role="button" id="writeBtn" style="width: 150px; height: 40px;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;후기 작성하기</button>
+                </c:when>
+            </c:choose>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; margin-top: 0px">
+            <div class="navi" style="display: flex; margin-top: 0px">
                 <div class="menu" style="margin-top : 80px;">
                     <div class="nation_1">
                         <span class="menu_name" onclick="location.href='<c:url value='/review/list'/>'">전체</span>
@@ -56,7 +66,7 @@
                 </form>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: center; width: 900px; margin-top: 50px">
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 1000px; margin-top: 50px; padding-left: 40px">
                 <a class="totalCnt" style="font-weight: bold; color: #666666">
                     총 ${totalCnt}건
                 </a>
@@ -77,15 +87,19 @@
                     <%--<a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>">리뷰보기</a>--%>
                     <div class="review-section" style="display: flex; justify-content: space-between; height: 180px; width: 1000px;">
                         <div class="reviewInfo" style="display: flex; flex-direction: column; justify-content: space-evenly; padding-left: 20px; width:700px;">
-                            <div class="reviewTitle">
+                            <div class="reviewTitle" style="display: flex; justify-content: flex-start; width: 400px;">
                                 <br>
                                 <a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>">
                                     <p class="reviewTitle-rvw_ttl" style="font-size: 20px; font-weight: bold;"><c:out value="${rvwDto.rvw_ttl}"/></p>
                                 </a>
+                                <div class="reviewLikeViewCnt" style="margin-left: 20px">
+                                    <span class="reviewLikeViewCnt-lk_cnt-rvw_cont" style="font-size: 13px; font-weight: bold; color: #666666" ><i class="fa fa-eye" aria-hidden="true"></i> ${rvwDto.rvw_vcnt}</span>
+                                    <!--span class="reviewLikeViewCnt-lk_cnt-rvw_cont" style="margin-left: 50px">좋아요 ${rvwDto.lk_cnt}</span-->
+                                </div>
                             </div>
                             <div class="reviewContent">
                                 <a href="<c:url value='/review/read${ph.sc.queryString}&rvw_no=${rvwDto.rvw_no}'/>">
-                                    <p class="reviewContent-rvw_cont" style="font-size: 15px">
+                                    <p class="reviewContent-rvw_cont" style="font-size: 17px">
                                     <c:choose>
                                         <c:when test="${fn:length(rvwDto.rvw_cont) > 80}">
                                             <c:out value="${fn:substring(rvwDto.rvw_cont,0,79)}"/>....
@@ -97,27 +111,23 @@
                                     </p>
                                 </a>
                             </div>
-                            <div style="display: flex; justify-content: space-between; color: #999; font-size: 14px; font-weight: bold; width: 160px;">
+                            <div style="display: flex; justify-content: space-between; color: #999; font-size: 14px; width: 160px;">
                                 <div class="reviewWriter">
                                     <span class="reviewWriter-wrt_nm">${rvwDto.wrt_nm}</span>
                                 </div>
                                 <div class="reviewRegisterDate">
                                     <span class="reviewRegisterDate-rvw_reg_date"><fmt:formatDate value="${rvwDto.rvw_reg_date}" pattern="yyyy-MM-dd"/></span>
                                 </div>
+
                             </div>
-                            <div class="reviewLikeViewCnt">
-                                <br>
-                                <span class="reviewLikeViewCnt-lk_cnt-rvw_cont" style="margin-left: 50px">조회수 ${rvwDto.rvw_vcnt}</span>
-                                <br>
-                                <br>
-                                <!--span class="reviewLikeViewCnt-lk_cnt-rvw_cont" style="margin-left: 50px">좋아요 ${rvwDto.lk_cnt}</span-->
-                            </div>
+
                         </div>
                         <div class="image-box" style="background-image: url(../..${rvwDto.img_pth})">
                         </div>
                     </div>
                 </section>
             </c:forEach>
+
 
             <div class="pagingContainer">
                 <div class="paging">
@@ -138,16 +148,7 @@
                 </div>
             </div>
 
-            <div>
-                <c:choose>
-                    <c:when test="${loginId==''}">
-                        <button type="button" class="button-27" role="button" id="loginWriteBtn" style="width: 100px; height: 49px;">작성하기</button>
-                    </c:when>
-                    <c:when test="${loginId!=''}">
-                        <button type="button" class="button-27" role="button" id="writeBtn" style=" width: 100px; height: 49px;">작성하기</button>
-                    </c:when>
-                </c:choose>
-            </div>
+
 
         </div>
         <!-- 후기 목록 끝 -->

@@ -22,7 +22,6 @@
 	padding-top: 20px;
 	font-size: 45px;
 	font-weight: bold;
-	font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
 	color: #1c1c1c;
 }
 
@@ -40,7 +39,7 @@
 }
 
 .sort_name{
-	font-size: 16px;
+	font-size: 14px;
 	color: #333333;
 	font-weight: bold;
 	cursor: pointer;
@@ -57,9 +56,8 @@
 }
 
 .wrap .content .reviewArea .pagingContainer{
-	width: 900px;
-	height: 90px;
-	margin-top: 100px;
+	width: 1000px;
+	height: 50px;
 }
 
 .wrap .content .reviewArea .pagingContainer .paging {
@@ -67,7 +65,7 @@
 	width: 100%;
 	text-align: center;
 	font-size: 20px;
-	padding-top: 30px;
+	padding-top: 80px;
 }
 
 .wrap .content .reviewArea .pagingContainer .paging .page {
@@ -250,12 +248,14 @@
 }
 .button-27 {
 	all: unset;
-	background: #1c1c1c;
-	color: #fff;
+	background: #fff;
+	color:#1c1c1c;
+	border: 1px solid #333333;
+	border-radius: 2px;
 	text-align: center;
 	cursor: pointer;
 	font-size: 16px;
-	font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
+	margin-top: 20px;
 }
 
 .image-box{
