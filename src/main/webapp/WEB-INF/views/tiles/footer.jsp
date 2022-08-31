@@ -37,6 +37,7 @@
         </ul>
     </div>
 </div>
+
 <div class="foot">
     <div class="foot-menu">
         <a class="foot-menu-dtl" href="">여행정보</a>
@@ -48,6 +49,8 @@
         <a class="foot-menu-dtl" href="">신용카드 무이자 할부안내</a>
         <a class="foot-menu-dtl" href="">EZ Tour 전화번호안내</a>
     </div>
+
+    <div class="foottt">
     <div class="foot-Address">
         <dl>
             <dt class="foot-title">Address & Contact</dt>
@@ -58,18 +61,20 @@
             </dd>
         </dl>
     </div>
+
     <div class="foot-Information">
         <dl>
             <dt class="foot-title">EzTour Information</dt>
             <dd class="foot-desc">
-                (주)EzTour 대표 : xxx
+                (주)EzTour 대표 : 서창희
                 <br>
-                서울특별시 종로구 청계천로 51-1, 교원투어 빌딩
+                서울 중구 서소문로 89-20 삼정 아트테라스 정동 B2층
                 <br>
                 본사 사업자등록번호 : 000-0000-0000
             </dd>
         </dl>
     </div>
+
     <div class="foot-FollowUs">
         <dl>
             <dt class="foot-title">Follow Us</dt>
@@ -82,6 +87,8 @@
             </dd>
         </dl>
     </div>
+    </div>
+
 </div>
 
 <div class="modal_main hidden">
@@ -91,8 +98,23 @@
             <div class="modal_tlt">
                 <strong>최근 본 상품 (${sessionScope.trvList == null ? 0 : sessionScope.trvList.size()})</strong>
             </div>
+
             <div class="modal_recently_content">
+
+                <!-- 최근 본 상품 없을 시 -->
+                <c:if test="${sessionScope.trvList.size()==0}">
+                    <div class="no-list">
+                        <div class="image-section">
+                            <img src="../../image/product/no-product-list.PNG" width="250px" height="200px">
+                        </div>
+                        <div class="no-list-info">최근 본 상품이 없습니다.</div>
+                    </div>
+                </c:if>
+
                 <div class="product--list__modal">
+
+
+
                     <c:forEach items="${sessionScope.trvList}" var="trvList">
                         <div class="product__recent--list">
                             <a><i class="fa-solid fa-x" name="product__recent--cancel" prd_cd="${trvList.prd_cd}"></i></a>
