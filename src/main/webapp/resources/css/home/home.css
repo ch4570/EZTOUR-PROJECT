@@ -710,8 +710,47 @@ img.fullImg {
 }
 
 .foot {
-    padding: 50px 0;
-    font-size: 50px;
+    padding: 40px 0;
+    display: block;
+    width: 100%;
+}
+.foot-sub-box{
+    display: flex;
+    width: 1000px;
+    height: 100%;
+    margin: 41px auto 10px;
+    justify-content: space-between;
+}
+.foot-desc{
+    line-height: 22px;
+    color: #999999;
+    font-weight: 700;
+    font-size: 13px;
+}
+.foot {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.foot-menu{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.foottt {
+    padding-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 65px;
+}
+
+.foot-title {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 12px;
 }
 
 .modal_main{
