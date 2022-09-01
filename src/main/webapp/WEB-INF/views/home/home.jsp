@@ -446,40 +446,46 @@
             <a class="foot-menu-dtl" href="">신용카드 무이자 할부안내</a>
             <a class="foot-menu-dtl" href="">EZ Tour 전화번호안내</a>
         </div>
-        <div class="foot-Address">
-            <dl>
-                <dt class="foot-title">Address & Contact</dt>
-                <dd class="foot-desc">
-                    "대표번호 : 5555-0000"
-                    <br>
-                    서울 중구 서소문로 89-20
-                </dd>
-            </dl>
+
+        <div class="foottt">
+            <div class="foot-Address">
+                <dl>
+                    <dt class="foot-title">Address & Contact</dt>
+                    <dd class="foot-desc">
+                        "대표번호 : 5555-0000"
+                        <br>
+                        서울 중구 서소문로 89-20
+                    </dd>
+                </dl>
+            </div>
+
+            <div class="foot-Information">
+                <dl>
+                    <dt class="foot-title">EzTour Information</dt>
+                    <dd class="foot-desc">
+                        (주)EzTour 대표 : 서창희
+                        <br>
+                        서울 중구 서소문로 89-20 삼정 아트테라스 정동 B2층
+                        <br>
+                        본사 사업자등록번호 : 000-0000-0000
+                    </dd>
+                </dl>
+            </div>
+
+            <div class="foot-FollowUs">
+                <dl>
+                    <dt class="foot-title">Follow Us</dt>
+                    <dd class="foot-desc">
+                        여행자 배상책임보험 20억원 가입
+                        <br>
+                        일반여행업 보증금외 15억원 가입
+                        <br>
+                        xxxx@eztour.co.kr
+                    </dd>
+                </dl>
+            </div>
         </div>
-        <div class="foot-Information">
-            <dl>
-                <dt class="foot-title">EzTour Information</dt>
-                <dd class="foot-desc">
-                    (주)EzTour 대표 : xxx
-                    <br>
-                    서울특별시 종로구 청계천로 51-1, 교원투어 빌딩
-                    <br>
-                    본사 사업자등록번호 : 000-0000-0000
-                </dd>
-            </dl>
-        </div>
-        <div class="foot-FollowUs">
-            <dl>
-                <dt class="foot-title">Follow Us</dt>
-                <dd class="foot-desc">
-                    여행자 배상책임보험 20억원 가입
-                    <br>
-                    일반여행업 보증금외 15억원 가입
-                    <br>
-                    xxxx@eztour.co.kr
-                </dd>
-            </dl>
-        </div>
+
     </div>
 
     <div class="modal_main hidden">
