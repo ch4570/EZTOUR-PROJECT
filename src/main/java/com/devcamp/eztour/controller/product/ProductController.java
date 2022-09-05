@@ -23,7 +23,6 @@ public class ProductController {
 
     private final ProductDetailService productDetailService;
 
-    private final ProductService productService;
 
     @GetMapping("/list")
     public String getAllProduct(Model m, String cntn_cd, String nt_cd, String nt_cd_nm,

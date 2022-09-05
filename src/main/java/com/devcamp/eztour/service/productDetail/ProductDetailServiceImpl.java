@@ -75,4 +75,5 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         return productDetailDao.selectUserSearch(map);
     }
 
+
 }

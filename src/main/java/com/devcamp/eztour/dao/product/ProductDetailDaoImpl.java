@@ -78,4 +78,5 @@ public class ProductDetailDaoImpl implements ProductDetailDao {
         return session.selectList(namespace+"selectUserSearch",map);
     }
 
+
 }

@@ -207,4 +207,9 @@ public class TrvPrdDtlReadDto {
         this.img_pth = img_pth;
     }
 
+    public TrvPrdDtlReadDto(String prd_cd, String usr_id){
+        this.prd_cd = prd_cd;
+        this.usr_id = usr_id;
+    }
+
 }

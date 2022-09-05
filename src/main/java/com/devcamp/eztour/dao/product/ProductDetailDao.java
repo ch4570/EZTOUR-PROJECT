@@ -24,4 +24,5 @@ public interface ProductDetailDao {
     int deleteProductAttractive(Map map) throws Exception;
     List<TrvPrdDtlReadDto> selectUserSearch(Map map) throws Exception;
 
+
 }
