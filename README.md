@@ -18,6 +18,8 @@
 * 모듈 21개
 * JAVA 파일, 코드 비율 50%, 33%
 
+>*세부 JAVA, JSP, CSS, 기타 규모는 제일 하단 표 참고*
+
 ## 기술 소개
 ### 사용언어 & 라이브러리
 <img src="https://img.shields.io/badge/java | 8-007396?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/javascript | ES6-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
