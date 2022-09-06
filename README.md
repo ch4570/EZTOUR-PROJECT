@@ -1,3 +1,3 @@
-# EZTOUR-PROJECT
-## 테스트입니다. 
+# EZ TOUR(여행예약 플랫폼)
+
 
