@@ -1,7 +1,7 @@
 # EZ TOUR(여행예약 플랫폼) - 1
 <img src = "https://user-images.githubusercontent.com/92190168/188597209-29fab3de-c43b-4de1-9432-3a18fb2689a5.jpeg" width="200" height="200">
 
-## 프로젝트 소개
+## 프로젝트 소개([EZ TOUR  동영상](https://www.youtube.com/watch?v=5vGcLsqoa_A))
 'EZ TOUR'는 모든 연령대가 '손쉽게' 여행을 할 수 있게 직관적인 워딩과 편의를 고려한 UI/UX 위주로
 유저 중심의 여행 플랫폼 웹사이트입니다.
 
@@ -56,16 +56,17 @@
 * [coolsms](https://docs.coolsms.co.kr/api-reference/cash/getreceipt) - <내용 적어야함>
 * [JAVAMAIL | 1.6.2](https://www.javadoc.io/doc/javax.mail/javax.mail-api/latest/javax/mail/package-summary.html) - <내용 적어야함>
 ### 개발환경
+#### DB & Framework & Server 
+<img src="https://img.shields.io/badge/Spring | 5.0.7-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/MyBatis | 3.5-26689A?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Spring Security | 5.4.2-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white"> <img src="https://img.shields.io/badge/Apache Tomcat | 9.0.52-C71A36?style=for-the-badge&logo=Apache Tomcat&logoColor=white">
+
+<img src="https://img.shields.io/badge/MySQL | 8.0-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"> <img src="https://img.shields.io/badge/Lombok | 1.18-DDB320?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/mockito | 4.7-111324?style=for-the-badge&logo=&logoColor=white">  <img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=&logoColor=white"> 
+
 #### Amazon
 <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=Amazon RDS&logoColor=white"> <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white">
 #### Tool
 <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=Visual Studio Code&logoColor=white"> <img src="https://img.shields.io/badge/ERD Cloud-EEEEEE?style=for-the-badge&logo=ERDCloud&logoColor=white"> 
 
 <img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=for-the-badge&logo=IntelliJ IDEA&logoColor=white"> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white"> <img src="https://img.shields.io/badge/Sourcetree-0052CC?style=for-the-badge&logo=Sourcetree&logoColor=white"> <img src="https://img.shields.io/badge/MySQL Workbench | 8.0-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
-#### DB & Framework & Server 
-<img src="https://img.shields.io/badge/Spring | 5.0.7-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/MyBatis | 3.5-26689A?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Spring Security | 5.4.2-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white"> <img src="https://img.shields.io/badge/Apache Tomcat | 9.0.52-C71A36?style=for-the-badge&logo=Apache Tomcat&logoColor=white">
-
-<img src="https://img.shields.io/badge/MySQL | 8.0-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"> <img src="https://img.shields.io/badge/Lombok | 1.18-DDB320?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/mockito | 4.7-111324?style=for-the-badge&logo=&logoColor=white">  <img src="https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=&logoColor=white"> 
 
 ## 프로젝트 세부 규모 표(기준일 : 2022.9.1)
 |연어|파일|공백|주석|코드|
@@ -93,7 +94,7 @@
 # EZ TOUR(여행예약 플랫폼) - 2
 <img src = "https://user-images.githubusercontent.com/92190168/188597209-29fab3de-c43b-4de1-9432-3a18fb2689a5.jpeg" width="200" height="200">
 
-## 프로젝트 소개
+## 프로젝트 소개([EZ TOUR  동영상](https://www.youtube.com/watch?v=5vGcLsqoa_A))
 'EZ TOUR'는 모든 연령대가 '손쉽게' 여행을 할 수 있게 직관적인 워딩과 편의를 고려한 UI/UX 위주로
 유저 중심의 여행 플랫폼 웹사이트입니다.
 
@@ -156,23 +157,6 @@
 * [coolsms](https://docs.coolsms.co.kr/api-reference/cash/getreceipt) - <내용 적어야함>
 * [JAVAMAIL | 1.6.2](https://www.javadoc.io/doc/javax.mail/javax.mail-api/latest/javax/mail/package-summary.html) - <내용 적어야함>
 ### 개발환경
-#### Amazon
-<img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=Amazon RDS&logoColor=white"> <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white">
-* Amazon EC2 
-* Amazon RDS 
-* Amazon AWS
-#### Tool
-<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=Visual Studio Code&logoColor=white"> <img src="https://img.shields.io/badge/ERD Cloud-EEEEEE?style=for-the-badge&logo=ERDCloud&logoColor=white"> 
-
-<img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=for-the-badge&logo=IntelliJ IDEA&logoColor=white"> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white"> <img src="https://img.shields.io/badge/Sourcetree-0052CC?style=for-the-badge&logo=Sourcetree&logoColor=white"> <img src="https://img.shields.io/badge/MySQL Workbench | 8.0-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
-* GitHub
-* Git 
-* Visual Studio Code
-* ERD Cloud
-* IntelliJ IDEA
-* Post Man
-* Sourcetree
-* MySQL Workbench
 #### DB & Framework & Server 
 <img src="https://img.shields.io/badge/Spring | 5.0.7-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/MyBatis | 3.5-26689A?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Spring Security | 5.4.2-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white"> <img src="https://img.shields.io/badge/Apache Tomcat | 9.0.52-C71A36?style=for-the-badge&logo=Apache Tomcat&logoColor=white">
 
@@ -191,6 +175,23 @@
 * JSON 
 * Gson
 * JACKSON JSON
+#### Amazon
+<img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white"> <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=Amazon RDS&logoColor=white"> <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white">
+* Amazon EC2 
+* Amazon RDS 
+* Amazon AWS
+#### Tool
+<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"> <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=Visual Studio Code&logoColor=white"> <img src="https://img.shields.io/badge/ERD Cloud-EEEEEE?style=for-the-badge&logo=ERDCloud&logoColor=white"> 
+
+<img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=for-the-badge&logo=IntelliJ IDEA&logoColor=white"> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white"> <img src="https://img.shields.io/badge/Sourcetree-0052CC?style=for-the-badge&logo=Sourcetree&logoColor=white"> <img src="https://img.shields.io/badge/MySQL Workbench | 8.0-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
+* GitHub
+* Git 
+* Visual Studio Code
+* ERD Cloud
+* IntelliJ IDEA
+* Post Man
+* Sourcetree
+* MySQL Workbench
 
 ## 프로젝트 세부 규모 표(기준일 : 2022.9.1)
 |연어|파일|공백|주석|코드|
