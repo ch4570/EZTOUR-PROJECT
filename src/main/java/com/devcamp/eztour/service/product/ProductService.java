@@ -61,5 +61,6 @@ public interface ProductService {
     public TrvPrdDtlReadDto getRecentlyProduct(String prd_cd) throws Exception;
     public int addUserLike(Map map) throws Exception;
     public int removeUserLike(Map map) throws Exception;
+    public int modifyViewCnt(Map map) throws Exception;
 
 }

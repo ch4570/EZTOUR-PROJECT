@@ -2,6 +2,7 @@ package com.devcamp.eztour.controller.product;
 
 import com.devcamp.eztour.domain.product.PrdDtlPageDto;
 import com.devcamp.eztour.domain.product.TrvPrdDtlReadDto;
+import com.devcamp.eztour.domain.product.TrvPrdReadDto;
 import com.devcamp.eztour.domain.user.UserDto;
 import com.devcamp.eztour.service.product.ProductService;
 import com.devcamp.eztour.service.productDetail.ProductDetailService;
@@ -22,6 +23,8 @@ import java.util.Map;
 public class ProductController {
 
     private final ProductDetailService productDetailService;
+
+    private final ProductService productService;
 
 
     @GetMapping("/list")
@@ -97,8 +100,15 @@ public class ProductController {
 
     @GetMapping("/detail")
     public String getProductDetail(Model m, String prd_dtl_cd) throws Exception{
-        System.out.println(prd_dtl_cd);
         PrdDtlPageDto prdDtlPageDto = productDetailService.getProductDetailPage(prd_dtl_cd);
+        String prd_cd = prdDtlPageDto.getPrd_cd();
+        TrvPrdReadDto trvPrdReadDto = productService.selectProduct(prd_cd);
+        Integer viewCnt = trvPrdReadDto.getVcnt();
+        viewCnt = viewCnt+1;
+        Map<String,Object> map = new HashMap<>();
+        map.put("vcnt",viewCnt);
+        map.put("prd_cd",prd_cd);
+        productService.modifyViewCnt(map);
         m.addAttribute("prdDto",prdDtlPageDto);
         System.out.println(prdDtlPageDto);
         return "product/product_detail.tiles";

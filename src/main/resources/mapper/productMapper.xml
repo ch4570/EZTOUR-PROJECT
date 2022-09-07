@@ -13,10 +13,16 @@
 
     <select id="selectProduct" parameterType="String" resultType="TrvPrdReadDto">
         SELECT prd_cd,dstn_cd,cmn_cd_thm,prd_nm,prd_dtl_desc,
-               trv_per,prd_str_prc,dpr_str_date,dpr_fin_date,cntn_cd,nt_cd,dpr_day
+               trv_per,prd_str_prc,dpr_str_date,dpr_fin_date,cntn_cd,nt_cd,dpr_day,vcnt
         FROM trv_prd
         WHERE prd_cd = #{prd_cd}
     </select>
+
+    <update id="updateViewCnt" parameterType="Map">
+        UPDATE trv_prd
+        SET vcnt = #{vcnt}
+        WHERE prd_cd = #{prd_cd}
+    </update>
 
     <insert id="insertProductDetail" parameterType="TrvPrdDtlWriteDto">
         INSERT INTO trv_prd_dtl(prd_dtl_cd,prd_cd,prd_str_prc,arl_nm,

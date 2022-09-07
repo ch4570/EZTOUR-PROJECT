@@ -4,6 +4,7 @@ import com.devcamp.eztour.domain.product.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public interface ProductDao {
 
@@ -63,4 +64,5 @@ public interface ProductDao {
     public TrvPrdDtlReadDto selectRecentlyProduct(String prd_dtl_cd) throws Exception;
     public int insertUserLike(Map map) throws Exception;
     public int deleteUserLike(Map map) throws Exception;
+    public int updateViewCnt(Map map) throws Exception;
 }

@@ -295,4 +295,9 @@ public class ProductDaoImpl implements ProductDao{
         return session.delete(namespace+"deleteUserLike",map);
     }
 
+    @Override
+    public int updateViewCnt(Map map) throws Exception {
+        return session.update(namespace+"updateViewCnt",map);
+    }
+
 }

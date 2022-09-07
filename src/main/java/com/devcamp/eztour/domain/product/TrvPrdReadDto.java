@@ -97,7 +97,7 @@ public class TrvPrdReadDto {
 
     public TrvPrdReadDto(String prd_cd,String dstn_cd, String cmn_cd_thm, String prd_nm, String prd_dtl_desc,
                          String trv_per,Integer prd_str_prc, String dpr_str_date, String dpr_fin_date,
-                         String cntn_cd, String nt_cd, String dpr_day){
+                         String cntn_cd, String nt_cd, String dpr_day,Integer vcnt){
         this.prd_cd = prd_cd;
         this.dstn_cd = dstn_cd;
         this.cmn_cd_thm = cmn_cd_thm;
@@ -110,6 +110,7 @@ public class TrvPrdReadDto {
         this.cntn_cd = cntn_cd;
         this.nt_cd = nt_cd;
         this.dpr_day = dpr_day;
+        this.vcnt = vcnt;
     }
 
 }

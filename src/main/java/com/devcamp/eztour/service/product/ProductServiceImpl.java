@@ -293,4 +293,9 @@ public class ProductServiceImpl implements ProductService{
     public int removeUserLike(Map map) throws Exception {
         return productDao.deleteUserLike(map);
     }
+
+    @Override
+    public int modifyViewCnt(Map map) throws Exception {
+        return productDao.updateViewCnt(map);
+    }
 }
