@@ -67,6 +67,13 @@
 
 <img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=for-the-badge&logo=IntelliJ IDEA&logoColor=white"> <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white"> <img src="https://img.shields.io/badge/Sourcetree-0052CC?style=for-the-badge&logo=Sourcetree&logoColor=white"> <img src="https://img.shields.io/badge/MySQL Workbench | 8.0-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
 
+
+
+## 팀원
+|[김도형](https://github.com/Daniel0915)|[남기혁](https://github.com/carpediem3651)|[서창희](https://github.com/ch4570)|[안혜경](https://github.com/HyeKyungAhn)|[이종현](https://github.com/leejonghyun93)|장영욱|[홍선경](https://github.com/hoondal2)|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|<img src = "https://user-images.githubusercontent.com/92190168/188759836-6705b38b-d81b-4c4d-8fdb-d7fb694e5a79.png" width="130" height="180">|<img src = "https://user-images.githubusercontent.com/92190168/188760118-910e1e97-f46f-415a-adf5-87bcd80eee65.png" width="130" height="180">|<img src = "https://user-images.githubusercontent.com/92190168/188760197-91439a47-dd70-4a2d-9d95-5ba2de75ff1a.png" width="130" height="180">|<img src = "https://user-images.githubusercontent.com/92190168/188760253-cf202158-d098-4546-8423-69ef708fb62d.png" width="130" height="180">|<img src = "https://user-images.githubusercontent.com/92190168/188760327-9cba80b2-e1a2-432a-b6f6-8df51f3f4b3c.png" width="130" height="180">|<img src = "https://user-images.githubusercontent.com/92190168/188760413-b1651f46-00be-4858-bd96-332531e264e1.png" width="130" height="180">|<img src = "https://user-images.githubusercontent.com/92190168/188760463-13a4f0dd-1c53-45cf-a617-369763a1a2c0.png" width="130" height="180">|
+>*해당 프로젝트에 대한 이슈 문의 및 팀원들에게 연락하고 싶다면 이름 링크를 클릭해서 연락부탁드립니다.*
 ## 프로젝트 세부 규모 표(기준일 : 2022.9.1)
 |연어|파일|공백|주석|코드|
 |:---:|:---:|:---:|:---:|:---:|
