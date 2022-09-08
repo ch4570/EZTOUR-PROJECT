@@ -242,7 +242,7 @@ a, a:hover, a:active {
 
 
 .boradBtns {
-    margin-top: 30px;
+    margin-top: 0px;
 
 }
 
@@ -270,26 +270,31 @@ a, a:hover, a:active {
     margin-left: 20px;
 }
 
-
-
-
 /* 좋아요 및 댓글 */
 
+/*.view_btn_set {*/
+/*    width: 100%;*/
+/*    height: auto;*/
+/*    overflow: hidden;*/
+/*    text-align: center;*/
+/*    padding-bottom: 50px;*/
+/*    position: relative;*/
+/*}*/
+
 .view_btn_set {
-    width: 100%;
-    height: auto;
-    overflow: hidden;
-    text-align: center;
-    padding-bottom: 50px;
-    position: relative;
+    float: left;
 }
 
 .view_btn_set i {
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    top: 10px;
-    left: 10px;
+    width: 20px;
+    height: 20px;
+    color: red;
+    font-size: 20px;
+}
+
+.view_btn_set a {
+    font-size: 15px;
+    font-family: 'NotoSansCJKkr',Helvetica,sans-serif;
 }
 
 .CommentBox {
