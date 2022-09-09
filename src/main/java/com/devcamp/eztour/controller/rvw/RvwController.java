@@ -56,14 +56,10 @@ public class RvwController {
     @GetMapping("/list")
     public String list(SearchCondition sc, Model m) {
 
-        System.out.println("sc = " + sc);
-
-        System.out.println("sc.getCntn_cd() = " + sc.getCntn_cd());
         if (sc.getCntn_cd() == "") {
             try {
 
                 int totalCnt = rvwService.getSearchResultCnt(sc);
-                System.out.println("totalCnt = " + totalCnt);
                 m.addAttribute("totalCnt", totalCnt);
 
                 PageHandler pageHandler = new PageHandler(totalCnt, sc);
@@ -122,13 +118,10 @@ public class RvwController {
         // 1. rvw_lk_adm 테이블 데이터가 있는지 아니면 rvw_lk_adm 테이블 데이터가 없는지 조건문
         RvwLkAdmDto rvwLkAdmDto = rvwLkAdmService.select(usr_id, rvw_no);
         if(rvwLkAdmDto == null && usr_id != "") // 회원 + 좋아요를 누른적이 없다면,
-            rvwLkAdmService.insert(usr_id, rvw_no);
-            rvwLkAdmDto = rvwLkAdmService.select(usr_id,rvw_no);
+            rvwLkAdmService.insert(usr_id, rvw_no); // 게시물 read 시, rvw_lk_adm 테이블에 insert
+            rvwLkAdmDto = rvwLkAdmService.select(usr_id,rvw_no); //
 
         System.out.println("rvwLkAdmDto = " + rvwLkAdmDto);
-
-//        if(usr_id == "")
-//            rvwLkAdmDto.setRvw_lk_yn(0);
 
         m.addAttribute("rvwLkAdmDto", rvwLkAdmDto);
 
