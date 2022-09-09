@@ -30,7 +30,7 @@
 <ERD 추가 내용 넣기>
 ### 사용 API
 * [네이버](https://developers.naver.com/docs/login/api/api.md) / [카카오 로그인 API](https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api) - 소셜 로그인 
-* [i'mport](https://api.iamport.kr/) - <내용 적어야함>
+* [i'mport](https://api.iamport.kr/) - 결제 및 환불
 * [coolsms](https://docs.coolsms.co.kr/api-reference/cash/getreceipt) - 핸드폰 인증 문자 발송
 * [JAVAMAIL | 1.6.2](https://www.javadoc.io/doc/javax.mail/javax.mail-api/latest/javax/mail/package-summary.html) - 이메일 인증 번호 발송
 ### 개발환경
