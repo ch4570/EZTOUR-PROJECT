@@ -34,6 +34,7 @@
             <div style="display: flex; align-items: center">
                 <p class="ttl" name="rvw_ttl" style="font-size: 30px; font-weight: bold;"><c:out value="${rvwDto.rvw_ttl}"/></p>
                 <span class="reviewLikeViewCnt-lk_cnt-rvw_cont" name="lk_cnt" style="margin-left: 20px"><i class="fa fa-eye" aria-hidden="true"></i> ${rvwDto.rvw_vcnt}</span>
+                <span class="reviewLikeViewCnt-lk_cnt-rvw_cont" name="lk_cnt" style="margin-left: 20px"><i class="fas fa-heart" aria-hidden="true"></i> ${rvwDto.lk_cnt}</span>
             </div>
             <div style="margin-top: 20px; display: flex; justify-content: end; font-weight: bold; color: #666666 " >
                 <p class="right">
@@ -42,14 +43,7 @@
                 </p>
             </div>
         </div>
-        <hr style="margin-top: 20px;">
-
-            <!-- 글 내용-->
-            <div class="detailInfo">
-                <div class="detailInfo-content" name="rvw_cont">
-                    <div class="detailInfo-content-child" style="font-size: 18px;"><c:out value="${rvwDto.rvw_cont}" escapeXml="false"/></div>
-                </div>
-            </div>
+        <hr style="margin-top: 0px;">
 
             <!-- 관련 상품-->
             <div class="prdInfo" style="display: flex; justify-content: space-between;">
@@ -60,6 +54,16 @@
                     <a class="btn sz-l st-blue view" href="/product/detail?prd_dtl_cd=${rvwDto.prd_dtl_cd}">상품보기</a>
                 </div>
             </div>
+
+            <!-- 글 내용-->
+            <div class="detailInfo">
+                <div class="detailInfo-content" name="rvw_cont">
+                    <div class="detailInfo-content-child" style="font-size: 18px;"><c:out value="${rvwDto.rvw_cont}" escapeXml="false"/></div>
+                </div>
+            </div>
+            <hr style="margin-top: 0px;">
+
+
 
             <!-- 삭제, 수정, 목록 버튼-->
             <form action="" id="form" method="post">
@@ -74,6 +78,23 @@
                 <input class="value-move" type="hidden" name="prd_nm" value="${rvwDto.prd_nm}" readonly="readonly">
                 <input class="value-move" type="hidden" name="rvw_lk_yn" value="${rvwLkAdmDto.rvw_lk_yn}" readonly="readonly">
                 <div class="boradBtns">
+                    <!--좋아요 버튼-->
+                    <c:choose>
+                        <c:when test="${rvwLkAdmDto.rvw_lk_yn == 1}">
+                            <!-- full heart-->
+                            <div class="view_btn_set">
+                                <i class="fas fa-heart" name="fill-heart" id="heart-fill"></i>
+                                <a>좋아요</a>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <!-- non full heart-->
+                            <div class="view_btn_set">
+                                <i class="far fa-heart" name="non-fill-heart" id="heart-empty"></i>
+                                <a>좋아요</a>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                     <button type="button" class="btn sz-inp st-lblue btn_summit" id="listBtn">목록</button>
                     <c:if test="${check.equals('me')}">
                         <button type="button" class="btn sz-inp st-lblue btn_summit" id="modifyBtn">수정</button>
@@ -81,25 +102,6 @@
                     </c:if>
                 </div>
             </form>
-            <!--좋아요 버튼-->
-            <!--div>
-                <a class="text-dark heart" style="text-decoration-line: none;">
-                    <img id="heart" src="/resources/icon/empty_heart_icon.svg">
-                    좋아요
-                </a>
-            </div-->
-            <c:choose>
-                <c:when test="${rvwLkAdmDto.rvw_lk_yn == 1}">
-                    <!--div class="view_btn_set">
-                        <i class="fas fa-heart" name="fill-heart" id="heart-fill"></i>
-                    </div-->
-                </c:when>
-                <c:otherwise>
-                    <!--div class="view_btn_set">
-                        <i class="far fa-heart" name="non-fill-heart" id="heart-empty"></i>
-                    </div-->
-                </c:otherwise>
-            </c:choose>
             <!-- 댓글 -->
             <!--div class="CommentBox" id="rvwCmtList">
                 <div class="Comment_option">
@@ -157,9 +159,7 @@
         // 좋아요 버튼을 클릭 시 실행되는 코드
         var heartval = "${rvwLkAdmDto.rvw_lk_yn}"
 
-        // $('.fas fa-heart').on("click", function () {
-        $(document).on("click", ".fas fa-heart", function () {
-            alert("클릭");
+        $('i[name=fill-heart]').on("click",function (){
             $.ajax({
                 url : '/heart',
                 type : 'POST',
@@ -167,7 +167,7 @@
                 success : function (data){
                     if(data=="HeartDown") {
                         $(".fas fa-heart").attr("class", "far fa-heart");
-                        location.reload();
+                        location.reload()
                     }
                     else {
                         return;
@@ -176,9 +176,7 @@
 
             });
         });
-        // $(".far fa-heart").on("click", function () {
-            $(document).on("click", ".far fa-heart", function () {
-            alert("클릭");
+        $('i[name=non-fill-heart]').on("click",function (){
             if(heartval == ""){
                 alert("로그인을 해야 후기에 좋아요 버튼를 누를 수 있습니다.");
                 var confirmUser = confirm("로그인 하시겠습니까?");
@@ -195,7 +193,7 @@
                 success : function (data){
                     if(data=="HeartUp") {
                         $(".far fa-heart").attr("class", "fas fa-heart");
-                        location.reload();
+                        location.reload()
                     }
                     else {
                         return;
