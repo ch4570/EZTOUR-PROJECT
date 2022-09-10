@@ -19,7 +19,7 @@ public interface ProductDetailService {
     List<TrvPrdDtlReadDto> getUserLike() throws Exception;
     PrdDtlPageDto getProductDetailPage(String prd_dtl_cd) throws Exception;
 
-    TrvPrdDtlReadDto getOneProductDetail(String prd_cd) throws Exception;
+    TrvPrdDtlReadDto getOneProductDetail(Map map) throws Exception;
     List<TrvPrdDtlReadDto> getProductAttractive(String usr_id) throws Exception;
     int getProductAttractiveCnt(String usr_id) throws Exception;
     int removeAllProductAttractive(String usr_id) throws Exception;

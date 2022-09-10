@@ -115,8 +115,13 @@ public class ProductController {
     }
 
     @GetMapping("recent/list")
-    public String getRecentProducts(String prd_cd,Model m,String keyword, String standard) throws Exception{
-        TrvPrdDtlReadDto readDto = productDetailService.getOneProductDetail(prd_cd);
+    public String getRecentProducts(String prd_cd,Model m,String keyword,
+                                    String standard,HttpSession session) throws Exception{
+        UserDto userDto = (UserDto)session.getAttribute("userDto");
+        Map map = new HashMap();
+        map.put("prd_cd",prd_cd);
+        map.put("usr_id",userDto.getUsr_id());
+        TrvPrdDtlReadDto readDto = productDetailService.getOneProductDetail(map);
         m.addAttribute("list",readDto);
         return "product/product_recently.tiles";
     }

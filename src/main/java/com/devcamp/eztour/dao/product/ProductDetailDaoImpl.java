@@ -49,8 +49,8 @@ public class ProductDetailDaoImpl implements ProductDetailDao {
     }
 
     @Override
-    public TrvPrdDtlReadDto selectOneProduct(String prd_cd) throws Exception {
-        return session.selectOne(namespace+"selectOneRecentProduct",prd_cd);
+    public TrvPrdDtlReadDto selectOneProduct(Map map) throws Exception {
+        return session.selectOne(namespace+"selectOneRecentProduct",map);
     }
 
     @Override
