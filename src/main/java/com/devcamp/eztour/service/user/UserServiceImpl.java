@@ -2,6 +2,7 @@ package com.devcamp.eztour.service.user;
 
 import com.devcamp.eztour.dao.user.UserDao;
 import com.devcamp.eztour.domain.user.UserDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,15 +12,14 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    UserDao userDao;
+    private final UserDao userDao;
 
     @Transactional(rollbackFor = Exception.class)
     public int insertUsr(UserDto user) throws Exception {
         userDao.insertUsr(user);
-
         return userDao.insertUsrHis(user);
     }
 
@@ -121,6 +121,4 @@ public class UserServiceImpl implements UserService {
         userDao.rstRelease(usr_id);
         return userDao.rstReleaseLog(usr_id);
     }
-
-
 }
