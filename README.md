@@ -27,6 +27,8 @@
 ### ERD
 * Table 34개
 * Colunm 403개
+<img src = "https://user-images.githubusercontent.com/92190168/191060569-e33f5510-3d87-437d-933b-d8e18456a7cd.jpg">
+
 ### 사용 API
 * [네이버](https://developers.naver.com/docs/login/api/api.md) / [카카오 로그인 API](https://developers.kakao.com/docs/latest/ko/kakaologin/rest-api) - 소셜 로그인 
 * [i'mport](https://api.iamport.kr/) - 결제 및 환불
