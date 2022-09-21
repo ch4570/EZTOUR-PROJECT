@@ -38,16 +38,51 @@
         </div>
         <div class="ri_agree_box">
             <h2 class="ri_sub_header">약관동의</h2>
-            <div>
+            <div class="ri_total_agree">
                 <label class="ri_agree_checkbox">
-                    <input class="ri_agree_check" type="checkbox" name="agree">
+                    <input class="ri_agree_check agree_all" type="checkbox" name="agree_all">
                     <span>약관 전체 동의</span>
                 </label>
                 <span class="ri_agree_info">약관 전문을 모두 확인하셔야 예약이 완료됩니다.</span>
             </div>
             <div class="ri_agree_checklist_box">
-
+                <div class="ri_agree_low">
+                    <label>
+                        <input type="checkbox" class="isAgree" name="agree">
+                        <span>특별약관 설명 및 확인</span><span class="reserv_red">(필수)</span>
+                    </label>
+                    <span class="reserv_see_content">내용보기</span>
+                </div>
+                <div class="ri_agree_low">
+                    <label>
+                        <input type="checkbox" class="isAgree" name="agree">
+                        <span>약관동의</span><span class="reserv_red">(필수)</span>
+                    </label>
+                    <span class="reserv_see_content">내용보기</span>
+                </div>
+                <div class="ri_agree_low">
+                    <label>
+                        <input type="checkbox" class="isAgree" name="agree">
+                        <span>개인정보 수집 및 이용동의</span><span class="reserv_red">(필수)</span>
+                    </label>
+                    <span class="reserv_see_content">내용보기</span>
+                </div>
+                <div class="ri_agree_low">
+                    <label>
+                        <input type="checkbox" class="isAgree" name="agree">
+                        <span>개인정보 3자제공</span><span class="reserv_red">(필수)</span>
+                    </label>
+                    <span class="reserv_see_content">내용보기</span>
+                </div>
+                <div class="ri_agree_low">
+                    <label>
+                        <input type="checkbox" class="isAgree" name="agree">
+                        <span>고유식별정보 수집안내</span><span class="reserv_red">(필수)</span>
+                    </label>
+                    <span class="reserv_see_content">내용보기</span>
+                </div>
             </div>
+            <p>개인정보의 수집, 제공 및 활용에 동의하지 않을 권리가 있으며, 미동의 시 여행서비스의 제공이 제한됩니다.</p>
         </div>
         <div class="ri_reserv_info_box">
             <form id="form">
@@ -60,9 +95,6 @@
                 <h2 class="ri_sub_header">예약정보</h2>
                 <div class="ri_reserv_info_body">
                     <table class="ri_reserv_info_table">
-<%--                        <colgroup>--%>
-<%--                            <col>--%>
-<%--                        </colgroup>--%>
                         <tr class="ri_table_row">
                             <th>상품명</th>
                             <td>${rid.prd_dtl_cd}</td>
@@ -73,7 +105,7 @@
                         </tr>
                         <tr class="ri_table_row">
                             <th>여행기간</th>
-                            <td>${rid.trv_per}</td>
+                            <td>${rid.trv_dtl_per}</td>
                         </tr>
                         <tr class="ri_table_row">
                             <th>일정</th>
@@ -81,15 +113,15 @@
                                 <dl class="ri_arl_line">
                                     <dt>한국 출발</dt>
     <%--                                <p><fmt:formatDate value="${rid.go_dpr_tm}" timeStyle="" />${rid.go_dpr_tm}</p> --%>
-                                    <dd>${rid.dom_dpr_date}</dd>
+                                    <dd><fmt:formatDate value="${rid.dom_dpr_date}" pattern="yyyy년 MM월 dd일(E) hh:mm"/></dd><span>&#8594;</span>
                                     <dt>현지도착</dt>
-                                    <dd>${rid.loc_fin_date}</dd>
+                                    <dd><fmt:formatDate value="${rid.loc_fin_date}" pattern="yyyy년 MM월 dd일(E) hh:mm"/></dd>
                                 </dl>
                                 <dl class="ri_arl_line">
                                     <dt>한국 출발</dt>
-                                    <dd>${rid.loc_dpr_date}</dd> ->
+                                    <dd><fmt:formatDate value="${rid.loc_dpr_date}" pattern="yyyy년 MM월 dd일(E) hh:mm"/></dd><span>&#8594;</span>
                                     <dt>현지도착</dt>
-                                    <dd>${rid.dom_fin_date}</dd>
+                                    <dd><fmt:formatDate value="${rid.dom_fin_date}" pattern="yyyy년 MM월 dd일(E) hh:mm"/></dd>
                                 </dl>
                             </td>
                         </tr>
@@ -145,7 +177,7 @@
                                     <input type="text" name="adt_cnt" value="${empty param.adt_cnt ? 0 : param.adt_cnt}" readonly oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                     <button type="button" class="btn_plus">+</button>
                                 </div>
-                                <span>${rid.adt_prc}원</span>
+                                <span><fmt:formatNumber value="${rid.adt_prc}" type="number"/>원</span>
                             </dd>
                         </dl>
                         <dl class="ri_trvlrinfo_row">
@@ -157,7 +189,7 @@
                                     <input type="text" name="chd_cnt" pattern="[0-9]+" readonly value="${empty param.chd_cnt ? 0 : param.chd_cnt}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                     <button type="button" class="btn_plus">+</button>
                                 </div>
-                                <span>${rid.chd_prc}원</span>
+                                <span><fmt:formatNumber value="${rid.chd_prc}" type="number"/>원</span>
                             </dd>
                         </dl>
                         <dl class="ri_trvlrinfo_row">
@@ -169,13 +201,14 @@
                                     <input type="text" name="bb_cnt" pattern="[0-9]+" readonly value="${empty param.bb_cnt ? 0 : param.bb_cnt}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                     <button type="button" class="btn_plus">+</button>
                                 </div>
-                                <span>${rid.bb_prc}원</span>
+                                <span><fmt:formatNumber value="${rid.bb_prc}" type="number"/>원</span>
                             </dd>
                         </dl>
-                        <dl class="ri_trvlrinfo_row">
+                        <dl class="ri_trvlrinfo_row reserv_gray_bg_color">
                             <p class="ri_trvlrinfo_col1">최종 합계금액</p>
                             <div class="ri_trvlrinfo-totalbox">
-                            <input type="text" name="sum_prc" class="sum_prc ri_trvlrinto_total" readonly value="0">원
+                                <span class="sum_prc_dp ri_trvlrinfo_total">0</span><span>원</span>
+                                <input type="hidden" name="sum_prc" class="sum_prc" value="0">
                             </div>
                         </dl>
                     </div>
@@ -187,8 +220,8 @@
                     </div>
                 </div>
                 <div class="ri_btn_box">
-                    <input type="button" value="취소하기">
-                    <input type="button" class="submit" value="예약하기">
+                    <input type="button" class="reserv_m_btn reserv_btn_m_white rc_btn_margin" value="취소하기">
+                    <input type="button" class="submit reserv_m_btn reserv_btn_m_black" value="예약하기">
                 </div>
             </form>
         </div>
@@ -201,6 +234,23 @@
                }
             });
 
+            $('input[name="agree_all"]').on("click", function(){
+                const agreeList = document.querySelectorAll("input[name='agree']");
+                agreeList.forEach((agree)=>{
+                    agree.checked = $(this).is(':checked');
+                });
+            });
+
+            let agreeCheck = function(){
+                let agreeList = document.getElementsByClassName("isAgree");
+                for(i=0; i<agreeList.length; i++){
+                    if(!agreeList[i].checked){
+                        return false;
+                    }
+                }
+                return true;
+            }
+
             let totalFee = function(){
                 let adtCntRef = $('input[name="adt_cnt"]').val();
                 let chdCntRef = $('input[name="chd_cnt"]').val();
@@ -212,6 +262,7 @@
 
                 let sum_prc = adt_cnt * ${rid.adt_prc} + chd_cnt * ${rid.chd_prc} + bb_cnt * ${rid.bb_prc};
                 $('.sum_prc').val(sum_prc);
+                $('.sum_prc_dp').html(sum_prc.toLocaleString());
             };
 
             totalFee();
@@ -223,7 +274,7 @@
                 let emailLast = $('input[name="emailLast"]').val();
                 let agree = $('input[name="agree"]').val();
 
-                if(!$('input[name="agree"]').is(':checked')){
+                if(!agreeCheck()){
                     alert('약관을 동의해주세요.');
                     return;
                 }
@@ -250,7 +301,6 @@
                     alert("예약은 성인이 필수로 들어가야 합니다.");
                     return;
                 }
-
 
                 let form = $('#form');
                 form.attr("action", '<c:url value="/reserv/reserv"/>');

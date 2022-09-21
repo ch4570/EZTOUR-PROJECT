@@ -46,8 +46,8 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     @Override
-    public TrvPrdDtlReadDto getOneProductDetail(String prd_cd) throws Exception {
-        return productDetailDao.selectOneProduct(prd_cd);
+    public TrvPrdDtlReadDto getOneProductDetail(Map map) throws Exception {
+        return productDetailDao.selectOneProduct(map);
     }
 
     @Override
@@ -69,5 +69,11 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     public int removeProductAttractive(Map map) throws Exception {
         return productDetailDao.deleteProductAttractive(map);
     }
+
+    @Override
+    public List<TrvPrdDtlReadDto> getUserSearch(Map map) throws Exception {
+        return productDetailDao.selectUserSearch(map);
+    }
+
 
 }

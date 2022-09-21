@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="true" %>
 <c:set var="loginId" value="${sessionScope.userDto.usr_id==null ? '' : sessionScope.userDto.usr_id}"/>
 <c:set var="loginName" value="${loginId=='' ? '' : sessionScope.userDto.usr_nm}"/>
@@ -116,9 +117,9 @@
                 <button class="modal__cancel--button"><i class="fa-solid fa-x"></i></button>
             </div>
             <h1>어디로 떠나세요?</h1>
-            <form class="form-search" action="/search">
+            <form class="form-search" action="<c:url value='/product/list'/>">
                 <div>
-                    <input class="search-input" name="keyword" type="search" placeholder="검색어를 입력하세요"/>
+                    <input class="search-input" name="condition" type="search" placeholder="검색어를 입력하세요"/>
                     <button class="search-btn" type="submit">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
@@ -132,17 +133,21 @@
             <div class="modal_recently">
                 <i class="fa-solid fa-x" name="modal_close_btn"></i>
                 <div class="modal_tlt">
-                    <strong>최근 본 상품 (${sessionScope.trvList.size()})</strong>
-                    <hr>
+                    <strong>최근 본 상품 (${sessionScope.trvList == null ? 0 : sessionScope.trvList.size()})</strong>
                 </div>
                 <div class="modal_recently_content">
                     <div class="product--list__modal">
                         <c:forEach items="${sessionScope.trvList}" var="trvList">
                             <div class="product__recent--list">
                                 <a><i class="fa-solid fa-x" name="product__recent--cancel" prd_cd="${trvList.prd_cd}"></i></a>
-                                <img src="<c:url value='${trvList.img_pth}'/>" width="300px" height="400px">
-                                <a href="/product/recent/list?prd_cd=${trvList.prd_cd}"><p>${trvList.prd_nm}</p></a>
-                                <div class="product__cost--list"><strong>${trvList.prd_str_prc}</strong><h6>원</h6></div>
+                                <img src="<c:url value='${trvList.img_pth}'/>" >
+                                <a href="/product/recent/list?prd_cd=${trvList.prd_cd}">
+                                    <p>${trvList.prd_nm}</p>
+                                </a>
+                                <div class="product__cost--list">
+                                    <strong><fmt:formatNumber value="${trvList.prd_str_prc}" pattern="#,##0"/></strong>
+                                    <em>원</em>
+                                </div>
                             </div>
                         </c:forEach>
                     </div>
@@ -264,37 +269,43 @@
         <!-- fade css -->
         <div class="myslide fade">
             <div class="txt">
-                <p>이것이<br />여행이지</p>
+                <p>이것이<br/>여행이지</p>
+                <p class="myslide_info">이지투어가 만드는 새로운 여행</p>
             </div>
-            <img class="fullImg" src="/img/home/main_img/main1.jpg" style="width: 100%; height: 100%" />
+            <img class="fullImg" src="/img/home/main_img/thailand.jpg" style="width: 100%; height: 100%" />
+<%--            <img class="fullImg" src="/img/home/main_img/main1.jpg" style="width: 100%; height: 100%" />--%>
         </div>
 
         <div class="myslide fade">
             <div class="txt">
-                <p>이것이<br />여행이지</p>
+                <p>여기서<br/>행복할 것</p>
+                <p class="myslide_info">기차타고 떠나는 이탈리아 여행</p>
+            </div>
+            <img class="fullImg" src="/img/home/main_img/italy.jpg" style="width: 100%; height: 100%" />
+        </div>
+
+        <div class="myslide fade">
+            <div class="txt">
+                <p>여행자들이<br/>사랑하는 나라</p>
+                <p class="myslide_info">역사와 낭만이 있는 크로아티아 여행</p>
             </div>
             <img class="fullImg" src="/img/home/main_img/main2.jpg" style="width: 100%; height: 100%" />
         </div>
 
         <div class="myslide fade">
             <div class="txt">
-                <p>이것이<br />여행이지</p>
+                <p class="narrow_line">어딜가나 포토존<br/>인생사진 찍으러 가자!</p>
+                <p class="myslide_info">오로라를 찾아 떠나는 아이슬란드 여행</p>
             </div>
-            <img class="fullImg" src="/img/home/main_img/main3.jpg" style="width: 100%; height: 100%" />
+            <img class="fullImg" src="/img/home/main_img/main124.jpg" style="width: 100%; height: 100%" />
         </div>
 
         <div class="myslide fade">
             <div class="txt">
-                <p>이것이<br />여행이지</p>
+                <p>떠날거야<br/>마일리지마!</p>
+                <p class="myslide_info">현금처럼 사용하는 마일리지</p>
             </div>
-            <img class="fullImg" src="/img/home/main_img/main4.jpg" style="width: 100%; height: 100%" />
-        </div>
-
-        <div class="myslide fade">
-            <div class="txt">
-                <p>이것이<br />여행이지</p>
-            </div>
-            <img class="fullImg" src="/img/home/main_img/main5.jpg" style="width: 100%; height: 100%" />
+            <img class="fullImg" src="/img/home/main_img/switzerland.jpg" style="width: 100%; height: 100%" />
         </div>
         <!-- /fade css -->
 
@@ -331,33 +342,33 @@
 
             <div class="product-card">
                 <div class="product-image">
-                    <span class="item__tit">괌으로 떠나요</span>
-                    <img src="/img/home/slider/gaum.jpg" class="product-thumb" alt="">
-                    <button class="card-btn">여행지 정보보기</button>
+                    <span class="item__tit">스페인으로 떠나요</span>
+                    <img src="/img/home/slider/spain.jpg" class="product-thumb" alt="">
+                    <button class="card-btn card_btn_spain">여행지 정보보기</button>
                 </div>
             </div>
 
             <div class="product-card">
                 <div class="product-image">
-                    <span class="item__tit">환상의 그랜드캐니언</span>
-                    <img src="/img/home/slider/grand.jpg" class="product-thumb" alt="">
-                    <button class="card-btn">여행지 정보보기</button>
+                    <span class="item__tit">신사의 나라 영국</span>
+                    <img src="/img/home/slider/rundun1.jpg" class="product-thumb" alt="">
+                    <button class="card-btn card_btn_eng">여행지 정보보기</button>
                 </div>
             </div>
 
             <div class="product-card">
                 <div class="product-image">
-                    <span class="item__tit">알로하 하와이</span>
-                    <img src="/img/home/slider/hawaii.jpg" class="product-thumb" alt="">
-                    <button class="card-btn">여행지 정보보기</button>
+                    <span class="item__tit">여행자의 천국 싱가포르</span>
+                    <img src="/img/home/slider/singapore1.jpg" class="product-thumb" alt="">
+                    <button class="card-btn card_btn_sing">여행지 정보보기</button>
                 </div>
             </div>
 
             <div class="product-card">
                 <div class="product-image">
-                    <span class="item__tit">최고의 휴양지, 세부</span>
-                    <img src="/img/home/slider/sebu.jpg" class="product-thumb" alt="">
-                    <button class="card-btn">여행지 정보보기</button>
+                    <span class="item__tit">골든 코스트, 호주</span>
+                    <img src="/img/home/slider/australia.jpg" class="product-thumb" alt="">
+                    <button class="card-btn card_btn_aus">여행지 정보보기</button>
                 </div>
             </div>
 
@@ -365,7 +376,7 @@
                 <div class="product-image">
                     <span class="item__tit">자연을 느껴요, 스위스</span>
                     <img src="/img/home/slider/swiss.jpg" class="product-thumb" alt="">
-                    <button class="card-btn">여행지 정보보기</button>
+                    <button class="card-btn card_btn_swiz">여행지 정보보기</button>
                 </div>
             </div>
 
@@ -373,7 +384,7 @@
                 <div class="product-image">
                     <span class="item__tit">도쿄로 떠나요</span>
                     <img src="/img/home/slider/tokyo.jpg" class="product-thumb" alt="">
-                    <button class="card-btn">여행지 정보보기</button>
+                    <button class="card-btn card_btn_tk">여행지 정보보기</button>
                 </div>
             </div>
 
@@ -415,8 +426,8 @@
                     </a>
                 </li>
                 <li>
-                    <a class="aside__link" href="#">
-                        <a href="<c:url value='/product/attractive'/>"><span><i class="far fa-heart"></i></span></a>
+                    <a class="aside__link">
+                        <span><i class="far fa-heart" name="attr_prd"></i></span>
                         <span>관심상품</span>
                     </a>
                 </li>
@@ -424,7 +435,86 @@
         </div>
     </div>
 
-    <div class="foot">FOOTER</div>
+    <div class="foot">
+        <div class="foot-menu">
+            <a class="foot-menu-dtl" href="">여행정보</a>
+            <a class="foot-menu-dtl" href="">홍보센터</a>
+            <a class="foot-menu-dtl" href="">여행약관</a>
+            <a class="foot-menu-dtl" href="">개인정보처리방침</a>
+            <a class="foot-menu-dtl" href="">기업/단체문의</a>
+            <a class="foot-menu-dtl" href="">대리점안내</a>
+            <a class="foot-menu-dtl" href="">신용카드 무이자 할부안내</a>
+            <a class="foot-menu-dtl" href="">EZ Tour 전화번호안내</a>
+        </div>
+
+        <div class="foottt">
+            <div class="foot-Address">
+                <dl>
+                    <dt class="foot-title">Address & Contact</dt>
+                    <dd class="foot-desc">
+                        "대표번호 : 5555-0000"
+                        <br>
+                        서울 중구 서소문로 89-20
+                    </dd>
+                </dl>
+            </div>
+
+            <div class="foot-Information">
+                <dl>
+                    <dt class="foot-title">EzTour Information</dt>
+                    <dd class="foot-desc">
+                        (주)EzTour 대표 : 서창희
+                        <br>
+                        서울 중구 서소문로 89-20 삼정 아트테라스 정동 B2층
+                        <br>
+                        본사 사업자등록번호 : 000-0000-0000
+                    </dd>
+                </dl>
+            </div>
+
+            <div class="foot-FollowUs">
+                <dl>
+                    <dt class="foot-title">Follow Us</dt>
+                    <dd class="foot-desc">
+                        여행자 배상책임보험 20억원 가입
+                        <br>
+                        일반여행업 보증금외 15억원 가입
+                        <br>
+                        xxxx@eztour.co.kr
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal_main hidden">
+        <div class="modal_wrap">
+            <div class="modal_recently">
+                <i class="fa-solid fa-x" name="modal_close_btn"></i>
+                <div class="modal_tlt">
+                    <strong>최근 본 상품 (${sessionScope.trvList == null ? 0 : sessionScope.trvList.size()})</strong>
+                </div>
+                <div class="modal_recently_content">
+                    <div class="product--list__modal">
+                        <c:forEach items="${sessionScope.trvList}" var="trvList">
+                            <div class="product__recent--list">
+                                <a><i class="fa-solid fa-x" name="product__recent--cancel" prd_cd="${trvList.prd_cd}"></i></a>
+                                <img src="<c:url value='${trvList.img_pth}'/>" >
+                                <a href="/product/recent/list?prd_cd=${trvList.prd_cd}">
+                                    <p>${trvList.prd_nm}</p>
+                                </a>
+                                <div class="product__cost--list">
+                                    <strong><fmt:formatNumber value="${trvList.prd_str_prc}" pattern="#,##0"/></strong>
+                                    <em>원</em>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </footer>
 
@@ -480,6 +570,48 @@
             $(".aside").toggleClass('open');
             $(".aside__btn").toggleClass('open');
         })
+
+        $('i[name=attr_prd]').on("click",function (){
+
+            let userDto = '${sessionScope.userDto}';
+
+            if(userDto != null && userDto != ''){
+                location.href = "<c:url value='/product/attractive'/>";
+            }
+
+            if(userDto == null || userDto == ''){
+                alert("관심 상품은 회원만 사용 가능합니다.");
+                let loginConfirm = confirm("로그인 하시겠습니까?");
+
+                if(loginConfirm){
+                    location.href = "<c:url value='/user/login'/>";
+                }else{
+                    return;
+                }
+            }
+
+        });
+
+        $('.card_btn_aus').on("click", function (){
+           location.href = '<c:url value="/product/list?cntn_cd=E&nt_cd=1&nt_cd_nm=호주&usr_id="/>';
+        });
+        $('.card_btn_spain').on("click", function (){
+            location.href = '<c:url value="/product/list?cntn_cd=D&nt_cd=6&nt_cd_nm=스페인&usr_id="/>';
+        });
+        $('.card_btn_sing').on("click", function (){
+            location.href = '<c:url value="/product/list?cntn_cd=B&nt_cd=1&nt_cd_nm=싱가포르&usr_id="/>';
+        });
+        $('.card_btn_eng').on("click", function (){
+            location.href = '<c:url value="/product/list?cntn_cd=D&nt_cd=2&nt_cd_nm=영국&usr_id="/>';
+        });
+        $('.card_btn_swiz').on("click", function (){
+            location.href = '<c:url value="/product/list?cntn_cd=D&nt_cd=4&nt_cd_nm=스위스&usr_id="/>';
+        });
+        $('.card_btn_tk').on("click", function (){
+            location.href = '<c:url value="/product/list?cntn_cd=B&nt_cd=2&nt_cd_nm=일본&usr_id="/>';
+        });
+
+
     });
 
     const productContainers = [...document.querySelectorAll('.product-container')];

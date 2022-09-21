@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <link rel="stylesheet" href="/css/home/search.css">
@@ -16,13 +17,13 @@
     <div class="result-item">
         <c:forEach var="Trv_prd_dto" items="${list}">
             <div class="result-item-link">
-                <a href="/product/detail?prd_cd=${Trv_prd_dto.prd_cd}">
+                <a href="/product/recent/list?prd_cd=${Trv_prd_dto.prd_cd}">
                     <div class="item-thumb">
                         <img src="${Trv_prd_dto.img_pth}" alt="상품 이미지">
                     </div>
                     <div class="result-item__info">
-                        <span>${Trv_prd_dto.prd_dtl_desc}</span>
-                        <span>${Trv_prd_dto.prd_str_prc}</span>
+                        <span>${Trv_prd_dto.prd_nm}</span>
+                        <span><fmt:formatNumber value='${Trv_prd_dto.prd_str_prc}' pattern="#,##0"/></span>
                     </div>
                 </a>
             </div>

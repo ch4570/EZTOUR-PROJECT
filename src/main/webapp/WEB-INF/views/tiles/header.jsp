@@ -14,7 +14,7 @@ pageEncoding="UTF-8"%>
     <div class="header-inner">
       <div class="main-title">
         <a href="/">
-          <h1>EZTour</h1>
+          <h1><img src="<c:url value='/image/logo/logo_header1.png'/>"><img src="<c:url value='/image/logo/logo_header2.png'/>"></h1>
         </a>
       </div>
       <nav class="main-nav">
@@ -88,7 +88,7 @@ pageEncoding="UTF-8"%>
                     <li><a href="<c:url value='/user/mypage'/>">마이페이지</a></li>
                 </c:if>
                 <c:if test="${sessionScope.userDto.rl == 'Admin' || sessionScope.userDto.rl == 'supAdmin'}">
-                    <li><a href="<c:url value='/product/admin'/>">관리자페이지</a></li>
+                    <li><a href="<c:url value='/reserv/admin'/>">관리자페이지</a></li>
                 </c:if>
               </c:when>
           </c:choose>
@@ -107,13 +107,13 @@ pageEncoding="UTF-8"%>
           <button class="modal__cancel--button"><i class="fa-solid fa-x"></i></button>
         </div>
         <h1>어디로 떠나세요?</h1>
-        <form class="form-search" action="/search">
-          <div>
-            <input class="search-input" name="keyword" type="search" placeholder="검색어를 입력하세요"/>
-            <button class="search-btn" type="submit">
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-          </div>
+        <form class="form-search" action="/product/list">
+        <div class="modal_sub_box">
+          <input class="search-input" name="condition" type="search" placeholder="검색어를 입력하세요"/>
+          <button class="search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
         </form>
       </div>
     </div>

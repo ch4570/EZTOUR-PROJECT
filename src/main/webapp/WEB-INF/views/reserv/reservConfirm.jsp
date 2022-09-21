@@ -62,7 +62,7 @@
                 <div class="rc_low">
                     <dl class="rc_col1">
                         <dt>- 여행기간</dt>
-                        <dd>${rcid.trv_per}</dd>
+                        <dd>${rcid.trv_dtl_per}</dd>
                     </dl>
                     <dl class="rc_col2">
                         <dt>- 출발인원</dt>

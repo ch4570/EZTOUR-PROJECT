@@ -56,7 +56,7 @@
                             <fmt:parseDate var="dpr_fin_date" value="${trvPrdDto.dpr_fin_date}" pattern="yyyy-MM-dd"/>
                             출발 시작일 &nbsp;<br><input type="date" class="input_prd" name="dpr_str_date" placeholder="출발 시작일" value="<fmt:formatDate value='${dpr_str_date}' pattern="yyyy-MM-dd"/>" readonly="readonly"><br>
                             출발 마감일 &nbsp;<br><input type="date" class="input_prd" name="dpr_fin_date" placeholder="출발 마감일" value="<fmt:formatDate value='${dpr_fin_date}' pattern="yyyy-MM-dd"/>" readonly="readonly"><br>
-                            <button class="btn" id="modify_btn">${trvPrdDto.act_yn == true ? "비활성화" : "활성화"}</button><br>
+                            <button class="btn" id="modify_btn">${trvPrdDto.act_yn == 1 ? "비활성화" : "활성화"}</button><br>
                         </div>
                     </div>
                 </div>

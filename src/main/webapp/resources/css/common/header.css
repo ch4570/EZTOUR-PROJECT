@@ -34,14 +34,20 @@ a:hover, a:active {
 }
 
 .header-inner {
+    height: 70px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 35px 50px 15px 50px;
+    padding: 20px 50px 5px 50px;
 }
 
 .main-title {
     font-size: 50px;
+}
+
+.main-title h1 img {
+    height: 70px;
+    width: 70px;
 }
 
 .nav__list,
@@ -103,6 +109,7 @@ a:hover, a:active {
 .modal__cancel {
     position: relative;
     width: 100%;
+    padding: 69px 0 0 0;
     /*display: flex;*/
     /*justify-content: flex-end;*/
 }
@@ -146,18 +153,19 @@ a:hover, a:active {
     text-align: center;
     position: relative;
     border-radius: 10px;
-    width: 40%;
-    height: 30%;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    width: 600px;
+    height: 270px;
+    box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
 }
-
 .modal__content h1 {
-    margin: 50px auto;
-    font-size: 40px;
+    margin: 0 0 60px 0;
+    font-size: 33px;
     font-weight: 700;
     color: black;
 }
+.modal_sub_box{
 
+}
 .hidden {
     display: none;
 }
@@ -175,12 +183,14 @@ a:hover, a:active {
     border-bottom: 2px black solid;
     padding: 5px 0;
     box-sizing: border-box;
+    width: 401px;
 }
 
 .form-search .search-input {
     background-color: transparent;
     border: none;
     font-size: 20px;
+    width: 90%;
 }
 
 .form-search .search-input:focus {
@@ -192,4 +202,5 @@ a:hover, a:active {
     background-color: transparent;
     border: none;
     cursor: pointer;
+    width: 10%;
 }

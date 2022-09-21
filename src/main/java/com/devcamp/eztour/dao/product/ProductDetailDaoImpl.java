@@ -49,8 +49,8 @@ public class ProductDetailDaoImpl implements ProductDetailDao {
     }
 
     @Override
-    public TrvPrdDtlReadDto selectOneProduct(String prd_cd) throws Exception {
-        return session.selectOne(namespace+"selectOneRecentProduct",prd_cd);
+    public TrvPrdDtlReadDto selectOneProduct(Map map) throws Exception {
+        return session.selectOne(namespace+"selectOneRecentProduct",map);
     }
 
     @Override
@@ -72,5 +72,11 @@ public class ProductDetailDaoImpl implements ProductDetailDao {
     public int deleteProductAttractive(Map map) throws Exception {
         return session.delete(namespace+"deleteProductAttractive",map);
     }
+
+    @Override
+    public List<TrvPrdDtlReadDto> selectUserSearch(Map map) throws Exception {
+        return session.selectList(namespace+"selectUserSearch",map);
+    }
+
 
 }

@@ -26,6 +26,7 @@ public class ReservConfInfoDto {
     private String prd_cd; //상품코드
     private String trv_per; //여행기간
     private String img_pth; //상품이미지
+    private String trv_dtl_per; //여행기간
 
     //일정
     private String go_dpr_tm; //한국-해외 한국 출발 시간
