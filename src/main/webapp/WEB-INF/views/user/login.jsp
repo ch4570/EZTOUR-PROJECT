@@ -15,7 +15,7 @@
         <!-- 일반회원 로그인 폼 시작 -->
         <form id="loginForm" action="<c:url value="/user/login"/>" method="post" onsubmit="return formCheck(this);">
             <div class="login__form" style="display: flex; flex-direction: column; align-items: center">
-                    <h2 class="login-title" id="loginTitle">로그인 ${apiJson}</h2>
+                    <h2 class="login-title" id="loginTitle">로그인</h2>
                     <h2 class="login-title" id="rsvTitle" style="display: none">예약확인</h2>
                 <nav class="login-nav">
                     <div id="msg">
@@ -355,6 +355,7 @@
 
     const rstReleaseModal = document.querySelector("#rstReleaseModal");
     const rstReleaseOverlay = rstReleaseModal.querySelector("#rstReleaseOverlay");
+    const closeReleaseModal = rstReleaseModal.querySelector("#closeReleaseModal");
     const openRstReleaseModal = () => {
         rstReleaseModal.classList.remove("hidden");
     }
@@ -362,9 +363,10 @@
         rstReleaseModal.classList.add("hidden")
     }
     rstReleaseOverlay.addEventListener("click", closeRstReleaseModal);
+    closeReleaseModal.addEventListener("click", closeRstReleaseModal);
 
     $(document).ready(function(){
-        if("${param.rstmsg}"==="RST_ERR") {
+        if("${param.rstmsg}"==="YES_RST") {
             openRstReleaseModal();
         }
     });
