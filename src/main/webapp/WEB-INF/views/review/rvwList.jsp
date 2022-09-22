@@ -102,10 +102,10 @@
                                     <p class="reviewContent-rvw_cont" style="font-size: 17px">
                                     <c:choose>
                                         <c:when test="${fn:length(rvwDto.rvw_cont) > 80}">
-                                            <c:out value="${fn:substring(rvwDto.rvw_cont,0,79)}"/>....
+                                            <c:out value="${fn:substring(rvwDto.rvw_cont,0,79)}" escapeXml="false"/>....
                                         </c:when>
                                         <c:otherwise>
-                                            <c:out value="${rvwDto.rvw_cont}"/>
+                                            <c:out value="${rvwDto.rvw_cont}" escapeXml="false"/>
                                         </c:otherwise>
                                     </c:choose>
                                     </p>
