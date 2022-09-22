@@ -259,7 +259,7 @@
 
             <div style="display: flex; flex-direction: column">
                 <div class="box-header">서비스 바로가기</div>
-                <div class="service-box-frame" style="">
+                <div class="service-box-frame" style="cursor: pointer">
                     <a class="service-box"><i class="fa fa-heart-o fa-2x" aria-hidden="true"></i><div>관심상품</div>
                     </a>
                     <a class="service-box"><i class="fa fa-money fa-2x" aria-hidden="true"></i><div>포인트</div></a>
@@ -349,6 +349,7 @@
   openPwChkBtn2.addEventListener("click", openPwChkModal);
   pwCheckOverlay.addEventListener("click", closePwChkModal);
   pwCheckOverlay.addEventListener("click", function(){document.getElementById('pwd').value=null});
+  pwCheckOverlay.addEventListener("click", function(){document.getElementById('pwdChkFail').innerText=null});
 
 
 </script>

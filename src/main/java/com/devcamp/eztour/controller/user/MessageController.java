@@ -1,6 +1,7 @@
 package com.devcamp.eztour.controller.user;
 
 import com.devcamp.eztour.service.user.UserService;
+import lombok.RequiredArgsConstructor;
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
@@ -22,11 +23,10 @@ public class MessageController {
 
     DefaultMessageService messageService;
 
-    @Autowired
-    UserService userService;
-
     private String authNum;
+
     private static String smsKey;
+
     private static String smsSecretKey;
 
     @Value("${SMS.KEY}")

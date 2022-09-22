@@ -2,6 +2,7 @@ package com.devcamp.eztour.controller.user;
 
 import com.devcamp.eztour.domain.user.UserDto;
 import com.devcamp.eztour.service.user.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -15,13 +16,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 @PropertySource("classpath:config/api.properties")
+@RequiredArgsConstructor
 public class LoginApiController {
 
     @Value("${KAKAO.JS}")
     String kakaoApi;
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
     @PostMapping("/getKakaoApi")
     public String getKakaoApi() throws Exception {
