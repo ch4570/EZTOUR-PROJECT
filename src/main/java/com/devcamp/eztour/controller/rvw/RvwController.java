@@ -179,7 +179,11 @@ public class RvwController {
                     return "redirect:/review/write.tiles";
                 }
 
-//                 줄 바꾸기
+                // 후기 내용을 한글 인코딩을 위한 UTF-8 설정
+                System.out.println("rvwDto = " + rvwDto);
+
+
+                // 줄 바꾸기
                 String rvw_cont = rvwDto.getRvw_cont().replace("\r\n","<br>");
                 rvwDto.setRvw_cont(rvw_cont);
 
