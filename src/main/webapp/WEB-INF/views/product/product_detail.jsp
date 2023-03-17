@@ -569,7 +569,18 @@
             </div>
         </div>
     </div>
-
+    <div id="login-confirm" class="login-confirm__modal">
+        <div class="login-confirm__modal-content">
+           <div class="login-confirm__container">
+               <span class="login-confirm__close" title="Close Modal">x</span>
+                <p class="login-confirm__comment">로그인 후 예약을 진행하시겠습니까?</p>
+                <div class="clearfix">
+                    <button type="button" class="login-confirm__btn login-confirm__btn--guest">비회원예약</button>
+                    <button type="button" class="login-confirm__btn login-confirm__btn--login">로그인</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -764,23 +775,29 @@
             const userDto = "${sessionScope.userDto.usr_id}";
             if(quantity==0){
                 alert("성인이 한명 꼭 포함 되어야 합니다. 확인 후 다시 예약을 진행해주세요");
-                return;
             }else{
-                if(userDto == "" || userDto == null){
-                    alert("로그인 하셔야 예약 서비스 이용이 가능합니다.");
-                    let question = confirm("로그인을 하시겠습니까?");
-                    if(question){
-                        location.href = "<c:url value='/user/login'/>";
-                    }else{
-                        location.href = "<c:url value='/reserv/reserv'/>";
-                        $("form").submit();
-                        return;
-                    }
+                if(userDto === "" || userDto == null){
+                    document.getElementById('login-confirm').style.display='block';
                 }else{
                     $("form").submit();
                 }
             }
         });
+
+        $('.login-confirm__close').on('click', function () {
+            document.getElementById('login-confirm').style.display='none';
+        });
+
+        $('.login-confirm__btn--guest').on('click', function(){
+            location.href = "<c:url value='/reserv/reserv'/>";
+            $("form").submit();
+            return;
+        });
+
+        $('.login-confirm__btn--login').on('click', function(){
+            location.href = "<c:url value='/user/login'/>";
+        })
+
 
     });
 </script>

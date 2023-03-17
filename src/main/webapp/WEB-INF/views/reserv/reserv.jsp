@@ -92,6 +92,9 @@
                 <input type="hidden" name="adt_prc" value="${rid.adt_prc}">
                 <input type="hidden" name="chd_prc" value="${rid.chd_prc}">
                 <input type="hidden" name="bb_prc" value="${rid.bb_prc}">
+                <input type="hidden" name="cntn_cd" value="${rid.cntn_cd}">
+                <input type="hidden" name="nt_cd" value="${rid.nt_cd}">
+                <input type="hidden" name="nt_cd_nm" value="${rid.nt_cd_nm}">
                 <h2 class="ri_sub_header">예약정보</h2>
                 <div class="ri_reserv_info_body">
                     <table class="ri_reserv_info_table">
@@ -220,7 +223,7 @@
                     </div>
                 </div>
                 <div class="ri_btn_box">
-                    <input type="button" class="reserv_m_btn reserv_btn_m_white rc_btn_margin" value="취소하기">
+                    <input type="button" class="cancleBtn reserv_m_btn reserv_btn_m_white rc_btn_margin" value="취소하기">
                     <input type="button" class="submit reserv_m_btn reserv_btn_m_black" value="예약하기">
                 </div>
             </form>
@@ -266,6 +269,17 @@
             };
 
             totalFee();
+
+            $('.cancleBtn').on('click', function(){
+                let cntnCode = $('input[name="cntn_cd"]').val();
+                let ntCode = $('input[name="nt_cd"]').val();
+                let ntCodeName = $('input[name="nt_cd_nm"]').val();
+
+                let form = $('#form');
+                form.attr("action", '<c:url value="/product/list?cntn_cd=${cntn_cd}&cn_cd=${ntCode}&nt_cd_nm=${ntCodeName}"/>');
+                form.attr("method", "get");
+                form.submit();
+            });
 
             $('.submit').on('click', function(){
                 let name = $('input[name="mn_rsvt_nm"]').val();
