@@ -61,13 +61,15 @@
     </delete>
 
     <select id="selectPrdInfo" parameterType="String" resultType="ReservInfoDto">
-        SELECT d.prd_dtl_cd, d.arl_nm, d.dom_dpr_date, d.dom_fin_date, d.loc_dpr_date, d.loc_fin_date, d.trv_dtl_per, t.dstn_cd, t.prd_nm, t.trv_per, p.prd_cd,p.adt_prc, p.chd_prc, p.bb_prc, pi.img_pth
+        SELECT d.prd_dtl_cd, d.arl_nm, d.dom_dpr_date, d.dom_fin_date, d.loc_dpr_date, d.loc_fin_date, d.trv_dtl_per, t.dstn_cd, t.prd_nm, t.trv_per, p.prd_cd,p.adt_prc, p.chd_prc, p.bb_prc, pi.img_pth, c.cntn_cd, c.nt_cd, c.nt_cd_nm
         FROM trv_prd_dtl d JOIN trv_prd t
                                 ON d.prd_cd = t.prd_cd
                            JOIN prd_prc p
                                 ON d.prd_cd = p.prd_cd
                            JOIN prd_img pi
                                 ON d.prd_cd = pi.prd_cd
+                           JOIN dstn_ctg c
+                                ON t.dstn_cd = c.dstn_cd
         WHERE d.prd_dtl_cd = #{prd_dtl_cd} and p.prd_dtl_cd = #{prd_dtl_cd};
     </select>
 

@@ -43,4 +43,8 @@ public class ReservInfoDto {
     //사진
     private String img_pth; //21
     private String trv_dtl_per;
+    //여행지 카테고리
+    private String cntn_cd;
+    private String nt_cd;
+    private String nt_cd_nm;
 }
