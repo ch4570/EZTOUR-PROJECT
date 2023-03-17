@@ -542,3 +542,74 @@ ul.detail-item__tab li.selected{
     height: 50px;
     font-size: 20px;
 }
+
+/* login check modal box */
+.login-confirm__modal{
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #000000ad;
+    padding-top: 50px;
+}
+
+.login-confirm__close{
+    font-size: 40px;
+    color: #030303;
+    display: block;
+    text-align: right;
+    padding: 16px 32px 0 0;
+}
+
+.login-confirm__close:hover,
+.login-confirm__close:focus {
+    color: #f44336;
+    cursor: pointer;
+}
+
+.login-confirm__modal-content{
+    background-color: #fefefe;
+    margin: 0 auto;
+    width: 480px;
+}
+
+.login-confirm__container{
+text-align: center;
+}
+
+.login-confirm__comment{
+margin: 38px auto 60px auto;
+}
+/* clear floats */
+.clearfix::after{
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.login-confirm__btn{
+    padding: 22px 20px;
+    border: 1px solid black;
+    cursor: pointer;
+    opacity: 0.9;
+    float: left;
+    width: 50%;
+}
+
+.login-confirm__btn:hover{
+    opacity:1;
+}
+
+.login-confirm__btn--guest{
+    background-color: white;
+    color: black;
+}
+
+.login-confirm__btn--login{
+    background-color: black;
+    color: white;
+}
