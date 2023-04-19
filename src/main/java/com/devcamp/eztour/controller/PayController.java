@@ -1,34 +1,25 @@
 package com.devcamp.eztour.controller;
 
+import com.devcamp.eztour.common.ImportAPI;
 import com.devcamp.eztour.domain.reserv.*;
 import com.devcamp.eztour.domain.user.UserDto;
 import com.devcamp.eztour.service.reserv.PayService;
 import com.devcamp.eztour.service.reserv.ReservService;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import kotlinx.serialization.json.Json;
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Controller
@@ -38,13 +29,25 @@ public class PayController {
     ReservService reservService;
     @Autowired
     PayService payService;
+    private final ImportAPI importAPI;
+
+    private final IamportClient client;
+
+    public PayController(ImportAPI api){
+        this.importAPI = api;
+        String impKey = importAPI.getIMP_KEY();
+        String impSecret = importAPI.getIMP_SECRET();
+        client = new IamportClient(impKey, impSecret);
+    }
 
     //결제승인상태
 //    static final String PAY_APPV_BEING_PROCESSED = "8A";   //결제중
-//    static final String PAY_APPV_FAIL = "8B";              //결제 실패
+    static final String PAY_APPV_FAIL = "8B";              //결제 실패
     static final String PAY_APPV_SUCCESS= "8C";            //결제 완료
 //    static final String PAY_APPV_REFUND_FAIL= "8D";        //환불 실패
 //    static final String PAY_APPV_REFUND_SUCCESS= "8E";     //환불 완료
+
+//    ready, paid, failed
 
     //결제상태
     static final String PAY_STT_READY= "7A";             //결제 대기 //환불안됨
@@ -54,6 +57,9 @@ public class PayController {
     static final String PAY_STT_PREPARE = "7E";          //결제 준비중 //환불안됨
     static final String PAY_STT_FORGERY_PRC = "7F";      //결제 위조 시도 - 금액
     static final String PAY_STT_FORGERY_MLG = "7G";      //결제 위조 시도 - 마일리지
+
+//    success(결제 성공여부), error_code, error_msg
+
     //예약 상태
     static final String RESERV_ACCEPT= "6A";              //예약접수
     static final String RESERV_APPV= "6B";                //예약승인
@@ -63,17 +69,15 @@ public class PayController {
     static final String RESERV_UNACCEPT= "6F";            //예약불가
     static final String RESERV_ETC= "6G";                 //예약기타상태
 
-    private static final String IMP_KEY = "0896863910828990";
-    private static final String IMP_SECRET = "cDWs1IcH29C6H5fLdVcTwbfPrcrWHKKN3BEFTn3r55bR97ULVeBZxAPiuLWPG3RUKxcGAkV1p1wDRyqd";
 
     @GetMapping("/pay")
-        public String getPayView(String rsvt_no, String prd_dtl_cd, String prd_nm, HttpServletRequest req, Model m, HttpSession session){
+    public String getPayView(String rsvt_no, String prd_dtl_cd, String prd_nm, HttpServletRequest req, Model m, HttpSession session){
 
         UserDto userDto = (UserDto) session.getAttribute("userDto");
         String gst_id = (String) session.getAttribute("guest");
 
         UserDto userInfo = new UserDto();
-        String usr_id = "";
+        String usr_id;
         if(userDto!=null){
             usr_id = userDto.getUsr_id();
         } else {
@@ -89,7 +93,7 @@ public class PayController {
         }
 
         //결제할 금액
-        long pay_ftr_prc = 0;
+        long pay_ftr_prc;
         GuestDto guestDto = null;
         try {
             if(userDto!=null){
@@ -115,11 +119,7 @@ public class PayController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            try {
-                m.addAttribute("msg", URLEncoder.encode("login please 로그인페이지로 갑니다", "utf-8"));
-            } catch (UnsupportedEncodingException ex) {
-                ex.printStackTrace();
-            }
+            m.addAttribute("msg", URLEncoder.encode("login please 로그인페이지로 갑니다", StandardCharsets.UTF_8));
             return "/reserv/reservView.tiles";
         }
 
@@ -132,7 +132,7 @@ public class PayController {
         UserDto userDto = (UserDto) session.getAttribute("userDto");
         String gst_id = (String) session.getAttribute("guest");
 
-        String usr_id = "";
+        String usr_id;
         if(userDto!=null){
             usr_id = userDto.getUsr_id();
         } else {
@@ -142,7 +142,6 @@ public class PayController {
         String imp_uid = payDto.getImp_uid();
         String merchant_uid = payDto.getPay_no();
 
-        Map<String, Object> map = null;
         JsonObject jsonResult = new JsonObject();
 
         Double amount = 0d;
@@ -163,14 +162,18 @@ public class PayController {
                 throw new MlgForgeryException("마일리지 범위 초과");
             }
         /////////////////마일리지 확인////////////////
+//            IamportResponse<AccessToken> authResponse = client.getAuth();
+//            String access_token = authResponse.getResponse().getToken();
+//            String access_token = payService.getToken(IMP_KEY, IMP_SECRET);
 
-            String access_token = payService.getToken(IMP_KEY, IMP_SECRET);
-            map = payService.getPaymentData(imp_uid, access_token);
+//            map = payService.getPaymentData(imp_uid, access_token);
+            IamportResponse<Payment> payment_response = client.paymentByImpUid(imp_uid);
 
-            amount = (Double) map.get("amount");     //결제한 금액
+//            amount = (Double) map.get("amount");     //결제한 금액
+            amount = payment_response.getResponse().getAmount().doubleValue();
             Integer used_mlg = payDto.getUsed_mlg();    //사용한 마일리지
-            String status = (String) map.get("status");     //결제 상태
-
+//            String status = (String) map.get("status");     //결제 상태
+            String status = payment_response.getResponse().getStatus();
             Long pay_ftr_prc_DB = reservService.getPayFtrPrc(payDto.getRsvt_no()); //DB에서 가져온 결제 예정 금액
 
             //결제금액 비교
@@ -287,88 +290,88 @@ public class PayController {
         }
         return "pay/cancel.tiles";
     }
-
-    @ResponseBody
-    @PostMapping("/cnc")
-    public String processCancel(@RequestBody CancelViewDto cancelViewDto, HttpSession session){
-        UserDto userDto = (UserDto) session.getAttribute("userDto");
-        String gst_id = (String) session.getAttribute("guest");
-
-        String usr_id = "";
-        if(userDto!=null){
-            //회원
-            usr_id = userDto.getUsr_id();
-        } else {
-            usr_id = gst_id;
-        }
-
-        JsonObject jsonResult = new JsonObject();
-
-        String access_token = payService.getToken(IMP_KEY, IMP_SECRET);
-
-        PayDto payDto = null;
-        try {
-            //유저가 다른 고객의 예약번호로 들어옴
-            payDto = payService.getPayInfo(cancelViewDto.getRsvt_no(), usr_id);
-        } catch (Exception e) {
-            e.printStackTrace();
-            jsonResult.addProperty("status", "ACCESS_DENIED");
-            return jsonResult.toString();
-        }
-
-        String status = payDto.getCmn_cd_pay_stt();
-
-        if(PAY_STT_READY.equals(status) || PAY_STT_CANCELLED.equals(status)
-            ||PAY_STT_FAILED.equals(status)||PAY_STT_PREPARE.equals(status)){
-            //환불이 안되는 상태코드 취소금액 컬럼 추가해서 금액으로 비교?
-            jsonResult.addProperty("status", "ACCESS_DENIED");
-            return jsonResult.toString();
-        }
-
-        if(!cancelViewDto.getPay_prc().equals(payDto.getPay_prc())){
-            jsonResult.addProperty("status", "ACCESS_DENIED");
-            return jsonResult.toString();
-        }
-
-        payDto.setCnc_rsn(cancelViewDto.getCnc_rsn());
-
-        Map<String, Object> response = null;
-        try {
-            response = payService.cancelPay(payDto, access_token);
-        } catch (Exception e) {
-            e.printStackTrace();
-            jsonResult.addProperty("status", "CANCEL_FAILED");
-            //reserv/reservView로 돌아감
-            return jsonResult.toString();
-        }
-
-        if(userDto!=null){
-            //마일리지 다시 돌려줌
-            //회원인 경우에만
-            reservService.updateUserMlg("plus", payDto.getUsed_mlg(), usr_id);
-        }
-
-        payDto.setPay_no(cancelViewDto.getNew_pay_no());
-//        payDto.setPay_prc((Double.valueOf(response.get("amount"))).longValue());
-        Double amount = (Double) response.get("amount");
-        payDto.setPay_prc(amount.longValue());
-        payDto.setPay_date(new Date());
-        payDto.setCmn_cd_pay_appr(PAY_APPV_SUCCESS); //의미 없음
-        payDto.setCmn_cd_pay_stt(PAY_STT_CANCELLED); //결제취소 성공
-        payDto.setDvd_mnt(0);
-        payDto.setUsed_mlg(0);
-
-        //취소내역 pay에 저장
-        payService.savePayInfo(payDto);
-        //예약테이블에 상태 업데이트
-        reservService.updateRsvtStt(RESERV_CANCEL, PAY_STT_CANCELLED, cancelViewDto.getRsvt_no());
-        //상품상세 예약 인원 빼기
-        reservService.changeReservCount(payDto.getPrd_dtl_cd(), payDto.getRsvt_no(), "minus");
-        payService.deleteTrvlrList(cancelViewDto.getRsvt_no());
-
-        String result = jsonResult.toString();
-        return result;
-    }
+//
+//    @ResponseBody
+//    @PostMapping("/cnc")
+//    public String processCancel(@RequestBody CancelViewDto cancelViewDto, HttpSession session){
+//        UserDto userDto = (UserDto) session.getAttribute("userDto");
+//        String gst_id = (String) session.getAttribute("guest");
+//
+//        String usr_id = "";
+//        if(userDto!=null){
+//            //회원
+//            usr_id = userDto.getUsr_id();
+//        } else {
+//            usr_id = gst_id;
+//        }
+//
+//        JsonObject jsonResult = new JsonObject();
+//
+//        String access_token = payService.getToken(IMP_KEY, IMP_SECRET);
+//
+//        PayDto payDto = null;
+//        try {
+//            //유저가 다른 고객의 예약번호로 들어옴
+//            payDto = payService.getPayInfo(cancelViewDto.getRsvt_no(), usr_id);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            jsonResult.addProperty("status", "ACCESS_DENIED");
+//            return jsonResult.toString();
+//        }
+//
+//        String status = payDto.getCmn_cd_pay_stt();
+//
+//        if(PAY_STT_READY.equals(status) || PAY_STT_CANCELLED.equals(status)
+//            ||PAY_STT_FAILED.equals(status)||PAY_STT_PREPARE.equals(status)){
+//            //환불이 안되는 상태코드 취소금액 컬럼 추가해서 금액으로 비교?
+//            jsonResult.addProperty("status", "ACCESS_DENIED");
+//            return jsonResult.toString();
+//        }
+//
+//        if(!cancelViewDto.getPay_prc().equals(payDto.getPay_prc())){
+//            jsonResult.addProperty("status", "ACCESS_DENIED");
+//            return jsonResult.toString();
+//        }
+//
+//        payDto.setCnc_rsn(cancelViewDto.getCnc_rsn());
+//
+//        Map<String, Object> response = null;
+//        try {
+//            response = payService.cancelPay(payDto, access_token);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            jsonResult.addProperty("status", "CANCEL_FAILED");
+//            //reserv/reservView로 돌아감
+//            return jsonResult.toString();
+//        }
+//
+//        if(userDto!=null){
+//            //마일리지 다시 돌려줌
+//            //회원인 경우에만
+//            reservService.updateUserMlg("plus", payDto.getUsed_mlg(), usr_id);
+//        }
+//
+//        payDto.setPay_no(cancelViewDto.getNew_pay_no());
+////        payDto.setPay_prc((Double.valueOf(response.get("amount"))).longValue());
+//        Double amount = (Double) response.get("amount");
+//        payDto.setPay_prc(amount.longValue());
+//        payDto.setPay_date(new Date());
+//        payDto.setCmn_cd_pay_appr(PAY_APPV_SUCCESS); //의미 없음
+//        payDto.setCmn_cd_pay_stt(PAY_STT_CANCELLED); //결제취소 성공
+//        payDto.setDvd_mnt(0);
+//        payDto.setUsed_mlg(0);
+//
+//        //취소내역 pay에 저장
+//        payService.savePayInfo(payDto);
+//        //예약테이블에 상태 업데이트
+//        reservService.updateRsvtStt(RESERV_CANCEL, PAY_STT_CANCELLED, cancelViewDto.getRsvt_no());
+//        //상품상세 예약 인원 빼기
+//        reservService.changeReservCount(payDto.getPrd_dtl_cd(), payDto.getRsvt_no(), "minus");
+//        payService.deleteTrvlrList(cancelViewDto.getRsvt_no());
+//
+//        String result = jsonResult.toString();
+//        return result;
+//    }
 
 
     @GetMapping("/cncConfirm")
