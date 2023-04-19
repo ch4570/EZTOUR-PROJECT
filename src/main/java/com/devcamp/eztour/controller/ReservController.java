@@ -57,10 +57,11 @@ public class ReservController {
             ReservInfoDto reservInfo = reservService.getReservInfo(prd_dtl_cd);
 
             UserDto userDto = (UserDto) session.getAttribute("userDto");
+
             if(userDto!=null){
                 m.addAttribute("userDto", userDto);
 
-                String emailStr[] = userDto.getEmail().split("@");
+                String[] emailStr = userDto.getEmail().split("@");
                 m.addAttribute("emailFirst", emailStr[0]);
                 m.addAttribute("emailLast",  emailStr[1]);
             }
@@ -85,15 +86,12 @@ public class ReservController {
         //validator 필요!!!!
         UserDto userDto = (UserDto) session.getAttribute("userDto");
         String gst_id = (String) session.getAttribute("guest");
-        //로그인 안했으면
 
         if(userDto != null){
             reservDto.setUsr_id(userDto.getUsr_id());
         } else if(gst_id != null){
             reservDto.setUsr_id(gst_id);
             if(reservService.getReservCnt(gst_id) >= 1) {
-//                rattr.addFlashAttribute("msg", "GST_ONLY1PRD");
-//                rattr.addFlashAttribute("prd_dtl_cd", reservDto.getPrd_dtl_cd());
                 return "redirect:/reserv/reserv?prd_dtl_cd="+reservDto.getPrd_dtl_cd()+"&msg=GST_ONLY1PRD";
             }
         } else {
@@ -128,10 +126,10 @@ public class ReservController {
             reservService.saveReservInfo(reservDto, list);
         } catch (Exception e) {
             e.printStackTrace();
-            //예약에 실패
             rattr.addFlashAttribute("msg", "RSVT_FAILED");
             return "redirect:"+req.getHeader("Referer");
         }
+
 //        rattr.addFlashAttribute("rsvt_no", rsvt_no);
 //        rattr.addFlashAttribute("prd_dtl_cd",  reservDto.getPrd_dtl_cd());
         return "redirect:/reserv/conf?rsvt_no="+rsvt_no+"&prd_dtl_cd="+reservDto.getPrd_dtl_cd();
@@ -140,7 +138,6 @@ public class ReservController {
     @GetMapping("/conf")
     public String reservConf(String rsvt_no, String prd_dtl_cd, HttpServletRequest req, Model m) {
         //guest session 추가시 유저 확인 필요
-        //rsvt_no, prd_dtl_cd 값 null check
         if(rsvt_no == null || prd_dtl_cd == null){
 //            rattr.addFlashAttribute("msg", "RSVT_CONF_FAIL");
             return "redirect:"+req.getHeader("Referer");
@@ -167,7 +164,6 @@ public class ReservController {
             m.addAttribute("msg", "RSVT_WRONG");
             m.addAttribute("prd_dtl_cd", prd_dtl_cd);
             return "redirect:/reserv/reserv";
-//            return "redirect:/";
         }
         return "reserv/reservConfirm.tiles";
     }
@@ -265,9 +261,6 @@ public class ReservController {
     @PostMapping("/updateStt")
     @ResponseBody
     public String updateReservStt(@RequestBody ReservDto reservDto, HttpSession session){
-        //관리자 확인
-        //상태 업데이트
-        //업데이트가 안되는건? 예약번호가 잘못되었기 때문인데
         boolean isAdmin = isAdmin(session);
         if(!isAdmin){
             return "redirect:/";
