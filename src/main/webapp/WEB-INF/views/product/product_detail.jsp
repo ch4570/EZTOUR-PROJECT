@@ -572,8 +572,11 @@
     <div id="login-confirm" class="login-confirm__modal">
         <div class="login-confirm__modal-content">
            <div class="login-confirm__container">
-               <span class="login-confirm__close" title="Close Modal">x</span>
-                <p class="login-confirm__comment">로그인 후 예약을 진행하시겠습니까?</p>
+                <span class="login-confirm__close" title="Close Modal">x</span>
+                <div class="login-confirm__commentbox">
+                    <p>로그인 후 예약을 진행하시겠습니까?</p>
+                    <p class="login-confirm__alert">[알림] 현재 비회원 예약이 불가합니다</p>
+                </div>
                 <div class="clearfix">
                     <button type="button" class="login-confirm__btn login-confirm__btn--guest">비회원예약</button>
                     <button type="button" class="login-confirm__btn login-confirm__btn--login">로그인</button>
@@ -789,9 +792,11 @@
         });
 
         $('.login-confirm__btn--guest').on('click', function(){
-            location.href = "<c:url value='/reserv/reserv'/>";
-            $("form").submit();
-            return;
+            <%--location.href = "<c:url value='/reserv/reserv'/>";--%>
+            <%--$("form").submit();--%>
+            // return;
+
+            document.getElementsByClassName('login-confirm__alert')[0].style.display='block';
         });
 
         $('.login-confirm__btn--login').on('click', function(){

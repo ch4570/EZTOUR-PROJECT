@@ -43,4 +43,6 @@ public interface ReservService {
     int changeReservSttNCnt(ReservDto reservDto) throws Exception;
 
     int changeReservCount(String prd_dtl_cd, String rsvt_no, String option);
+
+    ReservDto checkReservInfo(Map<String, String> map) throws Exception;
 }

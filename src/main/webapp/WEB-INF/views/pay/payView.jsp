@@ -146,10 +146,65 @@
             var IMP = window.IMP;
             IMP.init("imp03490268");
 
+            let payDto = {rsvt_no: '${param.rsvt_no}'
+                , prd_dtl_cd: '${param.prd_dtl_cd}'
+                , used_mlg:$('input[name="used_mlg"]').val()
+            };
+
+            let merchant_uid;
+
+            $.ajax({
+                url: "/pay/prepare",
+                method: "post",
+                async: false,
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(payDto)
+            }).done(function (data){
+                let result = JSON.parse(data)
+                if(result.status === 'fail'){
+                    alert("결제가 정상적으로 처리되지 않았습니다. 555-5555로 문의해주시기 바랍니다.");
+                    location.href = '<c:url value="/reserv/reservView?rsvt_no=${param.rsvt_no}&prd_dtl_cd=${param.prd_dtl_cd}"/>'
+                }
+                merchant_uid = result.merchant_uid;
+            });
+
+            //웹훅 있는 버전
+            <%--IMP.request_pay({--%>
+            <%--    pg: pg_name,--%>
+            <%--    pay_method: 'card',--%>
+            <%--    merchant_uid: merchant_uid,--%>
+            <%--    name: '[별빛이흐른다_ver1 ] 스위스일주7일 [체르마트숙박+마테호른일출+리기클래식열차/스파]',--%>
+            <%--    amount: final_amount,--%>
+            <%--    buyer_email: '${userDto.email}',--%>
+            <%--    buyer_name: '${userDto.usr_nm}',--%>
+            <%--}, function (rsp) {--%>
+            <%--    if (rsp.success) {--%>
+            <%--        alert('결제가 정상적으로 처리되었습니다');--%>
+            <%--        location.href = '<c:url value="/pay/confirm?rsvt_no=${param.rsvt_no}&prd_dtl_cd=${param.prd_dtl_cd}"/>';--%>
+            <%--    } else {--%>
+            <%--        let payDto = {pay_no: rsp.merchant_uid--%>
+            <%--            , imp_uid: rsp.imp_uid};--%>
+            <%--        jQuery.ajax({--%>
+            <%--            url: "/pay/webhookPayFail",--%>
+            <%--            method: "POST",--%>
+            <%--            contentType: "application/json; charset=utf-8",--%>
+            <%--            data: JSON.stringify(payDto)--%>
+            <%--        }).done(function (result) {--%>
+            <%--            if(result){--%>
+            <%--                alert("결제가 처리되지 않았습니다. 에러 내용: " +  rsp.error_msg);--%>
+            <%--            } else {--%>
+            <%--                alert("결제가 정상적으로 처리되지 않았습니다. 555-5555로 문의해주시기 바랍니다.");--%>
+            <%--            }--%>
+
+            <%--            location.href = '<c:url value="/reserv/reservView?rsvt_no=${param.rsvt_no}&prd_dtl_cd=${param.prd_dtl_cd}"/>'--%>
+            <%--        });--%>
+            <%--    }--%>
+            <%--});--%>
+
             IMP.request_pay({
                 pg: pg_name,
                 pay_method: 'card',
-                merchant_uid: generateMId(20),
+                merchant_uid: merchant_uid,
                 name: '[별빛이흐른다_ver1 ] 스위스일주7일 [체르마트숙박+마테호른일출+리기클래식열차/스파]',
                 amount: final_amount,
                 buyer_email: '${userDto.email}',
@@ -157,11 +212,8 @@
             }, function (rsp) {
                 if (rsp.success) {
                     let payDto = {pay_no: rsp.merchant_uid
-                        , rsvt_no: '${param.rsvt_no}'
-                        , prd_dtl_cd: '${param.prd_dtl_cd}'
                         , imp_uid: rsp.imp_uid
-                        , used_mlg:$('input[name="used_mlg"]').val()
-                        , pay_ftr_prc: '${pay_ftr_prc}'};
+                        , used_mlg:$('input[name="used_mlg"]').val()};
                     jQuery.ajax({
                         url: "/pay/saveResult",
                         method: "POST",
@@ -181,20 +233,33 @@
                         }
                     })
                 } else {
-                    alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
+                    let payDto;
+                    if(rsp.merchant_uid == null){
+                        payDto = { pay_no: merchant_uid
+                            ,imp_uid: ''
+                        }
+                    } else {
+                        payDto = {pay_no: rsp.merchant_uid
+                            , imp_uid: rsp.imp_uid};
+                    }
+
+                    jQuery.ajax({
+                        url: "/pay/webhookPayFail",
+                        method: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(payDto)
+                    }).done(function (result) {
+                        if(result){
+                            alert("결제가 처리되지 않았습니다. 에러 내용: " +  rsp.error_msg);
+                        } else {
+                            alert("결제가 정상적으로 처리되지 않았습니다. 555-5555로 문의해주시기 바랍니다.");
+                        }
+
+                        location.href = '<c:url value="/reserv/reservView?rsvt_no=${param.rsvt_no}&prd_dtl_cd=${param.prd_dtl_cd}"/>'
+                    });
                 }
             });
         });
-
-        function dec2hex (dec) {
-            return dec.toString(16).padStart(2, "0")
-        }
-
-        function generateMId (len) {
-            var arr = new Uint8Array((len || 40) / 2)
-            window.crypto.getRandomValues(arr)
-            return Array.from(arr, dec2hex).join('')
-        }
     });
 </script>
 </body>

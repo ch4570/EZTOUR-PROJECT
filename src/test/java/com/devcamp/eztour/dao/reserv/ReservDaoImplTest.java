@@ -333,4 +333,13 @@ public class ReservDaoImplTest {
 
         reservDao.updateReservCnt(map);
     }
+
+//    @Test
+//    public void selectFtrPrcAndSttTest() throws Exception {
+//        Map<String, String> map = new HashMap<>();
+//        map.put("rsvt_no", "D040201662101287231");
+//        map.put("usr_id", "naveruser");
+//
+//        reservDao.selectFtrPrcAndStt(map);
+//    }
 }

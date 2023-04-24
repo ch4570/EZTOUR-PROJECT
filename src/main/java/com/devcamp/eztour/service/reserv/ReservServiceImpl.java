@@ -223,4 +223,9 @@ public class ReservServiceImpl implements ReservService {
         }
         return rowCnt;
     }
+
+    @Override
+    public ReservDto checkReservInfo(Map<String, String> map) throws Exception {
+        return reservDao.selectFtrPrcAndStt(map);
+    }
 }

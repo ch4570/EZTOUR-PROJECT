@@ -52,4 +52,6 @@ public interface ReservDao {
     int updateReservCancel(ReservDto reservDto) throws Exception;
 
     int updateReservCnt(Map<String, Object> map) throws Exception;
+
+    ReservDto selectFtrPrcAndStt(Map<String, String> map) throws Exception;
 }

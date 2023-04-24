@@ -127,4 +127,9 @@ public class ReservDaoImpl implements ReservDao {
     public int updateReservCnt(Map<String, Object> map) throws Exception{
         return session.update(namespace + "updateRsvtCnt", map);
     }
+
+    @Override
+    public ReservDto selectFtrPrcAndStt(Map<String, String> map) throws Exception {
+        return session.selectOne(namespace + "selectFtrPrcAndStt", map);
+    }
 }

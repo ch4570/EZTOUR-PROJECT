@@ -240,6 +240,24 @@ public class PayServiceImpl implements PayService {
         }
         return rowCnt;
     }
+
+    @Override
+    public PayViewDto getMlgAndPrdInfo(String pay_no){
+        PayViewDto payViewDto = null;
+        try {
+            payViewDto = payDao.selectMlgAndPrdInfo(pay_no);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return payViewDto;
+    }
+
+    @Override
+    public void savePayResult(PayResultDto payResultDto) throws Exception{
+        if(payDao.updatePayAndRsvtResult(payResultDto)==0){
+            throw new Exception("결제 후 서버 데이터 저장이 정상적으로 처리되지 않았습니다.");
+        }
+    }
 }
 
 class CancelException extends RuntimeException {

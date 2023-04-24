@@ -581,9 +581,11 @@ ul.detail-item__tab li.selected{
 text-align: center;
 }
 
-.login-confirm__comment{
-margin: 38px auto 60px auto;
+.login-confirm__commentbox{
+    margin: 38px auto 40px auto;
+    height: 43px;
 }
+
 /* clear floats */
 .clearfix::after{
     content: "";
@@ -612,4 +614,10 @@ margin: 38px auto 60px auto;
 .login-confirm__btn--login{
     background-color: black;
     color: white;
+}
+
+.login-confirm__alert {
+    display: none;
+    margin-top: 9px;
+    color: #e42222;
 }
