@@ -137,7 +137,14 @@
     </update>
 
     <select id="selectPayFtrPrc" parameterType="String" resultType="long">
-        select pay_ftr_prc from rsvt where rsvt_no = #{rsvt_no};
+        SELECT pay_ftr_prc FROM rsvt WHERE rsvt_no = #{rsvt_no};
+    </select>
+
+    <select id="selectFtrPrcAndStt" parameterType="Map" resultType="ReservDto">
+        SELECT cmn_cd_rsvt_stt, pay_ftr_prc
+        FROM rsvt
+        WHERE rsvt_no = #{rsvt_no}
+          AND usr_id=#{usr_id};
     </select>
 
     <delete id="deleteReserv" parameterType="String">

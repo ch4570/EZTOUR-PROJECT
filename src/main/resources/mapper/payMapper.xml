@@ -37,4 +37,25 @@
         WHERE r.rsvt_no = #{rsvt_no}
     </select>
 
+    <select id="selectMlgAndPrdInfo" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.PayViewDto">
+        SELECT p.used_mlg, p.prd_dtl_cd, r.pay_ftr_prc, r.rsvt_no
+        FROM pay p
+                 JOIN rsvt r
+                      ON p.rsvt_no = r.rsvt_no
+                          And p.pay_no = #{pay_no}
+    </select>
+
+    <update id="updatePayAndRsvtResult" parameterType="com.devcamp.eztour.domain.reserv.PayResultDto">
+        UPDATE pay, rsvt
+        SET pay.pay_prc = #{pay_prc}
+                ,pay.pay_date = #{pay_date}
+                ,pay.pay_mthd = #{pay_mthd}
+                ,pay.cmn_cd_pay_stt = #{cmn_cd_pay_stt}
+                ,pay.cmn_cd_pay_appr = #{cmn_cd_pay_appr}
+                ,pay.imp_uid = #{imp_uid}
+                ,rsvt.cmn_cd_rsvt_stt = #{cmn_cd_rsvt_stt}
+                ,rsvt.cmn_cd_pay_stt = #{cmn_cd_pay_stt}
+        WHERE pay.rsvt_no = rsvt.rsvt_no
+          And pay.pay_no = #{pay_no};
+    </update>
 </mapper>

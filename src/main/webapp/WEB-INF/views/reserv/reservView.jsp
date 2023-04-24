@@ -14,6 +14,10 @@
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     <link rel="stylesheet" href="<c:url value='/css/reserv/reserv.css'/>">
 </head>
+<script>
+    let msg = '${msg}';
+    if(msg==='INVALID_ACCESS') { alert('이미 결제완료 되었거나 취소된 상품입니다.'); }
+</script>
 <body>
     <div class="dv_big_box">
         <h1 class="reserv_main_header">예약내역</h1>
@@ -179,7 +183,7 @@
                                             <dt>- 결제금액</dt>
                                         </c:otherwise>
                                     </c:choose>
-                                    <dd><fmt:formatNumber value="${payDto.pay_prc}" type="number"/>원</dd>
+                                    <dd><fmt:formatNumber value="${empty payDto.pay_prc ? '0' : payDto.pay_prc}" type="number"/>원</dd>
                                 </dl>
                                 <dl class="dv_col2">
                                     <dt>- 사용한 마일리지</dt>
