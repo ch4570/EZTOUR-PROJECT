@@ -14,10 +14,6 @@ public interface PayService {
 
     int savePayInfo(PayDto payDto);
 
-    String getToken(String imp_uid, String merchant_uid);
-
-    Map<String, Object> getPaymentData(String imp_uid, String access_token);
-
     CancelViewDto getCancelInfo(String rsvt_no);
 
     PayDto getPayInfo(String rsvt_no,String usr_id) throws Exception;
