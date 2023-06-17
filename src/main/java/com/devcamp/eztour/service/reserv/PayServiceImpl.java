@@ -97,77 +97,6 @@ public class PayServiceImpl implements PayService {
             e.printStackTrace();
         }
         return rowCnt;
-        //예외발생은.. 값이 다 안왔을 떄임
-        //validator처리해야
-    }
-
-    @Override
-    public String getToken(String imp_key, String imp_secret){
-        String token = "";
-
-        //
-        Map<String, String> map = new HashMap<>();
-        map.put("imp_key", imp_key);
-        map.put("imp_secret", imp_secret);
-
-        try {
-            // 참조 https://openjdk.org/groups/net/httpclient/recipes.html#jsonPost
-            //map을 HttpReqeust의 BodyPublisher를 통해 값으로 넣는 방법
-            ObjectMapper objectMapper = new ObjectMapper();
-            String requestBody = objectMapper
-                    .writerWithDefaultPrettyPrinter()
-                    .writeValueAsString(map);
-
-            // 참조 https://mkyong.com/java/java-11-httpclient-examples/
-            //HttpClient를 통해 POST로 다른 서버에 요청을 보내는 예제
-            HttpRequest request = HttpRequest.newBuilder()
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                    .uri(URI.create("https://api.iamport.kr/users/getToken"))
-                    .timeout(Duration.ofMinutes(2))
-                    .build();
-
-            CompletableFuture<HttpResponse<String>> response = HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
-            String result = response.thenApply(HttpResponse::body).get(5, TimeUnit.SECONDS);
-
-            // 참조 https://sumin2.tistory.com/58
-            // gson으로 JSON값을 읽어 오는 방법
-            Gson gson = new Gson();
-            String stringResponse = gson.fromJson(result, Map.class).get("response").toString();
-            token = gson.fromJson(stringResponse, Map.class).get("access_token").toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            //token을 받아오지 못하는 경우, 결제 취소로
-        }
-
-        return token;
-    }
-
-    @Override
-    public Map<String, Object> getPaymentData(String imp_uid, String access_token){
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .uri(URI.create("https://api.iamport.kr/payments/"+imp_uid))
-                .header("Authorization", access_token)
-                .build();
-
-        Map<String, Object> map = null;
-        CompletableFuture<HttpResponse<String>> response = HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
-        try {
-            String result = response.thenApply(HttpResponse::body).get(5, TimeUnit.SECONDS);
-            System.out.println("result = " + result);
-
-            Gson gson = new Gson();
-            map = (Map<String, Object>) gson.fromJson(result, Map.class).get("response");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (TimeoutException e) {
-            e.printStackTrace();
-        }
-
-        return map;
     }
 
     @Override
@@ -191,7 +120,7 @@ public class PayServiceImpl implements PayService {
 
     @Override
     public Map<String, Object> cancelPay(PayDto payDto, String access_token) throws Exception {
-        Map<String, Object> responseMap = null;
+        Map<String, Object> responseMap;
 
         Map<String, Object> map = new HashMap<>();
         map.put("reason", payDto.getCnc_rsn());
