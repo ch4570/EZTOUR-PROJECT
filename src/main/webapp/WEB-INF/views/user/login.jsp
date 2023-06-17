@@ -303,6 +303,7 @@
         let phn = $('#rsvt_phn1').val() + $('#rsvt_phn2').val() + $('#rsvt_phn3').val();
         $('input[name=phn]').attr('value',phn);
         alert("내가 만든 핸드폰 번호 :: "+phn);
+        alert(frm.rsvt_no.value.length);
 
         if(frm.rsvt_no.value.length==0) {
             setMessageForGst('no-rsvt_no', frm.rsvt_no);
@@ -324,7 +325,9 @@
             setMessageForGst('no-phn3', frm.phn3);
             return false;
         }
-        return true;
+
+        alert('tru?"');
+        return false;
     }
 
     function setMessageForGst(msg, element){
