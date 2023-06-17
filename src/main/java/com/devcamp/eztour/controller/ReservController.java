@@ -83,7 +83,7 @@ public class ReservController {
         , @RequestParam(required = true, defaultValue ="0") int chd_prc
         , @RequestParam(required = true, defaultValue ="0") int bb_prc
         , HttpSession session, HttpServletRequest req, RedirectAttributes rattr, Model m){
-        //validator 필요!!!!
+
         UserDto userDto = (UserDto) session.getAttribute("userDto");
         String gst_id = (String) session.getAttribute("guest");
 
@@ -130,16 +130,12 @@ public class ReservController {
             return "redirect:"+req.getHeader("Referer");
         }
 
-//        rattr.addFlashAttribute("rsvt_no", rsvt_no);
-//        rattr.addFlashAttribute("prd_dtl_cd",  reservDto.getPrd_dtl_cd());
         return "redirect:/reserv/conf?rsvt_no="+rsvt_no+"&prd_dtl_cd="+reservDto.getPrd_dtl_cd();
     }
 
     @GetMapping("/conf")
     public String reservConf(String rsvt_no, String prd_dtl_cd, HttpServletRequest req, Model m) {
-        //guest session 추가시 유저 확인 필요
         if(rsvt_no == null || prd_dtl_cd == null){
-//            rattr.addFlashAttribute("msg", "RSVT_CONF_FAIL");
             return "redirect:"+req.getHeader("Referer");
         }
 
@@ -208,10 +204,9 @@ public class ReservController {
     @GetMapping("/reservView")
     public String getRreserv(String rsvt_no, String prd_dtl_cd, HttpServletRequest req, HttpSession session, Model m){
         if(!loginCheck(session)){
-            return "redirect:/user/login?toURL="+req.getRequestURI(); //로그인 화면으로
+            return "redirect:/user/login?toURL="+req.getRequestURI();
         }
 
-         //아래 서비스를 rsvt, prd_dtl_cd, usr_id로 찾는 방식으로 바꿀 것
         List list = reservService.getReservView(rsvt_no);
 
         ReservConfInfoDto rcid = null; //ReservCo

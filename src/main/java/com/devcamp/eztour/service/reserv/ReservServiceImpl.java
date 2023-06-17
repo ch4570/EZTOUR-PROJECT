@@ -37,7 +37,6 @@ public class ReservServiceImpl implements ReservService {
     @Override
     public ReservInfoDto readPrdInfo(String prd_dtl_cd) throws Exception{
         return reservDao.selectPrdInfo(prd_dtl_cd);
-        //유효성검사 필요? 예외를 던져야하는가?
     }
 
     @Override
@@ -75,12 +74,10 @@ public class ReservServiceImpl implements ReservService {
     @Override
     public List getReservConfInfo(String rsvt_no, String prd_dtl_cd) {
         List<Object> list = new ArrayList<>();
-        //트랜잭션 처리!!
-        //예외 되던지기
+
         try {
             list.add(reservDao.selectReservConfInfo(rsvt_no));
             list.addAll(travelerInfoDao.selectTrvlrInfoList(rsvt_no));
-//            list.addAll(reservDao.selectArlReqInfo(prd_dtl_cd));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,12 +93,10 @@ public class ReservServiceImpl implements ReservService {
     @Override
     public List getReservView(String rsvt_no){
         List<Object> list = new ArrayList<>();
-            //트랜잭션 처리!!
         try {
             ReservConfInfoDto rcid = reservDao.selectReservConfInfo(rsvt_no);
             list.add(rcid);
             list.addAll(travelerInfoDao.selectTrvlrInfoList(rsvt_no));
-//            list.addAll(reservDao.selectArlReqInfo(rcid.getPrd_dtl_cd()));
             list.add(payDao.selectPay(rsvt_no));
         } catch (Exception e) {
             e.printStackTrace();

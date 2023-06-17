@@ -53,7 +53,6 @@ public class PayServiceImpl implements PayService {
 
     @Override
     public GuestDto getGuestInfo(String gst_id){
-        //바로 전에 로그인 확인을 했으니, 예외는 controller까지 가지 않아도 될 듯?
         GuestDto guestDto = null;
         try {
             guestDto = guestDao.selectGuest(gst_id);
@@ -83,7 +82,6 @@ public class PayServiceImpl implements PayService {
         String pay_status = "";
         try {
             pay_status = payDao.selectPayStatus(map);
-            //null값일 수 있음
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -217,11 +215,9 @@ public class PayServiceImpl implements PayService {
         String result = response.thenApply(HttpResponse::body).get(5, TimeUnit.SECONDS);
 
         Gson gson = new Gson();
-        //여기서 값을 못가져옴
-//            String stringResponse = gson.fromJson(result, Map.class).get("response").toString();
+
         responseMap = (Map<String, Object>) gson.fromJson(result, Map.class).get("response");
         String code = gson.fromJson(result, Map.class).get("code").toString();
-//        int code = Integer.parseInt(responseMap.get("code"));
 
         if(!"0.0".equals(code)){
             throw new CancelException("환불 처리과정에서 문제가 발생하여 환불처리에 실패했습니다.");
