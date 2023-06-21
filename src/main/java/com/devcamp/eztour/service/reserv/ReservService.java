@@ -45,4 +45,10 @@ public interface ReservService {
     int changeReservCount(String prd_dtl_cd, String rsvt_no, String option);
 
     ReservDto checkReservInfo(Map<String, String> map) throws Exception;
+
+    List<StatsGndrAndAgePerHourDto> getGndrAndAgePerHourStats();
+
+    List<StatsTopListDto> getTopNList(int limitNum);
+
+    Map<String, Integer> getTrvlrCntStats();
 }

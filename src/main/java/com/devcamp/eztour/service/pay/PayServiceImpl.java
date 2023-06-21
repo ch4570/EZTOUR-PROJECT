@@ -1,39 +1,31 @@
-package com.devcamp.eztour.service.reserv;
+package com.devcamp.eztour.service.pay;
 
-import com.devcamp.eztour.dao.reserv.GuestDao;
-import com.devcamp.eztour.dao.reserv.PayDao;
+import com.devcamp.eztour.dao.guest.GuestDao;
+import com.devcamp.eztour.dao.pay.PayDao;
 import com.devcamp.eztour.dao.reserv.TravelerInfoDao;
 import com.devcamp.eztour.dao.user.UserDao;
+import com.devcamp.eztour.domain.guest.GuestDto;
+import com.devcamp.eztour.domain.pay.CancelViewDto;
+import com.devcamp.eztour.domain.pay.PayDto;
+import com.devcamp.eztour.domain.pay.PayResultDto;
+import com.devcamp.eztour.domain.pay.PayViewDto;
 import com.devcamp.eztour.domain.reserv.*;
 import com.devcamp.eztour.domain.user.UserDto;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import retrofit2.http.HTTP;
 
-import java.net.Authenticator;
 import java.net.URI;
-import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
 import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 @Service
 public class PayServiceImpl implements PayService {
@@ -182,6 +174,39 @@ public class PayServiceImpl implements PayService {
         if(payDao.updatePayAndRsvtResult(payResultDto)==0){
             throw new Exception("결제 후 서버 데이터 저장이 정상적으로 처리되지 않았습니다.");
         }
+    }
+
+    @Override
+    public List<StatsGndrAndAgePerHourDto> getGndrAndAgePerHour(){
+        List<StatsGndrAndAgePerHourDto> list = null;
+        try{
+            list = payDao.selectGndrAndAgePerHour();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<StatsTopListDto> getTopNList(int limitNum){
+        List<StatsTopListDto> list = null;
+        try{
+            list = payDao.selectTopNList(limitNum);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<StatsTopListDto> getTopNPrdLikelyPay(int limitNum) {
+        List<StatsTopListDto> list = null;
+        try{
+            list = payDao.selectTopNPrdLikelyPay(limitNum);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
     }
 }
 

@@ -1,9 +1,6 @@
 package com.devcamp.eztour.dao.reserv;
 
-import com.devcamp.eztour.domain.reserv.AirlineReqDto;
-import com.devcamp.eztour.domain.reserv.ReservConfInfoDto;
-import com.devcamp.eztour.domain.reserv.ReservDto;
-import com.devcamp.eztour.domain.reserv.ReservInfoDto;
+import com.devcamp.eztour.domain.reserv.*;
 
 import java.util.List;
 import java.util.Map;
@@ -54,4 +51,10 @@ public interface ReservDao {
     int updateReservCnt(Map<String, Object> map) throws Exception;
 
     ReservDto selectFtrPrcAndStt(Map<String, String> map) throws Exception;
+
+    List<StatsGndrAndAgePerHourDto> selectGndrAndAgePerHour() throws Exception;
+
+    List<StatsTopListDto> selectTopNList(int limitNum) throws Exception;
+
+    List<ReservDto> selectTrvlrCnt() throws Exception;
 }

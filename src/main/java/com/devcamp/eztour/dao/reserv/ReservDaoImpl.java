@@ -1,9 +1,6 @@
 package com.devcamp.eztour.dao.reserv;
 
-import com.devcamp.eztour.domain.reserv.AirlineReqDto;
-import com.devcamp.eztour.domain.reserv.ReservConfInfoDto;
-import com.devcamp.eztour.domain.reserv.ReservDto;
-import com.devcamp.eztour.domain.reserv.ReservInfoDto;
+import com.devcamp.eztour.domain.reserv.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -64,7 +61,6 @@ public class ReservDaoImpl implements ReservDao {
     }
     @Override
     public int updateReservStatus(Map<String, String> map) throws Exception {
-        //예약변호와 변경할 코드를 map으로 줌
         return session.update(namespace+"updateReservStatus", map);
     }
 
@@ -131,5 +127,20 @@ public class ReservDaoImpl implements ReservDao {
     @Override
     public ReservDto selectFtrPrcAndStt(Map<String, String> map) throws Exception {
         return session.selectOne(namespace + "selectFtrPrcAndStt", map);
+    }
+
+    @Override
+    public List<StatsGndrAndAgePerHourDto> selectGndrAndAgePerHour() throws Exception{
+        return session.selectList(namespace + "selectReservGndrAndAgePerHour");
+    }
+
+    @Override
+    public List<StatsTopListDto> selectTopNList(int limitNum) throws Exception{
+        return session.selectList(namespace + "selectTopNList", limitNum);
+    }
+
+    @Override
+    public List<ReservDto> selectTrvlrCnt() throws Exception {
+        return session.selectList(namespace + "selectTrvlrCnt");
     }
 }

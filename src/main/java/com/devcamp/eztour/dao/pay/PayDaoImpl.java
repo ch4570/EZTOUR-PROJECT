@@ -1,13 +1,16 @@
-package com.devcamp.eztour.dao.reserv;
+package com.devcamp.eztour.dao.pay;
 
-import com.devcamp.eztour.domain.reserv.CancelViewDto;
-import com.devcamp.eztour.domain.reserv.PayDto;
-import com.devcamp.eztour.domain.reserv.PayResultDto;
-import com.devcamp.eztour.domain.reserv.PayViewDto;
+import com.devcamp.eztour.dao.pay.PayDao;
+import com.devcamp.eztour.domain.pay.CancelViewDto;
+import com.devcamp.eztour.domain.pay.PayDto;
+import com.devcamp.eztour.domain.pay.PayResultDto;
+import com.devcamp.eztour.domain.pay.PayViewDto;
+import com.devcamp.eztour.domain.reserv.*;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -59,5 +62,18 @@ public class PayDaoImpl implements PayDao {
         return session.update(namespace+"updatePayAndRsvtResult", payResultDto);
     }
 
+    @Override
+    public List<StatsGndrAndAgePerHourDto> selectGndrAndAgePerHour() throws Exception {
+        return session.selectList(namespace+"selectPayGndrAndAgePerHour");
+    }
 
+    @Override
+    public List<StatsTopListDto> selectTopNList(int limitNum) throws Exception{
+        return session.selectList(namespace + "selectTopNPayList", limitNum);
+    }
+
+    @Override
+    public List<StatsTopListDto> selectTopNPrdLikelyPay(int limitNum) throws Exception{
+        return session.selectList(namespace + "selectTopNPrdLikelyPay", limitNum);
+    }
 }

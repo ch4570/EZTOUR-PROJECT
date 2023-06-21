@@ -3,11 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.devcamp.eztour.payMapper">
-    <select id="selectPay" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.PayDto">
+    <select id="selectPay" parameterType="String" resultType="PayDto">
         SELECT * FROM pay WHERE rsvt_no = #{rsvt_no} ORDER BY pay_date DESC Limit 1;
     </select>
 
-    <select id="selectPayById" parameterType="Map" resultType="com.devcamp.eztour.domain.reserv.PayDto">
+    <select id="selectPayById" parameterType="Map" resultType="PayDto">
         SELECT * FROM pay WHERE rsvt_no = #{rsvt_no} and usr_id = #{usr_id} ORDER BY pay_date DESC Limit 1;
     </select>
 
@@ -15,7 +15,7 @@
         SELECT cmn_cd_pay_stt FROM pay WHERE rsvt_no = #{rsvt_no} AND usr_id = #{usr_id} ORDER BY pay_date DESC LIMIT 1;
     </select>
 
-    <insert id="insertPay" parameterType="com.devcamp.eztour.domain.reserv.PayDto">
+    <insert id="insertPay" parameterType="PayDto">
         INSERT INTO pay(pay_no, rsvt_no, prd_dtl_cd, usr_id, imp_uid, pay_prc, pay_date, cmn_cd_pay_appr, cmn_cd_pay_stt, pay_mthd, used_mlg)
         VALUES (#{pay_no}, #{rsvt_no}, #{prd_dtl_cd}, #{usr_id}, #{imp_uid}, #{pay_prc},#{pay_date}, #{cmn_cd_pay_appr}, #{cmn_cd_pay_stt}, #{pay_mthd}, #{used_mlg})
     </insert>
@@ -24,7 +24,7 @@
         DELETE FROM pay
     </delete>
 
-    <select id="selectCancelInfo" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.CancelViewDto">
+    <select id="selectCancelInfo" parameterType="String" resultType="CancelViewDto">
         SELECT r.rsvt_date, r.rsvt_no, r.prd_dtl_cd,
                r.cmn_cd_pay_stt, r.sum_prc, tp.prd_nm, tp.prd_dtl_desc, p.pay_no, p.pay_prc, p.used_mlg, pi.img_pth
         FROM rsvt r
@@ -37,7 +37,7 @@
         WHERE r.rsvt_no = #{rsvt_no}
     </select>
 
-    <select id="selectMlgAndPrdInfo" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.PayViewDto">
+    <select id="selectMlgAndPrdInfo" parameterType="String" resultType="PayViewDto">
         SELECT p.used_mlg, p.prd_dtl_cd, r.pay_ftr_prc, r.rsvt_no
         FROM pay p
                  JOIN rsvt r
@@ -45,7 +45,7 @@
                           And p.pay_no = #{pay_no}
     </select>
 
-    <update id="updatePayAndRsvtResult" parameterType="com.devcamp.eztour.domain.reserv.PayResultDto">
+    <update id="updatePayAndRsvtResult" parameterType="PayResultDto">
         UPDATE pay, rsvt
         SET pay.pay_prc = #{pay_prc}
                 ,pay.pay_date = #{pay_date}
@@ -58,4 +58,90 @@
         WHERE pay.rsvt_no = rsvt.rsvt_no
           And pay.pay_no = #{pay_no};
     </update>
+
+    <select id="selectPayGndrAndAgePerHour" resultType="StatsGndrAndAgePerHourDto">
+        WITH RECURSIVE numbers AS (
+        SELECT CAST('0' AS UNSIGNED) AS hour_range
+        UNION ALL
+        SELECT hour_range + 1 AS num FROM numbers
+        WHERE numbers.hour_range <![CDATA[ < ]]> 23
+        )
+        SELECT IFNULL(data.teens, 0) AS teensCnt,
+        IFNULL(data.twenties, 0) AS twentiesCnt,
+        IFNULL(data.thirties, 0) AS thirtiesCnt,
+        IFNULL(data.forties, 0) AS fortiesCnt,
+        IFNULL(data.fifties, 0) AS fiftiesCnt,
+        IFNULL(data.overSixties, 0) AS overSixtiesCnt,
+        IFNULL(data.male, 0) AS maleCnt,
+        IFNULL(data.female, 0) AS femaleCnt,
+        hour_range AS hh
+        FROM numbers
+        LEFT JOIN (
+        SELECT HOUR(p.pay_date) AS hh,
+        SUM(u.age <![CDATA[ < ]]> 20) AS teens,
+        SUM(u.age BETWEEN 20 AND 29) AS twenties,
+        SUM(u.age BETWEEN 30 AND 39) AS thirties,
+        SUM(u.age BETWEEN 40 AND 49) AS forties,
+        SUM(u.age BETWEEN 50 AND 59) AS fifties,
+        SUM(u.age >= 60) AS overSixties,
+        SUM(u.gndr = '남성') AS male,
+        SUM(u.gndr = '여성') AS female
+        FROM (
+        SELECT usr_id, brth, gndr, date_format(now(), '%Y') - date_format(brth, '%Y') AS age
+        FROM usr
+        ) as u
+        INNER JOIN (select distinct(rsvt_no), usr_id, pay_date from pay where cmn_cd_pay_stt IN ('7C')) as p
+        ON p.usr_id = u.usr_id
+        WHERE p.pay_date BETWEEN '2021-01-01 00:00:00' AND DATE_FORMAT(NOW(), '%Y-%m-%d 23:59:59')
+        GROUP BY hh
+        ) AS data ON numbers.hour_range = data.hh
+    </select>
+
+    <select id="selectTopNPayList" parameterType="int" resultType="StatsTopListDto">
+        select t.prd_dtl_cd, t.prd_nm, count(*) as num
+        from pay p
+            inner join trv_prd_dtl t
+        on p.prd_dtl_cd = t.prd_dtl_cd
+            inner join rsvt r
+            on r.rsvt_no = p.rsvt_no
+            and p.cmn_cd_pay_stt IN ('7C')
+        group by t.prd_dtl_cd
+        order by num DESC
+            LIMIT #{limitNum}
+    </select>
+    <select id="selectTopNPrdLikelyPay" parameterType="int" resultType="StatsTopListDto">
+        SELECT prdreserv.prd_dtl_cd
+             , prdreserv.prd_nm
+             , ROUND(pay.count/prdreserv.cnt, 3) AS num
+        FROM (
+                 SELECT *
+                 FROM trv_prd_dtl t
+                          INNER JOIN (
+                     SELECT rsvt_no, prd_dtl_cd as prd, count(*) as cnt
+                     FROM rsvt
+                     GROUP BY prd_dtl_cd
+                 ) AS r
+                                     ON t.prd_dtl_cd = r.prd
+             ) AS prdreserv
+                 LEFT OUTER JOIN (
+            SELECT p.rsvt_no, p.prd_dtl_cd, COUNT(*) as count
+            FROM pay p
+                INNER JOIN rsvt r
+            ON p.rsvt_no = r.rsvt_no
+            WHERE p.cmn_cd_pay_stt IN ('7C')
+            GROUP BY p.prd_dtl_cd
+        ) AS pay
+                                 ON prdreserv.prd_dtl_cd = pay.prd_dtl_cd
+        WHERE pay.count is not null
+          AND prdreserv.cnt > (
+            SELECT AVG(cnt) AS avg_cnt
+            FROM (
+                     SELECT COUNT(*) AS cnt
+                     FROM rsvt
+                     GROUP BY prd_dtl_cd
+                 ) AS subquery
+        )
+        ORDER BY num DESC
+            LIMIT #{limitNum}
+    </select>
 </mapper>

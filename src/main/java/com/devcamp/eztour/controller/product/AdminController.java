@@ -1,8 +1,14 @@
 package com.devcamp.eztour.controller.product;
 
 import com.devcamp.eztour.domain.product.*;
+import com.devcamp.eztour.domain.reserv.StatsGndrAndAgePerHourDto;
+import com.devcamp.eztour.domain.reserv.StatsTopListDto;
 import com.devcamp.eztour.domain.user.UserDto;
 import com.devcamp.eztour.service.product.ProductService;
+import com.devcamp.eztour.service.pay.PayService;
+import com.devcamp.eztour.service.reserv.ReservService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -13,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 
 @Slf4j
@@ -21,6 +28,8 @@ import java.util.List;
 public class AdminController {
 
     private final ProductService productService;
+    private final ReservService reservService;
+    private final PayService payService;
 
     // 관리자 페이지 진입
     @GetMapping("/product/admin")
@@ -608,6 +617,41 @@ public class AdminController {
             model.addAttribute("trvPrdDto",trvPrdReadDto);
             return "product/product_recognize_read.tiles";
         }
+    }
+
+    @GetMapping("/product/stats")
+    public String readStatistics(HttpSession session, Model model){
+        ObjectMapper mapper = new ObjectMapper();
+
+        if(!isSupAdmin(session)){
+            return "redirect:/";
+        }
+
+        try {
+            List<StatsGndrAndAgePerHourDto> gndrAndAgePerHourReservStats = reservService.getGndrAndAgePerHourStats();
+            List<StatsGndrAndAgePerHourDto> gndrAndAgePerHourPayStats = payService.getGndrAndAgePerHour();
+            String gndrAndAgeReservJson = mapper.writeValueAsString(gndrAndAgePerHourReservStats);
+            String gndrAndAgePayJson = mapper.writeValueAsString(gndrAndAgePerHourPayStats);
+
+            Map<String, Integer> trvlrCntStats = reservService.getTrvlrCntStats();
+            String trvlrCntStatsJson = mapper.writeValueAsString(trvlrCntStats);
+
+            model.addAttribute("gndrAndAgePerHourReservStats", gndrAndAgeReservJson);
+            model.addAttribute("gndrAndAgePerHourPayStats", gndrAndAgePayJson);
+            model.addAttribute("trvlrCntStatsJson", trvlrCntStatsJson);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+            List<StatsTopListDto> topFiveReservList = reservService.getTopNList(5);
+            List<StatsTopListDto> topFivePayList = payService.getTopNList(5);
+            List<StatsTopListDto> topFivePrdLikelyPay = payService.getTopNPrdLikelyPay(5);
+
+            model.addAttribute("topFiveReservList", topFiveReservList);
+            model.addAttribute("topFivePayList", topFivePayList);
+            model.addAttribute("topFivePrdLikelyPay", topFivePrdLikelyPay);
+
+            return "product/product_stats.tiles";
     }
 
     private boolean isAdmin(HttpSession session){

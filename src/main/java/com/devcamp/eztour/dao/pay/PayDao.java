@@ -1,10 +1,12 @@
-package com.devcamp.eztour.dao.reserv;
+package com.devcamp.eztour.dao.pay;
 
-import com.devcamp.eztour.domain.reserv.CancelViewDto;
-import com.devcamp.eztour.domain.reserv.PayDto;
-import com.devcamp.eztour.domain.reserv.PayResultDto;
-import com.devcamp.eztour.domain.reserv.PayViewDto;
+import com.devcamp.eztour.domain.pay.CancelViewDto;
+import com.devcamp.eztour.domain.pay.PayDto;
+import com.devcamp.eztour.domain.pay.PayResultDto;
+import com.devcamp.eztour.domain.pay.PayViewDto;
+import com.devcamp.eztour.domain.reserv.*;
 
+import java.util.List;
 import java.util.Map;
 
 public interface PayDao {
@@ -23,4 +25,10 @@ public interface PayDao {
     PayViewDto selectMlgAndPrdInfo(String pay_no) throws Exception;
 
     int updatePayAndRsvtResult(PayResultDto payResultDto) throws Exception;
+
+    List<StatsGndrAndAgePerHourDto> selectGndrAndAgePerHour() throws Exception;
+
+    List<StatsTopListDto> selectTopNList(int limitNum) throws Exception;
+
+    List<StatsTopListDto> selectTopNPrdLikelyPay(int limitNum) throws Exception;
 }
