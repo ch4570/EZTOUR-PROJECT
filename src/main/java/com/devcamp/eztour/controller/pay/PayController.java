@@ -1,10 +1,15 @@
-package com.devcamp.eztour.controller;
+package com.devcamp.eztour.controller.pay;
 
 import com.devcamp.eztour.common.ImportAPI;
 import com.devcamp.eztour.common.PrepareData;
+import com.devcamp.eztour.domain.guest.GuestDto;
+import com.devcamp.eztour.domain.pay.CancelViewDto;
+import com.devcamp.eztour.domain.pay.PayDto;
+import com.devcamp.eztour.domain.pay.PayResultDto;
+import com.devcamp.eztour.domain.pay.PayViewDto;
 import com.devcamp.eztour.domain.reserv.*;
 import com.devcamp.eztour.domain.user.UserDto;
-import com.devcamp.eztour.service.reserv.PayService;
+import com.devcamp.eztour.service.pay.PayService;
 import com.devcamp.eztour.service.reserv.ReservService;
 import com.google.gson.JsonObject;
 import com.siot.IamportRestClient.IamportClient;

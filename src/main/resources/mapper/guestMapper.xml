@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.devcamp.eztour.guestMapper">
-    <insert id="insertGuest" parameterType="com.devcamp.eztour.domain.reserv.GuestDto">
+    <insert id="insertGuest" parameterType="GuestDto">
         INSERT INTO gst VALUES (#{gst_id}, #{gst_nm}, #{phn}, now(), #{gst_id}, now(), #{gst_id});
     </insert>
 
@@ -11,11 +11,11 @@
         SELECT EXISTS (SELECT gst_id FROM gst WHERE gst_id = #{gst_id});
     </select>
 
-    <select id="selectGuest" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.GuestDto">
+    <select id="selectGuest" parameterType="String" resultType="GuestDto">
         SELECT * FROM gst WHERE gst_id = #{gst_id}
     </select>
 
-    <select id="selectAllGuest" resultType="com.devcamp.eztour.domain.reserv.GuestDto">
+    <select id="selectAllGuest" resultType="GuestDto">
         select * from gst
     </select>
 

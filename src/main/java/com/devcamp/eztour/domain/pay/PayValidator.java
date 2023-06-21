@@ -1,4 +1,4 @@
-package com.devcamp.eztour.domain.reserv;
+package com.devcamp.eztour.domain.pay;
 
 import com.devcamp.eztour.domain.user.UserDto;
 import org.springframework.validation.Errors;

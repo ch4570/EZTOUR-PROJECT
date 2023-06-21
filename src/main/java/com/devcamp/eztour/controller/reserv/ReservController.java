@@ -1,9 +1,10 @@
-package com.devcamp.eztour.controller;
+package com.devcamp.eztour.controller.reserv;
 
-import com.devcamp.eztour.domain.product.TrvPrdReadDto;
+import com.devcamp.eztour.domain.guest.GuestDto;
+import com.devcamp.eztour.domain.pay.PayDto;
 import com.devcamp.eztour.domain.reserv.*;
 import com.devcamp.eztour.domain.user.UserDto;
-import com.devcamp.eztour.service.reserv.GuestService;
+import com.devcamp.eztour.service.guest.GuestService;
 import com.devcamp.eztour.service.reserv.ReservService;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -34,7 +34,17 @@
         <!-- 혜경님 시작 -->
         <typeAlias alias="ReservDto" type="com.devcamp.eztour.domain.reserv.ReservDto"/>
         <typeAlias alias="ReservInfoDto" type="com.devcamp.eztour.domain.reserv.ReservInfoDto"/>
-        <typeAlias alias="AttPrdDto"     type="com.devcamp.eztour.domain.attPrd.AttPrdDto"/>
+        <typeAlias alias="AttPrdDto" type="com.devcamp.eztour.domain.attPrd.AttPrdDto"/>
+        <typeAlias alias="AirlineReqDto" type="com.devcamp.eztour.domain.reserv.AirlineReqDto"/>
+        <typeAlias alias="ReservConfInfoDto" type="com.devcamp.eztour.domain.reserv.ReservConfInfoDto"/>
+        <typeAlias alias="TravelerInfoDto" type="com.devcamp.eztour.domain.reserv.TravelerInfoDto"/>
+        <typeAlias alias="StatsGndrAndAgePerHourDto" type="com.devcamp.eztour.domain.reserv.StatsGndrAndAgePerHourDto"/>
+        <typeAlias alias="StatsTopListDto" type="com.devcamp.eztour.domain.reserv.StatsTopListDto"/>
+        <typeAlias alias="PayDto" type="com.devcamp.eztour.domain.pay.PayDto"/>
+        <typeAlias alias="CancelViewDto" type="com.devcamp.eztour.domain.pay.CancelViewDto"/>
+        <typeAlias alias="PayViewDto" type="com.devcamp.eztour.domain.pay.PayViewDto"/>
+        <typeAlias alias="PayResultDto" type="com.devcamp.eztour.domain.pay.PayResultDto"/>
+        <typeAlias alias="GuestDto" type="com.devcamp.eztour.domain.guest.GuestDto"/>
         <!-- 혜경님 끝 -->
 
         <!-- 기혁님 시작 -->

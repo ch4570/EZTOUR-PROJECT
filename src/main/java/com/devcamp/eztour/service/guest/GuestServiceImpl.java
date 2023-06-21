@@ -1,7 +1,7 @@
-package com.devcamp.eztour.service.reserv;
+package com.devcamp.eztour.service.guest;
 
-import com.devcamp.eztour.dao.reserv.GuestDao;
-import com.devcamp.eztour.domain.reserv.GuestDto;
+import com.devcamp.eztour.dao.guest.GuestDao;
+import com.devcamp.eztour.domain.guest.GuestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

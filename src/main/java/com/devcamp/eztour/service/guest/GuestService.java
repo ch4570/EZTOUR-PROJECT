@@ -1,6 +1,6 @@
-package com.devcamp.eztour.service.reserv;
+package com.devcamp.eztour.service.guest;
 
-import com.devcamp.eztour.domain.reserv.GuestDto;
+import com.devcamp.eztour.domain.guest.GuestDto;
 
 public interface GuestService {
     int registerGuest(GuestDto guestDto);
