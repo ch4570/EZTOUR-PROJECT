@@ -335,6 +335,12 @@
         WHERE prd_prc_no = #{prd_prc_no}
     </select>
 
+    <select id="selectOneProductPriceByPrdDtlCd" parameterType="String" resultType="TrvPrdPrcDto">
+        SELECT prd_prc_no,prd_dtl_cd,adt_prc,chd_prc,bb_prc
+        FROM prd_prc
+        WHERE prd_dtl_cd = #{prd_dtl_cd}
+    </select>
+
     <delete id="deleteProductPrice" parameterType="int">
         DELETE
         FROM prd_prc

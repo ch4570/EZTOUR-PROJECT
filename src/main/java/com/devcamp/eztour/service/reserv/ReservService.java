@@ -1,5 +1,6 @@
 package com.devcamp.eztour.service.reserv;
 
+import com.devcamp.eztour.domain.product.TrvPrdPrcDto;
 import com.devcamp.eztour.domain.reserv.*;
 
 import java.util.List;
@@ -18,11 +19,11 @@ public interface ReservService {
 
     ReservInfoDto getReservInfo(String prd_dtl_cd) throws Exception;
 
-    List getReservConfInfo(String rsvt_no, String prd_dtl_cd);
+    List getReservConfInfo(String rsvt_no, String prd_dtl_cd) throws Exception;
 
     List getReservList(String usr_id) throws Exception;
 
-    List getReservView(String rsvt_no);
+    List getReservView(String rsvt_no) throws Exception;
 
     List getReservListPage(Map<String, Object> map) throws Exception;
 
@@ -40,7 +41,7 @@ public interface ReservService {
 
     String guestReservCheck(String rsvt_no, String mn_rsvt_nm, String phn) throws Exception;
 
-    int changeReservSttNCnt(ReservDto reservDto) throws Exception;
+    void cancelReserv(ReservDto reservDto) throws Exception;
 
     int changeReservCount(String prd_dtl_cd, String rsvt_no, String option);
 
@@ -51,4 +52,6 @@ public interface ReservService {
     List<StatsTopListDto> getTopNList(int limitNum);
 
     Map<String, Integer> getTrvlrCntStats();
+
+    TrvPrdPrcDto getOneProductPriceByPrdDtlCd(String prd_dtl_cd) throws Exception;
 }

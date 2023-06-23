@@ -16,7 +16,11 @@
 </head>
 <script>
     let msg = '${msg}';
-    if(msg==='INVALID_ACCESS') { alert('이미 결제완료 되었거나 취소된 상품입니다.'); }
+    if(msg==='INVALID_ACCESS') {
+        alert('이미 결제완료 되었거나 취소된 상품입니다.');
+    } else if (msg==='CNC_FAILED') {
+        alert('이미 취소되었거나 유효하지 않은 접근입니다. 대표번호 555-5555로 문의바랍니다.');
+    }
 </script>
 <body>
     <div class="dv_big_box">

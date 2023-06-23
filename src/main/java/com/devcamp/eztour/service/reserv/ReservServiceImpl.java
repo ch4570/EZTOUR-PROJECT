@@ -2,8 +2,10 @@ package com.devcamp.eztour.service.reserv;
 
 import com.devcamp.eztour.dao.guest.GuestDao;
 import com.devcamp.eztour.dao.pay.PayDao;
+import com.devcamp.eztour.dao.product.ProductDao;
 import com.devcamp.eztour.dao.reserv.ReservDao;
 import com.devcamp.eztour.dao.reserv.TravelerInfoDao;
+import com.devcamp.eztour.domain.product.TrvPrdPrcDto;
 import com.devcamp.eztour.domain.reserv.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ public class ReservServiceImpl implements ReservService {
     ReservDao reservDao;
     @Autowired
     TravelerInfoDao travelerInfoDao;
+    @Autowired
+    ProductDao productDao;
     @Autowired
     PayDao payDao;
     @Autowired
@@ -62,18 +66,24 @@ public class ReservServiceImpl implements ReservService {
 
     @Override
     public ReservInfoDto getReservInfo(String prd_dtl_cd) throws Exception{
-        return reservDao.selectPrdInfo(prd_dtl_cd);
+        ReservInfoDto reservInfoDto = reservDao.selectPrdInfo(prd_dtl_cd);
+
+        if (reservInfoDto == null) {
+
+            throw new Exception("wrong prd_dtl_cd value");
+        }
+        return reservInfoDto;
     }
 
     @Override
-    public List getReservConfInfo(String rsvt_no, String prd_dtl_cd) {
+    public List getReservConfInfo(String rsvt_no, String prd_dtl_cd) throws Exception {
         List<Object> list = new ArrayList<>();
 
-        try {
-            list.add(reservDao.selectReservConfInfo(rsvt_no));
-            list.addAll(travelerInfoDao.selectTrvlrInfoList(rsvt_no));
-        } catch (Exception e) {
-            e.printStackTrace();
+        list.add(reservDao.selectReservConfInfo(rsvt_no));
+        list.addAll(travelerInfoDao.selectTrvlrInfoList(rsvt_no));
+
+        if(list.size() < 2){
+            throw new Exception();
         }
 
         return list;
@@ -85,16 +95,18 @@ public class ReservServiceImpl implements ReservService {
     }
 
     @Override
-    public List getReservView(String rsvt_no){
+    public List getReservView(String rsvt_no) throws Exception{
         List<Object> list = new ArrayList<>();
-        try {
-            ReservConfInfoDto rcid = reservDao.selectReservConfInfo(rsvt_no);
-            list.add(rcid);
-            list.addAll(travelerInfoDao.selectTrvlrInfoList(rsvt_no));
-            list.add(payDao.selectPay(rsvt_no));
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        ReservConfInfoDto rcid = reservDao.selectReservConfInfo(rsvt_no);
+        list.add(rcid);
+        list.addAll(travelerInfoDao.selectTrvlrInfoList(rsvt_no));
+        list.add(payDao.selectPay(rsvt_no));
+
+        if(list.size()==0){
+            throw new Exception();
         }
+
         return list;
     }
 
@@ -194,8 +206,14 @@ public class ReservServiceImpl implements ReservService {
     }
 
     @Override
-    public int changeReservSttNCnt(ReservDto reservDto) throws Exception{
-        return reservDao.updateReservCancel(reservDto);
+    @Transactional(rollbackFor = Exception.class)
+    public void cancelReserv(ReservDto reservDto) throws Exception{
+        int updateReservresult = reservDao.updateReservCancel(reservDto);
+        int deleteTrvlrInfoResult = travelerInfoDao.deleteTrvlrInfoList(reservDto.getRsvt_no());
+
+        if(updateReservresult == 0 || deleteTrvlrInfoResult == 0){
+            throw new Exception();
+        }
     }
 
     @Override
@@ -253,6 +271,11 @@ public class ReservServiceImpl implements ReservService {
             e.printStackTrace();
         }
         return map;
+    }
+
+    @Override
+    public TrvPrdPrcDto getOneProductPriceByPrdDtlCd(String prd_dtl_cd) throws Exception{
+        return productDao.selectOneProductPriceByPrdDtlCd(prd_dtl_cd);
     }
 
     private void devideTrvlrCnt(Map<String, Integer> map, List<ReservDto> list){
