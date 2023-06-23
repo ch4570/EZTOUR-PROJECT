@@ -73,11 +73,11 @@
         WHERE d.prd_dtl_cd = #{prd_dtl_cd} and p.prd_dtl_cd = #{prd_dtl_cd};
     </select>
 
-    <select id="selectAirInfo" parameterType="java.util.List" resultType="com.devcamp.eztour.domain.reserv.AirlineReqDto">
+    <select id="selectAirInfo" parameterType="java.util.List" resultType="AirlineReqDto">
         SELECT * FROM arl_req WHERE prd_dtl_cd = #{prd_dtl_cd}
     </select>
 
-    <select id="selectReservConfInfo" parameterType="String" resultType="com.devcamp.eztour.domain.reserv.ReservConfInfoDto">
+    <select id="selectReservConfInfo" parameterType="String" resultType="ReservConfInfoDto">
         select r.rsvt_date, r.rsvt_no, r.prd_dtl_cd, r.adt_cnt, r.chd_cnt, r.bb_cnt, r.sum_prc, r.cmn_cd_rsvt_stt,
                r.pay_ftr_prc, tp.prd_nm, tp.prd_cd, tp.trv_per, tpd.arl_nm, tpd.dom_dpr_date, tpd.dom_fin_date,
                tpd.loc_dpr_date, tpd.loc_fin_date, tpd.trv_dtl_per
@@ -122,7 +122,7 @@
     <update id="updateRsvtCnt" parameterType="Map">
         UPDATE trv_prd_dtl
         <if test='option=="plus"'>
-        SET pr_rsvt_cnt = pr_rsvt_cnt + (SELECT (adt_cnt+chd_cnt+bb_cnt) FROM rsvt WHERE rsvt_no = #{rsvt_no})
+            SET pr_rsvt_cnt = pr_rsvt_cnt + (SELECT (adt_cnt+chd_cnt+bb_cnt) FROM rsvt WHERE rsvt_no = #{rsvt_no})
         </if>
         <if test='option=="minus"'>
             SET pr_rsvt_cnt = pr_rsvt_cnt - (SELECT (adt_cnt+chd_cnt+bb_cnt) FROM rsvt WHERE rsvt_no = #{rsvt_no})
@@ -157,5 +157,65 @@
 
     <select id="checkReservGuest" parameterType="Map" resultType="String">
         SELECT usr_id FROM rsvt WHERE rsvt_no = #{rsvt_no} and mn_rsvt_nm = #{mn_rsvt_nm} and phn = #{phn}
+    </select>
+
+    <select id="selectReservGndrAndAgePerHour" resultType="StatsGndrAndAgePerHourDto">
+        WITH RECURSIVE numbers AS (
+            SELECT CAST('0' AS UNSIGNED) AS hour_range
+            UNION ALL
+            SELECT hour_range + 1 AS num FROM numbers
+            WHERE numbers.hour_range <![CDATA[ < ]]> 23
+        )
+        SELECT IFNULL(data.teens, 0) AS teensCnt,
+                IFNULL(data.twenties, 0) AS twentiesCnt,
+                IFNULL(data.thirties, 0) AS thirtiesCnt,
+                IFNULL(data.forties, 0) AS fortiesCnt,
+                IFNULL(data.fifties, 0) AS fiftiesCnt,
+                IFNULL(data.overSixties, 0) AS overSixtiesCnt,
+                IFNULL(data.male, 0) AS maleCnt,
+                IFNULL(data.female, 0) AS femaleCnt,
+                hour_range AS hh
+        FROM numbers
+        LEFT JOIN (
+            SELECT HOUR(r.rsvt_date) AS hh,
+                SUM(u.age <![CDATA[ < ]]> 20) AS teens,
+                SUM(u.age BETWEEN 20 AND 29) AS twenties,
+                SUM(u.age BETWEEN 30 AND 39) AS thirties,
+                SUM(u.age BETWEEN 40 AND 49) AS forties,
+                SUM(u.age BETWEEN 50 AND 59) AS fifties,
+                SUM(u.age >= 60) AS overSixties,
+                SUM(u.gndr = '남성') AS male,
+                SUM(u.gndr = '여성') AS female
+            FROM (
+                SELECT usr_id, brth, gndr, date_format(now(), '%Y') - date_format(brth, '%Y') AS age
+                FROM usr
+            ) as u
+            INNER JOIN rsvt AS r ON r.usr_id = u.usr_id
+            WHERE r.rsvt_date BETWEEN '2021-01-01 00:00:00' AND DATE_FORMAT(NOW(), '%Y-%m-%d 23:59:59')
+            GROUP BY hh
+        ) AS data ON numbers.hour_range = data.hh;
+    </select>
+
+    <select id="selectTopNList" parameterType="int" resultType="StatsTopListDto">
+        select t.prd_dtl_cd, t.prd_nm ,count(*) as num
+        from rsvt r
+                 inner join trv_prd_dtl t
+                            on t.prd_dtl_cd = r.prd_dtl_cd
+        group by r.prd_dtl_cd
+        order by num DESC
+        LIMIT #{limitNum}
+    </select>
+
+    <select id="selectTrvlrCnt" resultType="ReservDto">
+        select adt_cnt, chd_cnt, bb_cnt
+        from rsvt r
+                 inner join (
+            select rsvt_no, MAX(pay_date) as max
+            from pay
+            where cmn_cd_pay_stt in ('7C', '7B')
+            group by rsvt_no
+            order by max DESC
+        ) AS p
+        ON r.rsvt_no = p.rsvt_no
     </select>
 </mapper>

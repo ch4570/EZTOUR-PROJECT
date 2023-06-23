@@ -16,10 +16,10 @@
 </head>
 <body>
 <script>
-    let msg = '${param.msg}';
-    if(msg=='GST_ONLY1PRD') { alert('비회원 예약은 최대 한 개까지 가능합니다.'); }
-    if(msg=='RSVT_FAILED') { alert('유효하지 않은 상품입니다. 5555-0000으로 예약 및 결제 문의바랍니다.'); }
-    if(msg=='RSVT_WRONG') { alert('예약처리 중 문제가 발생했습니다. 다시 예약해주시기 바랍니다.'); }
+    let msg = '${msg}';
+    if(msg==='GST_ONLY1PRD') { alert('비회원 예약은 최대 한 개까지 가능합니다.'); }
+    if(msg==='RSVT_FAILED') { alert('예약 정보를 확인해주세요. 5555-0000으로 예약 및 결제 문의바랍니다.'); }
+    if(msg==='RSVT_WRONG') { alert('예약처리 중 문제가 발생했습니다. 다시 예약해주시기 바랍니다.'); }
 </script>
     <div class="ri_biggest_box">
         <div class="ri_header_box">
@@ -151,8 +151,8 @@
                                     <th class="ri_trvlr_col1">대표 예약자명</th>
                                     <td class="ri_trvlr_col2">
                                         <input type="text" class="ri_trvlr_inputbox" name="mn_rsvt_nm" value="${userDto.usr_nm}">
-                                        <input type="radio" name="isUsrIncluded" value="y" checked><span>본인포함</span>
-                                        <input type="radio" name="isUsrIncluded" value="n"><span>본인 비포함 (여행 동반자 정보는 담당자 통화 시 확인)</span>
+                                        <input type="radio" name="isUsrIncluded" value="true" checked><span>본인포함</span>
+                                        <input type="radio" name="isUsrIncluded" value="false"><span>본인 비포함 (여행 동반자 정보는 담당자 통화 시 확인)</span>
                                     </td>
                                 </tr>
                                 <tr class="ri_trvlr_row">
@@ -164,6 +164,7 @@
                                 <tr class="ri_trvlr_row">
                                     <th class="ri_trvlr_col1">이메일</th>
                                     <td class="ri_trvlr_col2"><input type="text" class="ri_trvlr_inputbox" name="emailFirst" value="${emailFirst}"><span class="ri_at">@</span><input type="text" class="ri_trvlr_inputbox" name="emailLast" value="${emailLast}"></td>
+                                    <input type="hidden" class="ri_trvlr_email" name="email" value="">
                                 </tr>
                             </table>
                     </div>
@@ -287,6 +288,8 @@
                 let emailFirst = $('input[name="emailFirst"]').val();
                 let emailLast = $('input[name="emailLast"]').val();
                 let agree = $('input[name="agree"]').val();
+                $('.ri_trvlr_email').val(emailFirst + '@' + emailLast);
+
 
                 if(!agreeCheck()){
                     alert('약관을 동의해주세요.');

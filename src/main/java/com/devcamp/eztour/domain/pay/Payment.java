@@ -1,4 +1,4 @@
-package com.devcamp.eztour.domain.reserv;
+package com.devcamp.eztour.domain.pay;
 
 import java.math.BigDecimal;
 import java.util.Date;

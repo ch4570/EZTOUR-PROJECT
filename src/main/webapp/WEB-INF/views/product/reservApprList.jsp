@@ -41,6 +41,10 @@
             <li class="menu_list">고객 서비스 제안 관리</li>
             <li class="menu_list">1:1 문의 관리</li>
         </ul>
+        <ul>
+            <li class="prd_tlt">통계</li>
+            <a href="<c:url value='/product/stats'/>"><li class="menu_list">예약 및 구매 통계</li></a>
+        </ul>
     </nav>
     <div class="reserv_admin_box">
         <div class="board">

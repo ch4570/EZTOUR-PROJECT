@@ -216,6 +216,11 @@ public class ProductDaoImpl implements ProductDao{
     }
 
     @Override
+    public TrvPrdPrcDto selectOneProductPriceByPrdDtlCd(String prd_dtl_cd) throws Exception{
+        return session.selectOne(namespace + "selectOneProductPriceByPrdDtlCd", prd_dtl_cd);
+    }
+
+    @Override
     public int deleteProductPrice(int prd_prc_no) throws Exception {
         return session.delete(namespace+"deleteProductPrice",prd_prc_no);
     }

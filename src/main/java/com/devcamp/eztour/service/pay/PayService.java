@@ -1,8 +1,14 @@
-package com.devcamp.eztour.service.reserv;
+package com.devcamp.eztour.service.pay;
 
+import com.devcamp.eztour.domain.guest.GuestDto;
+import com.devcamp.eztour.domain.pay.CancelViewDto;
+import com.devcamp.eztour.domain.pay.PayDto;
+import com.devcamp.eztour.domain.pay.PayResultDto;
+import com.devcamp.eztour.domain.pay.PayViewDto;
 import com.devcamp.eztour.domain.reserv.*;
 import com.devcamp.eztour.domain.user.UserDto;
 
+import java.util.List;
 import java.util.Map;
 
 public interface PayService {
@@ -25,4 +31,10 @@ public interface PayService {
     PayViewDto getMlgAndPrdInfo(String pay_no) throws Exception;
 
     void savePayResult(PayResultDto payResultDto) throws Exception;
+
+    List<StatsGndrAndAgePerHourDto> getGndrAndAgePerHour();
+
+    List<StatsTopListDto> getTopNList(int limitNum);
+
+    List<StatsTopListDto> getTopNPrdLikelyPay(int limitNum);
 }

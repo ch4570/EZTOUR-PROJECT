@@ -2,6 +2,8 @@ package com.devcamp.eztour.domain.reserv;
 
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Getter

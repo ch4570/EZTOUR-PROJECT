@@ -1,6 +1,7 @@
 package com.devcamp.eztour.dao.reserv;
 
-import com.devcamp.eztour.domain.reserv.GuestDto;
+import com.devcamp.eztour.dao.guest.GuestDao;
+import com.devcamp.eztour.domain.guest.GuestDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

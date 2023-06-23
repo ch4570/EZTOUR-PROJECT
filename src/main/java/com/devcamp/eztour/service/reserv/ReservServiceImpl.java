@@ -1,19 +1,15 @@
 package com.devcamp.eztour.service.reserv;
 
-import com.devcamp.eztour.dao.reserv.GuestDao;
-import com.devcamp.eztour.dao.reserv.PayDao;
+import com.devcamp.eztour.dao.guest.GuestDao;
+import com.devcamp.eztour.dao.pay.PayDao;
+import com.devcamp.eztour.dao.product.ProductDao;
 import com.devcamp.eztour.dao.reserv.ReservDao;
 import com.devcamp.eztour.dao.reserv.TravelerInfoDao;
+import com.devcamp.eztour.domain.product.TrvPrdPrcDto;
 import com.devcamp.eztour.domain.reserv.*;
-import com.devcamp.eztour.service.reserv.ReservService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
@@ -27,6 +23,8 @@ public class ReservServiceImpl implements ReservService {
     ReservDao reservDao;
     @Autowired
     TravelerInfoDao travelerInfoDao;
+    @Autowired
+    ProductDao productDao;
     @Autowired
     PayDao payDao;
     @Autowired
@@ -68,18 +66,24 @@ public class ReservServiceImpl implements ReservService {
 
     @Override
     public ReservInfoDto getReservInfo(String prd_dtl_cd) throws Exception{
-        return reservDao.selectPrdInfo(prd_dtl_cd);
+        ReservInfoDto reservInfoDto = reservDao.selectPrdInfo(prd_dtl_cd);
+
+        if (reservInfoDto == null) {
+
+            throw new Exception("wrong prd_dtl_cd value");
+        }
+        return reservInfoDto;
     }
 
     @Override
-    public List getReservConfInfo(String rsvt_no, String prd_dtl_cd) {
+    public List getReservConfInfo(String rsvt_no, String prd_dtl_cd) throws Exception {
         List<Object> list = new ArrayList<>();
 
-        try {
-            list.add(reservDao.selectReservConfInfo(rsvt_no));
-            list.addAll(travelerInfoDao.selectTrvlrInfoList(rsvt_no));
-        } catch (Exception e) {
-            e.printStackTrace();
+        list.add(reservDao.selectReservConfInfo(rsvt_no));
+        list.addAll(travelerInfoDao.selectTrvlrInfoList(rsvt_no));
+
+        if(list.size() < 2){
+            throw new Exception();
         }
 
         return list;
@@ -91,16 +95,18 @@ public class ReservServiceImpl implements ReservService {
     }
 
     @Override
-    public List getReservView(String rsvt_no){
+    public List getReservView(String rsvt_no) throws Exception{
         List<Object> list = new ArrayList<>();
-        try {
-            ReservConfInfoDto rcid = reservDao.selectReservConfInfo(rsvt_no);
-            list.add(rcid);
-            list.addAll(travelerInfoDao.selectTrvlrInfoList(rsvt_no));
-            list.add(payDao.selectPay(rsvt_no));
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        ReservConfInfoDto rcid = reservDao.selectReservConfInfo(rsvt_no);
+        list.add(rcid);
+        list.addAll(travelerInfoDao.selectTrvlrInfoList(rsvt_no));
+        list.add(payDao.selectPay(rsvt_no));
+
+        if(list.size()==0){
+            throw new Exception();
         }
+
         return list;
     }
 
@@ -200,8 +206,14 @@ public class ReservServiceImpl implements ReservService {
     }
 
     @Override
-    public int changeReservSttNCnt(ReservDto reservDto) throws Exception{
-        return reservDao.updateReservCancel(reservDto);
+    @Transactional(rollbackFor = Exception.class)
+    public void cancelReserv(ReservDto reservDto) throws Exception{
+        int updateReservresult = reservDao.updateReservCancel(reservDto);
+        int deleteTrvlrInfoResult = travelerInfoDao.deleteTrvlrInfoList(reservDto.getRsvt_no());
+
+        if(updateReservresult == 0 || deleteTrvlrInfoResult == 0){
+            throw new Exception();
+        }
     }
 
     @Override
@@ -222,5 +234,84 @@ public class ReservServiceImpl implements ReservService {
     @Override
     public ReservDto checkReservInfo(Map<String, String> map) throws Exception {
         return reservDao.selectFtrPrcAndStt(map);
+    }
+
+    @Override
+    public List<StatsGndrAndAgePerHourDto> getGndrAndAgePerHourStats(){
+        List<StatsGndrAndAgePerHourDto> list = null;
+        try{
+            list = reservDao.selectGndrAndAgePerHour();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<StatsTopListDto> getTopNList(int limitNum){
+        List<StatsTopListDto> list = null;
+        try{
+            list = reservDao.selectTopNList(limitNum);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public Map<String, Integer> getTrvlrCntStats() {
+        List<ReservDto> list = null;
+        Map<String, Integer> map = null;
+        try{
+            list = reservDao.selectTrvlrCnt();
+            map = setupTrvlrCntMap();
+            devideTrvlrCnt(map, list);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    @Override
+    public TrvPrdPrcDto getOneProductPriceByPrdDtlCd(String prd_dtl_cd) throws Exception{
+        return productDao.selectOneProductPriceByPrdDtlCd(prd_dtl_cd);
+    }
+
+    private void devideTrvlrCnt(Map<String, Integer> map, List<ReservDto> list){
+        for(ReservDto reserv : list){
+            int totalTrvlrCnt = reserv.getAdt_cnt() + reserv.getChd_cnt() + reserv.getBb_cnt();
+            if(totalTrvlrCnt == 1){
+                map.replace("1명", map.get("1명") + 1);
+            } else if (totalTrvlrCnt == 2) {
+                map.replace("2명", map.get("2명") + 1);
+            } else if (totalTrvlrCnt == 3) {
+                map.replace("3명", map.get("3명") + 1);
+            } else if (totalTrvlrCnt == 4) {
+                map.replace("4명", map.get("4명") + 1);
+            } else if (5 <= totalTrvlrCnt && totalTrvlrCnt < 10) {
+                map.replace("5-9명", map.get("5-9명") + 1);
+            } else if (10 <= totalTrvlrCnt && totalTrvlrCnt < 20) {
+                map.replace("10-19명", map.get("10-19명") + 1);
+            } else if (20 <= totalTrvlrCnt && totalTrvlrCnt < 50) {
+                map.replace("20-49명", map.get("20-49명") + 1);
+            } else {
+                map.replace("50명 이상", map.get("50명 이상") + 1);
+            }
+        }
+    }
+
+    private Map<String, Integer> setupTrvlrCntMap(){
+        Map<String, Integer> map = new HashMap<>();
+        map.put("1명", 0);
+        map.put("2명", 0);
+        map.put("3명", 0);
+        map.put("4명", 0);
+        map.put("5-9명", 0);
+        map.put("10-19명", 0);
+        map.put("20-49명", 0);
+        map.put("50명 이상", 0);
+
+        return map;
     }
 }

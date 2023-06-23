@@ -1,6 +1,6 @@
-package com.devcamp.eztour.dao.reserv;
+package com.devcamp.eztour.dao.guest;
 
-import com.devcamp.eztour.domain.reserv.GuestDto;
+import com.devcamp.eztour.domain.guest.GuestDto;
 
 import java.util.List;
 

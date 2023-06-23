@@ -48,6 +48,7 @@ public interface ProductDao {
     public List<TrvPrdPrcDto> searchProductPrice(PageHandlerProduct pageHandlerProduct) throws Exception;
     public int searchProductPriceCnt(PageHandlerProduct pageHandlerProduct) throws Exception;
     public TrvPrdPrcDto selectOneProductPrice(int prd_prc_no) throws Exception;
+    public TrvPrdPrcDto selectOneProductPriceByPrdDtlCd(String prd_dtl_cd) throws Exception;
     public int deleteProductPrice(int prd_prc_no) throws Exception;
     public int updateProductPrice(TrvPrdPrcDto trvPrdPrcDto) throws Exception;
     public List<TrvSchImgDto> selectAllScheduleImage(PageHandlerProduct pageHandlerProduct) throws Exception;

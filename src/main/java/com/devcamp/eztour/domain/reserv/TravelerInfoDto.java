@@ -19,6 +19,13 @@ public class TravelerInfoDto {
         this.pay_ftr_prc = pay_ftr_prc;
     }
 
+    public TravelerInfoDto(String rsvt_no, String trvlr_nm, String cmn_cd_age, long pay_ftr_prc) {
+        this.rsvt_no = rsvt_no;
+        this.trvlr_nm = trvlr_nm;
+        this.cmn_cd_age = cmn_cd_age;
+        this.pay_ftr_prc = pay_ftr_prc;
+    }
+
     @Override
     public String toString() {
         return "TravelerInfoDto{" +

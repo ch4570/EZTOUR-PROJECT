@@ -1,18 +1,16 @@
 package com.devcamp.eztour.dao.reserv;
 
-import com.devcamp.eztour.domain.reserv.CancelViewDto;
-import com.devcamp.eztour.domain.reserv.PayDto;
-import com.devcamp.eztour.domain.reserv.ReservDto;
+import com.devcamp.eztour.dao.pay.PayDao;
+import com.devcamp.eztour.domain.pay.CancelViewDto;
+import com.devcamp.eztour.domain.pay.PayDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import static org.junit.Assert.*;
 

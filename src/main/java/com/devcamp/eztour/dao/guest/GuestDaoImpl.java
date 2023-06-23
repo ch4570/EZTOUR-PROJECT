@@ -1,6 +1,6 @@
-package com.devcamp.eztour.dao.reserv;
+package com.devcamp.eztour.dao.guest;
 
-import com.devcamp.eztour.domain.reserv.GuestDto;
+import com.devcamp.eztour.domain.guest.GuestDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
