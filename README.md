@@ -3,7 +3,7 @@
 
 ## 프로젝트 소개([EZ TOUR 시연 동영상](https://www.youtube.com/watch?v=5vGcLsqoa_A) / [시연 PT_pdf](https://github.com/ch4570/EZTOUR-PROJECT/files/9527575/pt_._20220901.pdf))
 'EZ TOUR'는 모든 연령대가 '손쉽게' 여행 할 수 있도록 직관적인 워딩과 사용자 편의를 고려한, 사용자 중심 UI/UX를 가진 여행 예약 플랫폼 웹사이트입니다.
->*웹사이트 주소 : http://ez-tour.org/*
+>*웹사이트 주소 : 🔗 http://15.164.229.120:8080/*
 
 ## 프로젝트 일정 및 규모
 ### 프로젝트 일정
