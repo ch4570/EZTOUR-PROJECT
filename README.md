@@ -34,6 +34,7 @@
 * [i'mport](https://api.iamport.kr/) - 결제 및 환불
 * [coolsms](https://docs.coolsms.co.kr/api-reference/cash/getreceipt) - 핸드폰 인증 문자 발송
 * [JAVAMAIL | 1.6.2](https://www.javadoc.io/doc/javax.mail/javax.mail-api/latest/javax/mail/package-summary.html) - 이메일 인증 번호 발송
+* [SmartEditor | 2.8](https://naver.github.io/smarteditor2/user_guide/2_install/setting.html) - HTML 에디터
 ### 개발환경
 #### DB & Framework & Server 
 <img src="https://img.shields.io/badge/Spring | 5.0.7-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/MyBatis | 3.5-26689A?style=for-the-badge&logo=&logoColor=white"> <img src="https://img.shields.io/badge/Spring Security | 5.4.2-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white"> <img src="https://img.shields.io/badge/Apache Tomcat | 9.0.52-C71A36?style=for-the-badge&logo=Apache Tomcat&logoColor=white">
@@ -50,7 +51,7 @@
 
 
 ## 팀원
-|[김도형](https://github.com/Daniel0915)|[남기혁](https://github.com/carpediem3651)|[서창희](https://github.com/ch4570)|[안혜경](https://github.com/HyeKyungAhn)|[이종현](https://github.com/leejonghyun93)|[장영욱](https://github.com/JYeongUk)|[홍선경](https://github.com/hoondal2)|
+|[김도형](https://github.com/Daniel0915)|[남기혁](https://github.com/carpediem3651)|[서민재](https://github.com/ch4570)|[안혜경](https://github.com/HyeKyungAhn)|[이종현](https://github.com/leejonghyun93)|[장영욱](https://github.com/JYeongUk)|[홍선경](https://github.com/hoondal2)|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |<img src = "https://user-images.githubusercontent.com/92190168/188759836-6705b38b-d81b-4c4d-8fdb-d7fb694e5a79.png" width="130" height="180">|<img src = "https://user-images.githubusercontent.com/92190168/188760118-910e1e97-f46f-415a-adf5-87bcd80eee65.png" width="140" height="180">|<img src = "https://user-images.githubusercontent.com/92190168/188760197-91439a47-dd70-4a2d-9d95-5ba2de75ff1a.png" width="140" height="180">|<img src = "https://user-images.githubusercontent.com/92190168/188760253-cf202158-d098-4546-8423-69ef708fb62d.png" width="140" height="180">|<img src = "https://user-images.githubusercontent.com/92190168/188760327-9cba80b2-e1a2-432a-b6f6-8df51f3f4b3c.png" width="140" height="180">|<img src = "https://user-images.githubusercontent.com/92190168/188760413-b1651f46-00be-4858-bd96-332531e264e1.png" width="140" height="180">|<img src = "https://user-images.githubusercontent.com/92190168/188760463-13a4f0dd-1c53-45cf-a617-369763a1a2c0.png" width="140" height="180">|
 >*해당 프로젝트에 대한 이슈 문의 및 팀원들에게 연락하고 싶다면 이름 링크를 클릭해서 연락부탁드립니다.*

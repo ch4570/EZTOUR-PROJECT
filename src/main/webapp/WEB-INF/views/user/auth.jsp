@@ -16,7 +16,7 @@
                     <h3>본인인증</h3>
                     <div style="font-size: 15px; margin-top: 5px;">휴대폰 인증을 통한 본인인증을 진행해주세요</div>
                 </div>
-                <div style="height:120px; display: flex; justify-content: center"><button id="openAuthModalBtn"><i class="fa fa-mobile fa-lg" aria-hidden="true" style="color: white"></i> &nbsp;휴대폰 인증 하기</button></div>
+                <div style="height:120px; display: flex; justify-content: center"><button id="openAuthModalBtn" style="cursor: pointer;"><i class="fa fa-mobile fa-lg" aria-hidden="true" style="color: white;"></i> &nbsp;휴대폰 인증 하기</button></div>
                 <div style="margin-right: 80px; font-size: 15px;"><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: crimson"></i> SNS 회원가입시 추가정보를 반드시 기입해야 가입 완료됩니다.</div>
             </div>
         </div>
@@ -47,9 +47,9 @@
                         </div>
                         <br/>
                         <!-- rest 호출-->
-                        <input type="button" id="authModalBtn" onclick="authPhn()" value="인증번호 보내기">
+                        <input type="button" id="authModalBtn" onclick="authPhn()" style="cursor: pointer;" value="인증번호 보내기">
                         <!-- submit 버튼 -->
-                        <input class="hidden" type="button" id="checkAuthBtn" value="인증하기">
+                        <input class="hidden" type="button" id="checkAuthBtn" style="cursor: pointer;" value="인증하기">
                     </div>
                 </form>
             </div>

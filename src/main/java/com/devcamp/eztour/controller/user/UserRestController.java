@@ -3,30 +3,25 @@ package com.devcamp.eztour.controller.user;
 import com.devcamp.eztour.domain.user.UserDto;
 import com.devcamp.eztour.service.user.MailSendService;
 import com.devcamp.eztour.service.user.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.net.URLDecoder;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+
 
 @RestController
+@RequiredArgsConstructor
 public class UserRestController {
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private MailSendService mailService;
+    private final MailSendService mailService;
 
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // 아이디 중복여부 가져오는 메서드
     @GetMapping("/checkId/{usr_id}")

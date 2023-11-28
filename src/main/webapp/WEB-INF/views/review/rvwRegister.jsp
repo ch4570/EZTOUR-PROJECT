@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/css/rvw/rvwRegister.css?after"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="/static/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 </head>
 <body>
 <div class="wrap">
@@ -50,7 +51,7 @@
                     </div>
                 </div>
                 <!-- 글 내용-->
-                <textarea class="detailInfo-content"  id="textarea" name="rvw_cont" style="padding: 20px; font-size: 20px" placeholder="내용을 입력해주세요"><c:out value="${rvwDto.rvw_cont}" escapeXml="false"/></textarea>
+                <textarea class="detailInfo-content" id="editorTxt" name="rvw_cont" style="padding: 20px; font-size: 20px" placeholder="내용을 입력해주세요"><c:out value="${rvwDto.rvw_cont}" escapeXml="false"/></textarea>
                 <div class="boradBtns">
                     <c:if test="${mode ne 'new'}">
                         <button class="btn sz-inp st-lblue btn_summit" type="button" id="modifyBtn">확인</button>
@@ -66,20 +67,47 @@
     </div>
 </div>
 <script>
+    // 스마트 에디터 2.8
+    let oEditors = [];
+
+    $(document).ready(function (){
+        nhn.husky.EZCreator.createInIFrame({
+            oAppRef: oEditors,
+            elPlaceHolder: "editorTxt",
+            //SmartEditor2Skin.html 파일이 존재하는 경로
+            sSkinURI: "/static/smarteditor/SmartEditor2Skin.html",
+            htParams : {
+                // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+                bUseToolbar : true,
+                // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+                bUseVerticalResizer : true,
+                // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+                bUseModeChanger : true,
+                fOnBeforeUnload : function(){
+
+                }
+            },
+            <%--fOnAppLoad : function(){--%>
+            <%--    //기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용--%>
+            <%--    oEditors.getById["editorTxt"].exec("PASTE_HTML", ["${rvwDto.rvw_cont}"]);--%>
+            <%--},--%>
+            fCreator: "createSEditor2"
+        });
+    });
+
+
     let msg="${msg}";
     if(msg=="RVW_REGISTER_ERR") alert("여행 지역, 제목, 내용 하나라도 비어 있으면 등록할 수 없어요. 확인해주세요.");
     if(msg=="WRT_ERR") alert("게시물 등록에 실패했습니다. 다시 시도해주세요.");
 
     $(document).ready(function (){
 
-
-
-
         // 신규 등록
         $('#newRegisterBtn').on("click", function(){
             let form = $('#form-reviewRegister');
             form.attr("action", "<c:url value='/review/write'/>");
             form.attr("method", "post");
+            oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);
             form.submit();
         });
         // 수정 등록
@@ -87,6 +115,7 @@
             let form = $('#form-reviewRegister');
             form.attr("action", "<c:url value='/review/modify'/>");
             form.attr("method", "post");
+            oEditors.getById["editorTxt"].exec("UPDATE_CONTENTS_FIELD", []);
             form.submit();
         });
         // 취소

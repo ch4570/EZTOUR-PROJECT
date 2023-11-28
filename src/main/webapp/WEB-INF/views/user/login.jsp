@@ -14,8 +14,8 @@
 
         <!-- 일반회원 로그인 폼 시작 -->
         <form id="loginForm" action="<c:url value="/user/login"/>" method="post" onsubmit="return formCheck(this);">
-            <div class="login__form" style="display: flex; flex-direction: column; align-items: center">
-                    <h2 class="login-title" id="loginTitle">로그인 ${apiJson}</h2>
+            <div class="login__form" style="display: flex; flex-direction: column; align-items: center;" >
+                    <h2 class="login-title" id="loginTitle">로그인</h2>
                     <h2 class="login-title" id="rsvTitle" style="display: none">예약확인</h2>
                 <nav class="login-nav">
                     <div id="msg">
@@ -24,8 +24,8 @@
                         </c:if>
                     </div>
                     <div style="display: flex;">
-                        <button  type="button" id="usrBt" onclick="usrLogin()" >회원</button>
-                        <button  type="button" id="nonUsrBt" onclick="nonUsrAuth()" >비회원 예약확인</button>
+                        <button  type="button" id="usrBt" onclick="usrLogin()" style="cursor: pointer;" >회원</button>
+                        <button  type="button" id="nonUsrBt" onclick="nonUsrAuth()" style="cursor: pointer;">비회원 예약확인</button>
                     </div>
                 </nav>
 
@@ -43,7 +43,7 @@
                             <a href="<c:url value='/user/selectJoin'/>" style="font-weight: bolder;">회원가입</a>
                         </span>
                     </div>
-                    <button id="loginBtn">로그인</button>
+                    <button id="loginBtn" style=" cursor: pointer;">로그인</button>
                 </div>
             </div>
         </form>
@@ -63,7 +63,7 @@
                     <input class="rsvt_phn" id="rsvt_phn3" type="text" name="phn3" placeholder="0000" style="margin-right: 0px;">
                 </div>
                 <div class="msg" id="msg-rxvt-phn"></div>
-                <button id="rsvBtn">예약확인</button>
+                <button id="rsvBtn" style=" cursor: pointer;">예약확인</button>
             </div>
         </form>
         <!-- 비회원 예약확인 폼 끝 -->
@@ -358,6 +358,7 @@
 
     const rstReleaseModal = document.querySelector("#rstReleaseModal");
     const rstReleaseOverlay = rstReleaseModal.querySelector("#rstReleaseOverlay");
+    const closeReleaseModal = rstReleaseModal.querySelector("#closeReleaseModal");
     const openRstReleaseModal = () => {
         rstReleaseModal.classList.remove("hidden");
     }
@@ -365,9 +366,10 @@
         rstReleaseModal.classList.add("hidden")
     }
     rstReleaseOverlay.addEventListener("click", closeRstReleaseModal);
+    closeReleaseModal.addEventListener("click", closeRstReleaseModal);
 
     $(document).ready(function(){
-        if("${param.rstmsg}"==="RST_ERR") {
+        if("${param.rstmsg}"==="YES_RST") {
             openRstReleaseModal();
         }
     });

@@ -26,10 +26,10 @@
 <body>
 <div class="wrap">
     <div class="content" style="padding-top: 80px; width: 900px;">
-            <div class="tit">
-                <h1>Review</h1>
-                <p style="font-size: 13px; padding-top: 20px; color: #666666">이지투어 고객님들의 소중한 후기</p>
-            </div>
+        <div class="tit">
+            <h1>Review</h1>
+            <p style="font-size: 13px; padding-top: 20px; color: #666666">이지투어 고객님들의 소중한 후기</p>
+        </div>
         <div class="boarder-wrap" style="margin-top: 120px">
             <div style="display: flex; align-items: center">
                 <p class="ttl" name="rvw_ttl" style="font-size: 30px; font-weight: bold;"><c:out value="${rvwDto.rvw_ttl}"/></p>
@@ -46,98 +46,61 @@
         <hr style="margin-top: 0px;">
 
             <!-- 관련 상품-->
-            <div class="prdInfo" style="display: flex; justify-content: space-between;">
-                <div class="image-box" style="background-image: url(../..${rvwDto.img_pth})">
-                </div>
-                <div class="prdInfo-content" style="margin-right: 20px">
-                    <a class="prdInfo-content-title" href="/product/detail?prd_dtl_cd=${rvwDto.prd_dtl_cd}">${rvwDto.prd_nm}</a>
-                    <a class="btn sz-l st-blue view" href="/product/detail?prd_dtl_cd=${rvwDto.prd_dtl_cd}">상품보기</a>
-                </div>
+        <div class="prdInfo" style="display: flex; justify-content: space-between;">
+            <div class="image-box" style="background-image: url(../..${rvwDto.img_pth})">
             </div>
-
-            <!-- 글 내용-->
-            <div class="detailInfo">
-                <div class="detailInfo-content" name="rvw_cont">
-                    <div class="detailInfo-content-child" style="font-size: 18px;"><c:out value="${rvwDto.rvw_cont}" escapeXml="false"/></div>
-                </div>
+            <div class="prdInfo-content" style="margin-right: 20px">
+                <a class="prdInfo-content-title" href="/product/detail?prd_dtl_cd=${rvwDto.prd_dtl_cd}">${rvwDto.prd_nm}</a>
+                <a class="btn sz-l st-blue view" href="/product/detail?prd_dtl_cd=${rvwDto.prd_dtl_cd}">상품보기</a>
             </div>
-            <hr style="margin-top: 0px;">
-
-
-
-            <!-- 삭제, 수정, 목록 버튼-->
-            <form action="" id="form" method="post">
-                <input class="value-move" type="hidden" name="rvw_no" value="${rvwDto.rvw_no}" readonly="readonly">
-                <input class="value-move" type="hidden" name="rvw_ttl" value="${rvwDto.rvw_ttl}" readonly="readonly">
-                <input class="value-move" type="hidden" name="lk_cnt" value="${rvwDto.lk_cnt}" readonly="readonly">
-                <input class="value-move" type="hidden" name="wrt_nm" value="${rvwDto.wrt_nm}" readonly="readonly">
-                <input class="value-move" type="hidden" name="rvw_reg_date" value="${rvwDto.rvw_reg_date}" readonly="readonly">
-                <input class="value-move" type="hidden" name="rvw_vcnt" value="${rvwDto.rvw_vcnt}" readonly="readonly">
-                <input class="value-move" type="hidden" name="rvw_cont" value="${rvwDto.rvw_cont}" readonly="readonly">
-                <input class="value-move" type="hidden" name="img_pth" value="${rvwDto.img_pth}" readonly="readonly">
-                <input class="value-move" type="hidden" name="prd_nm" value="${rvwDto.prd_nm}" readonly="readonly">
-                <input class="value-move" type="hidden" name="rvw_lk_yn" value="${rvwLkAdmDto.rvw_lk_yn}" readonly="readonly">
-                <div class="boradBtns">
-                    <!--좋아요 버튼-->
-                    <c:choose>
-                        <c:when test="${rvwLkAdmDto.rvw_lk_yn == 1}">
-                            <!-- full heart-->
-                            <div class="view_btn_set">
-                                <i class="fas fa-heart" name="fill-heart" id="heart-fill"></i>
-                                <a>좋아요</a>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <!-- non full heart-->
-                            <div class="view_btn_set">
-                                <i class="far fa-heart" name="non-fill-heart" id="heart-empty"></i>
-                                <a>좋아요</a>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
-                    <button type="button" class="btn sz-inp st-lblue btn_summit" id="listBtn">목록</button>
-                    <c:if test="${check.equals('me')}">
-                        <button type="button" class="btn sz-inp st-lblue btn_summit" id="modifyBtn">수정</button>
-                        <button type="button" class="btn sz-inp st-lblue btn_summit" id="removeBtn">삭제</button>
-                    </c:if>
-                </div>
-            </form>
-            <!-- 댓글 -->
-            <!--div class="CommentBox" id="rvwCmtList">
-                <div class="Comment_option">
-                    <h3 class="Comment_title"> 댓글 </h3>
-                </div>
-                <ul class="Comment_list">
-                    <li class="CommentItem">
-                        <div class="comment_area">
-                        <div class="comment_box">
-                        <div class="comment_nick_box">
-                        <div class="comment_nick_info">
-                        <span class="usr_nm">comment.usr_nm</span>
-                        </div>
-                        </div>
-                        <div class="comment_text_box">
-                        <p class="comment_text_view">
-                        <span class="text_comment">comment.cmt_cont</span>
-                        </p>
-                        </div>
-                        <div class="comment_info_box">
-                        <span class="comment_info_date">comment.mdf_date</span>
-                        <button class="replyBtn">답글</button>
-                        <button class="delBtn">삭제</button>
-                        <button class="modBtn">수정</button>
-                        </div>
-                        </div>
-                        </div>
-                    </li>
-                    <li class="CommentItem CommentItem--reply">
-                    </li>
-                </ul>
-            </div-->
         </div>
+
+        <!-- 글 내용-->
+        <div class="detailInfo">
+            <div class="detailInfo-content" name="rvw_cont">
+                <div class="detailInfo-content-child" style="font-size: 18px;"><c:out value="${rvwDto.rvw_cont}" escapeXml="false"/></div>
+            </div>
+        </div>
+        <hr style="margin-top: 0px;">
+        <!-- 삭제, 수정, 목록 버튼-->
+        <form action="" id="form" method="post">
+            <input class="value-move" type="hidden" name="rvw_no" value="${rvwDto.rvw_no}" readonly="readonly">
+            <input class="value-move" type="hidden" name="rvw_ttl" value="${rvwDto.rvw_ttl}" readonly="readonly">
+            <input class="value-move" type="hidden" name="lk_cnt" value="${rvwDto.lk_cnt}" readonly="readonly">
+            <input class="value-move" type="hidden" name="wrt_nm" value="${rvwDto.wrt_nm}" readonly="readonly">
+            <input class="value-move" type="hidden" name="rvw_reg_date" value="${rvwDto.rvw_reg_date}" readonly="readonly">
+            <input class="value-move" type="hidden" name="rvw_vcnt" value="${rvwDto.rvw_vcnt}" readonly="readonly">
+            <input class="value-move" type="hidden" name="rvw_cont" value="${rvwDto.rvw_cont}" readonly="readonly">
+            <input class="value-move" type="hidden" name="img_pth" value="${rvwDto.img_pth}" readonly="readonly">
+            <input class="value-move" type="hidden" name="prd_nm" value="${rvwDto.prd_nm}" readonly="readonly">
+            <input class="value-move" type="hidden" name="rvw_lk_yn" value="${rvwLkAdmDto.rvw_lk_yn}" readonly="readonly">
+            <div class="boradBtns">
+                <!--좋아요 버튼-->
+                <c:choose>
+                    <c:when test="${rvwLkAdmDto.rvw_lk_yn == 1}">
+                        <!-- full heart-->
+                        <div class="view_btn_set">
+                            <i class="fas fa-heart" name="fill-heart" id="heart-fill"></i>
+                            <a>좋아요</a>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <!-- non full heart-->
+                        <div class="view_btn_set">
+                            <i class="far fa-heart" name="non-fill-heart" id="heart-empty"></i>
+                            <a>좋아요</a>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+                <button type="button" class="btn sz-inp st-lblue btn_summit" id="listBtn">목록</button>
+                <c:if test="${check.equals('me')}">
+                    <button type="button" class="btn sz-inp st-lblue btn_summit" id="modifyBtn">수정</button>
+                    <button type="button" class="btn sz-inp st-lblue btn_summit" id="removeBtn">삭제</button>
+                </c:if>
+            </div>
+        </form>
     </div>
 </div>
-
 <script>
     $(document).ready(function () {
 

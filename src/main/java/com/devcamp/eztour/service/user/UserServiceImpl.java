@@ -2,7 +2,9 @@ package com.devcamp.eztour.service.user;
 
 import com.devcamp.eztour.dao.user.UserDao;
 import com.devcamp.eztour.domain.user.UserDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,15 +13,30 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    UserDao userDao;
+    private final UserDao userDao;
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional(rollbackFor = Exception.class)
     public int insertUsr(UserDto user) throws Exception {
-        userDao.insertUsr(user);
+        // 성별 데이터 가공
+        String gndr = user.getGndr();
+        if(user.getGndr()!=null && user.getGndr().equals("F")||user.getGndr().equals("female")){
+            gndr = "여성";
+        }else if(user.getGndr()!=null && user.getGndr().equals("M")||user.getGndr().equals("male")){
+            gndr = "남성";
+        }
+        user.setGndr(gndr);
 
+        // 비밀번호 암호화
+        String encodedPwd = bCryptPasswordEncoder.encode(user.getPwd());
+        System.out.println("encodedPwd = " + encodedPwd);
+        user.setPwd(encodedPwd);
+
+        userDao.insertUsr(user);
         return userDao.insertUsrHis(user);
     }
 
@@ -121,6 +138,4 @@ public class UserServiceImpl implements UserService {
         userDao.rstRelease(usr_id);
         return userDao.rstReleaseLog(usr_id);
     }
-
-
 }

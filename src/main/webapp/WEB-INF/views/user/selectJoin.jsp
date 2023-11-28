@@ -16,7 +16,7 @@
                     <h3>이지투어 회원가입</h3>
                     <div style="font-size: 15px; margin-top: 5px;"> 현금처럼 사용할 수 있는 마일리지 적립, 다양한 혜택</div>
                 </div>
-                <div style="display: flex; justify-content: center"><button id="toJoin" onclick="location.href='<c:out value="/user/auth"/>'">회원가입</button></div>
+                <div style="display: flex; justify-content: center;"><button id="toJoin" style="cursor: pointer;" onclick="location.href='<c:out value="/user/auth"/>'">회원가입</button></div>
             </div>
 
             <div class="form-selectjoin-sns">

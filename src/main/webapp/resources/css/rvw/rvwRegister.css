@@ -226,7 +226,7 @@ a, a:hover, a:active {
 }
 
 .detailInfo-content {
-    width: 100%;
+    width: 100px;
     min-height: 700px;
     margin: 0;
     resize: none;

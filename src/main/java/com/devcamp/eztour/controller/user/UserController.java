@@ -7,9 +7,8 @@ import com.devcamp.eztour.service.reserv.ReservService;
 import com.devcamp.eztour.service.user.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.OAuth2AccessToken;
-import org.apache.commons.codec.binary.Base64;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,19 +16,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.crypto.*;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,17 +32,19 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    UserService userService;
-    @Autowired
-    NaverLoginBO naverloginbo;
-    @Autowired
-    ReservService reservService;
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserService userService;
 
+    private final NaverLoginBO naverloginbo;
+
+    private final ReservService reservService;
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private Date lst_acc_date2 = null;
+    private Date rst_chg_date2= null;
 
     @GetMapping("/selectJoin")
     public String selectJoin(HttpSession session, Model m, RedirectAttributes rattr) {
@@ -95,22 +89,7 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public String join(UserDto user, RedirectAttributes rattr, HttpSession session) {
-
-        String gndr = user.getGndr();
-        if(user.getGndr()!=null && user.getGndr().equals("F")||user.getGndr().equals("female")){
-            gndr = "여성";
-        }else if(user.getGndr()!=null && user.getGndr().equals("M")||user.getGndr().equals("male")){
-            gndr = "남성";
-        }
-        user.setGndr(gndr);
-        System.out.println("user = " + user);
-
-        // 비밀번호 암호화
-        String encodedPwd = bCryptPasswordEncoder.encode(user.getPwd());
-        System.out.println("encodedPwd = " + encodedPwd);
-        user.setPwd(encodedPwd);
-
+    public String join(UserDto user, RedirectAttributes rattr) {
         try {
             int rowCnt = userService.insertUsr(user);
             if (rowCnt != 1)
@@ -126,26 +105,33 @@ public class UserController {
 
     @GetMapping("/login")
     public String loginView(HttpSession session, Model m, RedirectAttributes rattr, String lst_acc_date,
-                            String rst_chg_date, String usr_id, @CookieValue(name="id", required = false) String enCookieId,
-                            String naver_id, String usr_nm, String phn) throws Exception{
+                            String rst_chg_date, String usr_id, @CookieValue(name="id", required = false) String enCookieId) throws Exception{
+        // 네이버 로그인 활성화
         if(session.getAttribute("userDto")==null) {
             String naverAuthUrl = naverloginbo.getAuthorizationUrl(session);
             m.addAttribute("naverUrl", naverAuthUrl);
 
-           // 휴면 계정 date 처리
-            Date lst_acc_date2 = null;
-            Date rst_chg_date2= null;
-            try {
-                SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                if(lst_acc_date!=null && rst_chg_date!=null) {
-                    lst_acc_date2 = transFormat.parse(lst_acc_date);
-                    rst_chg_date2 = transFormat.parse(rst_chg_date);
+           // =========================== 휴면 계정 처리 일원화 =============================
+//            try {
+//                SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                if(lst_acc_date!=null && rst_chg_date!=null) {
+//                    lst_acc_date2 = transFormat.parse(lst_acc_date);
+//                    rst_chg_date2 = transFormat.parse(rst_chg_date);
+//                }
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//                rattr.addFlashAttribute("msg", "ACC_ERR");
+//                return "redirect:/";
+//            }
+
+            if(lst_acc_date!=null & rst_chg_date!=null) {
+                String result = checkRstUsr(lst_acc_date, rst_chg_date);
+                if(result.equals("ACC_ERR")){
+                    rattr.addFlashAttribute("msg", "ACC_ERR");
+                    return "redirect:/";
                 }
-            } catch (ParseException e) {
-                e.printStackTrace();
-                rattr.addFlashAttribute("msg", "ACC_ERR");
-                return "redirect:/";
             }
+            // ============================================================================
 
             // 쿠키 복호화
             String deCookieId=null;
@@ -153,6 +139,10 @@ public class UserController {
                 AES256Cipher a256 = AES256Cipher.getInstance();
                 deCookieId = a256.AES_Decode(enCookieId);
             }
+
+            System.out.println("this.lst_acc_date2 = " + lst_acc_date2);
+            System.out.println("this.rst_chg_date2 = " + rst_chg_date2);
+
 
             m.addAttribute("deCookieId",deCookieId);
             m.addAttribute("lst_acc_date", lst_acc_date2);
@@ -178,17 +168,26 @@ public class UserController {
             return "redirect:/user/login";
         }
 
-        // 휴면계정 확인
-        if(userDto.getCmn_cd_usr_stt().equals("2C")) {
-            userDto = userService.selectUsrHst(usr_id);
+        // ======================== 휴면계정 처리 일원화 하기 ========================
+        // 로그인시 유저 상태를 확인, 휴면계정이면 날짜정보를 get으로 넘긴다.
 
-            SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String lst_acc_date = transFormat.format(userDto.getLst_acc_date());
-            String rst_chg_date = transFormat.format(userDto.getRst_chg_date());
+//        if(userDto.getCmn_cd_usr_stt().equals("2C")) {
+//
+//            UserDto userHst = userService.selectUsrHst(usr_id);
+//
+//            SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            String lst_acc_date = transFormat.format(userHst.getLst_acc_date());
+//            String rst_chg_date = transFormat.format(userHst.getRst_chg_date());
+//
+//            return "redirect:/user/login?lst_acc_date=" +lst_acc_date+ "&rst_chg_date=" +rst_chg_date+ "&usr_id=" +usr_id;
+//        }
 
-            String rstmsg="RST_ERR";
-            return "redirect:/user/login?lst_acc_date=" +lst_acc_date+ "&rst_chg_date=" +rst_chg_date+ "&rstmsg=" +rstmsg+ "&usr_id=" +usr_id;
+        String result = checkRstUsr(userDto.getCmn_cd_usr_stt(),usr_id);
+        System.out.println(result);
+        if(!result.equals("NO_RST")){
+            return "redirect:/user/login?"+result+"&rstmsg=YES_RST";
         }
+        // ========================================================================
 
         userService.updateHstForLogin(usr_id); // 예외처리 예정 (에러 발생시 세션 안넘기고 에러메세지 + 메인 이동)
         UserDto loginUser = new UserDto(userDto.getUsr_id(), userDto.getUsr_nm(),
@@ -223,13 +222,6 @@ public class UserController {
 
     @GetMapping("/mypage")
     public String mypage(HttpSession session, RedirectAttributes rattr, Model m) {
-//        UserDto userDto = new UserDto();
-//        if(session.getAttribute("userDto")!= null) {
-//            userDto = (UserDto) session.getAttribute("userDto");
-//        }else{
-//            rattr.addFlashAttribute("msg", "ACC_ERR");
-//            return "redirect:/";
-//        }
 
         UserDto userDto = new UserDto();
         userDto = (UserDto) session.getAttribute("userDto");
@@ -516,7 +508,6 @@ public class UserController {
     @PostMapping("/rstRelease")
     public String rstRelease(String usr_id, RedirectAttributes rattr){
         try {
-            System.out.println("휴면 릴리즈에서 usr_id = " + usr_id);
             int rowCnt = userService.rstRelease(usr_id);
             if(rowCnt!=1)
                 throw new Exception("user rstRelease error");
@@ -543,6 +534,43 @@ public class UserController {
             }
         }
         return result.toString();
+    }
+
+    // 휴면 계정 날짜 처리
+    private String checkRstUsr(String...str) throws Exception {
+
+        // 만약 길이가 2라면 로그인(post)메서드에서 호출한 것
+        if (str[0] != null && str[1] != null && str[0].length()==2){
+            // 휴면 계정이면 날짜정보를 파싱해 쿼리스트링 형태로 넘긴다.
+            // 휴면 계정이 아니면 "NO_RST" 메시지를 넘긴다.
+            String usr_stt = str[0];
+            String usr_id = str[1];
+            if(usr_stt.equals("2C")){
+                UserDto userHst = userService.selectUsrHst(usr_id);
+
+                SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String lst_acc_date = transFormat.format(userHst.getLst_acc_date());
+                String rst_chg_date = transFormat.format(userHst.getRst_chg_date());
+
+                return "lst_acc_date=" +lst_acc_date+ "&rst_chg_date=" +rst_chg_date+ "&usr_id=" +usr_id;
+            }else{
+                return "NO_RST";
+            }
+        }
+
+        // 길이가 19라면... 로그인뷰(get)메서드에서 호출한 것
+        System.out.println("str[0].length() = " + str[0].length());
+        System.out.println("str[1].length() = " + str[1].length());
+        if(str[0] != null && str[1] != null && str[0].length()==19){
+            // 날짜를 파싱해서 인스턴스 변수로 넘긴다.
+            // 완료되면 "PARSE_OK" 메시지를 넘긴다.
+            SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            lst_acc_date2 = transFormat.parse(str[0]);
+            rst_chg_date2 = transFormat.parse(str[1]);
+
+            return "PARSE_OK";
+        }
+        return "ACC_ERR";
     }
 
 }
